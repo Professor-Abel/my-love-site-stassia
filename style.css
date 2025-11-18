@@ -1037,4 +1037,79 @@ body.dark .chat-bubble.from-me {
 .secret-toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+  /* ==== ДОП. ТЁМНОЕ ОФОРМЛЕНИЕ ДЛЯ СТРАНИЦЫ "КОГДА СКУЧАЕШЬ" ==== */
+
+/* навигация сверху – чуть темнее и холоднее */
+.miss-page .top-nav {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+/* блоки на этой странице – без светлых розовых фонов */
+.miss-page .voice-block,
+.miss-page .song-block,
+.miss-page .chat-card,
+.miss-page textarea,
+.miss-page li {
+  background: #0b1020;              /* тёмно-синий */
+  border-color: #1f2937;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+}
+
+/* текст заголовков внутри этих блоков */
+.miss-page .voice-block h3,
+.miss-page .song-block h3,
+.miss-page .chat-card h3 {
+  color: #e5e7eb;
+}
+
+/* сама "карточка" записи скучаю */
+.miss-page li {
+  background: #111827;
+}
+
+/* текст-подсказка */
+.miss-page .night-letter-block,
+.miss-page .letter-text,
+.miss-page .song-text {
+  color: #9ca3af;
+}
+
+/* кнопка "Оставить запись" на miss */
+.miss-page button[onclick="addMiss()"] {
+  background: #1d4ed8;
+}
+
+.miss-page button[onclick="addMiss()"]:hover {
+  background: #1e40af;
+}
+
+/* кнопки переключения фото – тоже тёмные */
+.miss-page .photo-nav-btn {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+.miss-page .photo-nav-btn:hover {
+  background: #1d4ed8;
+}
+
+/* dots под фото — холодные */
+.miss-page .photo-dot {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+.miss-page .photo-dot.active {
+  background: #60a5fa;
+}
+
+/* чат-пузыри чуть темнее */
+.miss-page .chat-bubble.from-me {
+  background: rgba(15,23,42,0.9);
+  color: #e5e7eb;
+}
+
+.miss-page .chat-bubble.from-you {
+  background: #1d4ed8;
+}
+
 }
