@@ -1111,5 +1111,39 @@ body.dark .chat-bubble.from-me {
 .miss-page .chat-bubble.from-you {
   background: #1d4ed8;
 }
+/* ===== ТЁМНЫЙ СТИЛЬ ДЛЯ АУДИО-ПЛЕЕРОВ ===== */
+
+.voice-block audio,
+.song-audio {
+  width: 100%;
+  border-radius: 999px;
+  background: #020617;              /* общий фон плеера */
+}
+
+/* Панель управления в Chrome/Edge (WebKit) */
+.voice-block audio::-webkit-media-controls-panel,
+.song-audio::-webkit-media-controls-panel {
+  background: #020617;              /* тёмный фон вместо белого */
+  border-radius: 999px;
+}
+
+/* Кнопки управления (play, пауза и т.д.) */
+.voice-block audio::-webkit-media-controls-play-button,
+.song-audio::-webkit-media-controls-play-button {
+  background-color: #111827;
+  border-radius: 50%;
+}
+
+.voice-block audio::-webkit-media-controls-timeline,
+.song-audio::-webkit-media-controls-timeline {
+  background-color: #020617;
+  border-radius: 999px;
+}
+
+/* Линия громкости тоже тёмная */
+.voice-block audio::-webkit-media-controls-volume-slider,
+.song-audio::-webkit-media-controls-volume-slider {
+  background-color: #020617;
+}
 
 }
