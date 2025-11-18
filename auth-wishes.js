@@ -18,7 +18,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCbgO8b96hAGU3kvwkjsv1x1Is-879Mbgc",
   authDomain: "asyaman-40f1f.firebaseapp.com",
   projectId: "asyaman-40f1f",
-  storageBucket: "asyaman-40f1f.firebasestorage.app",
+  storageBucket: "asyaman-40f1f.firebasestorage.com@",
   messagingSenderId: "780594675672",
   appId: "1:780594675672:web:27766d673b4255a281bcad",
   measurementId: "G-LBMZLEY4Y5"
@@ -39,6 +39,7 @@ const emailRegisterBtn = document.getElementById("emailRegisterBtn");
 const emailLoginBtn    = document.getElementById("emailLoginBtn");
 const googleBtn        = document.getElementById("googleBtn");
 
+const authTitle   = document.getElementById("auth-title");  
 const welcomeText  = document.getElementById("welcome-text");
 const authArea     = document.getElementById("auth-area");
 const authStatus   = document.getElementById("auth-status");
@@ -70,7 +71,12 @@ function setAuthStatus(message, type = "") {
 function renderLoggedInUser(user) {
     currentUser = user;
 
+    if (authTitle) {
+        authTitle.innerHTML = 'Наш <span>секретный дневник</span> 💫';
+    }
+
     welcomeText.textContent = `Привет, ${user.displayName || "моя любовь"} 💖`;
+
 
     // Кнопка "Выйти"
     authArea.innerHTML = `<button class="btn btn-outline" id="logout-btn">Выйти</button>`;
@@ -103,7 +109,12 @@ function renderLoggedInUser(user) {
 function renderLoggedOut() {
     currentUser = null;
 
+    if (authTitle) {
+        authTitle.innerHTML = 'Вход в наш <span>секретный дневник</span> 💫';
+    }
+
     welcomeText.textContent = "Ты ещё не вошла в систему 💔";
+
 
     // Убираем кнопки
     authArea.innerHTML = "";
