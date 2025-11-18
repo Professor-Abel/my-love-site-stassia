@@ -10,8 +10,22 @@ import {
     signInWithEmailAndPassword,
     signOut,
     GoogleAuthProvider,
-    signInWithPopup,
+    signInWithPopup
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    addDoc,
+    collection,
+    query,
+    where,
+    getDocs,
+    orderBy,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -26,10 +40,16 @@ const firebaseConfig = {
 
 // ТОЛЬКО ты — админ
 const ADMIN_UID = "QgvеUKbsJLU0A3oehvXgTEbTg1S2";
+// ===== ЛОКАЛЬНЫЕ МАССИВЫ ДЛЯ ДАННЫХ ПОЛЬЗОВАТЕЛЯ =====
+
+let wishes = [];
+let thoughts = [];
+
 
 // ==== ИНИЦИАЛИЗАЦИЯ FIREBASE ====
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
 // ==== ЭЛЕМЕНТЫ АВТОРИЗАЦИИ ====
