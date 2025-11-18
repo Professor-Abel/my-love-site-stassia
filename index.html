@@ -21,6 +21,8 @@
       --accent-gold: #ffd56b;
       --text-main: #fdf5ff;
       --text-soft: #cbb8ff;
+      --text-secondary: #fdf5ff;
+      --text-muted: #9ca3af;
       --danger: #ff6b6b;
       --success: #79e08f;
       --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
@@ -485,30 +487,103 @@
       color: var(--danger);
     }
 
-    #admin-panel {
-      margin-top: 16px;
-      padding: 12px 13px;
-      border-radius: 18px;
-      border: 1px dashed rgba(255, 213, 107, 0.7);
-      background: radial-gradient(
-        circle at top,
-        rgba(255, 213, 107, 0.18),
-        transparent 60%
-      );
-      display: none;
+    /* ==== АДМИН-ПАНЕЛЬ (большой блок) ==== */
+    .admin-panel {
+      margin-top: 22px;
+      display: none; /* показываем только админу из JS */
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      background: radial-gradient(circle at top, rgba(255, 213, 107, 0.12), transparent 55%),
+                  var(--card-bg);
+      padding: 20px 22px 18px;
+      position: relative;
+      overflow: hidden;
     }
 
-    #admin-panel h2 {
-      font-size: 15px;
+    .admin-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(251, 191, 36, 0.15), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .admin-panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .admin-panel h2 {
+      font-size: 18px;
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
-    #admin-panel p {
+    .admin-note {
       font-size: 12px;
       color: var(--text-soft);
+      margin-bottom: 14px;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .admin-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .admin-card {
+      background: rgba(7, 5, 18, 0.95);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 10px 12px 12px;
+    }
+
+    .admin-card h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 6px 6px;
+      text-align: left;
+    }
+
+    .admin-table thead {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .admin-table th {
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+
+    .admin-table tbody tr:nth-child(even) {
+      background: rgba(15, 23, 42, 0.6);
+    }
+
+    .admin-table tbody tr:nth-child(odd) {
+      background: rgba(15, 23, 42, 0.3);
+    }
+
+    .admin-table td {
+      color: #e5e7eb;
     }
 
     footer {
@@ -517,144 +592,314 @@
       text-align: center;
       color: rgba(255, 255, 255, 0.5);
     }
-      /* ==== О НАС / ABOUT ==== */
-  .about-card {
-    margin-top: 22px;
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.9fr);
-    gap: 26px;
-    align-items: center;
-    background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), transparent 60%),
-                radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.14), transparent 55%),
-                var(--card-bg);
-    position: relative;
-    overflow: hidden;
-  }
 
-  .about-card::before {
-    content: "";
-    position: absolute;
-    inset: -40%;
-    background: radial-gradient(circle at 10% 0%, rgba(251, 191, 36, 0.07), transparent 55%),
-                radial-gradient(circle at 90% 100%, rgba(96, 165, 250, 0.09), transparent 55%);
-    opacity: 0.9;
-    pointer-events: none;
-  }
-
-  .about-left,
-  .about-right {
-    position: relative;
-    z-index: 1;
-  }
-
-  .about-left h2 {
-    margin: 0 0 8px;
-    font-size: 20px;
-  }
-
-  .about-text-main {
-    margin: 0 0 6px;
-    font-size: 14px;
-    color: var(--text-secondary);
-  }
-
-  .about-text-sub {
-    margin: 0 0 14px;
-    font-size: 13px;
-    color: var(--text-muted);
-  }
-
-  .about-song {
-    padding: 10px 12px 12px;
-    border-radius: 18px;
-    background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.15), transparent 70%),
-                rgba(15, 23, 42, 0.92);
-    border: 1px solid rgba(129, 140, 248, 0.6);
-    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.8);
-  }
-
-  .about-song-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 6px;
-  }
-
-  .about-song-label {
-    font-size: 12px;
-    color: var(--accent-soft);
-  }
-
-  .about-song-name {
-    font-size: 12px;
-    color: var(--text-secondary);
-    opacity: 0.9;
-  }
-
-  .about-audio {
-    width: 100%;
-    margin: 4px 0 6px;
-    filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.9));
-    border-radius: 999px;
-  }
-
-  .about-song-note {
-    margin: 0;
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-
-  .about-photo-frame {
-    position: relative;
-    max-width: 260px;
-    margin-left: auto;
-    margin-right: auto;
-    transform: rotate(-2deg);
-  }
-
-  .about-photo {
-    width: 100%;
-    display: block;
-    border-radius: 26px;
-    border: 2px solid rgba(248, 250, 252, 0.8);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-  }
-
-  .about-photo-label {
-    position: absolute;
-    left: 16px;
-    bottom: 14px;
-    background: rgba(15, 23, 42, 0.92);
-    border-radius: 999px;
-    padding: 4px 10px;
-    font-size: 11px;
-    color: var(--text-secondary);
-    border: 1px solid rgba(248, 250, 252, 0.38);
-    backdrop-filter: blur(8px);
-  }
-
-  .about-photo-shadow {
-    position: absolute;
-    inset: auto 20% -14px 20%;
-    height: 26px;
-    background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.9), transparent 70%);
-    opacity: 0.95;
-    z-index: -1;
-  }
-
-  @media (max-width: 900px) {
+    /* ==== О НАС / ABOUT ==== */
     .about-card {
-      grid-template-columns: minmax(0, 1fr);
-      margin-top: 20px;
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.9fr);
+      gap: 26px;
+      align-items: center;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), transparent 60%),
+                  radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.14), transparent 55%),
+                  var(--card-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 10% 0%, rgba(251, 191, 36, 0.07), transparent 55%),
+                  radial-gradient(circle at 90% 100%, rgba(96, 165, 250, 0.09), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .about-left,
+    .about-right {
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-left h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .about-text-main {
+      margin: 0 0 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .about-text-sub {
+      margin: 0 0 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .about-song {
+      padding: 10px 12px 12px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.15), transparent 70%),
+                  rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.8);
+    }
+
+    .about-song-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .about-song-label {
+      font-size: 12px;
+      color: var(--accent-soft);
+    }
+
+    .about-song-name {
+      font-size: 12px;
+      color: var(--text-secondary);
+      opacity: 0.9;
+    }
+
+    .about-audio {
+      width: 100%;
+      margin: 4px 0 6px;
+      filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.9));
+      border-radius: 999px;
+    }
+
+    .about-song-note {
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
     }
 
     .about-photo-frame {
-      margin-top: 4px;
-      transform: rotate(-1deg);
+      position: relative;
+      max-width: 260px;
+      margin-left: auto;
+      margin-right: auto;
+      transform: rotate(-2deg);
     }
-  }
 
+    .about-photo {
+      width: 100%;
+      display: block;
+      border-radius: 26px;
+      border: 2px solid rgba(248, 250, 252, 0.8);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .about-photo-label {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      border: 1px solid rgba(248, 250, 252, 0.38);
+      backdrop-filter: blur(8px);
+    }
+
+    .about-photo-shadow {
+      position: absolute;
+      inset: auto 20% -14px 20%;
+      height: 26px;
+      background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.9), transparent 70%);
+      opacity: 0.95;
+      z-index: -1;
+    }
+
+    @media (max-width: 900px) {
+      .about-card {
+        grid-template-columns: minmax(0, 1fr);
+        margin-top: 20px;
+      }
+
+      .about-photo-frame {
+        margin-top: 4px;
+        transform: rotate(-1deg);
+      }
+    }
+
+    /* ==== НАСТРОЙКИ (FAB + ПАНЕЛЬ) ==== */
+    .settings-fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.15), transparent 55%),
+                  rgba(15, 23, 42, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      z-index: 40;
+    }
+
+    .settings-fab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 1);
+      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.22), transparent 55%),
+                  rgba(15, 23, 42, 1);
+    }
+
+    .settings-fab-icon {
+      font-size: 18px;
+    }
+
+    .settings-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 30;
+    }
+
+    .settings-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .settings-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 82px;
+      width: 280px;
+      max-width: calc(100% - 44px);
+      border-radius: 22px;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.08), transparent 60%),
+                  rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      padding: 14px 14px 12px;
+      transform: translateY(16px) scale(0.97);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 50;
+    }
+
+    .settings-panel.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .settings-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .settings-close {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .settings-close:hover {
+      color: #fff;
+    }
+
+    .settings-section {
+      padding: 8px 0;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .settings-section:first-of-type {
+      border-top: none;
+    }
+
+    .settings-section--border {
+      border-top: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .settings-section--admin {
+      display: none; /* покажем из JS только админу */
+    }
+
+    .settings-label {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .settings-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .settings-select {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      padding: 6px 10px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .settings-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255, 79, 154, 0.6);
+    }
+
+    .settings-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .settings-chip:hover {
+      background: rgba(31, 41, 55, 0.95);
+      transform: translateY(-1px);
+    }
+
+    .settings-chip--danger {
+      border-color: rgba(248, 113, 113, 0.9);
+      color: #fecaca;
+    }
+
+    .settings-chip--danger:hover {
+      background: rgba(127, 29, 29, 0.9);
+    }
   </style>
 </head>
 <body>
@@ -674,7 +919,7 @@
         <a href="thoughts.html" class="nav-link">Мысли</a>
         <a href="miss.html" class="nav-link">Когда скучаешь</a>
         <a href="letter.html" class="nav-link">Письмо</a>
-<a href="about.html" class="nav-link">О нас</a>
+        <a href="about.html" class="nav-link">О нас</a>
       </nav>
     </header>
 
@@ -734,55 +979,8 @@
           </div>
         </div>
       </section>
-      <!-- ==== АДМИН-ПАНЕЛЬ (только для администратора) ==== -->
-<div id="admin-panel" class="admin-panel">
-  <h2>Админ-панель 👑</h2>
-  <p class="admin-note">
-    Эту секцию видишь только ты. Здесь отображаются пользователи и их желания.
-  </p>
 
-  <div class="admin-grid">
-      <!-- таблица пользователей -->
-      <section class="admin-card">
-          <h3>Пользователи</h3>
-          <table class="admin-table">
-              <thead>
-                  <tr>
-                      <th>Имя</th>
-                      <th>Email</th>
-                      <th>UID</th>
-                      <th>Последний вход</th>
-                  </tr>
-              </thead>
-              <tbody id="admin-users-body">
-                  <tr><td colspan="4">Загрузка...</td></tr>
-              </tbody>
-          </table>
-      </section>
-
-      <!-- таблица желаний -->
-      <section class="admin-card">
-          <h3>Желания</h3>
-          <table class="admin-table">
-              <thead>
-                  <tr>
-                      <th>Когда</th>
-                      <th>Текст</th>
-                      <th>Email</th>
-                      <th>UID</th>
-                  </tr>
-              </thead>
-              <tbody id="admin-wishes-body">
-                  <tr><td colspan="4">Загрузка...</td></tr>
-              </tbody>
-          </table>
-      </section>
-  </div>
-</div>
-<!-- ==== КОНЕЦ АДМИН-ПАНЕЛИ ==== -->
-
-
-      <!-- Правая карточка: желания + админка -->
+      <!-- Правая карточка: желания -->
       <section class="card">
         <div class="card-inner">
           <p class="section-label">Наши желания</p>
@@ -820,17 +1018,57 @@
             </div>
             <ul id="wishList"></ul>
           </div>
-
-          <div id="admin-panel">
-            <h2>👑 Панель администратора</h2>
-            <p>
-              Это увидишь только ты. Здесь можно будет смотреть, кто заходил, чистить всё разом,
-              добавлять особые «секретные» записи и управлять сайтом.
-            </p>
-          </div>
         </div>
       </section>
-        </main>
+    </main>
+
+    <!-- Админ-панель (общая, ниже карточек) -->
+    <section id="admin-panel" class="admin-panel">
+      <div class="admin-panel-inner">
+        <h2>Админ-панель 👑</h2>
+        <p class="admin-note">
+          Эту секцию видишь только ты. Здесь отображаются пользователи и их желания.
+        </p>
+
+        <div class="admin-grid">
+          <!-- таблица пользователей -->
+          <section class="admin-card">
+            <h3>Пользователи</h3>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Имя</th>
+                  <th>Email</th>
+                  <th>UID</th>
+                  <th>Последний вход</th>
+                </tr>
+              </thead>
+              <tbody id="admin-users-body">
+                <tr><td colspan="4">Загрузка...</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- таблица желаний -->
+          <section class="admin-card">
+            <h3>Желания</h3>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Когда</th>
+                  <th>Текст</th>
+                  <th>Email</th>
+                  <th>UID</th>
+                </tr>
+              </thead>
+              <tbody id="admin-wishes-body">
+                <tr><td colspan="4">Загрузка...</td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+    </section>
 
     <!-- О нас: детское фото + наша песня -->
     <section id="about" class="card about-card">
@@ -874,164 +1112,122 @@
     </footer>
   </div>
 
-  <!-- ВАЖНО: только один модуль -->
+  <!-- Основной скрипт авторизации + желаний -->
   <script type="module" src="auth-wishes.js?v=3"></script>
-  <!-- Кнопка настроек -->
-<button id="settings-toggle"
-        class="settings-fab"
-        type="button"
-        aria-label="Настройки">
-  ⋮
-</button>
 
-<!-- Затемнение фона -->
-<div id="settings-backdrop" class="settings-backdrop"></div>
+  <!-- Плавающая кнопка настроек + панель -->
+  <button id="settingsFab" class="settings-fab" aria-label="Настройки">
+    <span class="settings-fab-icon">⚙</span>
+  </button>
 
-<!-- Панель настроек -->
-<div id="settings-panel" class="settings-panel">
-  <div class="settings-header">
-    <span class="settings-title">Настройки</span>
-    <button id="settings-close" class="settings-icon-btn" type="button">✕</button>
-  </div>
+  <div id="settingsBackdrop" class="settings-backdrop"></div>
 
-  <div class="settings-section">
-    <label for="lang-select" class="settings-label">Язык сайта</label>
-    <select id="lang-select" class="settings-select">
-      <option value="ru">Русский</option>
-      <option value="en">English</option>
-    </select>
-  </div>
+  <div id="settingsPanel" class="settings-panel">
+    <div class="settings-header">
+      <div class="settings-title">Настройки</div>
+      <button class="settings-close" id="settingsClose" aria-label="Закрыть">✕</button>
+    </div>
 
-  <div class="settings-section">
-    <div class="settings-row">
-      <span>Тёмная тема</span>
-      <button id="settings-theme-btn" class="settings-pill-btn" type="button">
+    <div class="settings-section">
+      <div class="settings-label">Язык сайта</div>
+      <select id="settingsLang" class="settings-select">
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-label">Тёмная тема</div>
+      <button id="settingsThemeToggle" class="settings-chip">
         Переключить
       </button>
     </div>
-  </div>
 
-  <!-- Блок для админа (будет показываться только тебе) -->
-  <div class="settings-section settings-admin-only" id="settings-admin-section">
-    <div class="settings-row">
-      <span>Админ-панель</span>
-      <button id="open-admin-panel" class="settings-pill-btn" type="button">
+    <div class="settings-section settings-section--border">
+      <div class="settings-label">Аккаунт</div>
+      <div class="settings-sub" id="settingsAccountInfo">
+        Гость (зайди в дневник, чтобы сохранить настройки)
+      </div>
+    </div>
+
+    <div class="settings-section settings-section--admin">
+      <div class="settings-label">Админ-панель</div>
+      <button id="settingsAdminBtn" class="settings-chip settings-chip--danger">
         Открыть
       </button>
     </div>
   </div>
-</div>
-<!-- === ПЛАВАЮЩАЯ КНОПКА НАСТРОЕК + ПАНЕЛЬ === -->
 
-<button id="settingsFab" class="settings-fab" aria-label="Настройки">
-  <span class="settings-fab-icon">⚙</span>
-</button>
+  <!-- Скрипт настроек (после auth-wishes.js) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fab        = document.getElementById("settingsFab");
+      const panel      = document.getElementById("settingsPanel");
+      const backdrop   = document.getElementById("settingsBackdrop");
+      const closeBtn   = document.getElementById("settingsClose");
+      const langSelect = document.getElementById("settingsLang");
+      const themeBtn   = document.getElementById("settingsThemeToggle");
+      const adminBtn   = document.getElementById("settingsAdminBtn");
+      const accInfo    = document.getElementById("settingsAccountInfo");
 
-<div id="settingsBackdrop" class="settings-backdrop"></div>
+      function openPanel() {
+        panel.classList.add("open");
+        backdrop.classList.add("open");
+      }
 
-<div id="settingsPanel" class="settings-panel">
-  <div class="settings-header">
-    <div class="settings-title">Настройки</div>
-    <button class="settings-close" id="settingsClose" aria-label="Закрыть">✕</button>
-  </div>
+      function closePanel() {
+        panel.classList.remove("open");
+        backdrop.classList.remove("open");
+      }
 
-  <div class="settings-section">
-    <div class="settings-label">Язык сайта</div>
-    <select id="settingsLang" class="settings-select">
-      <option value="ru">Русский</option>
-      <option value="en">English</option>
-    </select>
-  </div>
+      fab?.addEventListener("click", openPanel);
+      closeBtn?.addEventListener("click", closePanel);
+      backdrop?.addEventListener("click", closePanel);
 
-  <div class="settings-section">
-    <div class="settings-label">Тёмная тема</div>
-    <button id="settingsThemeToggle" class="settings-chip">
-      Переключить
-    </button>
-  </div>
+      // === ЯЗЫК ===
+      if (langSelect) {
+        const savedLang = localStorage.getItem("siteLang") || "ru";
+        langSelect.value = savedLang;
 
-  <div class="settings-section settings-section--border">
-    <div class="settings-label">Аккаунт</div>
-    <div class="settings-sub" id="settingsAccountInfo">
-      Гость (зайди в дневник, чтобы сохранить настройки)
-    </div>
-  </div>
+        langSelect.addEventListener("change", () => {
+          localStorage.setItem("siteLang", langSelect.value);
+          // позже сюда добавим реальный перевод
+        });
+      }
 
-  <div class="settings-section settings-section--admin">
-    <div class="settings-label">Админ-панель</div>
-    <button id="settingsAdminBtn" class="settings-chip settings-chip--danger">
-      Открыть
-    </button>
-  </div>
-</div>
+      // === ТЕМА ===
+      if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+          // если будет глобальная функция toggleTheme — используем её
+          if (typeof toggleTheme === "function") {
+            toggleTheme();
+          } else {
+            document.body.classList.toggle("dark");
+            localStorage.setItem(
+              "theme",
+              document.body.classList.contains("dark") ? "dark" : "light"
+            );
+          }
+        });
+      }
 
-<!-- Скрипт настроек (после auth-wishes.js) -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const fab        = document.getElementById("settingsFab");
-    const panel      = document.getElementById("settingsPanel");
-    const backdrop   = document.getElementById("settingsBackdrop");
-    const closeBtn   = document.getElementById("settingsClose");
-    const langSelect = document.getElementById("settingsLang");
-    const themeBtn   = document.getElementById("settingsThemeToggle");
-    const adminBtn   = document.getElementById("settingsAdminBtn");
-    const accInfo    = document.getElementById("settingsAccountInfo");
+      // === ИНФО ОБ АККАУНТЕ (auth-wishes.js может положить сюда window.__currentUser) ===
+      if (accInfo && window.__currentUser) {
+        const u = window.__currentUser;
+        accInfo.textContent = u.email || "Авторизованный пользователь";
+      }
 
-    function openPanel() {
-      panel.classList.add("open");
-      backdrop.classList.add("open");
-    }
-
-    function closePanel() {
-      panel.classList.remove("open");
-      backdrop.classList.remove("open");
-    }
-
-    fab?.addEventListener("click", openPanel);
-    closeBtn?.addEventListener("click", closePanel);
-    backdrop?.addEventListener("click", closePanel);
-
-    // === ЯЗЫК ===
-    if (langSelect) {
-      const savedLang = localStorage.getItem("siteLang") || "ru";
-      langSelect.value = savedLang;
-
-      langSelect.addEventListener("change", () => {
-        localStorage.setItem("siteLang", langSelect.value);
-        // позже сюда добавим реальный перевод
-      });
-    }
-
-    // === ТЕМА ===
-    if (themeBtn) {
-      themeBtn.addEventListener("click", () => {
-        if (typeof toggleTheme === "function") {
-          toggleTheme();
-        } else {
-          document.body.classList.toggle("dark");
-          localStorage.setItem(
-            "theme",
-            document.body.classList.contains("dark") ? "dark" : "light"
-          );
-        }
-      });
-    }
-
-    // === ИНФО ОБ АККАУНТЕ ===
-    // auth-wishes.js будет класть данные в window.__currentUser
-    if (accInfo && window.__currentUser) {
-      const u = window.__currentUser;
-      accInfo.textContent = u.email || "Авторизованный пользователь";
-    }
-
-    // === АДМИНКА ===
-    if (adminBtn) {
-      adminBtn.addEventListener("click", () => {
-        window.location.href = "admin.html";
-      });
-    }
-  });
-</script>
-
+      // === Переход к админ-панели на этой же странице ===
+      if (adminBtn) {
+        adminBtn.addEventListener("click", () => {
+          const adminBlock = document.getElementById("admin-panel");
+          if (adminBlock) {
+            closePanel();
+            adminBlock.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
