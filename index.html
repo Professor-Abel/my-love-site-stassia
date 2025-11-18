@@ -734,6 +734,53 @@
           </div>
         </div>
       </section>
+      <!-- ==== АДМИН-ПАНЕЛЬ (только для администратора) ==== -->
+<div id="admin-panel" class="admin-panel">
+  <h2>Админ-панель 👑</h2>
+  <p class="admin-note">
+    Эту секцию видишь только ты. Здесь отображаются пользователи и их желания.
+  </p>
+
+  <div class="admin-grid">
+      <!-- таблица пользователей -->
+      <section class="admin-card">
+          <h3>Пользователи</h3>
+          <table class="admin-table">
+              <thead>
+                  <tr>
+                      <th>Имя</th>
+                      <th>Email</th>
+                      <th>UID</th>
+                      <th>Последний вход</th>
+                  </tr>
+              </thead>
+              <tbody id="admin-users-body">
+                  <tr><td colspan="4">Загрузка...</td></tr>
+              </tbody>
+          </table>
+      </section>
+
+      <!-- таблица желаний -->
+      <section class="admin-card">
+          <h3>Желания</h3>
+          <table class="admin-table">
+              <thead>
+                  <tr>
+                      <th>Когда</th>
+                      <th>Текст</th>
+                      <th>Email</th>
+                      <th>UID</th>
+                  </tr>
+              </thead>
+              <tbody id="admin-wishes-body">
+                  <tr><td colspan="4">Загрузка...</td></tr>
+              </tbody>
+          </table>
+      </section>
+  </div>
+</div>
+<!-- ==== КОНЕЦ АДМИН-ПАНЕЛИ ==== -->
+
 
       <!-- Правая карточка: желания + админка -->
       <section class="card">

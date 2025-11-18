@@ -179,6 +179,10 @@ async function addWish() {
 // ==== СОСТОЯНИЕ «ПОЛЬЗОВАТЕЛЬ ВОШЁЛ» ====
 async function renderLoggedInUser(user) {
     currentUser = user;
+    if (user.uid === ADMIN_UID) {
+    loadAdminData();
+}
+
 
     // сохраняем/обновляем профиль пользователя в Firestore
     try {
@@ -342,4 +346,49 @@ if (clearWishesBtn) {
     clearWishesBtn.addEventListener("click", () => {
         setAuthStatus("Очистку желаний мы сделаем чуть позже 🛠", "bad");
     });
+    // === АДМИН-ПАНЕЛЬ: загрузка пользователей и желаний ===
+async function loadAdminData() {
+    if (!currentUser || currentUser.uid !== ADMIN_UID) return; // доступ только админу
+
+    const usersBody = document.getElementById("admin-users-body");
+    const wishesBody = document.getElementById("admin-wishes-body");
+
+    // ==== ЗАГРУЗКА ПОЛЬЗОВАТЕЛЕЙ ====
+    const usersSnap = await getDocs(collection(db, "users"));
+    usersBody.innerHTML = "";
+
+    usersSnap.forEach(docSnap => {
+        const u = docSnap.data();
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${u.name || "—"}</td>
+            <td>${u.email || "—"}</td>
+            <td>${u.uid || "—"}</td>
+            <td>${u.lastLogin?.toDate?.().toLocaleString("ru-RU") || "—"}</td>
+        `;
+        usersBody.appendChild(tr);
+    });
+
+    // ==== ЗАГРУЗКА ВСЕХ ЖЕЛАНИЙ ====
+    const q = query(
+        collection(db, "wishes"),
+        orderBy("createdAt", "desc")
+    );
+    const wishesSnap = await getDocs(q);
+    wishesBody.innerHTML = "";
+
+    wishesSnap.forEach(docSnap => {
+        const w = docSnap.data();
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${w.createdAt?.toDate?.().toLocaleString("ru-RU") || "—"}</td>
+            <td>${w.text}</td>
+            <td>${w.email || "—"}</td>
+            <td>${w.uid}</td>
+        `;
+        wishesBody.appendChild(tr);
+    });
+}
+
 }
