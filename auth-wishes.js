@@ -305,7 +305,7 @@ if (emailLoginBtn) {
         const pass  = passwordInput.value.trim();
 
         if (!email || !pass) {
-            setAuthStatus("Введи email и пароль 💌", "bad";
+            setAuthStatus("Введи email и пароль 💌", "bad");
             return;
         }
 
