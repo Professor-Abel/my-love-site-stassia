@@ -13,7 +13,7 @@ import {
     signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-import { firebaseConfig, ADMIN_UID } from "./firebase-config.js";
+import { firebaseConfig, ADMIN_UID } from "./firebase-config.js?v=2";
 
 // ==== ИНИЦИАЛИЗАЦИЯ FIREBASE ====
 const app = initializeApp(firebaseConfig);
