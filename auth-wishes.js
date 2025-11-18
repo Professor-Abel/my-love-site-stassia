@@ -13,16 +13,15 @@ import {
     signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-// ==== ТВОЙ КОНФИГ FIREBASE (ВСТАВЬ СВОЙ!) ====
-// Скопируй из Firebase: Настройки проекта → Общие → Web-приложение (значок </>
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyCbg08b96hAGU3kwvkjsv1x1Is-879Mbgc",
-    authDomain: "asyaman-40f1f.firebaseapp.com",
-    projectId: "asyaman-40f1f",
-    storageBucket: "asyaman-40f1f.appspot.com",
-    messagingSenderId: "780594675672",
-    appId: "1:780594675672:web:ccd9c524a20721ba81bcad",
-    measurementId: "G-MMMTD9XENH",
+  apiKey: "AIzaSyCbgO8b96hAGU3kvwkjsv1x1Is-879Mbgc",
+  authDomain: "asyaman-40f1f.firebaseapp.com",
+  projectId: "asyaman-40f1f",
+  storageBucket: "asyaman-40f1f.firebasestorage.app",
+  messagingSenderId: "780594675672",
+  appId: "1:780594675672:web:ccd9c524a20721ba81bcad",
+  measurementId: "G-MMMTD9XENH"
 };
 
 // ТОЛЬКО ты — админ
