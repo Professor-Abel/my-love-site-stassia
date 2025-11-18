@@ -920,3 +920,115 @@ body.dark .chat-bubble.from-me {
     background: #a5b4fc;
     transform: scale(1.25);
 }
+/* ==== МЯГКИЕ АНИМАЦИИ ДЛЯ СТРАНИЦЫ "КОГДА СКУЧАЕШЬ" ==== */
+
+@keyframes fade-up-soft {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-soft {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Старт анимации только когда страница готова */
+.page-ready .miss-page .title-row {
+  animation: fade-up-soft 0.6s ease-out forwards;
+}
+
+.page-ready .miss-page .typing-line {
+  opacity: 0;
+  animation: fade-in-soft 0.8s ease-out 0.2s forwards;
+}
+
+.page-ready .miss-page .miss-media {
+  opacity: 0;
+  animation: fade-up-soft 0.7s ease-out 0.25s forwards;
+}
+
+.page-ready .miss-page .voice-block,
+.page-ready .miss-page .song-block,
+.page-ready .miss-page .night-letter-block,
+.page-ready .miss-page .chat-card,
+.page-ready .miss-page h2,
+.page-ready .miss-page #missInput,
+.page-ready .miss-page #missList {
+  opacity: 0;
+  animation: fade-up-soft 0.7s ease-out 0.35s forwards;
+}
+
+/* Чуть разное смещение по очереди */
+.page-ready .miss-page .voice-block { animation-delay: 0.3s; }
+.page-ready .miss-page .song-block { animation-delay: 0.38s; }
+.page-ready .miss-page .night-letter-block { animation-delay: 0.46s; }
+.page-ready .miss-page .chat-card { animation-delay: 0.54s; }
+.page-ready .miss-page h2 { animation-delay: 0.6s; }
+.page-ready .miss-page #missInput { animation-delay: 0.68s; }
+.page-ready .miss-page #missList { animation-delay: 0.76s; }
+
+/* ==== СВЕЧЕНИЕ ВОКРУГ ДЕТСКОГО ФОТО ==== */
+
+.miss-photo-frame {
+  position: relative;
+  max-width: 280px;
+  margin: 0 auto 10px;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
+  cursor: zoom-in; /* намёк, что фото увеличивается */
+}
+
+.miss-photo-frame img {
+  width: 100%;
+  display: block;
+  transform: scale(1.005);
+}
+
+/* мягкое свечение */
+.miss-photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: -15%;
+  background:
+    radial-gradient(circle at top, rgba(248, 250, 252, 0.16), transparent 60%),
+    radial-gradient(circle at bottom, rgba(244, 114, 182, 0.22), transparent 65%);
+  mix-blend-mode: screen;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* уже есть overlay с текстом — чуть подчистим */
+.miss-photo-overlay {
+  position: absolute;
+  inset: auto 12px 12px 12px;
+  padding: 6px 10px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #e5e7eb;
+  font-size: 11px;
+  border: 1px solid rgba(248, 250, 252, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* точки под фото (если ещё не стилизованы) */
+.photo-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.5);
+  display: inline-block;
+  margin: 0 3px;
+  transition: 0.18s ease-out;
+}
+
+.photo-dot.active {
+  background: #a5b4fc;
+  transform: scale(1.25);
+}
