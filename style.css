@@ -1,0 +1,844 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* ТЕМА */
+:root {
+    --bg1: #ffdde1;
+    --bg2: #ee9ca7;
+    --card-bg: #ffffff;
+    --text-main: #444444;
+    --text-secondary: #555555;
+    --accent: #ff7096;
+    --accent-strong: #ff4d6d;
+    --border-soft: #ff9bb8;
+    --chip-bg: rgba(255, 255, 255, 0.7);
+    --note-bg: rgba(255, 255, 255, 0.65);
+    --list-bg: #ffe3ec;
+    --corner-bg: rgba(0, 0, 0, 0.55);
+    --shadow-card: rgba(0, 0, 0, 0.16);
+    --shadow-hover: rgba(0, 0, 0, 0.18);
+}
+
+body.dark {
+    --bg1: #181623;
+    --bg2: #301934;
+    --card-bg: #221b33;
+    --text-main: #f5f0ff;
+    --text-secondary: #c7bfdc;
+    --accent: #ff8fb3;
+    --accent-strong: #ffc2dd;
+    --border-soft: #ff8fb3;
+    --chip-bg: rgba(34, 27, 51, 0.96);
+    --note-bg: rgba(34, 27, 51, 0.9);
+    --list-bg: #2f223f;
+    --corner-bg: rgba(0, 0, 0, 0.8);
+    --shadow-card: rgba(0, 0, 0, 0.5);
+    --shadow-hover: rgba(0, 0, 0, 0.6);
+}
+
+/* ОБЩЕЕ */
+
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: linear-gradient(145deg, var(--bg1), var(--bg2));
+    background-attachment: fixed;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* шум */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* фоновые сердечки */
+#bg-hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.bg-heart {
+    position: absolute;
+    top: -10%;
+    animation-name: fallHeart;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+/* звёзды */
+#stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 0 6px rgba(255,255,255,0.8);
+    animation: starBlink linear infinite;
+}
+
+/* карточка */
+
+.container {
+    max-width: 520px;
+    width: 100%;
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 24px;
+    box-shadow: 0 18px 40px var(--shadow-card);
+    box-sizing: border-box;
+    animation: cardFadeIn 0.7s ease-out forwards;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    position: relative;
+    z-index: 2;
+}
+
+/* навигация */
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--chip-bg);
+    backdrop-filter: blur(6px);
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-link {
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-link:hover {
+    background: rgba(255, 227, 236, 0.8);
+    color: var(--accent-strong);
+    transform: translateY(-1px);
+}
+
+body.dark .nav-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-active {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* переключатель темы */
+
+.theme-toggle {
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 999px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+body.dark .theme-toggle {
+    background: rgba(0, 0, 0, 0.3);
+    color: #ffd6ea;
+}
+
+/* заголовок */
+
+.title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.lock-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 112, 150, 0.14);
+    border: 1px solid rgba(255, 112, 150, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--accent-strong);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    animation: lockPulse 2.1s ease-in-out infinite;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    color: var(--text-main);
+    font-family: "Pacifico", cursive;
+    font-size: 26px;
+}
+
+h2 {
+    text-align: center;
+    color: var(--text-main);
+    margin-top: 24px;
+    margin-bottom: 10px;
+    letter-spacing: 0.03em;
+}
+
+/* приветствие */
+
+.greeting-line {
+    margin-top: 4px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* музыка */
+
+.music-btn {
+    margin-top: 6px;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 112, 150, 0.5);
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    color: var(--accent-strong);
+    cursor: pointer;
+}
+
+.music-btn:hover {
+    background: #ffe3ec;
+}
+
+body.dark .music-btn {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+/* textarea и кнопки */
+
+textarea {
+    width: 100%;
+    height: 100px;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #f0bccc;
+    resize: none;
+    box-sizing: border-box;
+    margin-top: 8px;
+    font-family: inherit;
+    background: var(--card-bg);
+    color: var(--text-main);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--border-soft);
+    box-shadow: 0 0 0 2px rgba(255, 155, 184, 0.25);
+}
+
+button {
+    font-family: inherit;
+}
+
+button[onclick="addWish()"],
+button[onclick="addThought()"],
+button[onclick="addMiss()"] {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    border: none;
+    color: white;
+    font-size: 17px;
+    border-radius: 12px;
+    margin-top: 14px;
+    cursor: pointer;
+}
+
+button[onclick="addWish()"]:hover,
+button[onclick="addThought()"]:hover,
+button[onclick="addMiss()"]:hover {
+    background: #ff577e;
+}
+
+/* списки */
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+li {
+    background: var(--list-bg);
+    margin: 10px 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.25s ease-in;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+li span {
+    flex: 1;
+}
+
+li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow-hover);
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--accent-strong);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 4px;
+}
+
+.delete-btn:hover {
+    color: #ff1f4f;
+}
+
+/* очистка */
+
+.clear-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-soft);
+    color: var(--accent-strong);
+    font-size: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background: #ffe3ec;
+}
+
+body.dark .clear-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* note */
+
+.note {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 16px;
+    background: var(--note-bg);
+    border: 1px dashed var(--border-soft);
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.note h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: var(--accent-strong);
+}
+
+.secondary-link {
+    display: inline-block;
+    margin-top: 18px;
+    text-align: center;
+    width: 100%;
+    text-decoration: none;
+    color: var(--accent-strong);
+    font-size: 14px;
+}
+
+.secondary-link:hover {
+    text-decoration: underline;
+}
+
+/* письмо */
+
+.letter-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+}
+
+/* секретное фото */
+
+.secret-block {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.secret-block h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    color: var(--accent-strong);
+}
+
+.secret-photo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.secret-photo img {
+    width: 210px;
+    max-width: 100%;
+    border-radius: 12px;
+    background: #fdfdfd;
+    padding: 10px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    transform: rotate(-2deg);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.secret-photo img:hover {
+    transform: rotate(0deg) translateY(-3px);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+.secret-caption {
+    font-size: 13px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+/* о нас */
+
+.about-block {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.about-block h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    color: var(--accent-strong);
+}
+
+.dates-list {
+    margin-top: 10px;
+    padding-left: 0;
+}
+
+.dates-list li {
+    background: transparent;
+    margin: 4px 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+/* мысли / скучаю текст */
+
+.thought-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.thought-text small {
+    font-size: 11px;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* блок "когда скучаешь" */
+
+.miss-media {
+    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.miss-photo-frame {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    margin-bottom: 12px;
+}
+
+.miss-photo-frame img {
+    width: 100%;
+    display: block;
+    height: 260px;
+    object-fit: cover;
+}
+
+.miss-photo-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 14px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    color: #f8e9ff;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-end;
+}
+
+#missList {
+    margin-top: 12px;
+}
+
+/* сердечки при добавлении */
+
+#hearts {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.heart {
+    position: absolute;
+    font-size: 22px;
+    animation: floatUp 2s linear forwards;
+    opacity: 0;
+}
+
+/* уголок */
+
+.corner-lock {
+    position: fixed;
+    bottom: 14px;
+    right: 16px;
+    font-size: 13px;
+    background: var(--corner-bg);
+    color: #ffe3ec;
+    padding: 6px 10px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 20;
+}
+
+.corner-lock::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff9bb8;
+}
+
+/* счётчик */
+
+/* СЧЁТЧИК ДНЕЙ ВМЕСТЕ */
+
+.love-counter {
+    text-align: center;
+    margin: 18px auto;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    color: #ffd6f7;
+    box-shadow: 0 0 25px rgba(255, 0, 100, .15);
+}
+
+.love-counter h2 {
+    font-family: "Pacifico", cursive;
+    font-size: 22px;
+    margin: 0 0 6px;
+}
+
+#counter-time {
+    font-size: 18px;
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(255,255,255,.4);
+}
+
+/* ЭФФЕКТ ПЕЧАТАНИЯ */
+
+.typing-line {
+    margin-top: 6px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    min-height: 1.3em;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid rgba(255,255,255,0.7);
+    animation: caretBlink 0.8s steps(1) infinite;
+}
+
+@keyframes caretBlink {
+    0%, 60% { border-color: rgba(255,255,255,0.7); }
+    61%, 100% { border-color: transparent; }
+}
+
+/* КНОПКИ ПЕРЕКЛЮЧЕНИЯ ФОТО */
+
+.photo-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px 0 4px;
+}
+
+.photo-nav-btn {
+    border: none;
+    background: var(--chip-bg);
+    color: var(--text-main);
+    border-radius: 999px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.photo-nav-btn:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.photo-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.photo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: transform .2s, background .2s;
+}
+
+.photo-dot.active {
+    background: var(--accent-strong);
+    transform: scale(1.4);
+}
+
+/* ГОЛОСОВОЕ */
+
+.voice-block {
+    margin-top: 18px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: var(--note-bg);
+}
+
+.voice-block h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: var(--accent-strong);
+}
+
+.voice-block audio {
+    width: 100%;
+}
+
+/* НОЧНОЙ РЕЖИМ + SHAPE OF MY HEART */
+
+.night-letter-block {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.night-letter-btn {
+    border: none;
+    background: linear-gradient(135deg, #35314d, #6e4f81);
+    color: #fbe9ff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 13px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+body.dark .night-letter-btn {
+    background: linear-gradient(135deg, #4a3f63, #8f5aa5);
+}
+
+.night-letter-btn:hover {
+    transform: translateY(-1px);
+}
+
+.night-hint {
+    display: block;
+    margin-top: 4px;
+}
+
+/* Состояние body в ночном письме */
+
+body.night-letter {
+    background: radial-gradient(circle at top, #1a1024, #05030a);
+}
+
+body.night-letter::before {
+    opacity: 0.25;
+}
+
+/* ЧАТ-БОТ */
+
+.chat-card {
+    margin-top: 18px;
+    padding: 12px 12px 10px;
+    border-radius: 16px;
+    background: var(--note-bg);
+    border: 1px dashed var(--border-soft);
+}
+
+.chat-card h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--accent-strong);
+}
+
+.chat-messages {
+    max-height: 160px;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-bottom: 8px;
+}
+
+.chat-bubble {
+    padding: 6px 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.chat-bubble.from-you {
+    background: var(--accent);
+    color: white;
+    margin-left: 20px;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-bubble.from-me {
+    background: rgba(255,255,255,0.7);
+    color: var(--text-main);
+    margin-right: 20px;
+    border-bottom-left-radius: 4px;
+}
+
+body.dark .chat-bubble.from-me {
+    background: rgba(0,0,0,0.25);
+}
+
+.chat-input-row {
+    display: flex;
+    gap: 6px;
+}
+
+.chat-input-row input {
+    flex: 1;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    padding: 6px 10px;
+    font-size: 13px;
+    background: var(--card-bg);
+    color: var(--text-main);
+}
+
+.chat-input-row button {
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+/* ВЫСОТА ТЕКСТА В "МЫСЛЯХ" */
+
+.thoughts-input {
+    height: 150px;
+}
+
+/* АДАПТАЦИЯ */
+
+@media (max-width: 480px) {
+    body { padding: 12px; }
+    .container { padding: 18px; }
+    h1 { font-size: 22px; }
+}
+
+/* АНИМАЦИИ */
+
+@keyframes fallHeart {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(120vh) translateX(10px); }
+}
+
+@keyframes starBlink {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.4); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translateY(-120px) scale(1.5); opacity: 0; }
+}
+
+@keyframes cardFadeIn {
+    0% { opacity: 0; transform: translateY(18px) scale(0.97); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes lockPulse {
+    0% { transform: scale(1) translateY(0); box-shadow: 0 3px 8px rgba(0,0,0,0.08); }
+    50% { transform: scale(1.08) translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,0.18); }
+    100% { transform: scale(1) translateY(0); box-shadow: 0 3px 8px rgba(0,0,0,0.08); }
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Письмо для тебя</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="bg-hearts"></div>
+<div id="stars"></div>
+
+<div class="container">
+    <nav class="top-nav">
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Желания</a>
+            <a href="thoughts.html" class="nav-link">Мысли</a>
+            <a href="miss.html" class="nav-link">Когда скучаешь</a>
+            <a href="letter.html" class="nav-link nav-active">Письмо</a>
+            <a href="index.html#about" class="nav-link">О нас</a>
+        </div>
+        <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    </nav>
+
+    <div class="title-row">
+        <div class="lock-icon">🔒</div>
+        <h1>Письмо для тебя 💌</h1>
+    </div>
+
+    <p class="letter-text">
+        Я сделал этот маленький уголок только для тебя. Здесь ты можешь писать всё,
+        о чём мечтаешь, чего хочешь, что чувствуешь.
+    </p>
+    <p class="letter-text">
+        Я хочу, чтобы ты знала: каждое желание я читаю, запоминаю и по одному превращаю в свои цели.
+        Даже если мы далеко, я рядом с тобой в каждом слове, которое ты здесь оставляешь.
+    </p>
+    <p class="letter-text">
+        Спасибо тебе за то, что ты есть.
+    </p>
+
+    <a href="index.html" class="secondary-link">⬅ Вернуться к желаниям</a>
+</div>
+
+<div id="hearts"></div>
+<div class="corner-lock">🔒 Наш маленький секрет</div>
+
+<script>
+    function applyThemeFromStorage() {
+        const saved = localStorage.getItem("theme");
+        const body = document.body;
+        const toggles = document.querySelectorAll(".theme-toggle");
+        if (saved === "dark") {
+            body.classList.add("dark");
+            toggles.forEach(b => b.textContent = "☀");
+        } else {
+            body.classList.remove("dark");
+            toggles.forEach(b => b.textContent = "🌙");
+        }
+    }
+    function toggleTheme() {
+        const body = document.body;
+        const isDark = body.classList.toggle("dark");
+        const toggles = document.querySelectorAll(".theme-toggle");
+        toggles.forEach(b => b.textContent = isDark ? "☀" : "🌙");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+    }
+    function createBgHeart() {
+        const container = document.getElementById("bg-hearts");
+        if (!container) return;
+        const h = document.createElement("div");
+        h.className = "bg-heart";
+        h.textContent = "💗";
+        const size = 10 + Math.random() * 10;
+        h.style.fontSize = size + "px";
+        h.style.left = Math.random() * 100 + "%";
+        h.style.animationDuration = 7 + Math.random() * 5 + "s";
+        h.style.opacity = 0.2 + Math.random() * 0.4;
+        container.appendChild(h);
+        setTimeout(() => h.remove(), 15000);
+    }
+    function startBackgroundHearts() {
+        for (let i = 0; i < 10; i++) setTimeout(createBgHeart, i * 400);
+        setInterval(createBgHeart, 1200);
+    }
+    function createStars() {
+        const container = document.getElementById("stars");
+        if (!container) return;
+        for (let i = 0; i < 60; i++) {
+            const s = document.createElement("div");
+            s.className = "star";
+            s.style.left = Math.random() * 100 + "%";
+            s.style.top = Math.random() * 100 + "%";
+            s.style.animationDuration = (3 + Math.random() * 5) + "s";
+            s.style.animationDelay = (Math.random() * 5) + "s";
+            container.appendChild(s);
+        }
+    }
+
+    window.addEventListener("load", () => {
+        applyThemeFromStorage();
+        startBackgroundHearts();
+        createStars();
+    });
+</script>
+</body>
+</html>
