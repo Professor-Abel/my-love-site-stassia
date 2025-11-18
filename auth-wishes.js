@@ -1,5 +1,5 @@
 // auth-wishes.js
-// Авторизация (Firebase) + логика желаний (localStorage)
+// Авторизация (Firebase) + логика желаний (Firestore)
 
 // ==== ИМПОРТЫ ИЗ FIREBASE (CDN) ====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
@@ -15,8 +15,6 @@ import {
 
 import {
     getFirestore,
-    doc,
-    setDoc,
     addDoc,
     collection,
     query,
@@ -26,32 +24,30 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// ==== КОНФИГ FIREBASE ====
 const firebaseConfig = {
-  apiKey: "AIzaSyCbgO8b96hAGU3kvwkjsv1x1Is-879Mbgc",
-  authDomain: "asyaman-40f1f.firebaseapp.com",
-  projectId: "asyaman-40f1f",
-  storageBucket: "asyaman-40f1f.firebasestorage.com@",
-  messagingSenderId: "780594675672",
-  appId: "1:780594675672:web:27766d673b4255a281bcad",
-  measurementId: "G-LBMZLEY4Y5"
+    apiKey: "AIzaSyCbgO8b96hAGU3kvwkjsv1x1Is-879Mbgc",
+    authDomain: "asyaman-40f1f.firebaseapp.com",
+    projectId: "asyaman-40f1f",
+    storageBucket: "asyaman-40f1f.firebasestorage.com@",
+    messagingSenderId: "780594675672",
+    appId: "1:780594675672:web:27766d673b4255a281bcad",
+    measurementId: "G-LBMZLEY4Y5"
 };
 
 // ТОЛЬКО ты — админ
 const ADMIN_UID = "QgvеUKbsJLU0A3oehvXgTEbTg1S2";
-// ===== ЛОКАЛЬНЫЕ МАССИВЫ ДЛЯ ДАННЫХ ПОЛЬЗОВАТЕЛЯ =====
-
-let wishes = [];
-let thoughts = [];
-
 
 // ==== ИНИЦИАЛИЗАЦИЯ FIREBASE ====
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const app     = initializeApp(firebaseConfig);
+const auth    = getAuth(app);
+const db      = getFirestore(app);
 const provider = new GoogleAuthProvider();
-// ===== ХЕЛПЕРЫ ДЛЯ FIRESTORE =====
+
+// Текущий пользователь
+let currentUser = null;
+
+// ===== ХЕЛПЕРЫ ДЛЯ FIRESTORE (запас для мыслей/других страниц) =====
 
 async function saveEntryToFirestore(collectionName, text) {
     const user = auth.currentUser;
@@ -99,7 +95,7 @@ const emailRegisterBtn = document.getElementById("emailRegisterBtn");
 const emailLoginBtn    = document.getElementById("emailLoginBtn");
 const googleBtn        = document.getElementById("googleBtn");
 
-const authTitle   = document.getElementById("auth-title");  
+const authTitle    = document.getElementById("auth-title");
 const welcomeText  = document.getElementById("welcome-text");
 const authArea     = document.getElementById("auth-area");
 const authStatus   = document.getElementById("auth-status");
@@ -111,11 +107,10 @@ const adminPanel     = document.getElementById("admin-panel");
 // ==== ЭЛЕМЕНТЫ ЖЕЛАНИЙ ====
 const wishInput      = document.getElementById("wishInput");
 const addWishBtn     = document.getElementById("addWishBtn");
-// привязка кнопки "добавить желание"
-addWishBtn?.addEventListener("click", addWish);
 const clearWishesBtn = document.getElementById("clearWishesBtn");
 const wishList       = document.getElementById("wishList");
 const wishCount      = document.getElementById("wishCount");
+
 // === ДОБАВЛЕНИЕ ЖЕЛАНИЯ С СОХРАНЕНИЕМ В FIRESTORE ===
 async function addWish() {
     const text = wishInput.value.trim();
@@ -131,7 +126,7 @@ async function addWish() {
         await addDoc(collection(db, "wishes"), {
             text,
             uid,
-            createdAt: Date.now()
+            createdAt: serverTimestamp()
         });
 
         wishInput.value = "";
@@ -142,42 +137,45 @@ async function addWish() {
         setAuthStatus("Ошибка сохранения 💔", "bad");
     }
 }
+
 // === ЗАГРУЗКА ЖЕЛАНИЙ ТЕКУЩЕГО ПОЛЬЗОВАТЕЛЯ ===
 async function loadWishes() {
     const uid = currentUser?.uid;
     if (!uid) return;
 
-    const q = query(
-        collection(db, "wishes"),
-        where("uid", "==", uid),
-        orderBy("createdAt", "desc")
-    );
+    try {
+        const q = query(
+            collection(db, "wishes"),
+            where("uid", "==", uid),
+            orderBy("createdAt", "desc")
+        );
 
-    const snap = await getDocs(q);
-    let html = "";
-    snap.forEach(doc => {
-        const w = doc.data();
-        html += `<li><span>${w.text}</span></li>`;
-    });
+        const snap = await getDocs(q);
+        let html = "";
+        snap.forEach(docSnap => {
+            const w = docSnap.data();
+            html += `<li><span>${w.text}</span></li>`;
+        });
 
-    wishList.innerHTML = html || "<li>Пока пусто 💭</li>";
-    wishCount.textContent = snap.size;
+        wishList.innerHTML = html || "<li>Пока пусто 💭</li>";
+        wishCount.textContent = snap.size;
+    } catch (e) {
+        console.error("Ошибка загрузки желаний:", e);
+        wishList.innerHTML = "<li>Не удалось загрузить желания 💔</li>";
+        wishCount.textContent = "0";
+    }
 }
 
-
-// Текущий пользователь
-let currentUser = null;
-
-// ==== ПОМОЩНИКИ ДЛЯ UI ====
+// ==== ПОМОЩНИК ДЛЯ UI ====
 function setAuthStatus(message, type = "") {
     if (!authStatus) return;
     authStatus.textContent = message || "";
     authStatus.classList.remove("good", "bad");
     if (type === "good") authStatus.classList.add("good");
-    if (type === "bad") authStatus.classList.add("bad");
+    if (type === "bad")  authStatus.classList.add("bad");
 }
 
-// пользователь вошёл
+// ==== СОСТОЯНИЕ «ПОЛЬЗОВАТЕЛЬ ВОШЁЛ» ====
 function renderLoggedInUser(user) {
     currentUser = user;
 
@@ -185,17 +183,17 @@ function renderLoggedInUser(user) {
         authTitle.innerHTML = 'Наш <span>секретный дневник</span> 💫';
     }
 
-    welcomeText.textContent = `Привет, ${user.displayName || "моя любовь"} 💖`;
-   
-    loadWishes();
-
-
+    if (welcomeText) {
+        welcomeText.textContent = `Привет, ${user.displayName || "моя любовь"} 💖`;
+    }
 
     // Кнопка "Выйти"
-    authArea.innerHTML = `<button class="btn btn-outline" id="logout-btn">Выйти</button>`;
-    const logoutBtn = document.getElementById("logout-btn");
-    if (logoutBtn) {
-        logoutBtn.onclick = () => signOut(auth);
+    if (authArea) {
+        authArea.innerHTML = `<button class="btn btn-outline" id="logout-btn">Выйти</button>`;
+        const logoutBtn = document.getElementById("logout-btn");
+        if (logoutBtn) {
+            logoutBtn.onclick = () => signOut(auth);
+        }
     }
 
     // Скрываем форму логина
@@ -218,7 +216,7 @@ function renderLoggedInUser(user) {
     loadWishes();
 }
 
-// пользователь вышел
+// ==== СОСТОЯНИЕ «ПОЛЬЗОВАТЕЛЬ ВЫШЕЛ» ====
 function renderLoggedOut() {
     currentUser = null;
 
@@ -226,11 +224,12 @@ function renderLoggedOut() {
         authTitle.innerHTML = 'Вход в наш <span>секретный дневник</span> 💫';
     }
 
-    welcomeText.textContent = "Ты ещё не вошла в систему 💔";
-
+    if (welcomeText) {
+        welcomeText.textContent = "Ты ещё не вошла в систему 💔";
+    }
 
     // Убираем кнопки
-    authArea.innerHTML = "";
+    if (authArea) authArea.innerHTML = "";
 
     // Показываем форму
     if (authForm) authForm.style.display = "block";
@@ -246,8 +245,8 @@ function renderLoggedOut() {
 
     setAuthStatus("Войди, чтобы мы могли сохранить твои желания 🫶", "bad");
 
-    wishList.innerHTML = "";
-    wishCount.textContent = "";
+    if (wishList)   wishList.innerHTML = "";
+    if (wishCount)  wishCount.textContent = "";
 }
 
 // ==== СЛУШАТЕЛЬ СОСТОЯНИЯ АВТОРИЗАЦИИ ====
@@ -317,136 +316,15 @@ if (googleBtn) {
     });
 }
 
-// ==== ЛОГИКА ЖЕЛАНИЙ (localStorage) ====
-
-function storageKey() {
-    return currentUser ? `wishes_${currentUser.uid}` : null;
-}
-
-
-    const key = storageKey();
-    if (!key) {
-        wishList.innerHTML = "";
-        wishCount.textContent = "";
-        return;
-    }
-
-    try {
-        const raw = localStorage.getItem(key);
-        const wishes = raw ? JSON.parse(raw) : [];
-        renderWishesList(wishes);
-    } catch (e) {
-        console.error("Ошибка чтения желаний:", e);
-    }
-}
-
-function saveWishes(wishes) {
-    const key = storageKey();
-    if (!key) return;
-    localStorage.setItem(key, JSON.stringify(wishes));
-}
-
-function renderWishesList(wishes) {
-    wishList.innerHTML = "";
-
-    if (!wishes || wishes.length === 0) {
-        wishCount.textContent = "Пока нет ни одного желания ✨";
-        return;
-    }
-
-    wishCount.textContent = `Всего желаний: ${wishes.length}`;
-
-    wishes.forEach((item) => {
-        const li = document.createElement("li");
-        li.className = "wish-item";
-
-        li.innerHTML = `
-            <div>
-                <div class="wish-text">${item.text}</div>
-                <div class="wish-meta">${item.time}</div>
-            </div>
-            <button class="wish-remove-btn" data-id="${item.id}" title="Удалить">✖</button>
-        `;
-
-        wishList.appendChild(li);
-    });
-}
-
-// Добавить желание
+// ==== ОБРАБОТЧИК КНОПКИ "ДОБАВИТЬ ЖЕЛАНИЕ" ====
 if (addWishBtn) {
-    addWishBtn.addEventListener("click", () => {
-        if (!currentUser) {
-            setAuthStatus("Сначала войди, чтобы я могла сохранить желание 💌", "bad");
-            return;
-        }
-
-        const text = wishInput.value.trim();
-        if (!text) {
-            setAuthStatus("Напиши хотя бы пару слов о своём желании ✨", "bad");
-            return;
-        }
-
-        const key = storageKey();
-        if (!key) return;
-
-        const raw = localStorage.getItem(key);
-        const wishes = raw ? JSON.parse(raw) : [];
-
-        const item = {
-            id: Date.now().toString(),
-            text,
-            time: new Date().toLocaleString("ru-RU", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-            }),
-        };
-
-        wishes.unshift(item);
-        saveWishes(wishes);
-        renderWishesList(wishes);
-
-        wishInput.value = "";
-        setAuthStatus("Я запомнила твоё желание 💖", "good");
-    });
+    addWishBtn.addEventListener("click", addWish);
 }
 
-// Удаление одного желания
-if (wishList) {
-    wishList.addEventListener("click", (e) => {
-        const btn = e.target.closest(".wish-remove-btn");
-        if (!btn) return;
-
-        const id = btn.dataset.id;
-        const key = storageKey();
-        if (!key) return;
-
-        const raw = localStorage.getItem(key);
-        const wishes = raw ? JSON.parse(raw) : [];
-        const filtered = wishes.filter((w) => w.id !== id);
-
-        saveWishes(filtered);
-        renderWishesList(filtered);
-    });
-}
-
-// Очистить все желания
+// Кнопка «Очистить все желания» — позже можно сделать через Firestore (для админа)
+// Сейчас просто заглушка, чтобы не ломать верстку
 if (clearWishesBtn) {
     clearWishesBtn.addEventListener("click", () => {
-        if (!currentUser) {
-            setAuthStatus("Сначала войди 💌", "bad");
-            return;
-        }
-
-        if (!confirm("Точно очистить все желания?")) return;
-
-        const key = storageKey();
-        if (!key) return;
-
-        localStorage.removeItem(key);
-        renderWishesList([]);
-        setAuthStatus("Все желания очищены. Можно начинать новый список ✨", "good");
+        setAuthStatus("Очистку желаний мы сделаем чуть позже 🛠", "bad");
     });
 }
