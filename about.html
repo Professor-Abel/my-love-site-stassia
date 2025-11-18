@@ -1,99 +1,165 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>О нас — наш маленький мир</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>О нас — наш маленький мир</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div id="bg-hearts"></div>
 <div id="stars"></div>
 
 <div class="container about-page">
-  <nav class="top-nav">
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Желания</a>
-      <a href="thoughts.html" class="nav-link">Мысли</a>
-      <a href="miss.html" class="nav-link">Когда скучаешь</a>
-      <a href="letter.html" class="nav-link">Письмо</a>
-      <a href="about.html" class="nav-link nav-active">О нас</a>
+    <nav class="top-nav">
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Желания</a>
+            <a href="thoughts.html" class="nav-link">Мысли</a>
+            <a href="miss.html" class="nav-link">Когда скучаешь</a>
+            <a href="letter.html" class="nav-link">Письмо</a>
+            <a href="about.html" class="nav-link nav-active">О нас</a>
+        </div>
+        <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    </nav>
+
+    <div class="title-row">
+        <div class="lock-icon">💫</div>
+        <h1>Наш маленький мир</h1>
     </div>
-    <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  </nav>
 
-  <div class="title-row">
-    <div class="lock-icon">🔒</div>
-    <h1>Асъяман — наш маленький мир</h1>
-  </div>
-
-  <div class="about-block">
-    <h3>Немного о нас</h3>
-    <p>
-      Здесь живём мы — два человека, которые смотрят на мир по-своему,
-      любят кофе, книги, животных и друг друга.
-      У нас разные истории и один общий мир.
+    <p class="about-intro">
+        Здесь мы оставили маленькое описание нас двоих — чтобы когда-нибудь
+        вернуться, перечитать и снова почувствовать всё так же ярко.
     </p>
 
-    <ul class="dates-list">
-      <li>✨ Первая встреча — ты помнишь дату лучше всех.</li>
-      <li>💌 Первое большое письмо — уже здесь, на этом сайте.</li>
-      <li>🌙 Бессонные разговоры — отдельная глава нашей истории.</li>
-    </ul>
+    <section class="about-section">
+        <h2>Мы</h2>
+        <p>
+            Два человека из разных миров, но с одинаково уставшими сердцами,
+            которые почему-то узнали друг друга с первого разговора.
+        </p>
+        <p>
+            Нас объединяет музыка, кофе, странное чувство юмора, любовь к животным
+            и то, как сильно мы хотим понять друг друга глубже, чем кто-либо ещё.
+        </p>
+    </section>
 
-    <p>
-      Каждый раздел этого сайта — это ещё одна маленькая полка в нашем
-      общем шкафчике воспоминаний: желания, мысли, голосовые, детское фото
-      и всё, что мы будем добавлять дальше.
-    </p>
-  </div>
+    <section class="about-section">
+        <h2>Наша история</h2>
+        <ul class="about-timeline">
+            <li><span>Когда-то давно</span> — два ребёнка на фото, которые ещё не знают,
+                что когда-нибудь будут читать этот текст.</li>
+            <li><span>Потом</span> — сотни разговоров, признаний, слёз, смеха и
+                «давай просто попробуем ещё раз».</li>
+            <li><span>Сейчас</span> — свой маленький сайт, который видим только мы,
+                и место, где можно спрятать самое важное.</li>
+        </ul>
+    </section>
 
-  <div class="note">
-    <h3>Почему всё это существует?</h3>
-    <p>
-      Чтобы даже на расстоянии у нас было место, где мы можем
-      «зайти домой»: оставить желание, рассказать, как прошёл день,
-      включить нашу песню или просто посмотреть на детское фото
-      и улыбнуться.
-    </p>
-  </div>
+    <section class="about-photo-wrap">
+        <div class="miss-photo-frame">
+            <img src="secret-photo.jpg" alt="Наше детское фото" />
+            <div class="miss-photo-overlay">
+                <span>Иногда достаточно одного кадра, чтобы вспомнить, ради чего всё это.</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <h2>Зачем этот сайт</h2>
+        <p>
+            Чтобы у нас было своё место. Не чат, который можно удалить.
+            Не соцсеть, где всё чужое. А страница, которая существует только
+            потому, что мы решили её создать.
+        </p>
+        <p>
+            Если вдруг станет тяжело — можно зайти сюда, почитать свои желания,
+            мысли, «скучаю», письмо и просто напомнить себе: мы не случайны.
+        </p>
+    </section>
 </div>
 
 <div id="hearts"></div>
 <div class="corner-lock">🔒 Наш маленький секрет</div>
 
 <script>
-  function applyThemeFromStorage() {
-    const saved = localStorage.getItem("theme");
-    const body = document.body;
-    const toggles = document.querySelectorAll(".theme-toggle");
-    const theme = saved || "dark"; // по умолчанию — тёмная
-
-    if (theme === "dark") {
-      body.classList.add("dark");
-      toggles.forEach(b => b.textContent = "☀");
-    } else {
-      body.classList.remove("dark");
-      toggles.forEach(b => b.textContent = "🌙");
+    // ===== ТЕМА =====
+    function applyThemeFromStorage() {
+        const saved = localStorage.getItem("theme");
+        const body = document.body;
+        const toggles = document.querySelectorAll(".theme-toggle");
+        if (saved === "dark") {
+            body.classList.add("dark");
+            toggles.forEach(b => b.textContent = "☀");
+        } else {
+            body.classList.remove("dark");
+            toggles.forEach(b => b.textContent = "🌙");
+        }
     }
-  }
+    function toggleTheme() {
+        const body = document.body;
+        const isDark = body.classList.toggle("dark");
+        const toggles = document.querySelectorAll(".theme-toggle");
+        toggles.forEach(b => b.textContent = isDark ? "☀" : "🌙");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+    }
 
-  function toggleTheme() {
-    const body = document.body;
-    const isDark = body.classList.toggle("dark");
-    const toggles = document.querySelectorAll(".theme-toggle");
-    toggles.forEach(b => b.textContent = isDark ? "☀" : "🌙");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  }
+    // ===== ФОН: СЕРДЦА + ЗВЁЗДЫ =====
+    function createBgHeart() {
+        const container = document.getElementById("bg-hearts");
+        if (!container) return;
+        const h = document.createElement("div");
+        h.className = "bg-heart";
+        h.textContent = "💗";
+        const size = 10 + Math.random() * 10;
+        h.style.fontSize = size + "px";
+        h.style.left = Math.random() * 100 + "%";
+        h.style.animationDuration = 7 + Math.random() * 5 + "s";
+        h.style.opacity = 0.2 + Math.random() * 0.4;
+        container.appendChild(h);
+        setTimeout(() => h.remove(), 15000);
+    }
+    function startBackgroundHearts() {
+        for (let i = 0; i < 10; i++) setTimeout(createBgHeart, i * 400);
+        setInterval(createBgHeart, 1200);
+    }
+    function createStars() {
+        const container = document.getElementById("stars");
+        if (!container) return;
+        for (let i = 0; i < 80; i++) {
+            const s = document.createElement("div");
+            s.className = "star";
+            s.style.left = Math.random() * 100 + "%";
+            s.style.top = Math.random() * 100 + "%";
+            s.style.animationDuration = (3 + Math.random() * 5) + "s";
+            s.style.animationDelay = (Math.random() * 5) + "s";
+            container.appendChild(s);
+        }
+    }
 
-  window.addEventListener("load", () => {
-    applyThemeFromStorage();
-    // фон
-    if (window.startBackgroundHearts) startBackgroundHearts();
-    if (window.createStars) createStars();
-  });
+    // ПАСХАЛКА НА ЗАМКЕ
+    function toggleSecretToast() {
+        const toast = document.getElementById("secret-toast");
+        if (!toast) return;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 4000);
+    }
+
+    window.addEventListener("load", () => {
+        applyThemeFromStorage();
+        startBackgroundHearts();
+        createStars();
+
+        const lock = document.querySelector(".corner-lock");
+        if (lock) lock.addEventListener("click", toggleSecretToast);
+    });
 </script>
-<script src="auth-wishes.js" type="module"></script>
+
+<!-- тост для замочка (можно один общий в index.html переиспользовать, но тут дублируем) -->
+<div id="secret-toast" class="secret-toast">
+  Настоящий секрет не на этом сайте, а между нами. 🤍
+</div>
+
 </body>
 </html>

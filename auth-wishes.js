@@ -21,7 +21,9 @@ import {
     where,
     getDocs,
     orderBy,
-    serverTimestamp
+    serverTimestamp,
+    setDoc,
+    doc
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // ==== КОНФИГ FIREBASE ====
@@ -39,16 +41,15 @@ const firebaseConfig = {
 const ADMIN_UID = "QgvеUKbsJLU0A3oehvXgTEbTg1S2";
 
 // ==== ИНИЦИАЛИЗАЦИЯ FIREBASE ====
-const app     = initializeApp(firebaseConfig);
-const auth    = getAuth(app);
-const db      = getFirestore(app);
+const app      = initializeApp(firebaseConfig);
+const auth     = getAuth(app);
+const db       = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
 // Текущий пользователь
 let currentUser = null;
 
-// ===== ХЕЛПЕРЫ ДЛЯ FIRESTORE (запас для мыслей/других страниц) =====
-
+// ===== ХЕЛПЕРЫ (запас для других страниц, если пригодятся) =====
 async function saveEntryToFirestore(collectionName, text) {
     const user = auth.currentUser;
     if (!user) return;
@@ -111,31 +112,13 @@ const clearWishesBtn = document.getElementById("clearWishesBtn");
 const wishList       = document.getElementById("wishList");
 const wishCount      = document.getElementById("wishCount");
 
-// === ДОБАВЛЕНИЕ ЖЕЛАНИЯ С СОХРАНЕНИЕМ В FIRESTORE ===
-async function addWish() {
-    const text = wishInput.value.trim();
-    if (!text) return;
-
-    const uid = currentUser?.uid;
-    if (!uid) {
-        setAuthStatus("Войдите, чтобы сохранять свои желания 💌", "bad");
-        return;
-    }
-
-    try {
-        await addDoc(collection(db, "wishes"), {
-            text,
-            uid,
-            createdAt: serverTimestamp()
-        });
-
-        wishInput.value = "";
-        setAuthStatus("Желание сохранено ✨", "good");
-        loadWishes(); // сразу перезагрузим список
-    } catch (err) {
-        console.error("Ошибка сохранения:", err);
-        setAuthStatus("Ошибка сохранения 💔", "bad");
-    }
+// ==== ПОМОЩНИК ДЛЯ UI ====
+function setAuthStatus(message, type = "") {
+    if (!authStatus) return;
+    authStatus.textContent = message || "";
+    authStatus.classList.remove("good", "bad");
+    if (type === "good") authStatus.classList.add("good");
+    if (type === "bad")  authStatus.classList.add("bad");
 }
 
 // === ЗАГРУЗКА ЖЕЛАНИЙ ТЕКУЩЕГО ПОЛЬЗОВАТЕЛЯ ===
@@ -166,18 +149,52 @@ async function loadWishes() {
     }
 }
 
-// ==== ПОМОЩНИК ДЛЯ UI ====
-function setAuthStatus(message, type = "") {
-    if (!authStatus) return;
-    authStatus.textContent = message || "";
-    authStatus.classList.remove("good", "bad");
-    if (type === "good") authStatus.classList.add("good");
-    if (type === "bad")  authStatus.classList.add("bad");
+// === ДОБАВЛЕНИЕ ЖЕЛАНИЯ С СОХРАНЕНИЕМ В FIRESTORE ===
+async function addWish() {
+    const text = wishInput.value.trim();
+    if (!text) return;
+
+    const uid = currentUser?.uid;
+    if (!uid) {
+        setAuthStatus("Войдите, чтобы сохранять свои желания 💌", "bad");
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "wishes"), {
+            text,
+            uid,
+            createdAt: serverTimestamp()
+        });
+
+        wishInput.value = "";
+        setAuthStatus("Желание сохранено ✨", "good");
+        await loadWishes();
+    } catch (err) {
+        console.error("Ошибка сохранения:", err);
+        setAuthStatus("Ошибка сохранения 💔", "bad");
+    }
 }
 
 // ==== СОСТОЯНИЕ «ПОЛЬЗОВАТЕЛЬ ВОШЁЛ» ====
-function renderLoggedInUser(user) {
+async function renderLoggedInUser(user) {
     currentUser = user;
+
+    // сохраняем/обновляем профиль пользователя в Firestore
+    try {
+        await setDoc(
+            doc(db, "users", user.uid),
+            {
+                uid: user.uid,
+                email: user.email || null,
+                name: user.displayName || null,
+                lastLogin: serverTimestamp()
+            },
+            { merge: true }
+        );
+    } catch (e) {
+        console.error("Ошибка обновления профиля:", e);
+    }
 
     if (authTitle) {
         authTitle.innerHTML = 'Наш <span>секретный дневник</span> 💫';
@@ -212,8 +229,7 @@ function renderLoggedInUser(user) {
 
     setAuthStatus("Ты в системе, можешь писать желания 💌", "good");
 
-    // Загружаем желания для этого пользователя
-    loadWishes();
+    await loadWishes();
 }
 
 // ==== СОСТОЯНИЕ «ПОЛЬЗОВАТЕЛЬ ВЫШЕЛ» ====
@@ -245,8 +261,8 @@ function renderLoggedOut() {
 
     setAuthStatus("Войди, чтобы мы могли сохранить твои желания 🫶", "bad");
 
-    if (wishList)   wishList.innerHTML = "";
-    if (wishCount)  wishCount.textContent = "";
+    if (wishList)  wishList.innerHTML = "";
+    if (wishCount) wishCount.textContent = "";
 }
 
 // ==== СЛУШАТЕЛЬ СОСТОЯНИЯ АВТОРИЗАЦИИ ====
@@ -289,7 +305,7 @@ if (emailLoginBtn) {
         const pass  = passwordInput.value.trim();
 
         if (!email || !pass) {
-            setAuthStatus("Введи email и пароль 💌", "bad");
+            setAuthStatus("Введи email и пароль 💌", "bad";
             return;
         }
 
@@ -321,8 +337,7 @@ if (addWishBtn) {
     addWishBtn.addEventListener("click", addWish);
 }
 
-// Кнопка «Очистить все желания» — позже можно сделать через Firestore (для админа)
-// Сейчас просто заглушка, чтобы не ломать верстку
+// Очистка желаний — пока заглушка (можем потом сделать через Firestore)
 if (clearWishesBtn) {
     clearWishesBtn.addEventListener("click", () => {
         setAuthStatus("Очистку желаний мы сделаем чуть позже 🛠", "bad");
