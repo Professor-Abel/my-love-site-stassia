@@ -517,6 +517,144 @@
       text-align: center;
       color: rgba(255, 255, 255, 0.5);
     }
+      /* ==== О НАС / ABOUT ==== */
+  .about-card {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.9fr);
+    gap: 26px;
+    align-items: center;
+    background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.14), transparent 55%),
+                var(--card-bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at 10% 0%, rgba(251, 191, 36, 0.07), transparent 55%),
+                radial-gradient(circle at 90% 100%, rgba(96, 165, 250, 0.09), transparent 55%);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .about-left,
+  .about-right {
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-left h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+  }
+
+  .about-text-main {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .about-text-sub {
+    margin: 0 0 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .about-song {
+    padding: 10px 12px 12px;
+    border-radius: 18px;
+    background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.15), transparent 70%),
+                rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(129, 140, 248, 0.6);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.8);
+  }
+
+  .about-song-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .about-song-label {
+    font-size: 12px;
+    color: var(--accent-soft);
+  }
+
+  .about-song-name {
+    font-size: 12px;
+    color: var(--text-secondary);
+    opacity: 0.9;
+  }
+
+  .about-audio {
+    width: 100%;
+    margin: 4px 0 6px;
+    filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.9));
+    border-radius: 999px;
+  }
+
+  .about-song-note {
+    margin: 0;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .about-photo-frame {
+    position: relative;
+    max-width: 260px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: rotate(-2deg);
+  }
+
+  .about-photo {
+    width: 100%;
+    display: block;
+    border-radius: 26px;
+    border: 2px solid rgba(248, 250, 252, 0.8);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+  }
+
+  .about-photo-label {
+    position: absolute;
+    left: 16px;
+    bottom: 14px;
+    background: rgba(15, 23, 42, 0.92);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    border: 1px solid rgba(248, 250, 252, 0.38);
+    backdrop-filter: blur(8px);
+  }
+
+  .about-photo-shadow {
+    position: absolute;
+    inset: auto 20% -14px 20%;
+    height: 26px;
+    background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.9), transparent 70%);
+    opacity: 0.95;
+    z-index: -1;
+  }
+
+  @media (max-width: 900px) {
+    .about-card {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 20px;
+    }
+
+    .about-photo-frame {
+      margin-top: 4px;
+      transform: rotate(-1deg);
+    }
+  }
+
   </style>
 </head>
 <body>
@@ -645,7 +783,44 @@
           </div>
         </div>
       </section>
-    </main>
+        </main>
+
+    <!-- О нас: детское фото + наша песня -->
+    <section id="about" class="card about-card">
+      <div class="about-left">
+        <h2>О нас 👶💜</h2>
+        <p class="about-text-main">
+          У нас с тобой своя история – с детских фотографий и до этого момента, когда ты читаешь эти строки
+          на нашем собственном сайте.
+        </p>
+        <p class="about-text-sub">
+          Здесь я хочу хранить один маленький кадр из нашего детства и песню, под которую внутри всё сжимается
+          и становится по-особенному тёплым. Включи её, когда захочешь снова почувствовать это чувство.
+        </p>
+
+        <div class="about-song">
+          <div class="about-song-header">
+            <span class="about-song-label">🎧 Наша песня</span>
+            <span class="about-song-name">Eminem — Mockingbird</span>
+          </div>
+          <audio class="about-audio" controls preload="auto">
+            <source src="mockingbird.mp3" type="audio/mpeg" />
+            Твой браузер не поддерживает аудио, но ты знаешь, что здесь играет именно Mockingbird 💜
+          </audio>
+          <p class="about-song-note">
+            Включи эту песню, когда хочешь вернуться в то маленькое «мы», где всё только начинается.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <div class="about-photo-frame">
+          <img src="secret-photo.jpg" alt="Наше детское фото" class="about-photo" />
+          <div class="about-photo-label">Наш маленький секрет из детства 🔒</div>
+          <div class="about-photo-shadow"></div>
+        </div>
+      </div>
+    </section>
 
     <footer>
       Этот сайт создан только для нас двоих. Всё, что ты здесь пишешь, я храню у себя в сердце 💌
