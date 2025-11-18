@@ -67,7 +67,7 @@
     <div class="song-block">
         <h3>Наша песня — Mockingbird 🖤</h3>
         <p class="song-text">
-            Когда тебе особенно тоскливо — включи эту песню.  
+            Когда тебе особенно тоскливо — включи эту песню.<br>
             Просто закрой глаза и представь, что я сижу рядом и держу тебя за руку.
         </p>
         <audio class="song-audio" controls preload="auto">
@@ -75,7 +75,6 @@
             Твой браузер не поддерживает аудио, но ты знаешь, что здесь играет именно Mockingbird 💜
         </audio>
     </div>
-
 
     <!-- Ночной режим + Shape Of My Heart -->
     <div class="night-letter-block">
@@ -124,100 +123,6 @@
 </div>
 
 <script>
-    /* ===== ТЕМА ===== */
-</script>
-</body>
-</html>
-/* ==== МОДАЛКА С ФОТО ==== */
-
-.photo-modal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 80;
-}
-
-.photo-modal.open {
-  display: flex;
-}
-
-.photo-modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(6px);
-}
-
-.photo-modal-content {
-  position: relative;
-  z-index: 1;
-  max-width: 420px;
-  width: 90%;
-  border-radius: 24px;
-  padding: 14px 14px 12px;
-  background: radial-gradient(circle at top, rgba(248, 250, 252, 0.05), transparent 55%),
-              rgba(15, 23, 42, 0.98);
-  border: 1px solid rgba(248, 250, 252, 0.3);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
-  animation: fade-up-soft 0.25s ease-out;
-}
-
-.photo-modal-content img {
-  width: 100%;
-  border-radius: 20px;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.photo-modal-text {
-  margin: 0;
-  font-size: 12px;
-  color: #e5e7eb;
-}
-
-.photo-modal-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  border: none;
-  border-radius: 999px;
-  width: 26px;
-  height: 26px;
-  cursor: pointer;
-  background: rgba(15, 23, 42, 0.9);
-  color: #e5e7eb;
-  font-size: 14px;
-  border: 1px solid rgba(148, 163, 184, 0.7);
-}
-
-/* ==== ТОСТ-СООБЩЕНИЕ ДЛЯ ЗАМКА ==== */
-
-.secret-toast {
-  position: fixed;
-  bottom: 18px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  background: rgba(15, 23, 42, 0.96);
-  color: #e5e7eb;
-  border: 1px solid rgba(248, 250, 252, 0.3);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.22s ease-out, transform 0.22s ease-out;
-  z-index: 90;
-}
-
-.secret-toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-
     /* ===== ТЕМА ===== */
     function applyThemeFromStorage() {
         const saved = localStorage.getItem("theme");
@@ -289,8 +194,7 @@
 
     /* ===== ГАЛЕРЕЯ ФОТО ===== */
     const missPhotos = [
-        "miss-photo.jpg"
-        // можно добавить ещё файлы: "miss-photo-2.jpg", ...
+        "secret-photo.jpg"
     ];
     let currentPhoto = 0;
     function updatePhoto() {
@@ -361,7 +265,7 @@
         input.value = "";
     }
 
-    /* ===== ПЕЧАТАНИЕ ТЕКСТА ===== */
+    /* ===== ПЕЧАТАНИЕ ТЕКСТа ===== */
     const typingText = "Если ты скучаешь, знай: мысленно я всегда рядом с тобой.";
     let typingIndex = 0;
     function typeLine() {
@@ -436,7 +340,7 @@
         const img = document.getElementById("photo-modal-img");
         const main = document.getElementById("miss-main-photo");
         if (!modal || !img || !main) return;
-        img.src = main.src; // берём текущее фото (с ?v=1 тоже ок)
+        img.src = main.src;
         modal.classList.add("open");
     }
 
@@ -456,7 +360,6 @@
         }, 4000);
     }
 
-
     window.addEventListener("load", () => {
         applyThemeFromStorage();
         startBackgroundHearts();
@@ -471,23 +374,18 @@
         }
         renderMiss();
 
-        // запускаем анимации
         document.body.classList.add("page-ready");
 
-        // клики по фото -> открыть модалку
         const mainPhoto = document.getElementById("miss-main-photo");
         if (mainPhoto) {
             mainPhoto.addEventListener("click", openPhotoModal);
         }
 
-        // пасхалка на замочке
         const lock = document.querySelector(".corner-lock");
         if (lock) {
             lock.addEventListener("click", toggleSecretToast);
         }
     });
-
-    
 </script>
 </body>
 </html>

@@ -2,8 +2,9 @@ html {
     scroll-behavior: smooth;
 }
 
-/* ТЕМА */
+/* === ТЕМА (переменные) === */
 :root {
+    /* светлая (если вдруг включит) */
     --bg1: #ffdde1;
     --bg2: #ee9ca7;
     --card-bg: #ffffff;
@@ -20,24 +21,25 @@ html {
     --shadow-hover: rgba(0, 0, 0, 0.18);
 }
 
+/* Тёмная «дорогая» тема */
 body.dark {
-    --bg1: #181623;
-    --bg2: #301934;
-    --card-bg: #221b33;
-    --text-main: #f5f0ff;
-    --text-secondary: #c7bfdc;
-    --accent: #ff8fb3;
-    --accent-strong: #ffc2dd;
-    --border-soft: #ff8fb3;
-    --chip-bg: rgba(34, 27, 51, 0.96);
-    --note-bg: rgba(34, 27, 51, 0.9);
-    --list-bg: #2f223f;
-    --corner-bg: rgba(0, 0, 0, 0.8);
-    --shadow-card: rgba(0, 0, 0, 0.5);
-    --shadow-hover: rgba(0, 0, 0, 0.6);
+    --bg1: #020617;
+    --bg2: #020014;
+    --card-bg: #020617;
+    --text-main: #e5e7eb;
+    --text-secondary: #9ca3af;
+    --accent: #6366f1;
+    --accent-strong: #a855f7;
+    --border-soft: #4f46e5;
+    --chip-bg: rgba(15, 23, 42, 0.9);
+    --note-bg: rgba(15, 23, 42, 0.96);
+    --list-bg: #020617;
+    --corner-bg: rgba(15, 23, 42, 0.96);
+    --shadow-card: rgba(0, 0, 0, 0.85);
+    --shadow-hover: rgba(0, 0, 0, 0.95);
 }
 
-/* ОБЩЕЕ */
+/* === ОБЩЕЕ === */
 
 body {
     margin: 0;
@@ -116,7 +118,12 @@ body::before {
     z-index: 2;
 }
 
-/* навигация */
+/* страница "Когда скучаешь" шире */
+.container.miss-page {
+    max-width: 900px;
+}
+
+/* === НАВИГАЦИЯ === */
 
 .top-nav {
     display: flex;
@@ -151,7 +158,8 @@ body::before {
 }
 
 body.dark .nav-link:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(15, 23, 42, 0.9);
+    color: #e5e7eb;
 }
 
 .nav-active {
@@ -227,7 +235,7 @@ h2 {
     text-align: center;
 }
 
-/* музыка */
+/* музыка кнопка (если используем) */
 
 .music-btn {
     margin-top: 6px;
@@ -249,7 +257,7 @@ body.dark .music-btn {
     background: rgba(0, 0, 0, 0.25);
 }
 
-/* textarea и кнопки */
+/* === TEXTAREA И КНОПКИ === */
 
 textarea {
     width: 100%;
@@ -296,7 +304,7 @@ button[onclick="addMiss()"]:hover {
     background: #ff577e;
 }
 
-/* списки */
+/* === СПИСКИ === */
 
 ul {
     list-style: none;
@@ -395,7 +403,7 @@ body.dark .clear-btn:hover {
     text-decoration: underline;
 }
 
-/* письмо */
+/* письмо / обычный текст */
 
 .letter-text {
     font-size: 15px;
@@ -404,7 +412,7 @@ body.dark .clear-btn:hover {
     margin-bottom: 14px;
 }
 
-/* секретное фото */
+/* === СЕКРЕТНОЕ ФОТО (на главной/письме) === */
 
 .secret-block {
     margin-top: 22px;
@@ -446,7 +454,7 @@ body.dark .clear-btn:hover {
     color: var(--text-secondary);
 }
 
-/* о нас */
+/* === О НАС === */
 
 .about-block {
     margin-top: 22px;
@@ -488,41 +496,57 @@ body.dark .clear-btn:hover {
     opacity: 0.8;
 }
 
-/* блок "когда скучаешь" */
+/* === БЛОК "КОГДА СКУЧАЕШЬ" === */
 
 .miss-media {
-    margin-top: 10px;
-    margin-bottom: 14px;
+    margin-top: 18px;
 }
 
+/* рамка для детского фото с мягким свечением */
 .miss-photo-frame {
     position: relative;
-    border-radius: 18px;
+    max-width: 280px;
+    margin: 0 auto 10px;
+    border-radius: 26px;
     overflow: hidden;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
-    margin-bottom: 12px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
+    cursor: zoom-in;
 }
 
 .miss-photo-frame img {
     width: 100%;
     display: block;
-    height: 260px;
-    object-fit: cover;
+    height: auto;
+    transform: scale(1.005);
 }
 
+/* мягкое свечение */
+.miss-photo-frame::before {
+    content: "";
+    position: absolute;
+    inset: -15%;
+    background:
+      radial-gradient(circle at top, rgba(248, 250, 252, 0.16), transparent 60%),
+      radial-gradient(circle at bottom, rgba(244, 114, 182, 0.22), transparent 65%);
+    mix-blend-mode: screen;
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+/* подпись на фото */
 .miss-photo-overlay {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 10px 14px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-    color: #f8e9ff;
-    font-size: 13px;
-    display: flex;
-    align-items: flex-end;
+    inset: auto 12px 12px 12px;
+    padding: 6px 10px;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.85);
+    color: #e5e7eb;
+    font-size: 11px;
+    border: 1px solid rgba(248, 250, 252, 0.3);
+    backdrop-filter: blur(10px);
 }
 
+/* список "скучаю" */
 #missList {
     margin-top: 12px;
 }
@@ -547,7 +571,7 @@ body.dark .clear-btn:hover {
     opacity: 0;
 }
 
-/* уголок */
+/* уголок-замочек */
 
 .corner-lock {
     position: fixed;
@@ -574,9 +598,7 @@ body.dark .clear-btn:hover {
     background: #ff9bb8;
 }
 
-/* счётчик */
-
-/* СЧЁТЧИК ДНЕЙ ВМЕСТЕ */
+/* === СЧЁТЧИК ДНЕЙ ВМЕСТЕ === */
 
 .love-counter {
     text-align: center;
@@ -601,7 +623,7 @@ body.dark .clear-btn:hover {
     text-shadow: 0 0 5px rgba(255,255,255,.4);
 }
 
-/* ЭФФЕКТ ПЕЧАТАНИЯ */
+/* === ЭФФЕКТ ПЕЧАТАНИЯ === */
 
 .typing-line {
     margin-top: 6px;
@@ -620,7 +642,7 @@ body.dark .clear-btn:hover {
     61%, 100% { border-color: transparent; }
 }
 
-/* КНОПКИ ПЕРЕКЛЮЧЕНИЯ ФОТО */
+/* === КНОПКИ ПЕРЕКЛЮЧЕНИЯ ФОТО === */
 
 .photo-controls {
     display: flex;
@@ -651,20 +673,21 @@ body.dark .clear-btn:hover {
 }
 
 .photo-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.6);
-    cursor: pointer;
-    transition: transform .2s, background .2s;
+    background: rgba(148, 163, 184, 0.5);
+    display: inline-block;
+    margin: 0 3px;
+    transition: 0.18s ease-out;
 }
 
 .photo-dot.active {
-    background: var(--accent-strong);
-    transform: scale(1.4);
+    background: #a5b4fc;
+    transform: scale(1.25);
 }
 
-/* ГОЛОСОВОЕ */
+/* === ГОЛОСОВОЕ === */
 
 .voice-block {
     margin-top: 18px;
@@ -683,7 +706,38 @@ body.dark .clear-btn:hover {
     width: 100%;
 }
 
-/* НОЧНОЙ РЕЖИМ + SHAPE OF MY HEART */
+/* === БЛОК С ПЕСНЕЙ MOCKINGBIRD === */
+
+.song-block {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 65%),
+                rgba(15, 23, 42, 0.96);
+    border: 1px solid rgba(129, 140, 248, 0.7);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.9);
+}
+
+.song-block h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    color: #e5e7eb;
+}
+
+.song-text {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.song-audio {
+    width: 100%;
+    border-radius: 999px;
+    margin-bottom: 2px;
+    filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.9));
+}
+
+/* === НОЧНОЙ РЕЖИМ + SHAPE OF MY HEART === */
 
 .night-letter-block {
     margin-top: 16px;
@@ -726,7 +780,7 @@ body.night-letter::before {
     opacity: 0.25;
 }
 
-/* ЧАТ-БОТ */
+/* === ЧАТ-БОТ === */
 
 .chat-card {
     margin-top: 18px;
@@ -795,13 +849,13 @@ body.dark .chat-bubble.from-me {
     font-size: 14px;
 }
 
-/* ВЫСОТА ТЕКСТА В "МЫСЛЯХ" */
+/* высота textarea на странице мыслей, если есть */
 
 .thoughts-input {
     height: 150px;
 }
 
-/* АДАПТАЦИЯ */
+/* === АДАПТИВ === */
 
 @media (max-width: 480px) {
     body { padding: 12px; }
@@ -809,7 +863,7 @@ body.dark .chat-bubble.from-me {
     h1 { font-size: 22px; }
 }
 
-/* АНИМАЦИИ */
+/* === АНИМАЦИИ ОБЩИЕ === */
 
 @keyframes fallHeart {
     0% { transform: translateY(0) translateX(0); }
@@ -842,85 +896,8 @@ body.dark .chat-bubble.from-me {
     50% { transform: scale(1.08) translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,0.18); }
     100% { transform: scale(1) translateY(0); box-shadow: 0 3px 8px rgba(0,0,0,0.08); }
 }
-/* === Блок с песней Mockingbird === */
 
-.song-block {
-    margin-top: 16px;
-    padding: 14px 16px;
-    border-radius: 18px;
-    background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 65%),
-                rgba(15, 23, 42, 0.96);
-    border: 1px solid rgba(129, 140, 248, 0.7);
-    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.9);
-}
-
-.song-block h3 {
-    margin: 0 0 6px;
-    font-size: 16px;
-}
-
-.song-text {
-    margin: 0 0 8px;
-    font-size: 13px;
-    color: var(--text-muted, #9ca3af);
-}
-
-.song-audio {
-    width: 100%;
-    border-radius: 999px;
-    margin-bottom: 2px;
-    filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.9));
-}
-
-/* Лёгкий апгрейд для фото блока на miss-page */
-
-.miss-media {
-    margin-top: 18px;
-}
-
-.miss-photo-frame {
-    position: relative;
-    max-width: 280px;
-    margin: 0 auto 10px;
-    border-radius: 26px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
-}
-
-.miss-photo-frame img {
-    width: 100%;
-    display: block;
-    transform: scale(1.01);
-}
-
-.miss-photo-overlay {
-    position: absolute;
-    inset: auto 12px 12px 12px;
-    padding: 6px 10px;
-    border-radius: 16px;
-    background: rgba(15, 23, 42, 0.85);
-    color: #e5e7eb;
-    font-size: 11px;
-    border: 1px solid rgba(248, 250, 252, 0.3);
-    backdrop-filter: blur(10px);
-}
-
-/* Точка «активного» фото */
-.photo-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: rgba(148, 163, 184, 0.5);
-    display: inline-block;
-    margin: 0 3px;
-    transition: 0.18s ease-out;
-}
-
-.photo-dot.active {
-    background: #a5b4fc;
-    transform: scale(1.25);
-}
-/* ==== МЯГКИЕ АНИМАЦИИ ДЛЯ СТРАНИЦЫ "КОГДА СКУЧАЕШЬ" ==== */
+/* === МЯГКИЕ АНИМАЦИИ ДЛЯ СТРАНИЦЫ "КОГДА СКУЧАЕШЬ" === */
 
 @keyframes fade-up-soft {
   0% {
@@ -938,7 +915,7 @@ body.dark .chat-bubble.from-me {
   100% { opacity: 1; }
 }
 
-/* Старт анимации только когда страница готова */
+/* старт анимации только когда страница готова */
 .page-ready .miss-page .title-row {
   animation: fade-up-soft 0.6s ease-out forwards;
 }
@@ -964,7 +941,6 @@ body.dark .chat-bubble.from-me {
   animation: fade-up-soft 0.7s ease-out 0.35s forwards;
 }
 
-/* Чуть разное смещение по очереди */
 .page-ready .miss-page .voice-block { animation-delay: 0.3s; }
 .page-ready .miss-page .song-block { animation-delay: 0.38s; }
 .page-ready .miss-page .night-letter-block { animation-delay: 0.46s; }
@@ -973,62 +949,92 @@ body.dark .chat-bubble.from-me {
 .page-ready .miss-page #missInput { animation-delay: 0.68s; }
 .page-ready .miss-page #missList { animation-delay: 0.76s; }
 
-/* ==== СВЕЧЕНИЕ ВОКРУГ ДЕТСКОГО ФОТО ==== */
+/* === МОДАЛКА С ФОТО === */
 
-.miss-photo-frame {
-  position: relative;
-  max-width: 280px;
-  margin: 0 auto 10px;
-  border-radius: 26px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
-  cursor: zoom-in; /* намёк, что фото увеличивается */
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 80;
 }
 
-.miss-photo-frame img {
-  width: 100%;
-  display: block;
-  transform: scale(1.005);
+.photo-modal.open {
+  display: flex;
 }
 
-/* мягкое свечение */
-.miss-photo-frame::before {
-  content: "";
+.photo-modal-backdrop {
   position: absolute;
-  inset: -15%;
-  background:
-    radial-gradient(circle at top, rgba(248, 250, 252, 0.16), transparent 60%),
-    radial-gradient(circle at bottom, rgba(244, 114, 182, 0.22), transparent 65%);
-  mix-blend-mode: screen;
-  opacity: 0.75;
-  pointer-events: none;
-}
-
-/* уже есть overlay с текстом — чуть подчистим */
-.miss-photo-overlay {
-  position: absolute;
-  inset: auto 12px 12px 12px;
-  padding: 6px 10px;
-  border-radius: 16px;
+  inset: 0;
   background: rgba(15, 23, 42, 0.85);
-  color: #e5e7eb;
-  font-size: 11px;
+  backdrop-filter: blur(6px);
+}
+
+.photo-modal-content {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
+  width: 90%;
+  border-radius: 24px;
+  padding: 14px 14px 12px;
+  background:
+    radial-gradient(circle at top, rgba(248, 250, 252, 0.05), transparent 55%),
+    rgba(15, 23, 42, 0.98);
   border: 1px solid rgba(248, 250, 252, 0.3);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+  animation: fade-up-soft 0.25s ease-out;
 }
 
-/* точки под фото (если ещё не стилизованы) */
-.photo-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(148, 163, 184, 0.5);
-  display: inline-block;
-  margin: 0 3px;
-  transition: 0.18s ease-out;
+.photo-modal-content img {
+  width: 100%;
+  border-radius: 20px;
+  display: block;
+  margin-bottom: 8px;
 }
 
-.photo-dot.active {
-  background: #a5b4fc;
-  transform: scale(1.25);
+.photo-modal-text {
+  margin: 0;
+  font-size: 12px;
+  color: #e5e7eb;
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  border-radius: 999px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  font-size: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+}
+
+/* === ТОСТ-СООБЩЕНИЕ ДЛЯ ЗАМКА === */
+
+.secret-toast {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: rgba(15, 23, 42, 0.96);
+  color: #e5e7eb;
+  border: 1px solid rgba(248, 250, 252, 0.3);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease-out, transform 0.22s ease-out;
+  z-index: 90;
+}
+
+.secret-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
