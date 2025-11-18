@@ -58,23 +58,29 @@
     </div>
 
     <!-- Голосовое -->
-    <div class="voice-block">
-        <h3>Моё голосовое «скучаю по тебе» 🎧</h3>
-        <audio id="miss-voice" src="miss-voice.mp3" controls></audio>
-    </div>
-
+   
+ <div class="voice-block">
     <!-- Наша песня Mockingbird -->
     <div class="song-block">
-        <h3>Наша песня — Mockingbird 🖤</h3>
-        <p class="song-text">
-            Когда тебе особенно тоскливо — включи эту песню.<br>
-            Просто закрой глаза и представь, что я сижу рядом и держу тебя за руку.
-        </p>
-        <audio class="song-audio" controls preload="auto">
-            <source src="mockingbird.mp3" type="audio/mpeg" />
-            Твой браузер не поддерживает аудио, но ты знаешь, что здесь играет именно Mockingbird 💜
-        </audio>
+    <h3>Наша песня — Mockingbird 🖤</h3>
+    <p class="song-text">
+        Когда тебе особенно тоскливо — включи эту песню.  
+        Просто закрой глаза и представь, что я сижу рядом и держу тебя за руку.
+    </p>
+
+    <div class="audio-player" data-audio-id="mockingbird-audio">
+        <button type="button" class="audio-play-btn">▶</button>
+        <div class="audio-track">
+            <div class="audio-progress"></div>
+        </div>
+        <span class="audio-time" data-role="current">0:00</span>
+        <span class="audio-time-separator">/</span>
+        <span class="audio-time" data-role="duration">0:00</span>
     </div>
+
+    <audio id="mockingbird-audio" src="mockingbird.mp3" preload="metadata"></audio>
+</div>
+
 
     <!-- Ночной режим + Shape Of My Heart -->
     <div class="night-letter-block">
@@ -359,6 +365,84 @@
             toast.classList.remove("show");
         }, 4000);
     }
+    /* ==== КАСТОМНЫЙ ПЛЕЕР ==== */
+
+    function formatTime(seconds) {
+        if (!isFinite(seconds)) return "0:00";
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return m + ":" + String(s).padStart(2, "0");
+    }
+
+    function initCustomAudioPlayers() {
+        const players = document.querySelectorAll(".audio-player");
+        const allPlayers = players;
+
+        function pauseAllExcept(exceptAudioId) {
+            allPlayers.forEach(p => {
+                const id = p.dataset.audioId;
+                const a = document.getElementById(id);
+                const btn = p.querySelector(".audio-play-btn");
+                if (a && id !== exceptAudioId) {
+                    a.pause();
+                    p.classList.remove("playing");
+                    if (btn) btn.textContent = "▶";
+                }
+            });
+        }
+
+        players.forEach(player => {
+            const audioId = player.dataset.audioId;
+            const audio = document.getElementById(audioId);
+            if (!audio) return;
+
+            const playBtn = player.querySelector(".audio-play-btn");
+            const track = player.querySelector(".audio-track");
+            const progress = player.querySelector(".audio-progress");
+            const curEl = player.querySelector('[data-role="current"]');
+            const durEl = player.querySelector('[data-role="duration"]');
+
+            audio.addEventListener("loadedmetadata", () => {
+                if (durEl) durEl.textContent = formatTime(audio.duration);
+            });
+
+            audio.addEventListener("timeupdate", () => {
+                if (curEl) curEl.textContent = formatTime(audio.currentTime);
+                if (progress && audio.duration) {
+                    progress.style.width = (audio.currentTime / audio.duration * 100) + "%";
+                }
+            });
+
+            audio.addEventListener("ended", () => {
+                player.classList.remove("playing");
+                if (playBtn) playBtn.textContent = "▶";
+            });
+
+            if (playBtn) {
+                playBtn.addEventListener("click", () => {
+                    if (audio.paused) {
+                        pauseAllExcept(audioId);
+                        audio.play().catch(() => {});
+                        player.classList.add("playing");
+                        playBtn.textContent = "⏸";
+                    } else {
+                        audio.pause();
+                        player.classList.remove("playing");
+                        playBtn.textContent = "▶";
+                    }
+                });
+            }
+
+            if (track) {
+                track.addEventListener("click", (e) => {
+                    if (!audio.duration) return;
+                    const rect = track.getBoundingClientRect();
+                    const ratio = (e.clientX - rect.left) / rect.width;
+                    audio.currentTime = Math.max(0, Math.min(audio.duration, ratio * audio.duration));
+                });
+            }
+        });
+    }
 
     window.addEventListener("load", () => {
         applyThemeFromStorage();
@@ -385,6 +469,8 @@
         if (lock) {
             lock.addEventListener("click", toggleSecretToast);
         }
+                initCustomAudioPlayers();
+
     });
 </script>
 </body>
