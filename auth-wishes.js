@@ -51,6 +51,46 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
+// ===== ХЕЛПЕРЫ ДЛЯ FIRESTORE =====
+
+async function saveEntryToFirestore(collectionName, text) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        await addDoc(collection(db, collectionName), {
+            uid: user.uid,
+            email: user.email || null,
+            text,
+            createdAt: serverTimestamp()
+        });
+    } catch (e) {
+        console.error("Ошибка записи в Firestore:", e);
+    }
+}
+
+async function loadMyEntries(collectionName) {
+    const user = auth.currentUser;
+    if (!user) return [];
+
+    try {
+        const q = query(
+            collection(db, collectionName),
+            where("uid", "==", user.uid),
+            orderBy("createdAt", "desc")
+        );
+        const snap = await getDocs(q);
+        const list = [];
+        snap.forEach(docSnap => {
+            const data = docSnap.data();
+            if (data.text) list.push(data.text);
+        });
+        return list;
+    } catch (e) {
+        console.error("Ошибка чтения из Firestore:", e);
+        return [];
+    }
+}
 
 // ==== ЭЛЕМЕНТЫ АВТОРИЗАЦИИ ====
 const emailInput       = document.getElementById("emailInput");
@@ -71,9 +111,59 @@ const adminPanel     = document.getElementById("admin-panel");
 // ==== ЭЛЕМЕНТЫ ЖЕЛАНИЙ ====
 const wishInput      = document.getElementById("wishInput");
 const addWishBtn     = document.getElementById("addWishBtn");
+// привязка кнопки "добавить желание"
+addWishBtn?.addEventListener("click", addWish);
 const clearWishesBtn = document.getElementById("clearWishesBtn");
 const wishList       = document.getElementById("wishList");
 const wishCount      = document.getElementById("wishCount");
+// === ДОБАВЛЕНИЕ ЖЕЛАНИЯ С СОХРАНЕНИЕМ В FIRESTORE ===
+async function addWish() {
+    const text = wishInput.value.trim();
+    if (!text) return;
+
+    const uid = currentUser?.uid;
+    if (!uid) {
+        setAuthStatus("Войдите, чтобы сохранять свои желания 💌", "bad");
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "wishes"), {
+            text,
+            uid,
+            createdAt: Date.now()
+        });
+
+        wishInput.value = "";
+        setAuthStatus("Желание сохранено ✨", "good");
+        loadWishes(); // сразу перезагрузим список
+    } catch (err) {
+        console.error("Ошибка сохранения:", err);
+        setAuthStatus("Ошибка сохранения 💔", "bad");
+    }
+}
+// === ЗАГРУЗКА ЖЕЛАНИЙ ТЕКУЩЕГО ПОЛЬЗОВАТЕЛЯ ===
+async function loadWishes() {
+    const uid = currentUser?.uid;
+    if (!uid) return;
+
+    const q = query(
+        collection(db, "wishes"),
+        where("uid", "==", uid),
+        orderBy("createdAt", "desc")
+    );
+
+    const snap = await getDocs(q);
+    let html = "";
+    snap.forEach(doc => {
+        const w = doc.data();
+        html += `<li><span>${w.text}</span></li>`;
+    });
+
+    wishList.innerHTML = html || "<li>Пока пусто 💭</li>";
+    wishCount.textContent = snap.size;
+}
+
 
 // Текущий пользователь
 let currentUser = null;
@@ -96,6 +186,9 @@ function renderLoggedInUser(user) {
     }
 
     welcomeText.textContent = `Привет, ${user.displayName || "моя любовь"} 💖`;
+   
+    loadWishes();
+
 
 
     // Кнопка "Выйти"
