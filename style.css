@@ -994,4 +994,100 @@ body.dark .about-page .dates-list li {
 .page-ready .about-page .about-block {
     opacity: 0;
     animation: fade-up-soft 0.8s ease-out 0.2s forwards;
+    /* ==== АДМИН-ПАНЕЛЬ ==== */
+
+.admin-page h1 {
+    font-size: 24px;
+    text-align: left;
+}
+
+.admin-grid {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+@media (min-width: 900px) {
+    .admin-grid {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.admin-card {
+    flex: 1;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: var(--note-bg);
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 10px 24px var(--shadow-card);
+}
+
+.admin-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.admin-card-header h2 {
+    margin: 0;
+    font-size: 16px;
+    color: var(--text-main);
+}
+
+.admin-card-header small {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* Таблицы */
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    text-align: left;
+    color: var(--text-secondary);
+    vertical-align: top;
+}
+
+.admin-table th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-strong);
+}
+
+/* UID и обрезка текста */
+
+.badge-uid {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 11px;
+    background: rgba(15, 23, 42, 0.8);
+    color: #e5e7eb;
+    padding: 2px 6px;
+    border-radius: 999px;
+}
+
+.text-ellipsis {
+    max-width: 260px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Скрытие блоков */
+
+.hidden {
+    display: none;
+}
+
 }
