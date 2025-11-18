@@ -20,8 +20,8 @@ const firebaseConfig = {
   projectId: "asyaman-40f1f",
   storageBucket: "asyaman-40f1f.firebasestorage.app",
   messagingSenderId: "780594675672",
-  appId: "1:780594675672:web:ccd9c524a20721ba81bcad",
-  measurementId: "G-MMMTD9XENH"
+  appId: "1:780594675672:web:27766d673b4255a281bcad",
+  measurementId: "G-LBMZLEY4Y5"
 };
 
 // ТОЛЬКО ты — админ
