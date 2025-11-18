@@ -114,6 +114,11 @@ const clearWishesBtn = document.getElementById("clearWishesBtn");
 const wishList       = document.getElementById("wishList");
 const wishCount      = document.getElementById("wishCount");
 
+// ==== ЭЛЕМЕНТЫ ПАНЕЛИ НАСТРОЕК (внизу с шестерёнкой) ====
+const settingsAccountInfo   = document.getElementById("settingsAccountInfo");
+const settingsAdminSection  = document.querySelector(".settings-section--admin");
+const settingsAdminBtn      = document.getElementById("settingsAdminBtn");
+
 // ==== ПОМОЩНИК ДЛЯ UI ====
 function setAuthStatus(message, type = "") {
   if (!authStatus) return;
@@ -121,6 +126,31 @@ function setAuthStatus(message, type = "") {
   authStatus.classList.remove("good", "bad");
   if (type === "good") authStatus.classList.add("good");
   if (type === "bad")  authStatus.classList.add("bad");
+}
+
+// Обновление панели настроек (текст аккаунта + видимость админ-блока)
+function updateSettingsUI() {
+  const isAdmin = currentUser && currentUser.uid === ADMIN_UID;
+
+  if (settingsAccountInfo) {
+    if (currentUser) {
+      settingsAccountInfo.textContent =
+        currentUser.email || "Авторизованный пользователь";
+    } else {
+      settingsAccountInfo.textContent =
+        "Гость (зайди в дневник, чтобы сохранить настройки)";
+    }
+  }
+
+  if (settingsAdminSection) {
+    settingsAdminSection.style.display = isAdmin ? "block" : "none";
+  }
+
+  if (settingsAdminBtn && adminPanel) {
+    settingsAdminBtn.onclick = () => {
+      adminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+  }
 }
 
 // === ЗАГРУЗКА ЖЕЛАНИЙ ТЕКУЩЕГО ПОЛЬЗОВАТЕЛЯ ===
@@ -186,7 +216,7 @@ async function renderLoggedInUser(user) {
 
   const isAdmin = user.uid === ADMIN_UID;
 
-  // помечаем body для панели настроек и админ-секций
+  // помечаем body для возможных стилей
   if (isAdmin) {
     document.body.classList.add("is-admin");
   } else {
@@ -234,7 +264,7 @@ async function renderLoggedInUser(user) {
     privateContent.style.pointerEvents = "auto";
   }
 
-  // Админ-панель на странице (если есть блок admin-panel)
+  // Админ-панель на странице
   if (adminPanel) {
     adminPanel.style.display = isAdmin ? "block" : "none";
   }
@@ -244,7 +274,10 @@ async function renderLoggedInUser(user) {
   // Загружаем желания
   await loadWishes();
 
-  // Для админ-страниц подгружаем данные
+  // Обновляем панель настроек (текст + админ-раздел)
+  updateSettingsUI();
+
+  // Если есть таблицы для админа — подгружаем
   if (isAdmin && typeof loadAdminData === "function") {
     loadAdminData();
   }
@@ -283,6 +316,9 @@ function renderLoggedOut() {
 
   if (wishList)  wishList.innerHTML = "";
   if (wishCount) wishCount.textContent = "";
+
+  // Обновляем панель настроек
+  updateSettingsUI();
 }
 
 // ==== СЛУШАТЕЛЬ СОСТОЯНИЯ АВТОРИЗАЦИИ ====
@@ -423,3 +459,6 @@ async function loadAdminData() {
     }
   }
 }
+
+// первый вызов, пока гость
+updateSettingsUI();

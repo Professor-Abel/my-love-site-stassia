@@ -843,7 +843,13 @@
     }
 
     .settings-section--admin {
-      display: none; /* покажем из JS только админу */
+      display: none; /* покажем из CSS только админу */
+    }
+
+    /* вот это главное: когда body получает класс is-admin из auth-wishes.js,
+       секция админа в настройках становится видимой */
+    body.is-admin .settings-section--admin {
+      display: block;
     }
 
     .settings-label {
@@ -1170,7 +1176,20 @@
       const adminBtn   = document.getElementById("settingsAdminBtn");
       const accInfo    = document.getElementById("settingsAccountInfo");
 
+      function updateAccountInfo() {
+        if (!accInfo) return;
+        const u = window.__currentUser;
+        if (u && u.email) {
+          accInfo.textContent = u.email;
+        } else if (u) {
+          accInfo.textContent = "Авторизованный пользователь";
+        } else {
+          accInfo.textContent = "Гость (зайди в дневник, чтобы сохранить настройки)";
+        }
+      }
+
       function openPanel() {
+        updateAccountInfo();
         panel.classList.add("open");
         backdrop.classList.add("open");
       }
@@ -1183,6 +1202,9 @@
       fab?.addEventListener("click", openPanel);
       closeBtn?.addEventListener("click", closePanel);
       backdrop?.addEventListener("click", closePanel);
+
+      // стартовое состояние подписи
+      updateAccountInfo();
 
       // === ЯЗЫК ===
       if (langSelect) {
@@ -1209,12 +1231,6 @@
             );
           }
         });
-      }
-
-      // === ИНФО ОБ АККАУНТЕ (auth-wishes.js может положить сюда window.__currentUser) ===
-      if (accInfo && window.__currentUser) {
-        const u = window.__currentUser;
-        accInfo.textContent = u.email || "Авторизованный пользователь";
       }
 
       // === Переход к админ-панели на этой же странице ===
