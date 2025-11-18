@@ -842,3 +842,81 @@ body.dark .chat-bubble.from-me {
     50% { transform: scale(1.08) translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,0.18); }
     100% { transform: scale(1) translateY(0); box-shadow: 0 3px 8px rgba(0,0,0,0.08); }
 }
+/* === Блок с песней Mockingbird === */
+
+.song-block {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 65%),
+                rgba(15, 23, 42, 0.96);
+    border: 1px solid rgba(129, 140, 248, 0.7);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.9);
+}
+
+.song-block h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+}
+
+.song-text {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: var(--text-muted, #9ca3af);
+}
+
+.song-audio {
+    width: 100%;
+    border-radius: 999px;
+    margin-bottom: 2px;
+    filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.9));
+}
+
+/* Лёгкий апгрейд для фото блока на miss-page */
+
+.miss-media {
+    margin-top: 18px;
+}
+
+.miss-photo-frame {
+    position: relative;
+    max-width: 280px;
+    margin: 0 auto 10px;
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
+}
+
+.miss-photo-frame img {
+    width: 100%;
+    display: block;
+    transform: scale(1.01);
+}
+
+.miss-photo-overlay {
+    position: absolute;
+    inset: auto 12px 12px 12px;
+    padding: 6px 10px;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.85);
+    color: #e5e7eb;
+    font-size: 11px;
+    border: 1px solid rgba(248, 250, 252, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+/* Точка «активного» фото */
+.photo-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(148, 163, 184, 0.5);
+    display: inline-block;
+    margin: 0 3px;
+    transition: 0.18s ease-out;
+}
+
+.photo-dot.active {
+    background: #a5b4fc;
+    transform: scale(1.25);
+}
