@@ -323,7 +323,7 @@ function storageKey() {
     return currentUser ? `wishes_${currentUser.uid}` : null;
 }
 
-function loadWishes() {
+
     const key = storageKey();
     if (!key) {
         wishList.innerHTML = "";
