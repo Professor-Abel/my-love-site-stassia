@@ -1253,5 +1253,192 @@ body.dark .about-page .dates-list li {
     right: 14px;
   }
 }
+/* ==== ПЛАВАЮЩАЯ КНОПКА НАСТРОЕК ==== */
+
+.settings-fab {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 60;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(248, 250, 252, 0.25);
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.15), transparent 55%),
+              rgba(15, 23, 42, 0.96);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out;
+}
+
+.settings-fab-icon {
+  font-size: 20px;
+}
+
+.settings-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.95);
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.22), transparent 55%),
+              rgba(15, 23, 42, 0.98);
+}
+
+/* ==== ПОДЛОЖКА ПОД ПАНЕЛЬ ==== */
+
+.settings-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out;
+  z-index: 55;
+}
+
+.settings-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==== ПАНЕЛЬ НАСТРОЕК ==== */
+
+.settings-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  width: min(340px, calc(100% - 32px));
+  padding: 14px 14px 12px;
+  border-radius: 22px;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
+              rgba(15, 23, 42, 0.98);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.98);
+  color: #e5e7eb;
+  font-size: 13px;
+  z-index: 65;
+  transform: translateY(16px) scale(0.97);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease-out, transform 0.22s ease-out;
+}
+
+.settings-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.settings-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.settings-close {
+  border: none;
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid rgba(148, 163, 184, 0.75);
+}
+
+/* блоки внутри панели */
+
+.settings-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.settings-section--border {
+  border-top: 1px solid rgba(148, 163, 184, 0.4);
+  margin-top: 4px;
+  padding-top: 8px;
+}
+
+.settings-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.settings-sub {
+  font-size: 11px;
+  opacity: 0.8;
+  text-align: right;
+}
+
+/* селект языка */
+
+.settings-select {
+  min-width: 110px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+/* кнопки-чипы */
+
+.settings-chip {
+  border-radius: 999px;
+  border: 1px solid rgba(129, 140, 248, 0.9);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  font-size: 12px;
+  padding: 4px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.settings-chip--danger {
+  border-color: rgba(248, 113, 113, 0.9);
+  color: #fecaca;
+}
+
+/* секция для админа */
+
+.settings-section--admin {
+  border-top: 1px dashed rgba(248, 113, 113, 0.7);
+  margin-top: 4px;
+  padding-top: 8px;
+  display: none; /* по умолчанию скрыта */
+}
+
+/* когда пользователь — админ (класс навешиваем из JS) */
+body.is-admin .settings-section--admin {
+  display: flex;
+}
+
+/* адаптация под мобилку */
+
+@media (max-width: 600px) {
+  .settings-panel {
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 16px) scale(0.97);
+  }
+  .settings-panel.open {
+    transform: translate(-50%, 0) scale(1);
+  }
+}
 
 }

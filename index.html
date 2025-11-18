@@ -921,6 +921,117 @@
     </div>
   </div>
 </div>
+<!-- === ПЛАВАЮЩАЯ КНОПКА НАСТРОЕК + ПАНЕЛЬ === -->
+
+<button id="settingsFab" class="settings-fab" aria-label="Настройки">
+  <span class="settings-fab-icon">⚙</span>
+</button>
+
+<div id="settingsBackdrop" class="settings-backdrop"></div>
+
+<div id="settingsPanel" class="settings-panel">
+  <div class="settings-header">
+    <div class="settings-title">Настройки</div>
+    <button class="settings-close" id="settingsClose" aria-label="Закрыть">✕</button>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-label">Язык сайта</div>
+    <select id="settingsLang" class="settings-select">
+      <option value="ru">Русский</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-label">Тёмная тема</div>
+    <button id="settingsThemeToggle" class="settings-chip">
+      Переключить
+    </button>
+  </div>
+
+  <div class="settings-section settings-section--border">
+    <div class="settings-label">Аккаунт</div>
+    <div class="settings-sub" id="settingsAccountInfo">
+      Гость (зайди в дневник, чтобы сохранить настройки)
+    </div>
+  </div>
+
+  <div class="settings-section settings-section--admin">
+    <div class="settings-label">Админ-панель</div>
+    <button id="settingsAdminBtn" class="settings-chip settings-chip--danger">
+      Открыть
+    </button>
+  </div>
+</div>
+
+<!-- Скрипт настроек (после auth-wishes.js) -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fab        = document.getElementById("settingsFab");
+    const panel      = document.getElementById("settingsPanel");
+    const backdrop   = document.getElementById("settingsBackdrop");
+    const closeBtn   = document.getElementById("settingsClose");
+    const langSelect = document.getElementById("settingsLang");
+    const themeBtn   = document.getElementById("settingsThemeToggle");
+    const adminBtn   = document.getElementById("settingsAdminBtn");
+    const accInfo    = document.getElementById("settingsAccountInfo");
+
+    function openPanel() {
+      panel.classList.add("open");
+      backdrop.classList.add("open");
+    }
+
+    function closePanel() {
+      panel.classList.remove("open");
+      backdrop.classList.remove("open");
+    }
+
+    fab?.addEventListener("click", openPanel);
+    closeBtn?.addEventListener("click", closePanel);
+    backdrop?.addEventListener("click", closePanel);
+
+    // === ЯЗЫК ===
+    if (langSelect) {
+      const savedLang = localStorage.getItem("siteLang") || "ru";
+      langSelect.value = savedLang;
+
+      langSelect.addEventListener("change", () => {
+        localStorage.setItem("siteLang", langSelect.value);
+        // позже сюда добавим реальный перевод
+      });
+    }
+
+    // === ТЕМА ===
+    if (themeBtn) {
+      themeBtn.addEventListener("click", () => {
+        if (typeof toggleTheme === "function") {
+          toggleTheme();
+        } else {
+          document.body.classList.toggle("dark");
+          localStorage.setItem(
+            "theme",
+            document.body.classList.contains("dark") ? "dark" : "light"
+          );
+        }
+      });
+    }
+
+    // === ИНФО ОБ АККАУНТЕ ===
+    // auth-wishes.js будет класть данные в window.__currentUser
+    if (accInfo && window.__currentUser) {
+      const u = window.__currentUser;
+      accInfo.textContent = u.email || "Авторизованный пользователь";
+    }
+
+    // === АДМИНКА ===
+    if (adminBtn) {
+      adminBtn.addEventListener("click", () => {
+        window.location.href = "admin.html";
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
