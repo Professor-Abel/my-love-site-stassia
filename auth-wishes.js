@@ -1,7 +1,7 @@
 // auth-wishes.js
 // Авторизация (Firebase) + логика желаний (localStorage)
 
-// ==== ИМПОРТЫ ====
+// ==== ИМПОРТЫ ИЗ FIREBASE (CDN) ====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import {
     getAuth,
@@ -13,16 +13,27 @@ import {
     signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-import { firebaseConfig, ADMIN_UID } from "./firebase-config.js?v=2";
+// ==== ТВОЙ КОНФИГ FIREBASE (ВСТАВЬ СВОЙ!) ====
+// Скопируй из Firebase: Настройки проекта → Общие → Web-приложение (значок </>
+const firebaseConfig = {
+    apiKey: "AIzaSyCbg08b96hAGU3kwvkjsv1x1Is-879Mbgc",
+    authDomain: "asyaman-40f1f.firebaseapp.com",
+    projectId: "asyaman-40f1f",
+    storageBucket: "asyaman-40f1f.appspot.com",
+    messagingSenderId: "780594675672",
+    appId: "1:780594675672:web:ccd9c524a20721ba81bcad",
+    measurementId: "G-MMMTD9XENH",
+};
+
+// ТОЛЬКО ты — админ
+const ADMIN_UID = "QgvеUKbsJLU0A3oehvXgTEbTg1S2";
 
 // ==== ИНИЦИАЛИЗАЦИЯ FIREBASE ====
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// ==== ЭЛЕМЕНТЫ ИЗ HTML ====
-
-// авторизация
+// ==== ЭЛЕМЕНТЫ АВТОРИЗАЦИИ ====
 const emailInput       = document.getElementById("emailInput");
 const passwordInput    = document.getElementById("passwordInput");
 const emailRegisterBtn = document.getElementById("emailRegisterBtn");
@@ -32,23 +43,22 @@ const googleBtn        = document.getElementById("googleBtn");
 const welcomeText  = document.getElementById("welcome-text");
 const authArea     = document.getElementById("auth-area");
 const authStatus   = document.getElementById("auth-status");
-const authForm     = document.querySelector(".auth-form");  // <— добавили
+const authForm     = document.querySelector(".auth-form");
 
 const privateContent = document.getElementById("private-content");
 const adminPanel     = document.getElementById("admin-panel");
 
-// желания
+// ==== ЭЛЕМЕНТЫ ЖЕЛАНИЙ ====
 const wishInput      = document.getElementById("wishInput");
 const addWishBtn     = document.getElementById("addWishBtn");
 const clearWishesBtn = document.getElementById("clearWishesBtn");
 const wishList       = document.getElementById("wishList");
 const wishCount      = document.getElementById("wishCount");
 
-// текущий пользователь
+// Текущий пользователь
 let currentUser = null;
 
 // ==== ПОМОЩНИКИ ДЛЯ UI ====
-
 function setAuthStatus(message, type = "") {
     if (!authStatus) return;
     authStatus.textContent = message || "";
@@ -61,28 +71,19 @@ function setAuthStatus(message, type = "") {
 function renderLoggedInUser(user) {
     currentUser = user;
 
-    // Текст приветствия
-    if (welcomeText) {
-        welcomeText.textContent = `Привет, ${user.displayName || user.email || "моя любовь"} 💖`;
+    welcomeText.textContent = `Привет, ${user.displayName || "моя любовь"} 💖`;
+
+    // Кнопка "Выйти"
+    authArea.innerHTML = `<button class="btn btn-outline" id="logout-btn">Выйти</button>`;
+    const logoutBtn = document.getElementById("logout-btn");
+    if (logoutBtn) {
+        logoutBtn.onclick = () => signOut(auth);
     }
 
-    // Кнопка "Выйти" вместо кнопки "Войти"
-    if (authArea) {
-        authArea.innerHTML = `
-            <button class="btn btn-outline" id="logout-btn">Выйти</button>
-        `;
-        const logoutBtn = document.getElementById("logout-btn");
-        if (logoutBtn) {
-            logoutBtn.onclick = () => signOut(auth);
-        }
-    }
+    // Скрываем форму логина
+    if (authForm) authForm.style.display = "none";
 
-    // 🔥 Скрываем форму авторизации целиком
-    if (authForm) {
-        authForm.style.display = "none";
-    }
-
-    // Открываем контент с желаниями
+    // Открываем блок желаний
     if (privateContent) {
         privateContent.style.opacity = "1";
         privateContent.style.pointerEvents = "auto";
@@ -90,16 +91,12 @@ function renderLoggedInUser(user) {
 
     // Админ-панель только для твоего UID
     if (adminPanel) {
-        if (user.uid === ADMIN_UID) {
-            adminPanel.style.display = "block";
-        } else {
-            adminPanel.style.display = "none";
-        }
+        adminPanel.style.display = user.uid === ADMIN_UID ? "block" : "none";
     }
 
     setAuthStatus("Ты в системе, можешь писать желания 💌", "good");
 
-    // Обновляем список желаний для этого пользователя
+    // Загружаем желания для этого пользователя
     loadWishes();
 }
 
@@ -107,45 +104,32 @@ function renderLoggedInUser(user) {
 function renderLoggedOut() {
     currentUser = null;
 
-    if (welcomeText) {
-        welcomeText.textContent = "Ты ещё не вошла в систему 💔";
-    }
+    welcomeText.textContent = "Ты ещё не вошла в систему 💔";
 
-    // В auth-area ничего не рисуем (кнопки уже есть под формой),
-    // оставим пустым, чтобы не путать
-    if (authArea) {
-        authArea.innerHTML = "";
-    }
+    // Убираем кнопки
+    authArea.innerHTML = "";
 
-    // 🔥 Показываем форму обратно
-    if (authForm) {
-        authForm.style.display = "block";
-    }
+    // Показываем форму
+    if (authForm) authForm.style.display = "block";
 
-    // Закрываем контент с желаниями
+    // Закрываем блок желаний
     if (privateContent) {
         privateContent.style.opacity = "0.3";
         privateContent.style.pointerEvents = "none";
     }
 
     // Скрываем админ-панель
-    if (adminPanel) {
-        adminPanel.style.display = "none";
-    }
+    if (adminPanel) adminPanel.style.display = "none";
 
     setAuthStatus("Войди, чтобы мы могли сохранить твои желания 🫶", "bad");
 
-    // Чистим список (на всякий случай, чтобы не светились чужие данные)
-    if (wishList) {
-        wishList.innerHTML = "";
-    }
-    if (wishCount) {
-        wishCount.textContent = "";
-    }
+    wishList.innerHTML = "";
+    wishCount.textContent = "";
 }
 
 // ==== СЛУШАТЕЛЬ СОСТОЯНИЯ АВТОРИЗАЦИИ ====
 onAuthStateChanged(auth, (user) => {
+    console.log("auth state changed. user =", user);
     if (user) {
         renderLoggedInUser(user);
     } else {
@@ -219,8 +203,8 @@ function storageKey() {
 function loadWishes() {
     const key = storageKey();
     if (!key) {
-        if (wishList) wishList.innerHTML = "";
-        if (wishCount) wishCount.textContent = "";
+        wishList.innerHTML = "";
+        wishCount.textContent = "";
         return;
     }
 
@@ -240,8 +224,6 @@ function saveWishes(wishes) {
 }
 
 function renderWishesList(wishes) {
-    if (!wishList || !wishCount) return;
-
     wishList.innerHTML = "";
 
     if (!wishes || wishes.length === 0) {
@@ -308,7 +290,7 @@ if (addWishBtn) {
     });
 }
 
-// Удаление одного желания (делегирование)
+// Удаление одного желания
 if (wishList) {
     wishList.addEventListener("click", (e) => {
         const btn = e.target.closest(".wish-remove-btn");
