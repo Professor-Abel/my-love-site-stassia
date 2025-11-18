@@ -179,9 +179,77 @@ async function addWish() {
 // ==== СОСТОЯНИЕ «ПОЛЬЗОВАТЕЛЬ ВОШЁЛ» ====
 async function renderLoggedInUser(user) {
     currentUser = user;
-    if (user.uid === ADMIN_UID) {
-    loadAdminData();
+    const isAdmin = user.uid === ADMIN_UID;
+
+    // === Обновляем профиль в Firestore ===
+    try {
+        await setDoc(
+            doc(db, "users", user.uid),
+            {
+                uid: user.uid,
+                email: user.email || null,
+                name: user.displayName || null,
+                lastLogin: serverTimestamp()
+            },
+            { merge: true }
+        );
+    } catch (e) {
+        console.error("Ошибка обновления профиля:", e);
+    }
+
+    // === UI ===
+    if (authTitle) {
+        authTitle.innerHTML = 'Наш <span>секретный дневник</span> 💫';
+    }
+
+    if (welcomeText) {
+        welcomeText.textContent = `Привет, ${user.displayName || "моя любовь"} 💖`;
+    }
+
+    // Кнопка "Выйти"
+    if (authArea) {
+        authArea.innerHTML = `<button class="btn btn-outline" id="logout-btn">Выйти</button>`;
+        const logoutBtn = document.getElementById("logout-btn");
+        if (logoutBtn) logoutBtn.onclick = () => signOut(auth);
+    }
+
+    // Прячем форму
+    if (authForm) authForm.style.display = "none";
+
+    // Открываем блок желаний
+    if (privateContent) {
+        privateContent.style.opacity = "1";
+        privateContent.style.pointerEvents = "auto";
+    }
+
+    // === Админ-панель на странице ===
+    if (adminPanel) {
+        adminPanel.style.display = isAdmin ? "block" : "none";
+    }
+
+    // === Админ-панель в настройках ===
+    if (settingsAdminSection) {
+        settingsAdminSection.style.display = isAdmin ? "block" : "none";
+    }
+    if (openAdminPanelBtn) {
+        openAdminPanelBtn.onclick = () => {
+            closeSettings();
+            if (adminPanel) adminPanel.scrollIntoView({ behavior: "smooth" });
+        };
+    }
+
+    // Статус
+    setAuthStatus("Ты в системе, можешь писать желания 💌", "good");
+
+    // Загружаем желания
+    loadWishes();
+
+    // Если нужен твой старый loadAdminData() — оставь ▼
+    if (isAdmin && typeof loadAdminData === "function") {
+        loadAdminData();
+    }
 }
+
 
 
     // сохраняем/обновляем профиль пользователя в Firestore
@@ -234,7 +302,7 @@ async function renderLoggedInUser(user) {
     setAuthStatus("Ты в системе, можешь писать желания 💌", "good");
 
     await loadWishes();
-}
+
 
 // ==== СОСТОЯНИЕ «ПОЛЬЗОВАТЕЛЬ ВЫШЕЛ» ====
 function renderLoggedOut() {

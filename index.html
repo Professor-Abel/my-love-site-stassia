@@ -876,5 +876,51 @@
 
   <!-- ВАЖНО: только один модуль -->
   <script type="module" src="auth-wishes.js?v=3"></script>
+  <!-- Кнопка настроек -->
+<button id="settings-toggle"
+        class="settings-fab"
+        type="button"
+        aria-label="Настройки">
+  ⋮
+</button>
+
+<!-- Затемнение фона -->
+<div id="settings-backdrop" class="settings-backdrop"></div>
+
+<!-- Панель настроек -->
+<div id="settings-panel" class="settings-panel">
+  <div class="settings-header">
+    <span class="settings-title">Настройки</span>
+    <button id="settings-close" class="settings-icon-btn" type="button">✕</button>
+  </div>
+
+  <div class="settings-section">
+    <label for="lang-select" class="settings-label">Язык сайта</label>
+    <select id="lang-select" class="settings-select">
+      <option value="ru">Русский</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-row">
+      <span>Тёмная тема</span>
+      <button id="settings-theme-btn" class="settings-pill-btn" type="button">
+        Переключить
+      </button>
+    </div>
+  </div>
+
+  <!-- Блок для админа (будет показываться только тебе) -->
+  <div class="settings-section settings-admin-only" id="settings-admin-section">
+    <div class="settings-row">
+      <span>Админ-панель</span>
+      <button id="open-admin-panel" class="settings-pill-btn" type="button">
+        Открыть
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
