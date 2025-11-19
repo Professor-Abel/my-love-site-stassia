@@ -630,3 +630,152 @@ h2 {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+/* ===== СТРАНИЦА ПИСЬМА ===== */
+
+.letter-page .title-row {
+  margin-bottom: 16px;
+}
+
+.letter-layout {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr);
+  gap: 22px;
+}
+
+.letter-card,
+.letter-side-card {
+  position: relative;
+  border-radius: 22px;
+  padding: 18px 18px 16px;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), transparent 55%),
+              rgba(15, 23, 42, 0.96);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  animation: aboutFadeUp 0.35s ease forwards;
+}
+
+.letter-card-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.letter-chip {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-soft);
+}
+
+.letter-paper {
+  border-radius: 18px;
+  padding: 14px 16px 16px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(148, 163, 184, 0.04)),
+    rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(248, 250, 252, 0.18);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+}
+
+.letter-paper-inner {
+  position: relative;
+}
+
+.letter-paper-inner::before {
+  content: "";
+  position: absolute;
+  inset: -14px -18px auto;
+  height: 32px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(248, 250, 252, 0.15),
+    rgba(248, 250, 252, 0.15) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.letter-line {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+}
+
+.letter-line:last-of-type {
+  margin-bottom: 14px;
+}
+
+.letter-sign {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.letter-sign-name {
+  font-family: "Pacifico", cursive;
+  font-size: 20px;
+  color: var(--accent-gold);
+}
+
+.letter-footer {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.secondary-link {
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+  position: relative;
+}
+
+.secondary-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.secondary-link:hover::after {
+  width: 100%;
+}
+
+/* боковая карточка */
+
+.letter-side-card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.letter-side-card p {
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.letter-side-card p + p {
+  margin-top: 6px;
+}
+
+/* адаптив */
+
+@media (max-width: 880px) {
+  .letter-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
