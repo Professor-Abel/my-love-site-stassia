@@ -1598,5 +1598,231 @@ body.is-admin .settings-section--admin {
   font-size: 13px;
   color: #e5e7eb;
 }
+/* ==== ОБЩИЕ ЭЛЕМЕНТЫ ДЛЯ ВНУТРЕННИХ СТРАНИЦ (МЫСЛИ / СКУЧАЕШЬ / ПИСЬМО / О НАС) ==== */
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px 0 14px;
+}
+
+.title-row h1 {
+  margin: 0;
+  font-size: clamp(26px, 3vw, 32px);
+}
+
+.lock-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.22), transparent 60%),
+              rgba(15, 23, 42, 0.98);
+  border: 1px solid rgba(248, 250, 252, 0.25);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
+}
+
+/* основной текст на внутренних страницах */
+
+.letter-text,
+.about-intro,
+.about-section p {
+  max-width: 800px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary, #e5e7eb);
+  margin-bottom: 12px;
+}
+
+/* списки мыслей и "скучаю" */
+
+#thoughtList,
+#missList {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#thoughtList li,
+#missList li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(8, 5, 22, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.thought-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.thought-text small {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+/* поля ввода мыслей и "скучаю" */
+
+.thoughts-input,
+#missInput {
+  width: 100%;
+  min-height: 110px;
+  margin: 16px 0 10px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(11, 8, 27, 0.96);
+  color: #fff;
+  padding: 10px 12px;
+  font-size: 13px;
+  resize: vertical;
+  outline: none;
+}
+
+.thoughts-input:focus,
+#missInput:focus {
+  border-color: var(--accent, #ff4f9a);
+  box-shadow: 0 0 0 1px rgba(255, 79, 154, 0.5);
+}
+
+/* кнопки на внутренних страницах */
+
+button[type="button"] {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f9fafb;
+  padding: 7px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+button[type="button"]:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.8);
+}
+
+/* крестик удаления */
+
+.delete-btn {
+  padding: 0 8px;
+  min-width: 32px;
+  background: transparent;
+  border: none;
+  color: rgba(248, 113, 113, 0.9);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  color: #fecaca;
+}
+
+/* блок "когда скучаешь" */
+
+.miss-page .miss-media {
+  margin: 26px 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.miss-photo-frame {
+  position: relative;
+  max-width: 320px;
+}
+
+.miss-photo-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 26px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+}
+
+/* полноэкранное фото на miss.html */
+
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 60;
+}
+
+.photo-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.photo-modal-content {
+  position: relative;
+  max-width: min(95vw, 620px);
+}
+
+.photo-modal-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 26px;
+  display: block;
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border-radius: 999px;
+  border: none;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* тост при клике по замочку */
+
+.secret-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(15, 23, 42, 0.96);
+  color: #e5e7eb;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 80;
+  font-size: 13px;
+}
+
+.secret-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 }
