@@ -104,12 +104,30 @@
       max-width: 1100px;
     }
 
-    .top-nav {
+    /* === НОВАЯ ШАПКА === */
+
+    .site-header {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 3, 12, 0.96),
+        rgba(5, 3, 12, 0.9),
+        transparent
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 26px;
+    }
+
+    .header-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 26px;
       gap: 16px;
+      padding: 6px 4px;
     }
 
     .logo {
@@ -118,17 +136,17 @@
       color: var(--accent-gold);
       letter-spacing: 0.03em;
       display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .logo span {
-      font-size: 18px;
+      font-size: 14px;
       color: var(--text-soft);
       font-family: "Poppins", sans-serif;
     }
 
-    .nav-links {
+    .site-nav {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
@@ -157,6 +175,56 @@
       color: #fff;
       border-color: rgba(255, 255, 255, 0.2);
     }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      border-radius: 999px;
+      background: rgba(249, 250, 251, 0.95);
+    }
+
+    .nav-toggle span + span {
+      margin-top: 4px;
+    }
+
+    @media (max-width: 720px) {
+      .header-inner {
+        padding-inline: 4px;
+      }
+
+      .site-nav {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 64px;
+        padding: 8px 10px 10px;
+        border-radius: 16px;
+        background: rgba(5, 3, 12, 0.98);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .site-nav.nav-open {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    /* ====== ДАЛЬШЕ — ТВОЙ СТАРЫЙ СТИЛЬ (КАРТОЧКИ, АВТОРИЗАЦИЯ И Т.Д.) ===== */
 
     .main-grid {
       display: grid;
@@ -487,10 +555,10 @@
       color: var(--danger);
     }
 
-    /* ==== АДМИН-ПАНЕЛЬ (большой блок) ==== */
+    /* ==== АДМИН-ПАНЕЛЬ ==== */
     .admin-panel {
       margin-top: 22px;
-      display: none; /* показываем только админу из JS */
+      display: none;
       border-radius: var(--radius-xl);
       border: 1px solid var(--card-border);
       box-shadow: var(--shadow-soft);
@@ -517,9 +585,6 @@
 
     .admin-panel h2 {
       font-size: 18px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
       margin-bottom: 6px;
     }
 
@@ -843,11 +908,9 @@
     }
 
     .settings-section--admin {
-      display: none; /* покажем из CSS только админу */
+      display: none;
     }
 
-    /* вот это главное: когда body получает класс is-admin из auth-wishes.js,
-       секция админа в настройках становится видимой */
     body.is-admin .settings-section--admin {
       display: block;
     }
@@ -915,18 +978,29 @@
   <span class="floating-heart" style="left: 32%; bottom: -100px; animation-delay: 6s;">💗</span>
 
   <div class="page">
-    <header class="top-nav">
-      <div class="logo">
-        Асъяман
-        <span>наш маленький мир</span>
+    <!-- НОВЫЙ ХЕДЕР -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="logo">
+          Асъяман
+          <span>наш маленький мир</span>
+        </div>
+
+        <button class="nav-toggle" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="site-nav">
+          <!-- здесь эта страница — «Желания», поэтому она активная -->
+          <a href="index.html" class="nav-link nav-active">Желания</a>
+          <a href="thoughts.html" class="nav-link">Мысли</a>
+          <a href="miss.html" class="nav-link">Когда скучаешь</a>
+          <a href="letter.html" class="nav-link">Письмо</a>
+          <a href="about.html" class="nav-link">О нас</a>
+        </nav>
       </div>
-      <nav class="nav-links">
-        <a href="index.html" class="nav-link nav-active">Желания</a>
-        <a href="thoughts.html" class="nav-link">Мысли</a>
-        <a href="miss.html" class="nav-link">Когда скучаешь</a>
-        <a href="letter.html" class="nav-link">Письмо</a>
-        <a href="about.html" class="nav-link">О нас</a>
-      </nav>
     </header>
 
     <main class="main-grid">
@@ -1220,7 +1294,6 @@
       // === ТЕМА ===
       if (themeBtn) {
         themeBtn.addEventListener("click", () => {
-          // если будет глобальная функция toggleTheme — используем её
           if (typeof toggleTheme === "function") {
             toggleTheme();
           } else {
@@ -1241,6 +1314,16 @@
             closePanel();
             adminBlock.scrollIntoView({ behavior: "smooth", block: "start" });
           }
+        });
+      }
+
+      // === БУРГЕР-МЕНЮ ДЛЯ НАВИГАЦИИ ===
+      const navToggle = document.querySelector(".nav-toggle");
+      const siteNav   = document.querySelector(".site-nav");
+
+      if (navToggle && siteNav) {
+        navToggle.addEventListener("click", () => {
+          siteNav.classList.toggle("nav-open");
         });
       }
     });

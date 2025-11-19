@@ -11,101 +11,118 @@
 <div id="bg-hearts"></div>
 <div id="stars"></div>
 
-<div class="container miss-page">
-    <nav class="top-nav">
-        <div class="nav-links">
-            <a href="index.html" class="nav-link">Желания</a>
-            <a href="thoughts.html" class="nav-link">Мысли</a>
-            <a href="miss.html" class="nav-link nav-active">Когда скучаешь</a>
-            <a href="letter.html" class="nav-link">Письмо</a>
-<a href="about.html" class="nav-link">О нас</a>
-        </div>
-        <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-    </nav>
-
-    <div class="title-row">
-        <div class="lock-icon">🔒</div>
-        <h1>Когда ты скучаешь по мне 💫</h1>
-    </div>
-
-    <!-- Печатающаяся строка -->
-    <p id="typing-text" class="typing-line"></p>
-
-    <p class="letter-text">
-        Если тебе грустно или ты скучаешь — заходи сюда. Здесь всегда будет кусочек меня
-        и место, где ты можешь рассказать, как прошёл твой день.
-    </p>
-
-    <!-- Фото / галерея -->
-    <div class="miss-media">
-        <div class="miss-photo-frame">
-            <img id="miss-main-photo" src="secret-photo.jpg" alt="Наше детское фото" />
-            <div class="miss-photo-overlay">
-                <span id="miss-quote"></span>
+<div class="page">
+    <!-- ОБЩИЙ ХЕДЕР -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                Асъяман
+                <span>наш маленький мир</span>
             </div>
+
+            <button class="nav-toggle" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="site-nav">
+                <a href="index.html" class="nav-link">Желания</a>
+                <a href="thoughts.html" class="nav-link">Мысли</a>
+                <a href="miss.html" class="nav-link nav-active">Когда скучаешь</a>
+                <a href="letter.html" class="nav-link">Письмо</a>
+                <a href="about.html" class="nav-link">О нас</a>
+            </nav>
+
+            <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+    </header>
+
+    <!-- КОНТЕНТ СТРАНИЦЫ -->
+    <div class="container miss-page">
+        <div class="title-row">
+            <div class="lock-icon">🔒</div>
+            <h1>Когда ты скучаешь по мне 💫</h1>
         </div>
 
-        <div class="photo-controls">
-            <button type="button" class="photo-nav-btn" onclick="prevPhoto()">⟵</button>
-            <div class="photo-dots" id="photo-dots"></div>
-            <button type="button" class="photo-nav-btn" onclick="nextPhoto()">⟶</button>
-        </div>
+        <!-- Печатающаяся строка -->
+        <p id="typing-text" class="typing-line"></p>
 
-        <p class="secret-caption">
-            Когда ты будешь смотреть на это фото, просто помни:
-            где бы я ни был, частью меня я всё равно сижу здесь и думаю о тебе.
+        <p class="letter-text">
+            Если тебе грустно или ты скучаешь — заходи сюда. Здесь всегда будет кусочек меня
+            и место, где ты можешь рассказать, как прошёл твой день.
         </p>
-    </div>
 
-    <!-- Голосовое -->
-   
- <div class="voice-block">
-    <!-- Наша песня Mockingbird -->
-    <div class="song-block">
-    <h3>Наша песня — Mockingbird 🖤</h3>
-    <p class="song-text">
-        Когда тебе особенно тоскливо — включи эту песню.  
-        Просто закрой глаза и представь, что я сижу рядом и держу тебя за руку.
-    </p>
+        <!-- Фото / галерея -->
+        <div class="miss-media">
+            <div class="miss-photo-frame">
+                <img id="miss-main-photo" src="secret-photo.jpg" alt="Наше детское фото" />
+                <div class="miss-photo-overlay">
+                    <span id="miss-quote"></span>
+                </div>
+            </div>
 
-    <div class="audio-player" data-audio-id="mockingbird-audio">
-        <button type="button" class="audio-play-btn">▶</button>
-        <div class="audio-track">
-            <div class="audio-progress"></div>
+            <div class="photo-controls">
+                <button type="button" class="photo-nav-btn" onclick="prevPhoto()">⟵</button>
+                <div class="photo-dots" id="photo-dots"></div>
+                <button type="button" class="photo-nav-btn" onclick="nextPhoto()">⟶</button>
+            </div>
+
+            <p class="secret-caption">
+                Когда ты будешь смотреть на это фото, просто помни:
+                где бы я ни был, частью меня я всё равно сижу здесь и думаю о тебе.
+            </p>
         </div>
-        <span class="audio-time" data-role="current">0:00</span>
-        <span class="audio-time-separator">/</span>
-        <span class="audio-time" data-role="duration">0:00</span>
-    </div>
 
-    <audio id="mockingbird-audio" src="mockingbird.mp3" preload="metadata"></audio>
-</div>
+        <!-- Голосовое / песни -->
+        <div class="voice-block">
+            <!-- Наша песня Mockingbird -->
+            <div class="song-block">
+                <h3>Наша песня — Mockingbird 🖤</h3>
+                <p class="song-text">
+                    Когда тебе особенно тоскливо — включи эту песню.  
+                    Просто закрой глаза и представь, что я сижу рядом и держу тебя за руку.
+                </p>
 
+                <div class="audio-player" data-audio-id="mockingbird-audio">
+                    <button type="button" class="audio-play-btn">▶</button>
+                    <div class="audio-track">
+                        <div class="audio-progress"></div>
+                    </div>
+                    <span class="audio-time" data-role="current">0:00</span>
+                    <span class="audio-time-separator">/</span>
+                    <span class="audio-time" data-role="duration">0:00</span>
+                </div>
 
-    <!-- Ночной режим + Shape Of My Heart -->
-    <div class="night-letter-block">
-        <button type="button" class="night-letter-btn" onclick="toggleNightLetter()">
-            🌙 Ночной режим &amp; Shape Of My Heart
-        </button>
-        <small class="night-hint">Включи, когда хочешь максимально тихую и тёплую атмосферу.</small>
-        <audio id="night-song" src="shape-of-my-heart.mp3" preload="auto"></audio>
-    </div>
+                <audio id="mockingbird-audio" src="mockingbird.mp3" preload="metadata"></audio>
+            </div>
 
-    <!-- Чат-бот -->
-    <div class="chat-card">
-        <h3>Чат со мной 🤍</h3>
-        <div id="chatMessages" class="chat-messages"></div>
-        <div class="chat-input-row">
-            <input id="chatInput" type="text" placeholder="Напиши, о чём думаешь..." onkeydown="if(event.key==='Enter'){sendChat()}" />
-            <button type="button" onclick="sendChat()">➤</button>
+            <!-- Ночной режим + Shape Of My Heart -->
+            <div class="night-letter-block">
+                <button type="button" class="night-letter-btn" onclick="toggleNightLetter()">
+                    🌙 Ночной режим &amp; Shape Of My Heart
+                </button>
+                <small class="night-hint">Включи, когда хочешь максимально тихую и тёплую атмосферу.</small>
+                <audio id="night-song" src="shape-of-my-heart.mp3" preload="auto"></audio>
+            </div>
+
+            <!-- Чат-бот -->
+            <div class="chat-card">
+                <h3>Чат со мной 🤍</h3>
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-input-row">
+                    <input id="chatInput" type="text" placeholder="Напиши, о чём думаешь..." onkeydown="if(event.key==='Enter'){sendChat()}" />
+                    <button type="button" onclick="sendChat()">➤</button>
+                </div>
+            </div>
+
+            <h2>Твои «скучаю» мысли:</h2>
+            <textarea id="missInput" placeholder="Например: сегодня очень скучаю по тебе..."></textarea>
+            <button type="button" onclick="addMiss()">Оставить запись</button>
+
+            <ul id="missList"></ul>
         </div>
     </div>
-
-    <h2>Твои «скучаю» мысли:</h2>
-    <textarea id="missInput" placeholder="Например: сегодня очень скучаю по тебе..."></textarea>
-    <button type="button" onclick="addMiss()">Оставить запись</button>
-
-    <ul id="missList"></ul>
 </div>
 
 <div id="hearts"></div>
@@ -113,19 +130,19 @@
 
 <!-- Полноэкранное фото -->
 <div id="photo-modal" class="photo-modal">
-  <div class="photo-modal-backdrop" onclick="closePhotoModal()"></div>
-  <div class="photo-modal-content">
-    <button type="button" class="photo-modal-close" onclick="closePhotoModal()">✕</button>
-    <img id="photo-modal-img" src="secret-photo.jpg" alt="Наше детское фото" />
-    <p class="photo-modal-text">
-      Просто мы, чуть ближе. Можно смотреть на это фото и вспоминать, сколько всего впереди.
-    </p>
-  </div>
+    <div class="photo-modal-backdrop" onclick="closePhotoModal"></div>
+    <div class="photo-modal-content">
+        <button type="button" class="photo-modal-close" onclick="closePhotoModal()">✕</button>
+        <img id="photo-modal-img" src="secret-photo.jpg" alt="Наше детское фото" />
+        <p class="photo-modal-text">
+            Просто мы, чуть ближе. Можно смотреть на это фото и вспоминать, сколько всего впереди.
+        </p>
+    </div>
 </div>
 
 <!-- Скрытое сообщение при клике по замку -->
 <div id="secret-toast" class="secret-toast">
-  Настоящий секрет не на этом сайте, а между нами. 🤍
+    Настоящий секрет не на этом сайте, а между нами. 🤍
 </div>
 
 <script>
@@ -271,7 +288,7 @@
         input.value = "";
     }
 
-    /* ===== ПЕЧАТАНИЕ ТЕКСТа ===== */
+    /* ===== ПЕЧАТАНИЕ ТЕКСТА ===== */
     const typingText = "Если ты скучаешь, знай: мысленно я всегда рядом с тобой.";
     let typingIndex = 0;
     function typeLine() {
@@ -365,6 +382,7 @@
             toast.classList.remove("show");
         }, 4000);
     }
+
     /* ==== КАСТОМНЫЙ ПЛЕЕР ==== */
 
     function formatTime(seconds) {
@@ -469,8 +487,17 @@
         if (lock) {
             lock.addEventListener("click", toggleSecretToast);
         }
-                initCustomAudioPlayers();
 
+        initCustomAudioPlayers();
+
+        // Бургер-меню навигации
+        const navToggle = document.querySelector(".nav-toggle");
+        const siteNav   = document.querySelector(".site-nav");
+        if (navToggle && siteNav) {
+            navToggle.addEventListener("click", () => {
+                siteNav.classList.toggle("nav-open");
+            });
+        }
     });
 </script>
 </body>

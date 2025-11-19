@@ -11,33 +11,51 @@
 <div id="bg-hearts"></div>
 <div id="stars"></div>
 
-<div class="container">
-    <nav class="top-nav">
-        <div class="nav-links">
-            <a href="index.html" class="nav-link">Желания</a>
-            <a href="thoughts.html" class="nav-link nav-active">Мысли</a>
-            <a href="miss.html" class="nav-link">Когда скучаешь</a>
-            <a href="letter.html" class="nav-link">Письмо</a>
-            <a href="about.html" class="nav-link">О нас</a>
+<div class="page">
+    <!-- НОВЫЙ ОБЩИЙ ХЕДЕР -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                Асъяман
+                <span>наш маленький мир</span>
+            </div>
+
+            <button class="nav-toggle" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="site-nav">
+                <a href="index.html" class="nav-link">Желания</a>
+                <a href="thoughts.html" class="nav-link nav-active">Мысли</a>
+                <a href="miss.html" class="nav-link">Когда скучаешь</a>
+                <a href="letter.html" class="nav-link">Письмо</a>
+                <a href="about.html" class="nav-link">О нас</a>
+            </nav>
+
+            <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
         </div>
-        <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-    </nav>
+    </header>
 
-    <div class="title-row">
-        <div class="lock-icon">🔒</div>
-        <h1>Твои мысли и предложения 💭</h1>
+    <!-- ОСНОВНОЙ КОНТЕНТ СТРАНИЦЫ -->
+    <div class="container">
+        <div class="title-row">
+            <div class="lock-icon">🔒</div>
+            <h1>Твои мысли и предложения 💭</h1>
+        </div>
+
+        <p class="letter-text">
+            Здесь ты можешь оставить всё, что хочешь мне сказать: мысли, переживания, предложения, идеи.
+            Это наш тихий уголок для серьёзных и не очень разговоров.
+        </p>
+
+        <textarea id="thoughtInput" class="thoughts-input" placeholder="О чём ты думаешь сейчас?"></textarea>
+        <button type="button" onclick="addThought()">Добавить мысль</button>
+
+        <h2>Твои записи:</h2>
+        <ul id="thoughtList"></ul>
     </div>
-
-    <p class="letter-text">
-        Здесь ты можешь оставить всё, что хочешь мне сказать: мысли, переживания, предложения, идеи.
-        Это наш тихий уголок для серьёзных и не очень разговоров.
-    </p>
-
-    <textarea id="thoughtInput" class="thoughts-input" placeholder="О чём ты думаешь сейчас?"></textarea>
-    <button type="button" onclick="addThought()">Добавить мысль</button>
-
-    <h2>Твои записи:</h2>
-    <ul id="thoughtList"></ul>
 </div>
 
 <div id="hearts"></div>
@@ -56,6 +74,7 @@
             toggles.forEach(b => b.textContent = "🌙");
         }
     }
+
     function toggleTheme() {
         const body = document.body;
         const isDark = body.classList.toggle("dark");
@@ -78,10 +97,12 @@
         container.appendChild(h);
         setTimeout(() => h.remove(), 15000);
     }
+
     function startBackgroundHearts() {
         for (let i = 0; i < 10; i++) setTimeout(createBgHeart, i * 400);
         setInterval(createBgHeart, 1200);
     }
+
     function createStars() {
         const container = document.getElementById("stars");
         if (!container) return;
@@ -100,6 +121,7 @@
     function saveThoughts() {
         localStorage.setItem("thoughts", JSON.stringify(thoughts));
     }
+
     function renderThoughts() {
         const list = document.getElementById("thoughtList");
         list.innerHTML = "";
@@ -126,6 +148,7 @@
             list.appendChild(li);
         });
     }
+
     function addThought() {
         const input = document.getElementById("thoughtInput");
         const text = input.value.trim();
@@ -150,6 +173,15 @@
             try { thoughts = JSON.parse(saved); } catch { thoughts = []; }
         }
         renderThoughts();
+
+        // Бургер-меню
+        const navToggle = document.querySelector(".nav-toggle");
+        const siteNav   = document.querySelector(".site-nav");
+        if (navToggle && siteNav) {
+            navToggle.addEventListener("click", () => {
+                siteNav.classList.toggle("nav-open");
+            });
+        }
     });
 </script>
 </body>
