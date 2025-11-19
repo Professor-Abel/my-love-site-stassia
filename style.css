@@ -544,3 +544,89 @@ h2 {
   border-radius: 999px;
   border: none;
   backg
+/* ===== О НАС — НОВЫЙ ЛЕЙАУТ ===== */
+
+.about-page-main {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  gap: 22px;
+}
+
+.about-card-main,
+.about-card-side,
+.about-bottom-card {
+  position: relative;
+  border-radius: 22px;
+  padding: 18px 18px 16px;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), transparent 55%),
+              rgba(15, 23, 42, 0.96);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  animation: aboutFadeUp 0.4s ease forwards;
+}
+
+.about-card-side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-bottom-card {
+  margin-top: 22px;
+}
+
+.about-card-main h2:first-of-type {
+  margin-top: 0;
+}
+
+.about-card-main p + p {
+  margin-top: 6px;
+}
+
+.about-timeline-wrap {
+  margin-top: 16px;
+}
+
+.about-facts h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.about-facts ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.about-facts li::before {
+  content: "•";
+  color: var(--accent);
+  margin-right: 6px;
+}
+
+/* анимация */
+
+@keyframes aboutFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* адаптив */
+
+@media (max-width: 880px) {
+  .about-page-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
