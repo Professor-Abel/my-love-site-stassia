@@ -1173,6 +1173,58 @@
     align-items: stretch;
   }
 }
+/* ==== СЕКЦИЯ «ПИСЬМО» ==== */
+
+#letter .card-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+#letter h1 {
+  margin-bottom: 10px;
+}
+
+.letter-text {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  padding: 16px 18px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.03), rgba(15, 23, 42, 0.96)),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(148, 163, 184, 0.25),
+      rgba(148, 163, 184, 0.25) 1px,
+      transparent 1px,
+      transparent 26px
+    );
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+}
+
+/* небольшой блок-подпись, если потом захочешь добавить */
+.letter-sign {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--accent-soft);
+  text-align: right;
+}
+
+/* ==== ДОП. ПРАВКИ ДЛЯ «О НАС» ==== */
+
+#about .about-card {
+  margin-top: 0;
+}
+
+#about .about-left h2 {
+  margin-bottom: 10px;
+}
+
+#about .about-song {
+  margin-top: 10px;
+}
 
     /* === НИЖНЯЯ ПАНЕЛЬ МУЗЫКИ === */
     .music-bar {
