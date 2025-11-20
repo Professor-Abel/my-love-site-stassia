@@ -229,8 +229,10 @@ async function addWish() {
 async function renderLoggedInUser(user) {
   currentUser = user;
   window.__currentUser = user;
+document.body.classList.add("is-logged-in");
 
   const isAdmin = user.uid === ADMIN_UID;
+ 
 
   if (isAdmin) {
     document.body.classList.add("is-admin");
@@ -296,6 +298,9 @@ async function renderLoggedInUser(user) {
 function renderLoggedOut() {
   currentUser = null;
   window.__currentUser = null;
+  document.body.classList.remove("is-logged-in");
+
+  const isAdmin = false;
   document.body.classList.remove("is-admin");
 
   if (authTitle) {

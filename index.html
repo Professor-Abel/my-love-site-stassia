@@ -1014,6 +1014,16 @@
 
     .settings-chip--danger:hover {
       background: rgba(127, 29, 29, 0.9);
+      /* Когда пользователь вошёл — прячем форму логина слева */
+body.is-logged-in .auth-form {
+  display: none;
+}
+
+/* по желанию можно спрятать статус под формой, чтобы не маячил */
+body.is-logged-in #auth-status {
+  display: none;
+}
+
     }
   </style>
 </head>
