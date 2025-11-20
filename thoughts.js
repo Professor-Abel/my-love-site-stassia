@@ -1,130 +1,175 @@
 // thoughts.js
-// Логика для страницы "Мысли": localStorage + Firestore
+// Логика страницы "Мысли": localStorage + Firestore (asyaman_thoughts)
 
-// Ключ в localStorage
-const STORAGE_KEY = "asyaman_thoughts";
+const STORAGE_KEY = "thoughtsList";
 
-// Элементы
-const textarea = document.getElementById("thought-input");
-const addBtn = document.getElementById("add-thought");
-const clearBtn = document.getElementById("clear-thoughts");
-const listContainer = document.getElementById("thoughts-list");
+// ===== LOCAL STORAGE =====
 
-// ==== LOCALSTORAGE ====
-
-// Загрузка мыслей
 function loadThoughts() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
-    console.error("Ошибка чтения мыслей из localStorage:", e);
+    console.error("Ошибка чтения мыслей:", e);
     return [];
   }
 }
 
-// Сохранение мыслей
-function saveThoughts(thoughts) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(thoughts));
+function saveThoughts(list) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  } catch (e) {
+    console.error("Ошибка сохранения мыслей:", e);
+  }
 }
 
-// Рендер списка
-function renderThoughts() {
-  const thoughts = loadThoughts();
-  listContainer.innerHTML = "";
+// ===== FIRESTORE =====
+// Отправка записи в Firestore
 
-  if (thoughts.length === 0) {
-    listContainer.innerHTML =
-      `<p>Пока здесь пусто. Напиши первую мысль — я её запомню.</p>`;
+function sendThoughtToFirestore(text) {
+  if (window.saveEntryToFirestore) {
+    window.saveEntryToFirestore("asyaman_thoughts", text);
+  } else {
+    console.warn("Firebase не загружен или пользователь не авторизован");
+  }
+}
+
+// Пометить запись как удалённую в Firestore
+function markThoughtDeletedInFirestore(text) {
+  if (window.markEntryDeleted) {
+    window.markEntryDeleted("asyaman_thoughts", text);
+  }
+}
+
+
+
+// ===== РЕНДЕР СПИСКА =====
+
+function renderThoughts() {
+  const listEl = document.getElementById("thoughts-list");
+  if (!listEl) return;
+
+  const items = loadThoughts();
+  listEl.innerHTML = "";
+
+  if (!items.length) {
+    const empty = document.createElement("p");
+    empty.style.fontSize = "13px";
+    empty.style.color = "var(--text-soft)";
+    empty.textContent = "Здесь ещё пусто… но я жду твоих мыслей 💜";
+    listEl.appendChild(empty);
     return;
   }
 
-  const ul = document.createElement("ul");
-  ul.classList.add("thoughts-list");
+  items.forEach((item, index) => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "thought-item";
 
-  thoughts
-    .sort((a, b) => b.createdAt - a.createdAt)
-    .forEach(item => {
-      const li = document.createElement("li");
-      li.classList.add("thought-item");
+    const left = document.createElement("div");
 
-      const text = document.createElement("p");
-      text.textContent = item.text;
+    const text = document.createElement("div");
+    text.className = "thought-text";
+    text.textContent = item.text;
 
-      const meta = document.createElement("span");
-      const date = new Date(item.createdAt);
-      meta.textContent =
-        "Записано: " +
-        date.toLocaleString("ru-RU", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-      meta.classList.add("thought-meta");
+    const meta = document.createElement("div");
+    meta.className = "thought-meta";
+    meta.textContent = item.date;
 
-      li.appendChild(text);
-      li.appendChild(meta);
-      ul.appendChild(li);
+    left.appendChild(text);
+    left.appendChild(meta);
+
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "thought-remove-btn";
+    removeBtn.innerHTML = "✕";
+
+    removeBtn.addEventListener("click", () => {
+      const arr = loadThoughts();
+      const deleted = arr.splice(index, 1);
+
+      saveThoughts(arr);
+      renderThoughts();
+
+      // Помечаем удаление в Firestore
+      if (deleted[0] && deleted[0].text) {
+        markThoughtDeletedInFirestore(deleted[0].text);
+      }
     });
 
-  listContainer.appendChild(ul);
+    wrapper.appendChild(left);
+    wrapper.appendChild(removeBtn);
+    listEl.appendChild(wrapper);
+  });
 }
 
-// ==== FIRESTORE (через хелпер из auth-wishes.js) ====
-// Функция отправки мысли на сервер
-function saveThoughtToFirestore(text) {
-  if (window.saveEntryToFirestore) {
-    window.saveEntryToFirestore("thoughts", text);
-  } else {
-    console.warn("saveEntryToFirestore не доступен");
-  }
-}
+// ===== ДОБАВИТЬ НОВУЮ МЫСЛЬ =====
 
-// ==== ДОБАВЛЕНИЕ НОВОЙ МЫСЛИ ====
-function addThought() {
-  const value = textarea.value.trim();
+function addThought(custom = null) {
+  const textarea = document.getElementById("thought-input");
+  const value = custom || (textarea ? textarea.value.trim() : "");
+
   if (!value) return;
 
-  // 1) Сохраняем локально
-  const thoughts = loadThoughts();
-  thoughts.push({
-    text: value,
-    createdAt: Date.now(),
+  // создаём дату
+  const now = new Date();
+  const dateStr = now.toLocaleString("ru-RU", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   });
-  saveThoughts(thoughts);
 
-  // 2) Сохраняем в Firestore (если пользователь авторизован)
-  saveThoughtToFirestore(value);
+  // localStorage
+  const list = loadThoughts();
+  list.unshift({
+    text: value,
+    date: `Запись от ${dateStr}`,
+    deleted: false
+  });
 
-  // UI
-  textarea.value = "";
+  saveThoughts(list);
   renderThoughts();
+
+  if (textarea) textarea.value = "";
+
+  // Firestore
+  sendThoughtToFirestore(value);
 }
 
-// ==== ОЧИСТКА МЫСЛЕЙ ====
+// ===== ОЧИСТКА =====
+
 function clearThoughts() {
-  if (!confirm("Точно очистить все записи?")) return;
-  localStorage.removeItem(STORAGE_KEY);
+  if (!confirm("Очистить все записи? Ты не сможешь вернуть их назад.")) return;
+
+  const items = loadThoughts();
+
+  // помечаем каждую запись как deleted в Firestore
+  items.forEach((i) => {
+    if (i && i.text) markThoughtDeletedInFirestore(i.text);
+  });
+
+  // очищаем localStorage
+  saveThoughts([]);
   renderThoughts();
 }
 
-// ==== СЛУШАТЕЛИ ====
-if (addBtn && textarea) {
-  addBtn.addEventListener("click", addThought);
+// ===== ИНИЦИАЛИЗАЦИЯ =====
 
-  textarea.addEventListener("keydown", (e) => {
+document.addEventListener("DOMContentLoaded", () => {
+  const addBtn = document.getElementById("add-thought");
+  const clearBtn = document.getElementById("clear-thoughts");
+  const input = document.getElementById("thought-input");
+
+  addBtn?.addEventListener("click", () => addThought());
+  clearBtn?.addEventListener("click", () => clearThoughts());
+
+  // Ctrl + Enter
+  input?.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       addThought();
     }
   });
-}
 
-if (clearBtn) {
-  clearBtn.addEventListener("click", clearThoughts);
-}
-
-// ==== ПЕРВЫЙ РЕНДЕР ====
-document.addEventListener("DOMContentLoaded", renderThoughts);
+  renderThoughts();
+});
