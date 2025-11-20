@@ -135,137 +135,123 @@
 
     /* ====== ШАПКА / НАВИГАЦИЯ ====== */
 
-    .site-header {
-      width: 100%;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(
-        to bottom,
-        rgba(5, 3, 12, 0.96),
-        rgba(5, 3, 12, 0.9),
-        transparent
-      );
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      margin-bottom: 26px;
-    }
+    /* ===== НОВАЯ АККУРАТНАЯ ШАПКА ДЛЯ ВСЕХ СТРАНИЦ ===== */
 
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      padding: 10px 4px;
-    }
+.site-header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  margin-bottom: 26px;
 
-    .logo {
-      font-family: "Pacifico", cursive;
-      font-size: 26px;
-      color: var(--accent-gold);
-      letter-spacing: 0.03em;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+  /* главное: никаких чёрных полос */
+  background: transparent;
+  border-bottom: none;
+}
 
-    .logo span {
-      font-size: 14px;
-      color: var(--text-soft);
-      font-family: "Poppins", sans-serif;
-    }
+/* сама «плашка» с логотипом и меню */
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 18px;
 
-    .site-nav {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      position: relative;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 
-    .nav-link {
-      text-decoration: none;
-      font-size: 13px;
-      padding: 6px 18px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      color: #e5e7eb;
-      background: transparent;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 55%),
+    rgba(5, 3, 15, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(18px);
+}
 
-    .nav-link:hover {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.14);
-      color: #ffffff;
-    }
+/* логотип */
+.logo {
+  font-family: "Pacifico", cursive;
+  font-size: 26px;
+  color: #ffd56b;
+  letter-spacing: 0.03em;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
 
-    .nav-link.nav-active {
-      background: radial-gradient(circle at top, var(--accent), #ff7abf);
-      color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 12px 30px rgba(255, 79, 154, 0.6);
-    }
+.logo span {
+  font-size: 14px;
+  color: var(--text-soft);
+  font-family: "Poppins", sans-serif;
+}
 
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-      width: 30px;
-      height: 26px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      cursor: pointer;
-      padding: 0 6px;
-    }
+/* навигация справа */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-    .nav-toggle span {
-      height: 2px;
-      width: 100%;
-      background: #e5e7eb;
-      border-radius: 999px;
-    }
+/* ссылки в меню */
+.nav-link {
+  text-decoration: none;
+  padding: 8px 16px;
+  font-size: 14px;
 
-    @media (max-width: 780px) {
-      .header-inner {
-        align-items: center;
-      }
+  border-radius: 999px;
+  transition: 0.25s;
 
-      .nav-toggle {
-        display: flex;
-      }
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+}
 
-      .site-nav {
-        position: absolute;
-        top: 54px;
-        right: 4px;
-        flex-direction: column;
-        align-items: stretch;
-        background: rgba(7, 5, 18, 0.98);
-        border-radius: 18px;
-        padding: 8px;
-        border: 1px solid rgba(148, 163, 184, 0.7);
-        box-shadow: 0 18px 40px rgba(15, 23, 42, 1);
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(-6px);
-        transition: opacity 0.18s ease, transform 0.18s ease;
-      }
+.nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
 
-      .site-nav.nav-open {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-      }
+/* активная страница (розовая таблетка) */
+.nav-active {
+  background: #ff4f9a;
+  color: #fff !important;
+  box-shadow: 0 8px 22px rgba(255, 79, 154, 0.7);
+}
 
-      .nav-link {
-        display: block;
-        text-align: center;
-        width: 160px;
-      }
-    }
+/* бургер на телефоне — пока прячем */
+.nav-toggle {
+  display: none;
+}
+
+/* адаптив немного сжимаем */
+@media (max-width: 720px) {
+  .header-inner {
+    padding: 8px 12px;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .logo span {
+    font-size: 12px;
+  }
+
+  .site-nav {
+    gap: 6px;
+  }
+
+  .nav-link {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
+    
 
     /* ====== ОСНОВНОЙ КОНТЕНТ ====== */
 
