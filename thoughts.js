@@ -1,28 +1,29 @@
 // thoughts.js
-// Логика для страницы "Мысли" (localStorage)
+// Логика для страницы "Мысли": localStorage + Firestore
 
 // Ключ в localStorage
 const STORAGE_KEY = "asyaman_thoughts";
 
-// Получаем элементы
+// Элементы
 const textarea = document.getElementById("thought-input");
 const addBtn = document.getElementById("add-thought");
 const clearBtn = document.getElementById("clear-thoughts");
 const listContainer = document.getElementById("thoughts-list");
 
-// Читаем из localStorage
+// ==== LOCALSTORAGE ====
+
+// Загрузка мыслей
 function loadThoughts() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return [];
   try {
-    return JSON.parse(raw);
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
   } catch (e) {
-    console.error("Ошибка чтения мыслей из localStorage", e);
+    console.error("Ошибка чтения мыслей из localStorage:", e);
     return [];
   }
 }
 
-// Сохраняем в localStorage
+// Сохранение мыслей
 function saveThoughts(thoughts) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(thoughts));
 }
@@ -33,9 +34,8 @@ function renderThoughts() {
   listContainer.innerHTML = "";
 
   if (thoughts.length === 0) {
-    const empty = document.createElement("p");
-    empty.textContent = "Пока здесь пусто. Напиши первую мысль — я её запомню.";
-    listContainer.appendChild(empty);
+    listContainer.innerHTML =
+      `<p>Пока здесь пусто. Напиши первую мысль — я её запомню.</p>`;
     return;
   }
 
@@ -43,8 +43,8 @@ function renderThoughts() {
   ul.classList.add("thoughts-list");
 
   thoughts
-    .sort((a, b) => b.createdAt - a.createdAt) // новые сверху
-    .forEach((item) => {
+    .sort((a, b) => b.createdAt - a.createdAt)
+    .forEach(item => {
       const li = document.createElement("li");
       li.classList.add("thought-item");
 
@@ -53,14 +53,15 @@ function renderThoughts() {
 
       const meta = document.createElement("span");
       const date = new Date(item.createdAt);
-      const formatted = date.toLocaleString("ru-RU", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      meta.textContent = `Записано: ${formatted}`;
+      meta.textContent =
+        "Записано: " +
+        date.toLocaleString("ru-RU", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
       meta.classList.add("thought-meta");
 
       li.appendChild(text);
@@ -71,29 +72,45 @@ function renderThoughts() {
   listContainer.appendChild(ul);
 }
 
-// Добавление новой мысли
+// ==== FIRESTORE (через хелпер из auth-wishes.js) ====
+// Функция отправки мысли на сервер
+function saveThoughtToFirestore(text) {
+  if (window.saveEntryToFirestore) {
+    window.saveEntryToFirestore("thoughts", text);
+  } else {
+    console.warn("saveEntryToFirestore не доступен");
+  }
+}
+
+// ==== ДОБАВЛЕНИЕ НОВОЙ МЫСЛИ ====
 function addThought() {
   const value = textarea.value.trim();
   if (!value) return;
 
+  // 1) Сохраняем локально
   const thoughts = loadThoughts();
   thoughts.push({
     text: value,
     createdAt: Date.now(),
   });
   saveThoughts(thoughts);
+
+  // 2) Сохраняем в Firestore (если пользователь авторизован)
+  saveThoughtToFirestore(value);
+
+  // UI
   textarea.value = "";
   renderThoughts();
 }
 
-// Очистка всех мыслей
+// ==== ОЧИСТКА МЫСЛЕЙ ====
 function clearThoughts() {
   if (!confirm("Точно очистить все записи?")) return;
   localStorage.removeItem(STORAGE_KEY);
   renderThoughts();
 }
 
-// Слушатели
+// ==== СЛУШАТЕЛИ ====
 if (addBtn && textarea) {
   addBtn.addEventListener("click", addThought);
 
@@ -109,5 +126,5 @@ if (clearBtn) {
   clearBtn.addEventListener("click", clearThoughts);
 }
 
-// Первый рендер
+// ==== ПЕРВЫЙ РЕНДЕР ====
 document.addEventListener("DOMContentLoaded", renderThoughts);

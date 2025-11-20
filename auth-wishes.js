@@ -90,6 +90,9 @@ async function loadMyEntries(collectionName) {
     return [];
   }
 }
+// Делаем хелперы доступными на других страницах
+window.saveEntryToFirestore = saveEntryToFirestore;
+window.loadMyEntries = loadMyEntries;
 
 // ==== ЭЛЕМЕНТЫ АВТОРИЗАЦИИ ====
 const emailInput       = document.getElementById("emailInput");
