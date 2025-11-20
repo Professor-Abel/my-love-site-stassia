@@ -1474,14 +1474,10 @@
                 <span class="about-song-label">🎧 Наша песня</span>
                 <span class="about-song-name">Eminem — Mockingbird</span>
               </div>
-              <audio class="about-audio" controls preload="auto">
-                <source src="mockingbird.mp3" type="audio/mpeg" />
-              </audio>
-              <p class="about-song-note">
-                Включи эту песню, когда хочешь вернуться в то маленькое «мы», где всё только начинается.
-              </p>
-            </div>
-          </div>
+             <button class="btn btn-main" type="button" id="aboutPlayMockingbird">
+  ▶ Включить нашу песню
+</button>
+
 
           <div class="about-right">
             <div class="about-photo-frame">
@@ -1581,6 +1577,17 @@
     const navMusicBtn    = document.getElementById("navMusicBtn");
     const titleEl        = document.getElementById("musicCurrentTitle");
     const playlistBtns   = Array.from(document.querySelectorAll(".playlist-item"));
+
+        // Кнопка "Включить нашу песню" в блоке О нас
+    const aboutPlayBtn = document.getElementById("aboutPlayMockingbird");
+    if (aboutPlayBtn && navMusicBtn && musicBar && globalMusic) {
+      aboutPlayBtn.addEventListener("click", () => {
+        // открыть панель
+        musicBar.style.display = "flex";
+        // включить именно первый трек (Mockingbird, index = 0)
+        loadTrack(0, true);
+      });
+    }
 
     // сам плейлист (пути к файлам лежат рядом с index.html)
     const playlist = [
