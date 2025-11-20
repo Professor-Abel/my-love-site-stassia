@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Асъяман — наш маленький мир</title>
+  <title>Наши желания</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
@@ -56,45 +56,6 @@
       --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
       --radius-xl: 26px;
     }
-
-    body.theme-light {
-      --bg-main: radial-gradient(circle at top, #fdf5ff, #f9fafb 50%, #eef2ff 100%);
-      --card-bg: rgba(255, 255, 255, 0.96);
-      --card-border: rgba(148, 163, 184, 0.5);
-      --accent: #f973b9;
-      --accent-soft: rgba(249, 115, 185, 0.16);
-      --accent-gold: #eab308;
-      --text-main: #0f172a;
-      --text-soft: #475569;
-      --text-secondary: #111827;
-      --text-muted: #94a3b8;
-      --danger: #f97373;
-      --success: #16a34a;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.15);
-    }
-
-    body.theme-light .card-inner,
-    body.theme-light .card,
-    body.theme-light .music-bar,
-    body.theme-light .about-card {
-      backdrop-filter: blur(14px);
-    }
-
-    body.theme-light .site-header {
-      background: linear-gradient(90deg, rgba(248, 250, 252, 0.95), rgba(239, 246, 255, 0.98));
-      border-bottom-color: rgba(148, 163, 184, 0.35);
-      box-shadow: 0 12px 30px rgba(148, 163, 184, 0.35);
-    }
-
-    body.theme-light .logo span {
-      color: var(--accent);
-    }
-
-    body.theme-light .page-inner {
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.85), rgba(239, 246, 255, 0.95));
-    }
-
-
 
     * {
       box-sizing: border-box;
@@ -1566,12 +1527,9 @@
   <a href="#section-letter"   class="nav-link">Письмо</a>
   <a href="#section-about"    class="nav-link">О нас</a>
 
-  <!-- Кнопка музыки и переключатель темы справа -->
+  <!-- Кнопка музыки справа -->
   <button id="navMusicBtn" class="nav-link nav-music" type="button" title="Наш плейлист">
     🎵
-  </button>
-  <button id="themeToggleBtn" class="nav-link nav-theme" type="button" title="Сменить тему">
-    🌙
   </button>
 </nav>
 
@@ -1802,6 +1760,9 @@
  <section id="letter" class="section section-letter">
   <div class="container letter-wrapper">
     <div class="section-title">
+      <section id="letter" class="section section-letter" data-section="letter">
+  <div class="container letter-wrapper">
+    <div class="section-title">
       <h2>Письмо для тебя</h2>
       <p>Открой, когда хочешь почувствовать, как сильно я рядом.</p>
     </div>
@@ -1809,12 +1770,55 @@
     <div class="letter-card">
       <div class="letter-envelope-top">
         <div class="letter-stamp">
-          <span>А&A</span>
+          <span>A&A</span>
         </div>
         <div class="letter-tagline">
           Наш маленький секрет, только для твоих глаз
         </div>
       </div>
+
+      <div class="letter-inner">
+        <div class="letter-header">
+          <span class="letter-label">Личное письмо</span>
+          <button class="letter-toggle-btn" type="button" data-letter-toggle>
+            💌 Открыть письмо
+          </button>
+        </div>
+
+        <div class="letter-body">
+          <p>Моя нежная Анастасия,</p>
+          <p>
+            Каждый раз, когда ты открываешь эту страницу, мне кажется,
+            что между нами пропадает ещё один километр. Как будто вместо
+            расстояния — только тёплый экран и наши сердца, которые упрямо
+            тянутся друг к другу.
+          </p>
+          <p>
+            Здесь, на Асъяман, я хочу оставить всё, что не всегда могу
+            сказать вслух. Спасибо тебе за твою мягкость, за силу, с которой
+            ты проходишь через боль, и за то, что ты всё ещё веришь в нас,
+            даже когда мир вокруг будто рушится.
+          </p>
+          <p>
+            Если тебе вдруг станет тяжело или одиноко — возвращайся сюда.
+            Читай эти строки и помни: где бы я ни был, я всегда держу тебя
+            за руку, хоть иногда и невидимо.
+          </p>
+          <p class="letter-sign">
+            С любовью, навсегда твой,<br>
+            Абел
+          </p>
+        </div>
+      </div>
+
+      <div class="letter-footer-note">
+        Если захочешь, мы потом перепишем это письмо вместе — строка за строкой,
+        под твой характер и наши новые моменты.
+      </div>
+    </div>
+  </div>
+</section>
+
 
       <div class="letter-inner">
         <div class="letter-header">
@@ -1972,43 +1976,6 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-
-      // === ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ (СВЕТЛАЯ / ТЁМНАЯ) ===
-      const themeToggleBtn = document.getElementById("themeToggleBtn");
-      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-      function applyTheme(theme) {
-        if (theme === "light") {
-          document.body.classList.add("theme-light");
-          if (themeToggleBtn) themeToggleBtn.textContent = "🌙";
-        } else {
-          document.body.classList.remove("theme-light");
-          if (themeToggleBtn) themeToggleBtn.textContent = "☀️";
-        }
-      }
-
-      let savedTheme = null;
-      try {
-        savedTheme = localStorage.getItem("asyaman_theme");
-      } catch (e) {
-        savedTheme = null;
-      }
-
-      if (!savedTheme) {
-        savedTheme = "dark"; // по умолчанию тёмная тема, как ты любишь
-      }
-
-      applyTheme(savedTheme);
-
-      themeToggleBtn?.addEventListener("click", () => {
-        const isLight = document.body.classList.contains("theme-light");
-        const next = isLight ? "dark" : "light";
-        applyTheme(next);
-        try {
-          localStorage.setItem("asyaman_theme", next);
-        } catch (e) {}
-      });
-
       // === ГЛОБАЛЬНАЯ МУЗЫКА + ПЛЕЙЛИСТ ===
       const musicBar      = document.getElementById("musicBar");
       const musicBarClose = document.getElementById("musicBarClose");
