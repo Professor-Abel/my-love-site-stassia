@@ -1104,6 +1104,147 @@ body.is-logged-in #auth-status {
 }
 
     }
+    /* === КНОПКА МУЗЫКИ В ШАПКЕ === */
+.music-tab {
+  margin-left: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background:
+    radial-gradient(circle at 30% 0, rgba(255, 255, 255, 0.12), transparent 60%),
+    rgba(5, 3, 15, 0.96);
+  color: #ffd56b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  transition: 0.18s ease;
+}
+
+.music-tab:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
+}
+
+/* === ПАНЕЛЬ ПЛЕЙЛИСТА === */
+.music-panel {
+  position: fixed;
+  top: 76px;
+  right: 22px;
+  width: 320px;
+  max-width: calc(100% - 44px);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 79, 154, 0.16), transparent 60%),
+    rgba(5, 3, 15, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+  padding: 14px 14px 10px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 60;
+}
+
+.music-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.music-panel-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.music-panel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.music-panel-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  display: block;
+}
+
+.music-panel-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.music-close {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.music-close:hover {
+  color: #fff;
+}
+
+.music-player {
+  width: 100%;
+  margin: 4px 0 6px;
+}
+
+.music-playlist {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.music-item {
+  border-radius: 14px;
+  padding: 8px 10px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+  font-size: 12px;
+}
+
+.music-item:hover {
+  background: rgba(30, 64, 175, 0.9);
+  transform: translateY(-1px);
+}
+
+.music-item-title {
+  font-size: 12px;
+}
+
+.music-item-length {
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+.music-item.is-active {
+  border-color: #ff4f9a;
+  box-shadow: 0 0 0 1px rgba(255, 79, 154, 0.7);
+}
+
   </style>
 </head>
 <body>
@@ -1135,8 +1276,39 @@ body.is-logged-in #auth-status {
           <a href="letter.html" class="nav-link">Письмо</a>
           <a href="about.html" class="nav-link">О нас</a>
         </nav>
+            <nav class="site-nav">
+      <a href="index.html" class="nav-link nav-active">Желания</a>
+      <a href="thoughts.html" class="nav-link">Мысли</a>
+      <a href="miss.html" class="nav-link">Когда скучаешь</a>
+      <a href="letter.html" class="nav-link">Письмо</a>
+      <a href="about.html" class="nav-link">О нас</a>
+    </nav>
+
+    <!-- Кнопка плейлиста -->
+    <button id="musicTab" class="music-tab" aria-label="Открыть плейлист">
+      🎵
+    </button>
+
       </div>
     </header>
+      <!-- Плейлист (общая музыка для сайта) -->
+  <div id="musicPanel" class="music-panel">
+    <div class="music-panel-inner">
+      <div class="music-panel-top">
+        <div class="music-panel-title">
+          <span class="music-panel-label">Наш плейлист</span>
+          <span class="music-panel-name">Наша музыка 💜</span>
+        </div>
+        <button id="musicClose" class="music-close" aria-label="Закрыть">✕</button>
+      </div>
+
+      <audio id="musicPlayer" class="music-player" controls>
+        <source src="mockingbird.mp3" type="audio/mpeg" />
+      </audio>
+
+      <ul id="musicPlaylist" class="music-playlist"></ul>
+    </div>
+  </div>
 <div class="page-inner">
 
     <main class="main-grid">
@@ -1466,37 +1638,87 @@ body.is-logged-in #auth-status {
     });
   </script>
   <!-- Музыкальная кнопка -->
-<button id="musicFab" class="music-fab">
-  🎵
-</button>
-
-<!-- Музыкальная панель -->
-<div id="musicPanel" class="music-panel">
-  <div class="music-header">
-    <span class="music-title">Наша песня 💜</span>
-    <button id="musicClose" class="music-close">✕</button>
-  </div>
-
-  <audio id="musicPlayer" controls>
-    <source src="mockingbird.mp3" type="audio/mpeg" />
-  </audio>
-</div>
-
 <script>
-  const musicFab = document.getElementById("musicFab");
-  const musicPanel = document.getElementById("musicPanel");
-  const musicClose = document.getElementById("musicClose");
-  const musicPlayer = document.getElementById("musicPlayer");
+  document.addEventListener("DOMContentLoaded", () => {
+    const musicTab    = document.getElementById("musicTab");
+    const musicPanel  = document.getElementById("musicPanel");
+    const musicClose  = document.getElementById("musicClose");
+    const musicPlayer = document.getElementById("musicPlayer");
+    const playlistEl  = document.getElementById("musicPlaylist");
 
-  musicFab.addEventListener("click", () => {
-    musicPanel.classList.add("open");
-  });
+    // 🔊 Твой плейлист — просто меняешь / добавляешь треки здесь
+    const playlist = [
+      {
+        title: "Eminem — Mockingbird",
+        file: "mockingbird.mp3",
+        length: "4:11",
+      },
+      {
+        title: "Твой голос (сообщение)",
+        file: "miss-voice.mp3",
+        length: "0:30",
+      },
+      {
+        title: "Ещё одна наша песня",
+        file: "some-song.mp3",
+        length: "3:25",
+      },
+    ];
 
-  musicClose.addEventListener("click", () => {
-    musicPanel.classList.remove("open");
-    musicPlayer.pause();
+    let currentIndex = 0;
+
+    function renderPlaylist() {
+      playlistEl.innerHTML = "";
+      playlist.forEach((track, index) => {
+        const li = document.createElement("li");
+        li.className = "music-item";
+        if (index === currentIndex) li.classList.add("is-active");
+
+        li.innerHTML = `
+          <div class="music-item-main">
+            <span class="music-item-title">${track.title}</span>
+            <span class="music-item-length">${track.length}</span>
+          </div>
+        `;
+
+        li.addEventListener("click", () => {
+          playTrack(index);
+        });
+
+        playlistEl.appendChild(li);
+      });
+    }
+
+    function playTrack(index) {
+      currentIndex = index;
+      const track = playlist[currentIndex];
+      musicPlayer.src = track.file;
+      musicPlayer.play().catch(() => {});
+      renderPlaylist();
+    }
+
+    // открыть / закрыть панель
+    musicTab?.addEventListener("click", () => {
+      musicPanel.classList.add("open");
+    });
+
+    musicClose?.addEventListener("click", () => {
+      musicPanel.classList.remove("open");
+      musicPlayer.pause();
+    });
+
+    // авто-переход к следующему треку
+    musicPlayer.addEventListener("ended", () => {
+      const next = (currentIndex + 1) % playlist.length;
+      playTrack(next);
+    });
+
+    // запуск: первая песня
+    renderPlaylist();
+    playTrack(0);
   });
 </script>
+
 
 </body>
 </html>
