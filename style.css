@@ -896,3 +896,201 @@ body.night-letter {
 .photo-modal-close:hover {
   color: #ffffff;
 }
+/* ===== СЕКЦИЯ ПИСЬМА ===== */
+
+.section-letter {
+  padding: 80px 16px;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.06), transparent),
+              linear-gradient(135deg, #050814, #0b101c 40%, #111827);
+  color: #f9fafb;
+}
+
+.section-letter .section-title {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.section-letter .section-title h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.section-letter .section-title p {
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.letter-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.letter-card {
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  backdrop-filter: blur(18px);
+}
+
+/* Верхняя часть — как конверт */
+
+.letter-envelope-top {
+  position: relative;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #f97373, #fb7185, #fbbf24);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.letter-stamp {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  border: 2px dashed rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.letter-stamp span {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.letter-tagline {
+  font-size: 0.9rem;
+  color: #fefce8;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Внутренность письма */
+
+.letter-inner {
+  padding: 20px 22px 18px;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.05), transparent),
+              radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.9), #020617);
+}
+
+.letter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.letter-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.15);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  color: #e5e7eb;
+}
+
+.letter-toggle-btn {
+  font-size: 0.9rem;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f97373, #fb7185);
+  color: #f9fafb;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 10px 25px rgba(248, 113, 113, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.letter-toggle-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(248, 113, 113, 0.55);
+}
+
+.letter-toggle-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+}
+
+/* Сам текст письма — скрываем и плавно раскрываем */
+
+.letter-body {
+  margin-top: 8px;
+  padding: 16px 14px 18px;
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(248, 250, 252, 0.05), rgba(15, 23, 42, 0.9)),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(148, 163, 184, 0.25),
+      rgba(148, 163, 184, 0.25) 1px,
+      transparent 1px,
+      transparent 26px
+    );
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease;
+}
+
+.letter-body.open {
+  max-height: 600px; /* достаточно для текста */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.letter-body p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #e5e7eb;
+  margin-bottom: 10px;
+}
+
+.letter-body p:first-child {
+  font-weight: 500;
+}
+
+.letter-sign {
+  margin-top: 6px;
+  font-style: italic;
+  text-align: right;
+}
+
+/* Подпись/примечание внизу */
+
+.letter-footer-note {
+  padding: 10px 18px 16px;
+  font-size: 0.8rem;
+  border-top: 1px solid rgba(30, 64, 175, 0.5);
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 1));
+  color: #9ca3af;
+}
+
+/* Адаптив */
+
+@media (max-width: 640px) {
+  .letter-envelope-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .letter-card {
+    border-radius: 18px;
+  }
+
+  .letter-inner {
+    padding-inline: 16px;
+  }
+}
