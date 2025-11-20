@@ -4,30 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Наши желания</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
-    <link rel="apple-touch-icon" href="favicon-asyaman.png" />
 
-    <!-- Базовое описание сайта -->
-    <meta name="description" content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
+  <link rel="apple-touch-icon" href="favicon-asyaman.png" />
 
-    <!-- Open Graph (превью для соцсетей / мессенджеров) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Асъяман" />
-    <meta property="og:title" content="Асъяман — наш маленький мир" />
-    <meta property="og:description" content="Секретное место, где живут твои желания, мысли и наши маленькие секреты." />
-    <meta property="og:url" content="https://asyaman.com/" />
-    <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+  <!-- Базовое описание сайта -->
+  <meta name="description" content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
 
-    <!-- Превью для Twitter (X) -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Асъяман — наш маленький мир" />
-    <meta name="twitter:description" content="Наш личный уголок: желания, мысли, «когда скучаешь» и письмо только для тебя." />
-    <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Асъяман" />
+  <meta property="og:title" content="Асъяман — наш маленький мир" />
+  <meta property="og:description" content="Секретное место, где живут твои желания, мысли и наши маленькие секреты." />
+  <meta property="og:url" content="https://asyaman.com/" />
+  <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter (X) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Асъяман — наш маленький мир" />
+  <meta name="twitter:description" content="Наш личный уголок: желания, мысли, «когда скучаешь» и письмо только для тебя." />
+  <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
 
   <!-- Шрифты -->
   <link
@@ -126,6 +127,7 @@
     .page {
       width: 100%;
       max-width: 1100px;
+      margin: 0 auto;
     }
 
     /* === НОВАЯ ШАПКА === */
@@ -151,7 +153,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      padding: 6px 4px;
+      padding: 8px 4px;
     }
 
     .logo {
@@ -170,31 +172,98 @@
       font-family: "Poppins", sans-serif;
     }
 
-    <div class="site-header-wrap">
-  <header class="site-header">
-    <div class="site-brand">
-      <div class="site-brand-title">Асъяман</div>
-      <div class="site-brand-sub">наш маленький мир</div>
-    </div>
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px;
+      background: rgba(5, 3, 18, 0.9);
+      border-radius: 999px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
+    }
 
-   <nav class="site-nav">
-  <div class="nav-links">
-    <a href="index.html" class="nav-link nav-active">Желания</a>
-    <a href="thoughts.html" class="nav-link">Мысли</a>
-    <a href="miss.html" class="nav-link">Когда скучаешь</a>
-    <a href="letter.html" class="nav-link">Письмо</a>
-    <a href="about.html" class="nav-link">О нас</a>
-  </div>
+    .nav-link {
+      text-decoration: none;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      color: var(--text-soft);
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
 
-  <!-- если хочешь кнопку темы в шапке — оставь её -->
-  <!-- убери этот блок, если ты её не используешь -->
-  <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-</nav>
+    .nav-link:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.03);
+    }
 
+    .nav-link.nav-active {
+      background: linear-gradient(135deg, #ff4f9a, #ffb347);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 12px 26px rgba(255, 79, 154, 0.6);
+    }
 
+    .nav-toggle {
+      display: none;
+      width: 38px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(5, 3, 18, 0.95);
+      padding: 6px 8px;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
 
+    .nav-toggle span {
+      display: block;
+      height: 2px;
+      border-radius: 999px;
+      background: #f9fafb;
+    }
 
-    /* ====== ДАЛЬШЕ — ТВОЙ СТАРЫЙ СТИЛЬ (КАРТОЧКИ, АВТОРИЗАЦИЯ И Т.Д.) ===== */
+    @media (max-width: 720px) {
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .site-nav {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        top: 56px;
+        flex-direction: column;
+        padding: 10px 10px 8px;
+        background: rgba(5, 3, 18, 0.98);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+
+      .site-nav.nav-open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-link {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* ====== ДАЛЬШЕ — СТАРЫЙ СТИЛЬ (КАРТОЧКИ, АВТОРИЗАЦИЯ И Т.Д.) ===== */
 
     .main-grid {
       display: grid;
@@ -628,7 +697,7 @@
       color: rgba(255, 255, 255, 0.5);
     }
 
-    /* ==== О НАС / ABOUT ==== */
+    /* ==== О НАС / ABOUT (БЛОК ВНИЗУ ГЛАВНОЙ) ==== */
     .about-card {
       margin-top: 22px;
       display: grid;
@@ -963,7 +1032,6 @@
         </button>
 
         <nav class="site-nav">
-          <!-- здесь эта страница — «Желания», поэтому она активная -->
           <a href="index.html" class="nav-link nav-active">Желания</a>
           <a href="thoughts.html" class="nav-link">Мысли</a>
           <a href="miss.html" class="nav-link">Когда скучаешь</a>
@@ -1072,7 +1140,7 @@
       </section>
     </main>
 
-    <!-- Админ-панель (общая, ниже карточек) -->
+    <!-- Админ-панель -->
     <section id="admin-panel" class="admin-panel">
       <div class="admin-panel-inner">
         <h2>Админ-панель 👑</h2>
@@ -1081,7 +1149,6 @@
         </p>
 
         <div class="admin-grid">
-          <!-- таблица пользователей -->
           <section class="admin-card">
             <h3>Пользователи</h3>
             <table class="admin-table">
@@ -1099,7 +1166,6 @@
             </table>
           </section>
 
-          <!-- таблица желаний -->
           <section class="admin-card">
             <h3>Желания</h3>
             <table class="admin-table">
@@ -1208,7 +1274,7 @@
     </div>
   </div>
 
-  <!-- Скрипт настроек (после auth-wishes.js) -->
+  <!-- Скрипт настроек + бургер -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const fab        = document.getElementById("settingsFab");
@@ -1247,21 +1313,19 @@
       closeBtn?.addEventListener("click", closePanel);
       backdrop?.addEventListener("click", closePanel);
 
-      // стартовое состояние подписи
       updateAccountInfo();
 
-      // === ЯЗЫК ===
+      // язык
       if (langSelect) {
         const savedLang = localStorage.getItem("siteLang") || "ru";
         langSelect.value = savedLang;
 
         langSelect.addEventListener("change", () => {
           localStorage.setItem("siteLang", langSelect.value);
-          // позже сюда добавим реальный перевод
         });
       }
 
-      // === ТЕМА ===
+      // тема
       if (themeBtn) {
         themeBtn.addEventListener("click", () => {
           if (typeof toggleTheme === "function") {
@@ -1276,7 +1340,7 @@
         });
       }
 
-      // === Переход к админ-панели на этой же странице ===
+      // переход к админ-панели
       if (adminBtn) {
         adminBtn.addEventListener("click", () => {
           const adminBlock = document.getElementById("admin-panel");
@@ -1287,7 +1351,7 @@
         });
       }
 
-      // === БУРГЕР-МЕНЮ ДЛЯ НАВИГАЦИИ ===
+      // бургер-меню
       const navToggle = document.querySelector(".nav-toggle");
       const siteNav   = document.querySelector(".site-nav");
 
