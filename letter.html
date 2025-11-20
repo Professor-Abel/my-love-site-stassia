@@ -3,149 +3,786 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Письмо для тебя</title>
-      <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
-    <link rel="apple-touch-icon" href="favicon-asyaman.png" />
+  <title>Письмо — Асъяман</title>
 
-    <!-- Базовое описание сайта -->
-    <meta name="description" content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
+  <link rel="apple-touch-icon" href="favicon-asyaman.png" />
 
-    <!-- Open Graph (превью для соцсетей / мессенджеров) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Асъяман" />
-    <meta property="og:title" content="Асъяман — наш маленький мир" />
-    <meta property="og:description" content="Секретное место, где живут твои желания, мысли и наши маленькие секреты." />
-    <meta property="og:url" content="https://asyaman.com/" />
-    <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+  <!-- SEO / превью -->
+  <meta name="description"
+        content="Особое письмо, которое живёт только в нашем маленьком мире Асъяман." />
 
-    <!-- Превью для Twitter (X) -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Асъяман — наш маленький мир" />
-    <meta name="twitter:description" content="Наш личный уголок: желания, мысли, «когда скучаешь» и письмо только для тебя." />
-    <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Асъяман" />
+  <meta property="og:title" content="Письмо — Асъяман" />
+  <meta property="og:description"
+        content="Письмо, написанное только для тебя. Открой его, когда захочешь почувствовать меня рядом." />
+  <meta property="og:url" content="https://asyaman.com/letter.html" />
+  <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Письмо — Асъяман" />
+  <meta name="twitter:description"
+        content="Один экран, одно письмо и весь мой мир в словах для тебя." />
+  <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
+
+  <!-- Шрифты -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg-main: radial-gradient(circle at top, #2b1b3f, #05030a 55%, #050308 100%);
+      --card-bg: rgba(17, 10, 32, 0.9);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #ff4f9a;
+      --accent-soft: rgba(255, 79, 154, 0.25);
+      --accent-gold: #ffd56b;
+      --text-main: #fdf5ff;
+      --text-soft: #cbb8ff;
+      --text-secondary: #fdf5ff;
+      --text-muted: #9ca3af;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+      --radius-xl: 26px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.45;
+      z-index: -2;
+    }
+
+    body::before {
+      background: rgba(255, 79, 154, 0.65);
+      top: -120px;
+      left: -80px;
+    }
+
+    body::after {
+      background: rgba(111, 76, 255, 0.7);
+      bottom: -160px;
+      right: -120px;
+    }
+
+    .floating-heart {
+      position: fixed;
+      font-size: 16px;
+      color: #ff7fb9;
+      animation: floatUp 12s linear infinite;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.35;
+      }
+      70% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(-260px) translateX(40px);
+        opacity: 0;
+      }
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ===== ШАПКА (та же капсула, что на других страницах) ===== */
+
+    .site-header {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      margin-bottom: 26px;
+      background: transparent;
+      border-bottom: none;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 55%),
+        rgba(5, 3, 15, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(18px);
+    }
+
+    .logo {
+      font-family: "Pacifico", cursive;
+      font-size: 26px;
+      color: #ffd56b;
+      letter-spacing: 0.03em;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1;
+    }
+
+    .logo span {
+      font-size: 14px;
+      color: var(--text-soft);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      border-radius: 999px;
+      transition: 0.25s;
+      color: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-active {
+      background: #ff4f9a;
+      color: #fff !important;
+      box-shadow: 0 8px 22px rgba(255, 79, 154, 0.7);
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .header-inner {
+        padding: 8px 12px;
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      .logo span {
+        font-size: 12px;
+      }
+
+      .site-nav {
+        gap: 6px;
+      }
+
+      .nav-link {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+    }
+
+    /* ===== ПИСЬМО ===== */
+
+    .page-inner {
+      max-width: 900px;
+      margin: 26px auto 32px;
+      padding: 22px 22px 26px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 79, 154, 0.16), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.18), transparent 60%),
+        rgba(5, 3, 15, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(14px);
+    }
+
+    .letter-card {
+      background: radial-gradient(circle at top, rgba(248, 250, 252, 0.06), transparent 65%),
+                  rgba(10, 6, 25, 0.96);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 22px 22px 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 55%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.04),
+          rgba(255, 255, 255, 0.04) 1px,
+          transparent 1px,
+          transparent 7px
+        );
+      mix-blend-mode: soft-light;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .letter-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 6px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .letter-icon {
+      font-size: 20px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 18px;
+    }
+
+    .letter-meta {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .letter-meta span {
+      opacity: 0.9;
+    }
+
+    .letter-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .letter-body p {
+      margin-bottom: 12px;
+    }
+
+    .letter-body p:first-of-type {
+      margin-bottom: 16px;
+    }
+
+    .letter-body em {
+      font-style: normal;
+      color: var(--accent-gold);
+    }
+
+    .letter-line-accent {
+      font-size: 15px;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+    }
+
+    .letter-sign {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .letter-sign-name {
+      font-family: "Pacifico", cursive;
+      font-size: 22px;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .letter-postscript {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-soft);
+      border-top: 1px dashed rgba(255, 255, 255, 0.14);
+      padding-top: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .page-inner {
+        padding: 18px 14px 22px;
+      }
+
+      .letter-card {
+        padding: 18px 14px 18px;
+      }
+
+      .letter-body {
+        font-size: 13px;
+      }
+    }
+
+    footer {
+      margin-top: 14px;
+      font-size: 11px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ===== НАСТРОЙКИ (FAB + ПАНЕЛЬ) ===== */
+
+    .settings-fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.15), transparent 55%),
+                  rgba(15, 23, 42, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      z-index: 40;
+    }
+
+    .settings-fab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 1);
+      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.22), transparent 55%),
+                  rgba(15, 23, 42, 1);
+    }
+
+    .settings-fab-icon {
+      font-size: 18px;
+    }
+
+    .settings-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 30;
+    }
+
+    .settings-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .settings-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 82px;
+      width: 280px;
+      max-width: calc(100% - 44px);
+      border-radius: 22px;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.08), transparent 60%),
+                  rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      padding: 14px 14px 12px;
+      transform: translateY(16px) scale(0.97);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 50;
+    }
+
+    .settings-panel.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .settings-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .settings-close {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .settings-close:hover {
+      color: #fff;
+    }
+
+    .settings-section {
+      padding: 8px 0;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .settings-section:first-of-type {
+      border-top: none;
+    }
+
+    .settings-label {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .settings-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .settings-select {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      padding: 6px 10px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .settings-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255, 79, 154, 0.6);
+    }
+
+    .settings-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .settings-chip:hover {
+      background: rgba(31, 41, 55, 0.95);
+      transform: translateY(-1px);
+    }
+  </style>
 </head>
 <body>
-<div id="bg-hearts"></div>
-<div id="stars"></div>
+  <!-- Плавающие сердечки -->
+  <span class="floating-heart" style="left: 15%; bottom: -40px;">💗</span>
+  <span class="floating-heart" style="left: 55%; bottom: -80px; animation-delay: 2s;">💗</span>
+  <span class="floating-heart" style="left: 80%; bottom: -120px; animation-delay: 4s;">💗</span>
 
-<div class="container letter-page">
-  <nav class="top-nav">
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Желания</a>
-      <a href="thoughts.html" class="nav-link">Мысли</a>
-      <a href="miss.html" class="nav-link">Когда скучаешь</a>
-      <a href="letter.html" class="nav-link nav-active">Письмо</a>
-      <a href="about.html" class="nav-link">О нас</a>
-    </div>
-    <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  </nav>
+  <div class="page">
+    <!-- Шапка -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="logo">
+          Асъяман
+          <span>наш маленький мир</span>
+        </div>
 
-  <div class="title-row">
-    <div class="lock-icon">🔒</div>
-    <h1>Письмо для тебя 💌</h1>
+        <button class="nav-toggle" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="site-nav">
+          <a href="index.html" class="nav-link">Желания</a>
+          <a href="thoughts.html" class="nav-link">Мысли</a>
+          <a href="miss.html" class="nav-link">Когда скучаешь</a>
+          <a href="letter.html" class="nav-link nav-active">Письмо</a>
+          <a href="about.html" class="nav-link">О нас</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Письмо -->
+    <main class="page-inner">
+      <section class="letter-card">
+        <div class="letter-inner">
+          <span class="section-label">Наше письмо</span>
+
+          <div class="title-row">
+            <div class="letter-icon">💌</div>
+            <h1>Письмо, которое живёт только <span>здесь</span></h1>
+          </div>
+
+          <p class="subtitle">
+            Открой его тогда, когда хочется тепла, спокойствия и напоминания о том, что я рядом,
+            даже если мы далеко друг от друга.
+          </p>
+
+          <div class="letter-meta">
+            <span>Место: наш маленький мир — Асъяман</span>
+            <span>Статус: <em>действительно всегда</em></span>
+          </div>
+
+          <div class="letter-body">
+            <p class="letter-line-accent">
+              Моя любимая, это письмо существует только здесь — между нами и этим экраном. 💜
+            </p>
+
+            <p>
+              Я знаю, что иногда день может быть тяжёлым, мысли — беспорядочными, а настроение —
+              ускользать куда-то в сторону. В такие моменты мне важно, чтобы у тебя было место,
+              где ты можешь просто открыть страницу и почувствовать: <em>я с тобой</em>.
+            </p>
+
+            <p>
+              Каждый наш смех, каждое «доброе утро», каждое «я соскучилась» складываются внутри
+              меня в один большой мир, который называется тобой. И всё, что я делаю здесь —
+              этот сайт, эти страницы, эти слова — это лишь попытка показать тебе, как много
+              ты для меня значишь.
+            </p>
+
+            <p>
+              Мне хочется, чтобы, читая это письмо, ты чувствовала не текст, а моё присутствие:
+              как будто я сижу рядом, держу тебя за руку и спокойно говорю: «Я никуда не денусь.
+              Я здесь. С тобой. И за тебя».
+            </p>
+
+            <p>
+              Ты — не просто человек в моей жизни. Ты — то самое «домой», куда хочется возвращаться
+              снова и снова, даже если дорога длинная, а сил почти не осталось. Ты — причина,
+              по которой я продолжаю стараться, учиться, менять всё вокруг и внутри себя.
+            </p>
+
+            <p>
+              Если вдруг когда-то появится мысль, что ты недостаточно хорошая, что ты не достойна
+              чего-то или кого-то — вспомни этот момент. Кто-то сидит и пишет для тебя целый мир
+              из страниц, сайтов, мелочей и будущих планов. Просто потому что ты есть.
+            </p>
+
+            <p>
+              Я хочу идти рядом: в простых днях, в сложных периодах, в тихих вечерах и странных
+              ночах, когда не получается уснуть. И если тебе плохо — знай, что мне можно
+              «положить» любую свою тяжесть. Я выдержу. Я рядом, даже если это письмо ты открываешь
+              ночью, далеко, в тишине.
+            </p>
+
+            <p>
+              Запомни одну вещь: <em>ты — не нагрузка и не проблема</em>. Ты — мой человек.
+              И за своего человека я всегда буду держаться до последнего.
+            </p>
+
+            <div class="letter-sign">
+              <p>С теплом, заботой и бесконечным к тебе уважением,</p>
+              <div class="letter-sign-name">твой человек 💫</div>
+            </div>
+
+            <div class="letter-postscript">
+              P.S. Если вдруг снова станет грустно — просто вернись сюда.  
+              Это письмо можно перечитывать столько раз, сколько понадобится.  
+              И каждый раз я буду говорить тебе одно и то же: <em>ты не одна</em>.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        Это письмо живёт здесь столько, сколько живём мы с тобой. И никуда отсюда не исчезнет 💌
+      </footer>
+    </main>
   </div>
 
-  <p class="letter-text">
-    Я сделал этот маленький уголок только для тебя. Здесь ты можешь писать всё,
-    о чём мечтаешь, чего хочешь, что чувствуешь.
-  </p>
-  <p class="letter-text">
-    Я хочу, чтобы ты знала: каждое желание я читаю, запоминаю и по одному превращаю в свои цели.
-    Даже если мы далеко, я рядом с тобой в каждом слове, которое ты здесь оставляешь.
-  </p>
-  <p class="letter-text">
-    Спасибо тебе за то, что ты есть.
-  </p>
+  <!-- Кнопка настроек -->
+  <button id="settingsFab" class="settings-fab" aria-label="Настройки">
+    <span class="settings-fab-icon">⚙</span>
+  </button>
 
-  <a href="index.html" class="secondary-link">⬅ Вернуться к желаниям</a>
-</div>
+  <div id="settingsBackdrop" class="settings-backdrop"></div>
 
-<div id="hearts"></div>
-<div class="corner-lock">🔒 Наш маленький секрет</div>
+  <div id="settingsPanel" class="settings-panel">
+    <div class="settings-header">
+      <div class="settings-title">Настройки</div>
+      <button class="settings-close" id="settingsClose" aria-label="Закрыть">✕</button>
+    </div>
 
-<div id="secret-toast" class="secret-toast">
-  Настоящий секрет не на этом сайте, а между нами. 🤍
-</div>
+    <div class="settings-section">
+      <div class="settings-label">Язык сайта</div>
+      <select id="settingsLang" class="settings-select">
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+      </select>
+    </div>
 
-<script>
-  function applyThemeFromStorage() {
-    const saved = localStorage.getItem("theme");
-    const body = document.body;
-    const toggles = document.querySelectorAll(".theme-toggle");
-    if (saved === "dark") {
-      body.classList.add("dark");
-      toggles.forEach(b => b.textContent = "☀");
-    } else {
-      body.classList.remove("dark");
-      toggles.forEach(b => b.textContent = "🌙");
-    }
-  }
+    <div class="settings-section">
+      <div class="settings-label">Тёмная тема</div>
+      <button id="settingsThemeToggle" class="settings-chip">
+        Переключить
+      </button>
+    </div>
 
-  function toggleTheme() {
-    const body = document.body;
-    const isDark = body.classList.toggle("dark");
-    const toggles = document.querySelectorAll(".theme-toggle");
-    toggles.forEach(b => b.textContent = isDark ? "☀" : "🌙");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  }
+    <div class="settings-section">
+      <div class="settings-label">Аккаунт</div>
+      <div class="settings-sub" id="settingsAccountInfo">
+        Гость (на главной странице можно войти в дневник)
+      </div>
+    </div>
+  </div>
 
-  function createBgHeart() {
-    const container = document.getElementById("bg-hearts");
-    if (!container) return;
-    const h = document.createElement("div");
-    h.className = "bg-heart";
-    h.textContent = "💗";
-    const size = 10 + Math.random() * 10;
-    h.style.fontSize = size + "px";
-    h.style.left = Math.random() * 100 + "%";
-    h.style.animationDuration = 7 + Math.random() * 5 + "s";
-    h.style.opacity = 0.2 + Math.random() * 0.4;
-    container.appendChild(h);
-    setTimeout(() => h.remove(), 15000);
-  }
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fab        = document.getElementById("settingsFab");
+      const panel      = document.getElementById("settingsPanel");
+      const backdrop   = document.getElementById("settingsBackdrop");
+      const closeBtn   = document.getElementById("settingsClose");
+      const langSelect = document.getElementById("settingsLang");
+      const themeBtn   = document.getElementById("settingsThemeToggle");
+      const accInfo    = document.getElementById("settingsAccountInfo");
 
-  function startBackgroundHearts() {
-    for (let i = 0; i < 10; i++) setTimeout(createBgHeart, i * 400);
-    setInterval(createBgHeart, 1200);
-  }
+      function updateAccountInfo() {
+        if (!accInfo) return;
+        const u = window.__currentUser;
+        if (u && u.email) {
+          accInfo.textContent = u.email;
+        } else if (u) {
+          accInfo.textContent = "Авторизованный пользователь";
+        } else {
+          accInfo.textContent = "Гость (на главной странице можно войти в дневник)";
+        }
+      }
 
-  function createStars() {
-    const container = document.getElementById("stars");
-    if (!container) return;
-    for (let i = 0; i < 60; i++) {
-      const s = document.createElement("div");
-      s.className = "star";
-      s.style.left = Math.random() * 100 + "%";
-      s.style.top = Math.random() * 100 + "%";
-      s.style.animationDuration = (3 + Math.random() * 5) + "s";
-      s.style.animationDelay = (Math.random() * 5) + "s";
-      container.appendChild(s);
-    }
-  }
+      function openPanel() {
+        updateAccountInfo();
+        panel.classList.add("open");
+        backdrop.classList.add("open");
+      }
 
-  function toggleSecretToast() {
-    const toast = document.getElementById("secret-toast");
-    if (!toast) return;
-    toast.classList.add("show");
-    setTimeout(() => toast.classList.remove("show"), 4000);
-  }
+      function closePanel() {
+        panel.classList.remove("open");
+        backdrop.classList.remove("open");
+      }
 
-  window.addEventListener("load", () => {
-    applyThemeFromStorage();
-    startBackgroundHearts();
-    createStars();
+      fab?.addEventListener("click", openPanel);
+      closeBtn?.addEventListener("click", closePanel);
+      backdrop?.addEventListener("click", closePanel);
 
-    const lock = document.querySelector(".corner-lock");
-    if (lock) lock.addEventListener("click", toggleSecretToast);
-  });
-</script>
+      updateAccountInfo();
+
+      // Язык
+      if (langSelect) {
+        const savedLang = localStorage.getItem("siteLang") || "ru";
+        langSelect.value = savedLang;
+
+        langSelect.addEventListener("change", () => {
+          localStorage.setItem("siteLang", langSelect.value);
+        });
+      }
+
+      // Тема
+      if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+          if (typeof toggleTheme === "function") {
+            toggleTheme();
+          } else {
+            document.body.classList.toggle("dark");
+            localStorage.setItem(
+              "theme",
+              document.body.classList.contains("dark") ? "dark" : "light"
+            );
+          }
+        });
+      }
+
+      // Бургер (если захочешь потом сделать для мобилки)
+      const navToggle = document.querySelector(".nav-toggle");
+      const siteNav   = document.querySelector(".site-nav");
+
+      if (navToggle && siteNav) {
+        navToggle.addEventListener("click", () => {
+          siteNav.classList.toggle("nav-open");
+        });
+      }
+    });
+  </script>
 </body>
 </html>
