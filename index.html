@@ -1001,6 +1001,178 @@
       justify-content: center;
       font-size: 18px;
     }
+/* ==== СЕКЦИЯ «МЫСЛИ» ==== */
+
+#section-thoughts .card {
+  background:
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.16), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.15), transparent 60%),
+    var(--card-bg);
+}
+
+#section-thoughts .title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#section-thoughts .lock-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.8);
+}
+
+#section-thoughts .actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+#section-thoughts .hint {
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+/* список мыслей */
+#thoughts-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 260px;
+  padding-right: 4px;
+  overflow-y: auto;
+}
+
+.thought-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 11px;
+  border-radius: 14px;
+  background: rgba(8, 5, 22, 0.97);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.thought-text {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.thought-meta {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+.thought-remove-btn {
+  border: none;
+  background: transparent;
+  color: rgba(248, 113, 113, 0.9);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.thought-remove-btn:hover {
+  color: var(--danger);
+}
+
+/* ==== СЕКЦИЯ «КОГДА СКУЧАЕШЬ» ==== */
+
+#section-miss .card {
+  background:
+    radial-gradient(circle at top left, rgba(251, 191, 36, 0.18), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.16), transparent 60%),
+    var(--card-bg);
+}
+
+#section-miss .title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#section-miss .lock-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(24, 16, 40, 0.98);
+  border: 1px solid rgba(251, 191, 36, 0.8);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.9);
+}
+
+/* список моментов */
+#missList {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.miss-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 11px;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    rgba(251, 113, 133, 0.18),
+    rgba(56, 189, 248, 0.08)
+  );
+  border: 1px solid rgba(251, 191, 36, 0.6);
+}
+
+.miss-text {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.miss-meta {
+  font-size: 11px;
+  color: var(--text-soft);
+  margin-top: 4px;
+}
+
+.miss-remove-btn {
+  border: none;
+  background: transparent;
+  color: rgba(248, 113, 113, 0.9);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.miss-remove-btn:hover {
+  color: var(--danger);
+}
+
+@media (max-width: 720px) {
+  #section-thoughts .actions-row,
+  #section-miss .actions-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 
     /* === НИЖНЯЯ ПАНЕЛЬ МУЗЫКИ === */
     .music-bar {
@@ -1112,18 +1284,19 @@
           <span></span>
         </button>
 
-        <nav class="site-nav">
-          <a href="#wishes"  class="nav-link nav-active">Желания</a>
-          <a href="#thoughts" class="nav-link">Мысли</a>
-          <a href="#miss"     class="nav-link">Когда скучаешь</a>
-          <a href="#letter"   class="nav-link">Письмо</a>
-          <a href="#about"    class="nav-link">О нас</a>
+<nav class="site-nav">
+  <a href="#wishes"          class="nav-link nav-active">Желания</a>
+  <a href="#section-thoughts" class="nav-link">Мысли</a>
+  <a href="#section-miss"     class="nav-link">Когда скучаешь</a>
+  <a href="#section-letter"   class="nav-link">Письмо</a>
+  <a href="#section-about"    class="nav-link">О нас</a>
 
-          <!-- Кнопка музыки справа -->
-          <button id="navMusicBtn" class="nav-link nav-music" type="button" title="Наш плейлист">
-            🎵
-          </button>
-        </nav>
+  <!-- Кнопка музыки справа -->
+  <button id="navMusicBtn" class="nav-link nav-music" type="button" title="Наш плейлист">
+    🎵
+  </button>
+</nav>
+
       </div>
     </header>
 
