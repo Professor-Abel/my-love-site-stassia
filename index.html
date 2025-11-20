@@ -1536,66 +1536,241 @@
       </div>
     </header>
 
-   <main class="layout">
+  <main class="layout-root">
 
-  <!-- ЛЕВАЯ КОЛОНКА -->
+  <!-- Левая колонка: навигация и подсказки -->
   <aside class="layout-left">
-    <div class="left-inner">
+    <div class="layout-left-inner">
+      <div class="side-card">
+        <div class="side-card-title">Асъяман</div>
+        <p class="side-card-text">
+          Наш маленький мир в формате дневника. Здесь только мы двое: желания, мысли,
+          моменты, когда скучаешь, и письмо, к которому можно возвращаться.
+        </p>
+      </div>
 
-      <!-- МИНИ-ПРОФИЛЬ (аватар + имя — уже есть в карточке авторизации) -->
-      <div id="miniProfileContainer"></div>
-
-      <!-- Навигация по разделам -->
       <nav class="side-nav">
-        <button data-jump="wishes" class="side-nav-btn">💖 Желания</button>
-        <button data-jump="thoughts" class="side-nav-btn">💭 Мысли</button>
-        <button data-jump="miss" class="side-nav-btn">🥺 Когда скучаешь</button>
-        <button data-jump="letter" class="side-nav-btn">💌 Письмо</button>
-        <button data-jump="about" class="side-nav-btn">🌙 О нас</button>
+        <button class="side-nav-btn" data-jump="wishes">💖 Желания</button>
+        <button class="side-nav-btn" data-jump="section-thoughts">💭 Мысли</button>
+        <button class="side-nav-btn" data-jump="section-miss">🥺 Когда скучаешь</button>
+        <button class="side-nav-btn" data-jump="letter">💌 Письмо</button>
+        <button class="side-nav-btn" data-jump="about">🌙 О нас</button>
       </nav>
-
     </div>
   </aside>
 
-  <!-- ЦЕНТРАЛЬНАЯ ЛЕНТА (наши секции) -->
+  <!-- Центральная колонка: все основные секции (как лента) -->
   <section class="layout-center">
 
-    <!-- СЕКЦИЯ ЖЕЛАНИЙ -->
-    <section id="wishes" class="feed-card">
-      <!-- ТВОЙ СУЩЕСТВУЮЩИЙ КОД ЖЕЛАНИЙ — не трогаем -->
-   
-      <!-- СЕКЦИЯ МЫСЛИ -->
-    <section id="section-thoughts" class="feed-card">
-      <!-- весь твой существующий код мыслей -->
+      <!-- ============ СЕКЦИЯ ЖЕЛАНИЙ ============ -->
+      <section id="wishes" class="page-inner">
+        <div class="main-grid">
+          <!-- Левая карточка: авторизация -->
+          <section class="card">
+            <div class="card-inner">
+              <div class="auth-chip">
+                <span>🔒</span>
+                <span>Только для нас двоих</span>
+              </div>
 
-          <!-- СЕКЦИЯ КОГДА СКУЧАЕШЬ -->
-    <section id="section-miss" class="feed-card">
-      <!-- твой код -->
- 
-      <!-- СЕКЦИЯ ПИСЬМО -->
-    <section id="section-letter" class="feed-card">
-      <!-- твой красивый блок письма -->
+              <!-- МИНИ-ПРОФИЛЬ С АВАТАРОМ -->
+              <div class="profile-mini">
+                <div class="profile-avatar-wrapper">
+                  <img
+                    id="profileAvatar"
+                    src="secret-photo.jpg"
+                    alt="Твой аватар"
+                    class="profile-avatar"
+                  />
+                  <button
+                    id="changeAvatarBtn"
+                    class="btn btn-outline btn-avatar"
+                    type="button"
+                  >
+                    ✏️ Сменить аватар
+                  </button>
+                  <input
+                    type="file"
+                    id="avatarFileInput"
+                    accept="image/*"
+                    hidden
+                  />
+                </div>
 
-          <!-- СЕКЦИЯ О НАС -->
-    <section id="section-about" class="feed-card">
-      <!-- твой блок о вас -->
+                <div class="profile-name" id="profileName">
+                  Твоё место здесь 💜
+                </div>
+              </div>
+              <!-- /МИНИ-ПРОФИЛЬ -->
 
-        </section> <!-- layout-center -->
+              <h1 id="auth-title">Вход в наш <span>секретный дневник</span> 💫</h1>
+              <p class="subtitle">
+                Здесь мы будем видеть, кто из нас зашёл, и вместе хранить наши желания и мысли.
+              </p>
 
-  <!-- ПРАВАЯ КОЛОНКА -->
+              <p id="welcome-text">Ты ещё не вошла в систему 💔</p>
+
+              <div id="auth-area" class="auth-buttons"></div>
+
+              <form class="auth-form" onsubmit="return false;">
+                <div class="auth-form-row">
+                  <label for="emailInput">Твой email</label>
+                  <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="Например: you@example.com"
+                  />
+                </div>
+                <div class="auth-form-row">
+                  <label for="passwordInput">Пароль</label>
+                  <input
+                    type="password"
+                    id="passwordInput"
+                    placeholder="Минимум 6 символов"
+                  />
+                </div>
+
+                <div class="auth-buttons" style="margin-top: 4px;">
+                  <button class="btn btn-main" id="emailRegisterBtn">Создать аккаунт 💛</button>
+                  <button class="btn btn-outline" id="emailLoginBtn">Войти по почте</button>
+                </div>
+
+                <div class="auth-buttons">
+                  <button class="btn btn-google" id="googleBtn">
+                    <span class="icon">🌀</span>
+                    <span>Войти через Google</span>
+                  </button>
+                </div>
+
+                <p class="auth-note">
+                  Ты можешь использовать любой свой email — просто не теряй пароль.
+                  А если лень, заходи через Google, это быстрее 🫶
+                </p>
+              </form>
+
+              <p id="auth-status" class="auth-status"></p>
+            </div>
+          </section>
+
+          <!-- Правая часть: сами желания -->
+          <section class="card">
+            <div class="card-inner">
+              <h2>Наши желания</h2>
+              <p class="subtitle">
+                Моя любимая, напиши, о чём ты мечтаешь. Каждое желание — как маленькое обещание,
+                которое я постараюсь исполнить.
+              </p>
+
+              <label for="wishInput">Напиши, чего хочешь прямо сейчас:</label>
+              <textarea
+                id="wishInput"
+                rows="3"
+                placeholder="Например: поехать вместе в город, где никогда не были..."
+              ></textarea>
+
+              <div class="wish-actions">
+                <button id="wishAddBtn" class="btn btn-main">➕ Добавить желание</button>
+                <button id="wishClearBtn" class="btn btn-outline">Очистить все желания</button>
+              </div>
+
+              <div class="wish-list-header">
+                <span>📝 Наш список желаний:</span>
+                <span id="wishCount"></span>
+              </div>
+              <ul id="wishList"></ul>
+            </div>
+          </section>
+        </div>
+
+        <!-- Админ-панель (видна только тебе, если uid = ADMIN_UID) -->
+        <section id="admin-panel" class="admin-panel">
+          <div class="admin-panel-inner">
+            <h2>Админ-панель 👑</h2>
+            <p class="admin-note">
+              Эту секцию видишь только ты. Здесь отображаются пользователи и их желания.
+            </p>
+
+            <div class="admin-grid">
+              <section class="admin-card">
+                <h3>Пользователи</h3>
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Имя</th>
+                      <th>Email</th>
+                      <th>UID</th>
+                      <th>Последний вход</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminUsersTbody">
+                    <tr><td colspan="4">Загрузка...</td></tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <section class="admin-card">
+                <h3>Желания</h3>
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Когда</th>
+                      <th>Текст</th>
+                      <th>Email</th>
+                      <th>UID</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminWishesTbody">
+                    <tr><td colspan="4">Загрузка...</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
+      <section id="section-thoughts" class="page-inner">
+        ... (оставь здесь свой существующий блок мыслей БЕЗ изменений)
+      </section>
+
+      <!-- ============ СЕКЦИЯ КОГДА СКУЧАЕШЬ ============ -->
+      <section id="section-miss" class="page-inner">
+        ... (здесь твой текущий блок «когда скучаешь»)
+      </section>
+
+      <!-- ============ СЕКЦИЯ ПИСЬМО ============ -->
+      <section id="letter" class="section section-letter">
+        ... (твой существующий красивый блок письма)
+      </section>
+
+      <!-- ============ СЕКЦИЯ О НАС ============ -->
+      <section id="about" class="page-inner">
+        ... (твой блок «о нас» с фото и песней)
+      </section>
+
+  </section> <!-- /layout-center -->
+
+  <!-- Правая колонка: музыка и маленькие виджеты -->
   <aside class="layout-right">
-    <div class="right-inner">
-
-      <!-- Музыка и плеер -->
-      <div id="musicPlayerSlot"></div>
-
-      <!-- Место для будущих приколов -->
-      <div class="right-widget">💛 Маленькое напоминание: я рядом.</div>
-
+    <div class="layout-right-inner">
+      <div class="side-card">
+        <div class="side-card-title">Наша музыка</div>
+        <p class="side-card-text">
+          Включи плейлист внизу страницы — Mockingbird и остальные треки всегда ждут тебя.
+        </p>
+      </div>
+      <div class="side-card">
+        <div class="side-card-title">Напоминание</div>
+        <p class="side-card-text">
+          Если вдруг станет тяжело или одиноко — возвращайся сюда. Ты никогда не одна.
+        </p>
+      </div>
     </div>
   </aside>
 
 </main>
+
 
 
     <!-- Мини-профиль с аватаром -->
@@ -2158,6 +2333,15 @@
           link.classList.add("nav-active");
         });
       });
+// ==== Боковое меню: плавный переход к секциям ====
+document.querySelectorAll(".side-nav-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const targetId = btn.getAttribute("data-jump");
+    const targetEl = document.getElementById(targetId);
+    if (!targetEl) return;
+    targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
 
       // === SETTINGS PANEL ===
       const fab        = document.getElementById("settingsFab");
