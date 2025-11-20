@@ -238,7 +238,7 @@ async function renderLoggedInUser(user) {
     document.body.classList.remove("is-admin");
   }
 
-  // профиль
+  // профиль в Firestore
   try {
     await setDoc(
       doc(db, "users", user.uid),
@@ -262,21 +262,22 @@ async function renderLoggedInUser(user) {
     welcomeText.textContent = `Привет, ${user.displayName || "моя любовь"} 💖`;
   }
 
+  // слева только кнопка "Выйти"
   if (authArea) {
     authArea.innerHTML = `<button class="btn btn-outline" id="logout-btn">Выйти</button>`;
     const logoutBtn = document.getElementById("logout-btn");
     if (logoutBtn) logoutBtn.onclick = () => signOut(auth);
   }
 
-  if (authForm) authForm.style.display = "block"; // форма остаётся видимой, чтобы можно было сменить email, но можно и скрыть
+  // 🔒 САМЫЙ ВАЖНЫЙ МОМЕНТ: форму прячем
+  if (authForm) {
+    authForm.style.display = "none";
+  }
 
+  // правая карточка с желаниями становится активной
   if (privateContent) {
     privateContent.style.opacity = "1";
     privateContent.style.pointerEvents = "auto";
-  }
-
-  if (adminPanel) {
-    adminPanel.style.display = isAdmin ? "block" : "none";
   }
 
   setAuthStatus("Ты в системе, можешь писать желания 💌", "good");
@@ -288,6 +289,8 @@ async function renderLoggedInUser(user) {
     loadAdminData();
   }
 }
+
+
 
 // ==== СОСТОЯНИЕ: ПОЛЬЗОВАТЕЛЬ ВЫШЕЛ ====
 function renderLoggedOut() {
