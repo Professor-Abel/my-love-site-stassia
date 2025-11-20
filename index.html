@@ -1135,6 +1135,36 @@
     padding: 8px 10px;
   }
 }
+/* список треков */
+.music-bar-playlist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.playlist-item {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  background: rgba(15, 23, 42, 0.96);
+  color: #e5e7eb;
+  font-size: 11px;
+  padding: 4px 9px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.playlist-item:hover {
+  background: rgba(31, 41, 55, 0.95);
+  transform: translateY(-1px);
+}
+
+.playlist-item.active {
+  border-color: var(--accent);
+  color: #fff;
+  background: rgba(255, 79, 154, 0.2);
+}
+
 
   </style>
 </head>
@@ -1469,14 +1499,25 @@
     </main>
   </div>
 
-  <!-- ===== ГЛОБАЛЬНЫЙ ПЛЕЕР ВНИЗУ (один на всю страницу) ===== -->
-  <div class="music-bar" id="musicBar">
-    <button class="music-bar-close" id="musicBarClose">✕</button>
-    <div class="music-bar-title" id="musicBarTitle">Наша песня 💜</div>
-    <audio id="globalMusic" controls preload="auto">
-      <source src="mockingbird.mp3" type="audio/mpeg" />
-    </audio>
+<!-- Глобальный музыкальный плеер -->
+<div id="musicBar" class="music-bar">
+  <button id="musicBarClose" class="music-bar-close" type="button" title="Скрыть музыку">✕</button>
+
+  <div class="music-bar-title">
+    <span>🎵 Наша музыка</span>
+    <span id="musicCurrentTitle">Eminem — Mockingbird</span>
   </div>
+
+  <!-- один общий плеер, src будем задавать из JS -->
+  <audio id="globalMusic" controls preload="auto"></audio>
+
+  <div class="music-bar-playlist">
+    <button class="playlist-item" data-index="0">Mockingbird</button>
+    <button class="playlist-item" data-index="1">Наш голос</button>
+    <button class="playlist-item" data-index="2">Shape Of My Heart</button>
+  </div>
+</div>
+
 
   <!-- FAB настроек (остаётся как у тебя) -->
   <button id="settingsFab" class="settings-fab" aria-label="Настройки">
@@ -1533,11 +1574,89 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // ——— NAV: плавный скролл и активная вкладка ———
-          // === ГЛОБАЛЬНАЯ МУЗЫКА ===
-    const musicBar     = document.getElementById("musicBar");
-    const musicBarClose = document.getElementById("musicBarClose");
-    const globalMusic  = document.getElementById("globalMusic");
-    const navMusicBtn  = document.getElementById("navMusicBtn");
+     // === ГЛОБАЛЬНАЯ МУЗЫКА + ПЛЕЙЛИСТ ===
+    const musicBar       = document.getElementById("musicBar");
+    const musicBarClose  = document.getElementById("musicBarClose");
+    const globalMusic    = document.getElementById("globalMusic");
+    const navMusicBtn    = document.getElementById("navMusicBtn");
+    const titleEl        = document.getElementById("musicCurrentTitle");
+    const playlistBtns   = Array.from(document.querySelectorAll(".playlist-item"));
+
+    // сам плейлист (пути к файлам лежат рядом с index.html)
+    const playlist = [
+      { title: "Eminem — Mockingbird",   src: "mockingbird.mp3" },
+      { title: "Наш голос",              src: "miss-voice.mp3" },
+      { title: "Shape Of My Heart",      src: "shape-of-my-heart.mp3" },
+    ];
+
+    let currentTrackIndex = 0;
+
+    function setActiveButton(index) {
+      playlistBtns.forEach((btn, i) => {
+        btn.classList.toggle("active", i === index);
+      });
+    }
+
+    function loadTrack(index, autoPlay = false) {
+      if (!globalMusic || !playlist[index]) return;
+
+      currentTrackIndex = index;
+      const track = playlist[index];
+
+      globalMusic.src = track.src;
+      if (titleEl) titleEl.textContent = track.title;
+
+      setActiveButton(index);
+
+      if (autoPlay) {
+        globalMusic.play().catch(() => {});
+      }
+    }
+
+    function playNext() {
+      const nextIndex = (currentTrackIndex + 1) % playlist.length;
+      loadTrack(nextIndex, true);
+    }
+
+    // клик по кнопке в шапке
+    if (navMusicBtn && musicBar && globalMusic) {
+      navMusicBtn.addEventListener("click", () => {
+        musicBar.style.display = "flex";
+        // если ещё не загружали трек – загрузим первый
+        if (!globalMusic.src) {
+          loadTrack(currentTrackIndex, true);
+        } else if (globalMusic.paused) {
+          globalMusic.play().catch(() => {});
+        }
+      });
+    }
+
+    // крестик на панели
+    if (musicBar && musicBarClose && globalMusic) {
+      musicBarClose.addEventListener("click", () => {
+        musicBar.style.display = "none";
+        globalMusic.pause();
+      });
+    }
+
+    // переключение треков по клику по «чипам»
+    playlistBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const index = Number(btn.dataset.index || 0);
+        loadTrack(index, true);
+        if (musicBar) musicBar.style.display = "flex";
+      });
+    });
+
+    // после окончания трека – автоматически следующий
+    if (globalMusic) {
+      globalMusic.addEventListener("ended", () => {
+        playNext();
+      });
+    }
+
+    // при загрузке страницы просто подготавливаем первый трек (без автоплея)
+    loadTrack(currentTrackIndex, false);
 
     // кнопка в шапке — открыть плеер и начать играть (если на паузе)
     if (navMusicBtn && musicBar && globalMusic) {
