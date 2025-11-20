@@ -1066,6 +1066,76 @@
       cursor: pointer;
       padding: 0 4px;
     }
+    /* === КНОПКА МУЗЫКИ В ШАПКЕ === */
+.nav-music {
+  padding-inline: 10px;
+  min-width: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+/* === НИЖНЯЯ ПАНЕЛЬ МУЗЫКИ === */
+.music-bar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 18px;
+  z-index: 35;
+
+  max-width: 420px;
+  width: calc(100% - 40px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 10px 12px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 60%),
+    rgba(5, 3, 15, 0.98);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 1);
+}
+
+.music-bar-title {
+  font-size: 12px;
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.music-bar audio {
+  width: 100%;
+}
+
+/* крестик закрытия */
+.music-bar-close {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.music-bar-close:hover {
+  color: #fff;
+}
+
+/* чтобы на очень маленьких экранах плеер не вылазил */
+@media (max-width: 480px) {
+  .music-bar {
+    bottom: 12px;
+    padding: 8px 10px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1092,12 +1162,18 @@
 
         <!-- ВАЖНО: теперь все ссылки ведут на секции внутри этой же страницы -->
         <nav class="site-nav" id="topNav">
-          <a href="#section-wishes"  class="nav-link nav-active">Желания</a>
-          <a href="#section-thoughts" class="nav-link">Мысли</a>
-          <a href="#section-miss"    class="nav-link">Когда скучаешь</a>
-          <a href="#section-letter"  class="nav-link">Письмо</a>
-          <a href="#section-about"   class="nav-link">О нас</a>
-        </nav>
+  <a href="#section-wishes"  class="nav-link nav-active">Желания</a>
+  <a href="#section-thoughts" class="nav-link">Мысли</a>
+  <a href="#section-miss"    class="nav-link">Когда скучаешь</a>
+  <a href="#section-letter"  class="nav-link">Письмо</a>
+  <a href="#section-about"   class="nav-link">О нас</a>
+
+  <!-- Кнопка музыки справа -->
+  <button id="navMusicBtn" class="nav-link nav-music" type="button" title="Наш плейлист">
+    🎵
+  </button>
+</nav>
+
       </div>
     </header>
 
@@ -1457,6 +1533,30 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // ——— NAV: плавный скролл и активная вкладка ———
+          // === ГЛОБАЛЬНАЯ МУЗЫКА ===
+    const musicBar     = document.getElementById("musicBar");
+    const musicBarClose = document.getElementById("musicBarClose");
+    const globalMusic  = document.getElementById("globalMusic");
+    const navMusicBtn  = document.getElementById("navMusicBtn");
+
+    // кнопка в шапке — открыть плеер и начать играть (если на паузе)
+    if (navMusicBtn && musicBar && globalMusic) {
+      navMusicBtn.addEventListener("click", () => {
+        musicBar.style.display = "flex"; // показываем панель, если вдруг была скрыта
+        if (globalMusic.paused) {
+          globalMusic.play().catch(() => {});
+        }
+      });
+    }
+
+    // крестик в панели — скрыть и остановить
+    if (musicBar && musicBarClose && globalMusic) {
+      musicBarClose.addEventListener("click", () => {
+        musicBar.style.display = "none";
+        globalMusic.pause();
+      });
+    }
+
       const links = document.querySelectorAll(".site-nav .nav-link");
 
       links.forEach(link => {
@@ -1476,8 +1576,7 @@
       });
 
       // ——— MUSIC BAR: просто показать/скрыть (музыка не сбрасывается) ———
-      const musicBar = document.getElementById("musicBar");
-      const musicBarClose = document.getElementById("musicBarClose");
+   
 
       if (musicBar && musicBarClose) {
         musicBarClose.addEventListener("click", () => {
