@@ -11,23 +11,26 @@
   <link rel="apple-touch-icon" href="favicon-asyaman.png" />
 
   <!-- Базовое описание сайта -->
-  <meta name="description" content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
+  <meta name="description"
+        content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
 
-  <!-- Open Graph -->
+  <!-- Open Graph (превью для соцсетей / мессенджеров) -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Асъяман" />
   <meta property="og:title" content="Асъяман — наш маленький мир" />
-  <meta property="og:description" content="Секретное место, где живут твои желания, мысли и наши маленькие секреты." />
+  <meta property="og:description"
+        content="Секретное место, где живут твои желания, мысли и наши маленькие секреты." />
   <meta property="og:url" content="https://asyaman.com/" />
   <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter (X) -->
+  <!-- Превью для Twitter (X) -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Асъяман — наш маленький мир" />
-  <meta name="twitter:description" content="Наш личный уголок: желания, мысли, «когда скучаешь» и письмо только для тебя." />
+  <meta name="twitter:description"
+        content="Наш личный уголок: желания, мысли, «когда скучаешь» и письмо только для тебя." />
   <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
 
   <!-- Шрифты -->
@@ -130,13 +133,13 @@
       margin: 0 auto;
     }
 
-    /* === НОВАЯ ШАПКА === */
+    /* ====== ШАПКА / НАВИГАЦИЯ ====== */
 
     .site-header {
       width: 100%;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
       backdrop-filter: blur(18px);
       background: linear-gradient(
         to bottom,
@@ -153,7 +156,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      padding: 8px 4px;
+      padding: 10px 4px;
     }
 
     .logo {
@@ -176,59 +179,58 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 4px;
-      background: rgba(5, 3, 18, 0.9);
-      border-radius: 999px;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
+      position: relative;
     }
 
     .nav-link {
       text-decoration: none;
       font-size: 13px;
-      padding: 6px 14px;
+      padding: 6px 18px;
       border-radius: 999px;
-      color: var(--text-soft);
       border: 1px solid transparent;
-      transition: 0.2s ease;
+      color: #e5e7eb;
+      background: transparent;
+      transition: all 0.2s ease;
       white-space: nowrap;
     }
 
     .nav-link:hover {
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.14);
+      color: #ffffff;
     }
 
     .nav-link.nav-active {
-      background: linear-gradient(135deg, #ff4f9a, #ffb347);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.35);
-      box-shadow: 0 12px 26px rgba(255, 79, 154, 0.6);
+      background: radial-gradient(circle at top, var(--accent), #ff7abf);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 12px 30px rgba(255, 79, 154, 0.6);
     }
 
     .nav-toggle {
       display: none;
-      width: 38px;
-      height: 32px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background: rgba(5, 3, 18, 0.95);
-      padding: 6px 8px;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 4px;
+      width: 30px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
       cursor: pointer;
+      padding: 0 6px;
     }
 
     .nav-toggle span {
-      display: block;
       height: 2px;
+      width: 100%;
+      background: #e5e7eb;
       border-radius: 999px;
-      background: #f9fafb;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 780px) {
       .header-inner {
-        align-items: flex-start;
+        align-items: center;
       }
 
       .nav-toggle {
@@ -237,17 +239,18 @@
 
       .site-nav {
         position: absolute;
-        left: 16px;
-        right: 16px;
-        top: 56px;
+        top: 54px;
+        right: 4px;
         flex-direction: column;
-        padding: 10px 10px 8px;
-        background: rgba(5, 3, 18, 0.98);
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+        align-items: stretch;
+        background: rgba(7, 5, 18, 0.98);
+        border-radius: 18px;
+        padding: 8px;
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 1);
         opacity: 0;
         pointer-events: none;
-        transform: translateY(-10px);
+        transform: translateY(-6px);
         transition: opacity 0.18s ease, transform 0.18s ease;
       }
 
@@ -258,12 +261,13 @@
       }
 
       .nav-link {
-        width: 100%;
+        display: block;
         text-align: center;
+        width: 160px;
       }
     }
 
-    /* ====== ДАЛЬШЕ — СТАРЫЙ СТИЛЬ (КАРТОЧКИ, АВТОРИЗАЦИЯ И Т.Д.) ===== */
+    /* ====== ОСНОВНОЙ КОНТЕНТ ====== */
 
     .main-grid {
       display: grid;
@@ -595,6 +599,7 @@
     }
 
     /* ==== АДМИН-ПАНЕЛЬ ==== */
+
     .admin-panel {
       margin-top: 22px;
       display: none;
@@ -690,14 +695,8 @@
       color: #e5e7eb;
     }
 
-    footer {
-      margin-top: 18px;
-      font-size: 11px;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.5);
-    }
+    /* ==== О НАС / ABOUT БЛОК ВНИЗУ ГЛАВНОЙ ==== */
 
-    /* ==== О НАС / ABOUT (БЛОК ВНИЗУ ГЛАВНОЙ) ==== */
     .about-card {
       margin-top: 22px;
       display: grid;
@@ -835,7 +834,15 @@
       }
     }
 
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
     /* ==== НАСТРОЙКИ (FAB + ПАНЕЛЬ) ==== */
+
     .settings-fab {
       position: fixed;
       right: 22px;
@@ -1011,13 +1018,14 @@
   </style>
 </head>
 <body>
+  <!-- Плавающие сердечки -->
   <span class="floating-heart" style="left: 12%; bottom: -40px;">💗</span>
   <span class="floating-heart" style="left: 62%; bottom: -80px; animation-delay: 2s;">💗</span>
   <span class="floating-heart" style="left: 82%; bottom: -120px; animation-delay: 4s;">💗</span>
   <span class="floating-heart" style="left: 32%; bottom: -100px; animation-delay: 6s;">💗</span>
 
   <div class="page">
-    <!-- НОВЫЙ ХЕДЕР -->
+    <!-- Шапка -->
     <header class="site-header">
       <div class="header-inner">
         <div class="logo">
@@ -1140,7 +1148,7 @@
       </section>
     </main>
 
-    <!-- Админ-панель -->
+    <!-- Админ-панель (общая, ниже карточек) -->
     <section id="admin-panel" class="admin-panel">
       <div class="admin-panel-inner">
         <h2>Админ-панель 👑</h2>
@@ -1149,6 +1157,7 @@
         </p>
 
         <div class="admin-grid">
+          <!-- таблица пользователей -->
           <section class="admin-card">
             <h3>Пользователи</h3>
             <table class="admin-table">
@@ -1166,6 +1175,7 @@
             </table>
           </section>
 
+          <!-- таблица желаний -->
           <section class="admin-card">
             <h3>Желания</h3>
             <table class="admin-table">
@@ -1274,7 +1284,7 @@
     </div>
   </div>
 
-  <!-- Скрипт настроек + бургер -->
+  <!-- Скрипт настроек и бургера -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const fab        = document.getElementById("settingsFab");
@@ -1315,17 +1325,18 @@
 
       updateAccountInfo();
 
-      // язык
+      // Язык
       if (langSelect) {
         const savedLang = localStorage.getItem("siteLang") || "ru";
         langSelect.value = savedLang;
 
         langSelect.addEventListener("change", () => {
           localStorage.setItem("siteLang", langSelect.value);
+          // здесь позже можно добавить реальный перевод
         });
       }
 
-      // тема
+      // Тема
       if (themeBtn) {
         themeBtn.addEventListener("click", () => {
           if (typeof toggleTheme === "function") {
@@ -1340,7 +1351,7 @@
         });
       }
 
-      // переход к админ-панели
+      // Переход к админ-панели на этой же странице
       if (adminBtn) {
         adminBtn.addEventListener("click", () => {
           const adminBlock = document.getElementById("admin-panel");
@@ -1351,7 +1362,7 @@
         });
       }
 
-      // бургер-меню
+      // Бургер-меню
       const navToggle = document.querySelector(".nav-toggle");
       const siteNav   = document.querySelector(".site-nav");
 
