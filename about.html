@@ -3,187 +3,874 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>О нас — наш маленький мир</title>
-      <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
-    <link rel="apple-touch-icon" href="favicon-asyaman.png" />
+  <title>О нас — Асъяман</title>
 
-    <!-- Базовое описание сайта -->
-    <meta name="description" content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
+  <link rel="apple-touch-icon" href="favicon-asyaman.png" />
 
-    <!-- Open Graph (превью для соцсетей / мессенджеров) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Асъяман" />
-    <meta property="og:title" content="Асъяман — наш маленький мир" />
-    <meta property="og:description" content="Секретное место, где живут твои желания, мысли и наши маленькие секреты." />
-    <meta property="og:url" content="https://asyaman.com/" />
-    <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+  <!-- Описание / превью -->
+  <meta name="description"
+        content="История двоих людей, у которых есть свой маленький мир — Асъяман. Немного о нас, о детстве, о том, как мы чувствуем друг друга." />
 
-    <!-- Превью для Twitter (X) -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Асъяман — наш маленький мир" />
-    <meta name="twitter:description" content="Наш личный уголок: желания, мысли, «когда скучаешь» и письмо только для тебя." />
-    <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Асъяман" />
+  <meta property="og:title" content="О нас — Асъяман" />
+  <meta property="og:description"
+        content="Страница, где хранится наш маленький мир: детские фото, наша песня и несколько важных слов о нас." />
+  <meta property="og:url" content="https://asyaman.com/about.html" />
+  <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="О нас — Асъяман" />
+  <meta name="twitter:description"
+        content="Небольшая страница о нас: кто мы, откуда и почему у нас появился наш маленький мир." />
+  <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
+
+  <!-- Шрифты -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg-main: radial-gradient(circle at top, #2b1b3f, #05030a 55%, #050308 100%);
+      --card-bg: rgba(17, 10, 32, 0.9);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #ff4f9a;
+      --accent-soft: rgba(255, 79, 154, 0.25);
+      --accent-gold: #ffd56b;
+      --text-main: #fdf5ff;
+      --text-soft: #cbb8ff;
+      --text-secondary: #fdf5ff;
+      --text-muted: #9ca3af;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+      --radius-xl: 26px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.45;
+      z-index: -2;
+    }
+
+    body::before {
+      background: rgba(255, 79, 154, 0.65);
+      top: -120px;
+      left: -80px;
+    }
+
+    body::after {
+      background: rgba(111, 76, 255, 0.7);
+      bottom: -160px;
+      right: -120px;
+    }
+
+    .floating-heart {
+      position: fixed;
+      font-size: 16px;
+      color: #ff7fb9;
+      animation: floatUp 12s linear infinite;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.35;
+      }
+      70% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(-260px) translateX(40px);
+        opacity: 0;
+      }
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ===== ШАПКА ===== */
+
+    .site-header {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      margin-bottom: 26px;
+      background: transparent;
+      border-bottom: none;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 55%),
+        rgba(5, 3, 15, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(18px);
+    }
+
+    .logo {
+      font-family: "Pacifico", cursive;
+      font-size: 26px;
+      color: #ffd56b;
+      letter-spacing: 0.03em;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1;
+    }
+
+    .logo span {
+      font-size: 14px;
+      color: var(--text-soft);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      border-radius: 999px;
+      transition: 0.25s;
+      color: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-active {
+      background: #ff4f9a;
+      color: #fff !important;
+      box-shadow: 0 8px 22px rgba(255, 79, 154, 0.7);
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .header-inner {
+        padding: 8px 12px;
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      .logo span {
+        font-size: 12px;
+      }
+
+      .site-nav {
+        gap: 6px;
+      }
+
+      .nav-link {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+    }
+
+    /* ===== КАРТОЧКА О НАС ===== */
+
+    .page-inner {
+      max-width: 1000px;
+      margin: 26px auto 28px;
+      padding: 22px 22px 26px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 79, 154, 0.18), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.18), transparent 60%),
+        rgba(5, 3, 15, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(14px);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    @media (max-width: 880px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 22px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at top left,
+        rgba(255, 255, 255, 0.06),
+        transparent 55%
+      );
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 14px;
+    }
+
+    .about-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .about-text + .about-text {
+      margin-top: 4px;
+    }
+
+    .about-highlight {
+      color: var(--accent-gold);
+    }
+
+    .about-list {
+      margin: 10px 0 4px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .about-list li {
+      margin-bottom: 4px;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .about-list li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      top: 0;
+      color: var(--accent);
+    }
+
+    .about-mini-label {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* правая часть */
+
+    .about-photo-frame {
+      position: relative;
+      max-width: 270px;
+      margin: 0 auto 12px;
+      transform: rotate(-2deg);
+    }
+
+    .about-photo {
+      width: 100%;
+      display: block;
+      border-radius: 26px;
+      border: 2px solid rgba(248, 250, 252, 0.9);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    .about-photo-label {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      border: 1px solid rgba(248, 250, 252, 0.38);
+      backdrop-filter: blur(8px);
+    }
+
+    .about-photo-shadow {
+      position: absolute;
+      inset: auto 20% -14px 20%;
+      height: 26px;
+      background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.9), transparent 70%);
+      opacity: 0.95;
+      z-index: -1;
+    }
+
+    .about-song {
+      margin-top: 10px;
+      padding: 10px 12px 12px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.15), transparent 70%),
+                  rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.8);
+    }
+
+    .about-song-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .about-song-label {
+      font-size: 12px;
+      color: var(--accent-soft);
+    }
+
+    .about-song-name {
+      font-size: 12px;
+      color: var(--text-secondary);
+      opacity: 0.95;
+    }
+
+    audio {
+      width: 100%;
+      margin: 4px 0 6px;
+      filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.9));
+      border-radius: 999px;
+    }
+
+    .about-song-note {
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* таймлайн */
+
+    .timeline-card {
+      margin-top: 18px;
+      border-radius: 22px;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.05), transparent 60%),
+                  rgba(12, 10, 30, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px 16px 12px;
+    }
+
+    .timeline-title {
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: var(--text-soft);
+    }
+
+    .timeline {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .timeline li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 4px;
+    }
+
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 5px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    footer {
+      margin-top: 10px;
+      font-size: 11px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ===== НАСТРОЙКИ (FAB + ПАНЕЛЬ) ===== */
+
+    .settings-fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.15), transparent 55%),
+                  rgba(15, 23, 42, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      z-index: 40;
+    }
+
+    .settings-fab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 1);
+      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.22), transparent 55%),
+                  rgba(15, 23, 42, 1);
+    }
+
+    .settings-fab-icon {
+      font-size: 18px;
+    }
+
+    .settings-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 30;
+    }
+
+    .settings-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .settings-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 82px;
+      width: 280px;
+      max-width: calc(100% - 44px);
+      border-radius: 22px;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.08), transparent 60%),
+                  rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      padding: 14px 14px 12px;
+      transform: translateY(16px) scale(0.97);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 50;
+    }
+
+    .settings-panel.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .settings-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .settings-close {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .settings-close:hover {
+      color: #fff;
+    }
+
+    .settings-section {
+      padding: 8px 0;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .settings-section:first-of-type {
+      border-top: none;
+    }
+
+    .settings-label {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .settings-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .settings-select {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      padding: 6px 10px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .settings-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255, 79, 154, 0.6);
+    }
+
+    .settings-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .settings-chip:hover {
+      background: rgba(31, 41, 55, 0.95);
+      transform: translateY(-1px);
+    }
+  </style>
 </head>
 <body>
-<div id="bg-hearts"></div>
-<div id="stars"></div>
+  <!-- Плавающие сердечки -->
+  <span class="floating-heart" style="left: 12%; bottom: -40px;">💗</span>
+  <span class="floating-heart" style="left: 60%; bottom: -80px; animation-delay: 2s;">💗</span>
+  <span class="floating-heart" style="left: 82%; bottom: -120px; animation-delay: 4s;">💗</span>
 
-<div class="container about-page">
-  <nav class="top-nav">
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Желания</a>
-      <a href="thoughts.html" class="nav-link">Мысли</a>
-      <a href="miss.html" class="nav-link">Когда скучаешь</a>
-      <a href="letter.html" class="nav-link">Письмо</a>
-      <a href="about.html" class="nav-link nav-active">О нас</a>
-    </div>
-    <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  </nav>
+  <div class="page">
+    <!-- Шапка -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="logo">
+          Асъяман
+          <span>наш маленький мир</span>
+        </div>
 
-  <div class="title-row">
-    <div class="lock-icon">💫</div>
-    <h1>Наш маленький мир</h1>
+        <button class="nav-toggle" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="site-nav">
+          <a href="index.html" class="nav-link">Желания</a>
+          <a href="thoughts.html" class="nav-link">Мысли</a>
+          <a href="miss.html" class="nav-link">Когда скучаешь</a>
+          <a href="letter.html" class="nav-link">Письмо</a>
+          <a href="about.html" class="nav-link nav-active">О нас</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-inner">
+      <section class="about-grid">
+        <!-- Левый блок: текст -->
+        <section class="card">
+          <div class="card-inner">
+            <span class="section-label">Наш маленький мир</span>
+            <h1>Немного <span>о нас</span> и почему появился этот сайт 💫</h1>
+            <p class="subtitle">
+              Если вдруг ты когда-нибудь забудешь, кто мы друг для друга, — зайди на эту страницу.
+            </p>
+
+            <p class="about-text">
+              У нас с тобой своя история. Она началась не с сайта и не с красивых страниц,
+              а с обычных дней, странных разговоров, смеха, переписок до ночи и того самого чувства,
+              когда внутри спокойно, потому что <span class="about-highlight">«вот этот человек — мой»</span>.
+            </p>
+
+            <p class="about-text">
+              Этот сайт — не просто «проект». Это место, где можно хранить всё то, что не уместится в одном сообщении:
+              желания, мысли, моменты, когда особенно скучаешь, и письмо, которое живёт только здесь.
+            </p>
+
+            <p class="about-text">
+              Мы разные, у нас сложные дороги, тяжёлые дни, свои демоны и свои мечты.
+              Но есть одна важная вещь: <span class="about-highlight">мы продолжаем выбирать друг друга</span>,
+              даже когда тяжело, даже когда всё вокруг шумит и мешает.
+            </p>
+
+            <ul class="about-list">
+              <li>ты — человек, к которому хочется возвращаться снова и снова;</li>
+              <li>я — тот, кто хочет рядом быть опорой, даже если иногда не хватает слов;</li>
+              <li>а этот сайт — наш общий «домик», где всё сделано ради тебя.</li>
+            </ul>
+
+            <p class="about-mini-label">
+              Если тебе когда-то покажется, что ты «недостаточно хорошая» — возвращайся сюда и перечитай эти строки.
+            </p>
+
+            <div class="timeline-card">
+              <div class="timeline-title">Наш маленький таймлайн (пока очень короткий, но важный):</div>
+              <ul class="timeline">
+                <li>Когда-то давно — наши детские фото, где мы ещё ничего не понимаем.</li>
+                <li>Потом — встречи, разговоры, сотни сообщений и первые признания.</li>
+                <li>Сейчас — собственный сайт, который существует только ради нас двоих.</li>
+                <li>Дальше — то, что мы ещё вместе напишем. Шаг за шагом.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Правый блок: фото + песня -->
+        <section class="card">
+          <div class="card-inner">
+            <div class="about-photo-frame">
+              <img src="secret-photo.jpg" alt="Наше детское фото" class="about-photo" />
+              <div class="about-photo-label">Наш маленький секрет из детства 🔒</div>
+              <div class="about-photo-shadow"></div>
+            </div>
+
+            <div class="about-song">
+              <div class="about-song-header">
+                <span class="about-song-label">🎧 Один из наших саундтреков</span>
+                <span class="about-song-name">Eminem — Mockingbird</span>
+              </div>
+              <audio controls preload="auto">
+                <source src="mockingbird.mp3" type="audio/mpeg" />
+                Здесь должна играть наша песня, которая всегда возвращает в особое состояние.
+              </audio>
+              <p class="about-song-note">
+                Включи её, когда хочешь вернуться в то маленькое «мы», откуда вырос весь этот мир —
+                сайт, планы, мечты и всё то, что мы ещё не рассказали друг другу.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <footer>
+        Этот сайт — не про идеальность. Он про нас — живых, настоящих, иногда уставших, но всё равно вместе 💌
+      </footer>
+    </main>
   </div>
 
-  <p class="about-intro">
-    Здесь мы оставили маленькое описание нас двоих — чтобы когда-нибудь
-    вернуться, перечитать и снова почувствовать всё так же ярко.
-  </p>
+  <!-- Кнопка настроек -->
+  <button id="settingsFab" class="settings-fab" aria-label="Настройки">
+    <span class="settings-fab-icon">⚙</span>
+  </button>
 
-  <section class="about-section">
-    <h2>Мы</h2>
-    <p>
-      Два человека из разных миров, но с одинаково уставшими сердцами,
-      которые почему-то узнали друг друга с первого разговора.
-    </p>
-    <p>
-      Нас объединяет музыка, кофе, странное чувство юмора, любовь к животным
-      и то, как сильно мы хотим понять друг друга глубже, чем кто-либо ещё.
-    </p>
-  </section>
+  <div id="settingsBackdrop" class="settings-backdrop"></div>
 
-  <section class="about-section">
-    <h2>Наша история</h2>
-    <ul class="about-timeline">
-      <li><span>Когда-то давно</span> — два ребёнка на фото, которые ещё не знают,
-        что когда-нибудь будут читать этот текст.</li>
-      <li><span>Потом</span> — сотни разговоров, признаний, слёз, смеха и
-        «давай просто попробуем ещё раз».</li>
-      <li><span>Сейчас</span> — свой маленький сайт, который видим только мы,
-        и место, где можно спрятать самое важное.</li>
-    </ul>
-  </section>
+  <div id="settingsPanel" class="settings-panel">
+    <div class="settings-header">
+      <div class="settings-title">Настройки</div>
+      <button class="settings-close" id="settingsClose" aria-label="Закрыть">✕</button>
+    </div>
 
-  <section class="about-photo-wrap">
-    <div class="miss-photo-frame">
-      <img src="secret-photo.jpg" alt="Наше детское фото" />
-      <div class="miss-photo-overlay">
-        <span>Иногда достаточно одного кадра, чтобы вспомнить, ради чего всё это.</span>
+    <div class="settings-section">
+      <div class="settings-label">Язык сайта</div>
+      <select id="settingsLang" class="settings-select">
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-label">Тёмная тема</div>
+      <button id="settingsThemeToggle" class="settings-chip">
+        Переключить
+      </button>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-label">Аккаунт</div>
+      <div class="settings-sub" id="settingsAccountInfo">
+        Гость (на главной можно войти в дневник)
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="about-section">
-    <h2>Зачем этот сайт</h2>
-    <p>
-      Чтобы у нас было своё место. Не чат, который можно удалить.
-      Не соцсеть, где всё чужое. А страница, которая существует только
-      потому, что мы решили её создать.
-    </p>
-    <p>
-      Если вдруг станет тяжело — можно зайти сюда, почитать свои желания,
-      мысли, «скучаю», письмо и просто напомнить себе: мы не случайны.
-    </p>
-  </section>
-</div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fab        = document.getElementById("settingsFab");
+      const panel      = document.getElementById("settingsPanel");
+      const backdrop   = document.getElementById("settingsBackdrop");
+      const closeBtn   = document.getElementById("settingsClose");
+      const langSelect = document.getElementById("settingsLang");
+      const themeBtn   = document.getElementById("settingsThemeToggle");
+      const accInfo    = document.getElementById("settingsAccountInfo");
 
-<div id="hearts"></div>
-<div class="corner-lock">🔒 Наш маленький секрет</div>
+      function updateAccountInfo() {
+        if (!accInfo) return;
+        const u = window.__currentUser;
+        if (u && u.email) {
+          accInfo.textContent = u.email;
+        } else if (u) {
+          accInfo.textContent = "Авторизованный пользователь";
+        } else {
+          accInfo.textContent = "Гость (на главной странице можно войти в дневник)";
+        }
+      }
 
-<!-- общий тост для замочка -->
-<div id="secret-toast" class="secret-toast">
-  Настоящий секрет не на этом сайте, а между нами. 🤍
-</div>
+      function openPanel() {
+        updateAccountInfo();
+        panel.classList.add("open");
+        backdrop.classList.add("open");
+      }
 
-<script>
-  function applyThemeFromStorage() {
-    const saved = localStorage.getItem("theme");
-    const body = document.body;
-    const toggles = document.querySelectorAll(".theme-toggle");
-    if (saved === "dark") {
-      body.classList.add("dark");
-      toggles.forEach(b => b.textContent = "☀");
-    } else {
-      body.classList.remove("dark");
-      toggles.forEach(b => b.textContent = "🌙");
-    }
-  }
+      function closePanel() {
+        panel.classList.remove("open");
+        backdrop.classList.remove("open");
+      }
 
-  function toggleTheme() {
-    const body = document.body;
-    const isDark = body.classList.toggle("dark");
-    const toggles = document.querySelectorAll(".theme-toggle");
-    toggles.forEach(b => b.textContent = isDark ? "☀" : "🌙");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  }
+      fab?.addEventListener("click", openPanel);
+      closeBtn?.addEventListener("click", closePanel);
+      backdrop?.addEventListener("click", closePanel);
 
-  function createBgHeart() {
-    const container = document.getElementById("bg-hearts");
-    if (!container) return;
-    const h = document.createElement("div");
-    h.className = "bg-heart";
-    h.textContent = "💗";
-    const size = 10 + Math.random() * 10;
-    h.style.fontSize = size + "px";
-    h.style.left = Math.random() * 100 + "%";
-    h.style.animationDuration = 7 + Math.random() * 5 + "s";
-    h.style.opacity = 0.2 + Math.random() * 0.4;
-    container.appendChild(h);
-    setTimeout(() => h.remove(), 15000);
-  }
+      updateAccountInfo();
 
-  function startBackgroundHearts() {
-    for (let i = 0; i < 10; i++) setTimeout(createBgHeart, i * 400);
-    setInterval(createBgHeart, 1200);
-  }
+      // Язык
+      if (langSelect) {
+        const savedLang = localStorage.getItem("siteLang") || "ru";
+        langSelect.value = savedLang;
 
-  function createStars() {
-    const container = document.getElementById("stars");
-    if (!container) return;
-    for (let i = 0; i < 80; i++) {
-      const s = document.createElement("div");
-      s.className = "star";
-      s.style.left = Math.random() * 100 + "%";
-      s.style.top = Math.random() * 100 + "%";
-      s.style.animationDuration = (3 + Math.random() * 5) + "s";
-      s.style.animationDelay = (Math.random() * 5) + "s";
-      container.appendChild(s);
-    }
-  }
+        langSelect.addEventListener("change", () => {
+          localStorage.setItem("siteLang", langSelect.value);
+        });
+      }
 
-  function toggleSecretToast() {
-    const toast = document.getElementById("secret-toast");
-    if (!toast) return;
-    toast.classList.add("show");
-    setTimeout(() => toast.classList.remove("show"), 4000);
-  }
+      // Тема
+      if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+          if (typeof toggleTheme === "function") {
+            toggleTheme();
+          } else {
+            document.body.classList.toggle("dark");
+            localStorage.setItem(
+              "theme",
+              document.body.classList.contains("dark") ? "dark" : "light"
+            );
+          }
+        });
+      }
 
-  window.addEventListener("load", () => {
-    applyThemeFromStorage();
-    startBackgroundHearts();
-    createStars();
+      // Бургер (если понадобится)
+      const navToggle = document.querySelector(".nav-toggle");
+      const siteNav   = document.querySelector(".site-nav");
 
-    const lock = document.querySelector(".corner-lock");
-    if (lock) lock.addEventListener("click", toggleSecretToast);
-  });
-</script>
+      if (navToggle && siteNav) {
+        navToggle.addEventListener("click", () => {
+          siteNav.classList.toggle("nav-open");
+        });
+      }
+    });
+  </script>
 </body>
 </html>
