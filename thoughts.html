@@ -166,29 +166,35 @@
   <span class="floating-heart" style="left: 32%; bottom: -100px; animation-delay: 6s;">💗</span>
 
   <div class="page">
-    <!-- такой же хедер, как на index, но активный пункт — Мысли -->
-    <header class="site-header">
-      <div class="header-inner">
+   <header class="site-header">
+    <div class="header-inner">
+
         <div class="logo">
-          Асъяман
-          <span>наш маленький мир</span>
+            Асьяман
+            <span>наш маленький мир</span>
         </div>
 
         <button class="nav-toggle" aria-label="Меню">
-          <span></span>
-          <span></span>
-          <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
 
         <nav class="site-nav">
-          <a href="index.html" class="nav-link">Желания</a>
-          <a href="thoughts.html" class="nav-link nav-active">Мысли</a>
-          <a href="miss.html" class="nav-link">Когда скучаешь</a>
-          <a href="letter.html" class="nav-link">Письмо</a>
-          <a href="about.html" class="nav-link">О нас</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Желания</a>
+                <a href="thoughts.html" class="nav-link nav-active">Мысли</a>
+                <a href="miss.html" class="nav-link">Когда скучаешь</a>
+                <a href="letter.html" class="nav-link">Письмо</a>
+                <a href="about.html" class="nav-link">О нас</a>
+            </div>
+
+            <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
         </nav>
-      </div>
-    </header>
+
+    </div>
+</header>
+
 
     <main class="page-inner">
       <section class="card page-inner-card">
