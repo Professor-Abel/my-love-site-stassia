@@ -14,7 +14,7 @@
   <meta name="description"
         content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
 
-  <!-- Open Graph (превью для соцсетей / мессенджеров) -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Асъяман" />
   <meta property="og:title" content="Асъяман — наш маленький мир" />
@@ -26,7 +26,7 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Превью для Twitter (X) -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Асъяман — наш маленький мир" />
   <meta name="twitter:description"
@@ -133,127 +133,115 @@
       margin: 0 auto;
     }
 
-    /* ====== ШАПКА / НАВИГАЦИЯ ====== */
+    /* ===== ШАПКА ===== */
 
-    /* ===== НОВАЯ АККУРАТНАЯ ШАПКА ДЛЯ ВСЕХ СТРАНИЦ ===== */
+    .site-header {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      margin-bottom: 26px;
+      background: transparent;
+      border-bottom: none;
+    }
 
-.site-header {
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  margin-bottom: 26px;
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 18px;
 
-  /* главное: никаких чёрных полос */
-  background: transparent;
-  border-bottom: none;
-}
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
 
-/* сама «плашка» с логотипом и меню */
-.header-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 8px 18px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 55%),
+        rgba(5, 3, 15, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(18px);
+    }
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+    .logo {
+      font-family: "Pacifico", cursive;
+      font-size: 26px;
+      color: #ffd56b;
+      letter-spacing: 0.03em;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1;
+    }
 
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 55%),
-    rgba(5, 3, 15, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(18px);
-}
+    .logo span {
+      font-size: 14px;
+      color: var(--text-soft);
+      font-family: "Poppins", sans-serif;
+    }
 
-/* логотип */
-.logo {
-  font-family: "Pacifico", cursive;
-  font-size: 26px;
-  color: #ffd56b;
-  letter-spacing: 0.03em;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  line-height: 1;
-}
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.logo span {
-  font-size: 14px;
-  color: var(--text-soft);
-  font-family: "Poppins", sans-serif;
-}
+    .nav-link {
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 14px;
 
-/* навигация справа */
-.site-nav {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+      border-radius: 999px;
+      transition: 0.25s;
 
-/* ссылки в меню */
-.nav-link {
-  text-decoration: none;
-  padding: 8px 16px;
-  font-size: 14px;
+      color: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+    }
 
-  border-radius: 999px;
-  transition: 0.25s;
+    .nav-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
 
-  color: rgba(255, 255, 255, 0.75);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid transparent;
-}
+    .nav-active {
+      background: #ff4f9a;
+      color: #fff !important;
+      box-shadow: 0 8px 22px rgba(255, 79, 154, 0.7);
+    }
 
-.nav-link:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.15);
-}
+    .nav-toggle {
+      display: none;
+    }
 
-/* активная страница (розовая таблетка) */
-.nav-active {
-  background: #ff4f9a;
-  color: #fff !important;
-  box-shadow: 0 8px 22px rgba(255, 79, 154, 0.7);
-}
+    @media (max-width: 720px) {
+      .header-inner {
+        padding: 8px 12px;
+        gap: 12px;
+      }
 
-/* бургер на телефоне — пока прячем */
-.nav-toggle {
-  display: none;
-}
+      .logo {
+        font-size: 22px;
+      }
 
-/* адаптив немного сжимаем */
-@media (max-width: 720px) {
-  .header-inner {
-    padding: 8px 12px;
-    gap: 12px;
-  }
+      .logo span {
+        font-size: 12px;
+      }
 
-  .logo {
-    font-size: 22px;
-  }
+      .site-nav {
+        gap: 6px;
+      }
 
-  .logo span {
-    font-size: 12px;
-  }
+      .nav-link {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+    }
 
-  .site-nav {
-    gap: 6px;
-  }
+    /* ===== ОБЩИЕ КАРТОЧКИ / СЕКЦИИ ===== */
 
-  .nav-link {
-    padding: 6px 10px;
-    font-size: 13px;
-  }
-}
-
-    
-
-    /* ====== ОСНОВНОЙ КОНТЕНТ ====== */
     .page-inner {
       max-width: 980px;
       margin: 26px auto 32px;
@@ -267,7 +255,6 @@
       box-shadow: 0 18px 44px rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(14px);
     }
-
 
     .main-grid {
       display: grid;
@@ -602,7 +589,6 @@
 
     .admin-panel {
       margin-top: 22px;
-      display: none;
       border-radius: var(--radius-xl);
       border: 1px solid var(--card-border);
       box-shadow: var(--shadow-soft);
@@ -611,6 +597,7 @@
       padding: 20px 22px 18px;
       position: relative;
       overflow: hidden;
+      display: none; /* покажется только для админа из JS */
     }
 
     .admin-panel::before {
@@ -625,11 +612,6 @@
     .admin-panel-inner {
       position: relative;
       z-index: 1;
-    }
-
-    .admin-panel h2 {
-      font-size: 18px;
-      margin-bottom: 6px;
     }
 
     .admin-note {
@@ -695,7 +677,7 @@
       color: #e5e7eb;
     }
 
-    /* ==== О НАС / ABOUT БЛОК ВНИЗУ ГЛАВНОЙ ==== */
+    /* ==== О НАС ==== */
 
     .about-card {
       margin-top: 22px;
@@ -835,7 +817,8 @@
     }
 
     footer {
-      margin-top: 18px;
+      margin: 18px auto 0;
+      max-width: 980px;
       font-size: 11px;
       text-align: center;
       color: rgba(255, 255, 255, 0.5);
@@ -1014,237 +997,75 @@
 
     .settings-chip--danger:hover {
       background: rgba(127, 29, 29, 0.9);
-      /* Когда пользователь вошёл — прячем форму логина слева */
-body.is-logged-in .auth-form {
-  display: none;
-}
-
-/* по желанию можно спрятать статус под формой, чтобы не маячил */
-body.is-logged-in #auth-status {
-  display: none;
-}
-/* === КНОПКА МУЗЫКИ (FAB) === */
-.music-fab {
-  position: fixed;
-  right: 22px;
-  bottom: 90px;
-  width: 52px;
-  height: 52px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.1), transparent 55%),
-              rgba(15, 23, 42, 0.95);
-  color: #ffd56b;
-  font-size: 22px;
-  cursor: pointer;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.9);
-  transition: all 0.2s ease;
-  z-index: 50;
-}
-
-.music-fab:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 22px 50px rgba(0,0,0,1);
-}
-
-/* === ПАНЕЛЬ МУЗЫКИ === */
-.music-panel {
-  position: fixed;
-  right: 22px;
-  bottom: 150px;
-  width: 320px;
-  max-width: calc(100% - 40px);
-  background: radial-gradient(circle at top left, rgba(255, 79, 154, 0.12), transparent 60%),
-              rgba(15, 23, 42, 0.97);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 22px;
-  padding: 16px;
-  box-shadow: 0 24px 60px rgba(0,0,0,1);
-  backdrop-filter: blur(14px);
-  opacity: 0;
-  transform: translateY(16px) scale(0.96);
-  pointer-events: none;
-  transition: all 0.25s ease;
-  z-index: 60;
-}
-
-.music-panel.open {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
-}
-
-.music-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.music-title {
-  font-size: 14px;
-  color: #ffd56b;
-}
-
-.music-close {
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  color: rgba(255,255,255,0.7);
-  cursor: pointer;
-}
-
-.music-close:hover {
-  color: #fff;
-}
-
-#musicPlayer {
-  width: 100%;
-  border-radius: 16px;
-}
-
     }
-    /* === КНОПКА МУЗЫКИ В ШАПКЕ === */
-.music-tab {
-  margin-left: 10px;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background:
-    radial-gradient(circle at 30% 0, rgba(255, 255, 255, 0.12), transparent 60%),
-    rgba(5, 3, 15, 0.96);
-  color: #ffd56b;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
-  transition: 0.18s ease;
-}
 
-.music-tab:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
-}
+    /* ==== ПЛАВАЮЩАЯ МУЗЫКА ВНИЗУ ==== */
 
-/* === ПАНЕЛЬ ПЛЕЙЛИСТА === */
-.music-panel {
-  position: fixed;
-  top: 76px;
-  right: 22px;
-  width: 320px;
-  max-width: calc(100% - 44px);
-  border-radius: 24px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 79, 154, 0.16), transparent 60%),
-    rgba(5, 3, 15, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
-  padding: 14px 14px 10px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-8px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  z-index: 60;
-}
+    .music-fab {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 10px;
+      z-index: 45;
+      border: none;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: radial-gradient(circle at top, rgba(251, 113, 133, 0.7), rgba(55, 48, 163, 0.95));
+      color: #fff;
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.9);
+      cursor: pointer;
+    }
 
-.music-panel.open {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
+    .music-panel {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      bottom: 18px;
+      width: 340px;
+      max-width: calc(100% - 40px);
+      border-radius: 22px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      padding: 10px 14px 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 44;
+    }
 
-.music-panel-inner {
-  position: relative;
-  z-index: 1;
-}
+    .music-panel.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
 
-.music-panel-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 8px;
-}
+    .music-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
 
-.music-panel-label {
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  display: block;
-}
+    .music-title span {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
 
-.music-panel-name {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.music-close {
-  border: none;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 16px;
-  cursor: pointer;
-  padding: 0 4px;
-}
-
-.music-close:hover {
-  color: #fff;
-}
-
-.music-player {
-  width: 100%;
-  margin: 4px 0 6px;
-}
-
-.music-playlist {
-  list-style: none;
-  margin: 4px 0 0;
-  padding: 0;
-  max-height: 220px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.music-item {
-  border-radius: 14px;
-  padding: 8px 10px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    transform 0.1s ease;
-  font-size: 12px;
-}
-
-.music-item:hover {
-  background: rgba(30, 64, 175, 0.9);
-  transform: translateY(-1px);
-}
-
-.music-item-title {
-  font-size: 12px;
-}
-
-.music-item-length {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.music-item.is-active {
-  border-color: #ff4f9a;
-  box-shadow: 0 0 0 1px rgba(255, 79, 154, 0.7);
-}
-
+    .music-close {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
   </style>
 </head>
 <body>
@@ -1255,250 +1076,333 @@ body.is-logged-in #auth-status {
   <span class="floating-heart" style="left: 32%; bottom: -100px; animation-delay: 6s;">💗</span>
 
   <div class="page">
-    <!-- Шапка -->
-  <header class="site-header">
-  <div class="header-inner">
-    <div class="logo">
-      Асъяман
-      <span>наш маленький мир</span>
-    </div>
-
-    <button class="nav-toggle" aria-label="Меню">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-    <nav class="site-nav">
-      <a href="index.html" class="nav-link nav-active">Желания</a>
-      <a href="thoughts.html" class="nav-link">Мысли</a>
-      <a href="miss.html" class="nav-link">Когда скучаешь</a>
-      <a href="letter.html" class="nav-link">Письмо</a>
-      <a href="about.html" class="nav-link">О нас</a>
-    </nav>
-
-    <!-- ОДНА кнопка плейлиста -->
-    <button id="musicTab" class="music-tab" aria-label="Открыть плейлист">
-      🎵
-    </button>
-  </div>
-</header>
-
-      <!-- Плейлист (общая музыка для сайта) -->
-  <div id="musicPanel" class="music-panel">
-    <div class="music-panel-inner">
-      <div class="music-panel-top">
-        <div class="music-panel-title">
-          <span class="music-panel-label">Наш плейлист</span>
-          <span class="music-panel-name">Наша музыка 💜</span>
+    <!-- ШАПКА -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="logo">
+          Асъяман
+          <span>наш маленький мир</span>
         </div>
-        <button id="musicClose" class="music-close" aria-label="Закрыть">✕</button>
+
+        <button class="nav-toggle" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <!-- ВАЖНО: теперь все ссылки ведут на секции внутри этой же страницы -->
+        <nav class="site-nav" id="topNav">
+          <a href="#section-wishes"  class="nav-link nav-active">Желания</a>
+          <a href="#section-thoughts" class="nav-link">Мысли</a>
+          <a href="#section-miss"    class="nav-link">Когда скучаешь</a>
+          <a href="#section-letter"  class="nav-link">Письмо</a>
+          <a href="#section-about"   class="nav-link">О нас</a>
+        </nav>
       </div>
+    </header>
 
-      <audio id="musicPlayer" class="music-player" controls>
-        <source src="mockingbird.mp3" type="audio/mpeg" />
-      </audio>
+    <main>
+      <!-- ============ СЕКЦИЯ ЖЕЛАНИЙ (ТВОЯ ГЛАВНАЯ) ============ -->
+      <section id="section-wishes" class="page-inner">
+        <main class="main-grid">
+          <!-- Левая карточка: авторизация -->
+          <section class="card">
+            <div class="card-inner">
+              <div class="auth-chip">
+                <span>🔒</span>
+                <span>Только для нас двоих</span>
+              </div>
 
-      <ul id="musicPlaylist" class="music-playlist"></ul>
-    </div>
-  </div>
-<div class="page-inner">
+              <h1 id="auth-title">Вход в наш <span>секретный дневник</span> 💫</h1>
+              <p class="subtitle">
+                Здесь мы будем видеть, кто из нас зашёл, и вместе хранить наши желания и мысли.
+              </p>
 
-    <main class="main-grid">
-      <!-- Левая карточка: авторизация -->
-      <section class="card">
-        <div class="card-inner">
-          <div class="auth-chip">
-            <span>🔒</span>
-            <span>Только для нас двоих</span>
-          </div>
+              <p id="welcome-text">Ты ещё не вошла в систему 💔</p>
 
-          <h1 id="auth-title">Вход в наш <span>секретный дневник</span> 💫</h1>
-          <p class="subtitle">
-            Здесь мы будем видеть, кто из нас зашёл, и вместе хранить наши желания и мысли.
-          </p>
+              <!-- сюда auth-wishes.js будет подставлять кнопку "Выйти" -->
+              <div id="auth-area" class="auth-buttons"></div>
 
-          <p id="welcome-text">Ты ещё не вошла в систему 💔</p>
+              <form class="auth-form" onsubmit="return false;">
+                <div class="auth-form-row">
+                  <label for="emailInput">Твой email</label>
+                  <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="Например: you@example.com"
+                  />
+                </div>
+                <div class="auth-form-row">
+                  <label for="passwordInput">Пароль</label>
+                  <input
+                    type="password"
+                    id="passwordInput"
+                    placeholder="Минимум 6 символов"
+                  />
+                </div>
 
-          <div id="auth-area" class="auth-buttons"></div>
+                <div class="auth-buttons" style="margin-top: 4px;">
+                  <button class="btn btn-main" id="emailRegisterBtn">Создать аккаунт 💛</button>
+                  <button class="btn btn-outline" id="emailLoginBtn">Войти по почте</button>
+                </div>
 
-          <div class="auth-form">
-            <div class="auth-form-row">
-              <label for="emailInput">Твой email</label>
-              <input
-                type="email"
-                id="emailInput"
-                placeholder="Например: you@example.com"
-              />
+                <div class="auth-buttons">
+                  <button class="btn btn-google" id="googleBtn">
+                    <span class="icon">🌀</span>
+                    <span>Войти через Google</span>
+                  </button>
+                </div>
+
+                <p class="auth-note">
+                  Ты можешь использовать любой свой email — просто не теряй пароль.
+                  А если лень, заходи через Google, это быстрее 🫶
+                </p>
+                <p id="auth-status" class="auth-status"></p>
+              </form>
             </div>
-            <div class="auth-form-row">
-              <label for="passwordInput">Пароль</label>
-              <input
-                type="password"
-                id="passwordInput"
-                placeholder="Минимум 6 символов"
-              />
-            </div>
+          </section>
 
-            <div class="auth-buttons" style="margin-top: 4px;">
-              <button class="btn btn-main" id="emailRegisterBtn">Создать аккаунт 💛</button>
-              <button class="btn btn-outline" id="emailLoginBtn">Войти по почте</button>
-            </div>
+          <!-- Правая карточка: желания -->
+          <section class="card">
+            <div class="card-inner">
+              <p class="section-label">Наши желания</p>
 
-            <div class="auth-buttons">
-              <button class="btn btn-google" id="googleBtn">
-                <span class="icon">🌀</span>
-                <span>Войти через Google</span>
-              </button>
-            </div>
+              <div class="wish-header">
+                <h2>Моя любимая, напиши, о чём ты мечтаешь 💛</h2>
+                <p>Каждое желание — как маленькое обещание, которое я постараюсь исполнить.</p>
+              </div>
 
-            <p class="auth-note">
-              Ты можешь использовать любой свой email — просто не теряй пароль.
-              А если лень, заходи через Google, это быстрее 🫶
+              <div id="private-content">
+                <div class="wish-input-box">
+                  <label for="wishInput">Напиши, чего хочешь прямо сейчас:</label>
+                  <textarea
+                    id="wishInput"
+                    placeholder="Например: хочу букет белых роз, наше вечернее кино и обнимашки до утра..."
+                  ></textarea>
+                </div>
+
+                <div class="wish-actions">
+                  <button class="btn btn-main" id="addWishBtn">
+                    <span>➕</span>
+                    <span>Добавить желание</span>
+                  </button>
+
+                  <div class="wish-actions-right">
+                    <button class="btn btn-outline" id="clearWishesBtn">
+                      Очистить все желания
+                    </button>
+                  </div>
+                </div>
+
+                <div class="wish-list-header">
+                  <span>📝 Наш список желаний:</span>
+                  <span id="wishCount"></span>
+                </div>
+                <ul id="wishList"></ul>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <!-- Админ-панель (видна только тебе, если uid = ADMIN_UID) -->
+        <section id="admin-panel" class="admin-panel">
+          <div class="admin-panel-inner">
+            <h2>Админ-панель 👑</h2>
+            <p class="admin-note">
+              Эту секцию видишь только ты. Здесь отображаются пользователи и их желания.
             </p>
-            <p id="auth-status" class="auth-status"></p>
+
+            <div class="admin-grid">
+              <!-- Пользователи -->
+              <section class="admin-card">
+                <h3>Пользователи</h3>
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Имя</th>
+                      <th>Email</th>
+                      <th>UID</th>
+                      <th>Последний вход</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-users-body">
+                    <tr><td colspan="4">Загрузка...</td></tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <!-- Желания -->
+              <section class="admin-card">
+                <h3>Желания</h3>
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Когда</th>
+                      <th>Текст</th>
+                      <th>Email</th>
+                      <th>UID</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-wishes-body">
+                    <tr><td colspan="4">Загрузка...</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
           </div>
-        </div>
+        </section>
       </section>
 
-      <!-- Правая карточка: желания -->
-      <section class="card">
-        <div class="card-inner">
-          <p class="section-label">Наши желания</p>
+      <!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
+      <section id="section-thoughts" class="page-inner">
+        <section class="card">
+          <div class="card-inner">
+            <span class="section-label">Наши мысли</span>
+            <div class="title-row">
+              <div class="lock-icon">🔒</div>
+              <h1>Твои мысли и предложения <span>для нас</span> 💭</h1>
+            </div>
+            <p class="subtitle">
+              Это место для серьёзных и не очень разговоров. Пиши сюда всё, что хочешь мне сказать.
+            </p>
 
-          <div class="wish-header">
-            <h2>Моя любимая, напиши, о чём ты мечтаешь 💛</h2>
-            <p>Каждое желание — как маленькое обещание, которое я постараюсь исполнить.</p>
-          </div>
+            <label for="thought-input" class="subtitle">
+              О чём ты думаешь прямо сейчас?
+            </label>
+            <textarea
+              id="thought-input"
+              rows="5"
+              placeholder="Например: мне хочется рассказать тебе, что сегодня произошло..."
+            ></textarea>
 
-          <div id="private-content">
-            <div class="wish-input-box">
-              <label for="wishInput">Напиши, чего хочешь прямо сейчас:</label>
-              <textarea
-                id="wishInput"
-                placeholder="Например: хочу букет белых роз, наше вечернее кино и обнимашки до утра..."
-              ></textarea>
+            <div class="actions-row">
+              <button id="add-thought" class="btn btn-main">
+                ✚ Добавить мысль
+              </button>
+              <button id="clear-thoughts" class="btn btn-outline">
+                Очистить все записи
+              </button>
             </div>
 
-            <div class="wish-actions">
-              <button class="btn btn-main" id="addWishBtn">
-                <span>➕</span>
-                <span>Добавить желание</span>
-              </button>
+            <p class="hint">
+              Нажми <strong>Ctrl+Enter</strong>, чтобы сохранить мысль
+            </p>
 
-              <div class="wish-actions-right">
-                <button class="btn btn-outline" id="clearWishesBtn">
-                  Очистить все желания
-                </button>
-              </div>
+            <h3 class="subtitle" style="margin-top: 10px;">Твои записи:</h3>
+            <div id="thoughts-list"></div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ============ СЕКЦИЯ КОГДА СКУЧАЕШЬ ============ -->
+      <section id="section-miss" class="page-inner">
+        <section class="card">
+          <div class="card-inner">
+            <span class="section-label">Когда скучаешь</span>
+            <div class="title-row">
+              <div class="lock-icon">💌</div>
+              <h1>Моменты, когда ты по мне скучаешь</h1>
+            </div>
+            <p class="subtitle">
+              Каждый раз, когда почувствуешь, что не хватает меня рядом — оставь здесь маленькую запись.
+            </p>
+
+            <label for="missInput">Что ты чувствуешь сейчас?</label>
+            <textarea id="missInput"
+              rows="3"
+              placeholder="Например: сейчас бы к тебе, обнять и молчать..."
+            ></textarea>
+
+            <div class="actions-row">
+              <button id="missAddBtn" class="btn btn-main">Добавить момент</button>
+              <button id="missQuickBtn" class="btn btn-outline">Случайная фраза</button>
+              <button id="missClearBtn" class="btn btn-outline">
+                Очистить всё
+              </button>
             </div>
 
             <div class="wish-list-header">
-              <span>📝 Наш список желаний:</span>
-              <span id="wishCount"></span>
+              <span>💗 Твои моменты:</span>
+              <span id="missCount"></span>
             </div>
-            <ul id="wishList"></ul>
+            <ul id="missList"></ul>
           </div>
-        </div>
+        </section>
+      </section>
+
+      <!-- ============ СЕКЦИЯ ПИСЬМО ============ -->
+      <section id="section-letter" class="page-inner">
+        <section class="card">
+          <div class="card-inner">
+            <span class="section-label">Письмо</span>
+            <h1>Наше большое письмо 💌</h1>
+            <p class="subtitle">
+              Здесь позже сделаем красивое оформленное письмо, как мы с тобой планировали.
+              Пока просто место зарезервировано.
+            </p>
+            <p class="letter-text">
+              Когда будем готовы — вставим сюда твой текст письма, оформление, возможно,
+              анимацию и отдельные абзацы под важные моменты.
+            </p>
+          </div>
+        </section>
+      </section>
+
+      <!-- ============ СЕКЦИЯ О НАС ============ -->
+      <section id="section-about" class="page-inner">
+        <section class="card about-card">
+          <div class="about-left">
+            <h2>О нас 👶💜</h2>
+            <p class="about-text-main">
+              У нас с тобой своя история – с детских фотографий и до этого момента,
+              когда ты читаешь эти строки на нашем собственном сайте.
+            </p>
+            <p class="about-text-sub">
+              Здесь я хочу хранить один маленький кадр из нашего детства и песню, под которую
+              внутри всё сжимается и становится по-особенному тёплым. Включи её, когда
+              захочешь снова почувствовать это чувство.
+            </p>
+
+            <div class="about-song">
+              <div class="about-song-header">
+                <span class="about-song-label">🎧 Наша песня</span>
+                <span class="about-song-name">Eminem — Mockingbird</span>
+              </div>
+              <audio class="about-audio" controls preload="auto">
+                <source src="mockingbird.mp3" type="audio/mpeg" />
+              </audio>
+              <p class="about-song-note">
+                Включи эту песню, когда хочешь вернуться в то маленькое «мы», где всё только начинается.
+              </p>
+            </div>
+          </div>
+
+          <div class="about-right">
+            <div class="about-photo-frame">
+              <img src="secret-photo.jpg" alt="Наше детское фото" class="about-photo" />
+              <div class="about-photo-label">Наш маленький секрет из детства 🔒</div>
+              <div class="about-photo-shadow"></div>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          Этот сайт создан только для нас двоих. Всё, что ты здесь пишешь, я храню у себя в сердце 💌
+        </footer>
       </section>
     </main>
-
-    <!-- Админ-панель (общая, ниже карточек) -->
-    <section id="admin-panel" class="admin-panel">
-      <div class="admin-panel-inner">
-        <h2>Админ-панель 👑</h2>
-        <p class="admin-note">
-          Эту секцию видишь только ты. Здесь отображаются пользователи и их желания.
-        </p>
-
-        <div class="admin-grid">
-          <!-- таблица пользователей -->
-          <section class="admin-card">
-            <h3>Пользователи</h3>
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Имя</th>
-                  <th>Email</th>
-                  <th>UID</th>
-                  <th>Последний вход</th>
-                </tr>
-              </thead>
-              <tbody id="admin-users-body">
-                <tr><td colspan="4">Загрузка...</td></tr>
-              </tbody>
-            </table>
-          </section>
-
-          <!-- таблица желаний -->
-          <section class="admin-card">
-            <h3>Желания</h3>
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Когда</th>
-                  <th>Текст</th>
-                  <th>Email</th>
-                  <th>UID</th>
-                </tr>
-              </thead>
-              <tbody id="admin-wishes-body">
-                <tr><td colspan="4">Загрузка...</td></tr>
-              </tbody>
-            </table>
-          </section>
-        </div>
-      </div>
-    </section>
-
-    <!-- О нас: детское фото + наша песня -->
-    <section id="about" class="card about-card">
-      <div class="about-left">
-        <h2>О нас 👶💜</h2>
-        <p class="about-text-main">
-          У нас с тобой своя история – с детских фотографий и до этого момента, когда ты читаешь эти строки
-          на нашем собственном сайте.
-        </p>
-        <p class="about-text-sub">
-          Здесь я хочу хранить один маленький кадр из нашего детства и песню, под которую внутри всё сжимается
-          и становится по-особенному тёплым. Включи её, когда захочешь снова почувствовать это чувство.
-        </p>
-
-        <div class="about-song">
-          <div class="about-song-header">
-            <span class="about-song-label">🎧 Наша песня</span>
-            <span class="about-song-name">Eminem — Mockingbird</span>
-          </div>
-          <audio class="about-audio" controls preload="auto">
-            <source src="mockingbird.mp3" type="audio/mpeg" />
-            Твой браузер не поддерживает аудио, но ты знаешь, что здесь играет именно Mockingbird 💜
-          </audio>
-          <p class="about-song-note">
-            Включи эту песню, когда хочешь вернуться в то маленькое «мы», где всё только начинается.
-          </p>
-        </div>
-      </div>
-
-      <div class="about-right">
-        <div class="about-photo-frame">
-          <img src="secret-photo.jpg" alt="Наше детское фото" class="about-photo" />
-          <div class="about-photo-label">Наш маленький секрет из детства 🔒</div>
-          <div class="about-photo-shadow"></div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      Этот сайт создан только для нас двоих. Всё, что ты здесь пишешь, я храню у себя в сердце 💌
-    </footer>
   </div>
-</div>
 
-    <!-- Основной скрипт авторизации + желаний -->
-  <script type="module" src="/auth-wishes.js"></script>
+  <!-- ===== ГЛОБАЛЬНЫЙ ПЛЕЕР ВНИЗУ (один на всю страницу) ===== -->
+  <div class="music-bar" id="musicBar">
+    <button class="music-bar-close" id="musicBarClose">✕</button>
+    <div class="music-bar-title" id="musicBarTitle">Наша песня 💜</div>
+    <audio id="globalMusic" controls preload="auto">
+      <source src="mockingbird.mp3" type="audio/mpeg" />
+    </audio>
+  </div>
 
-
-  <!-- Плавающая кнопка настроек + панель -->
+  <!-- FAB настроек (остаётся как у тебя) -->
   <button id="settingsFab" class="settings-fab" aria-label="Настройки">
     <span class="settings-fab-icon">⚙</span>
   </button>
@@ -1541,17 +1445,57 @@ body.is-logged-in #auth-status {
     </div>
   </div>
 
-  <!-- Скрипт настроек и бургера -->
+  <!-- Скрипты -->
+  <!-- Firebase + авторизация + Firestore -->
+  <script type="module" src="auth-wishes.js"></script>
+  <!-- Мысли -->
+  <script src="thoughts.js"></script>
+  <!-- Когда скучаешь -->
+  <script src="miss.js"></script>
+
+  <!-- Навигация, активные вкладки и музыка -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // ——— NAV: плавный скролл и активная вкладка ———
+      const links = document.querySelectorAll(".site-nav .nav-link");
+
+      links.forEach(link => {
+        link.addEventListener("click", (e) => {
+          const href = link.getAttribute("href");
+          if (!href.startsWith("#")) return;
+          e.preventDefault();
+
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+
+          links.forEach(l => l.classList.remove("nav-active"));
+          link.classList.add("nav-active");
+        });
+      });
+
+      // ——— MUSIC BAR: просто показать/скрыть (музыка не сбрасывается) ———
+      const musicBar = document.getElementById("musicBar");
+      const musicBarClose = document.getElementById("musicBarClose");
+
+      if (musicBar && musicBarClose) {
+        musicBarClose.addEventListener("click", () => {
+          musicBar.style.display = "none";
+          const audio = document.getElementById("globalMusic");
+          audio?.pause();
+        });
+      }
+
+      // ——— SETTINGS PANEL логика как раньше ———
       const fab        = document.getElementById("settingsFab");
       const panel      = document.getElementById("settingsPanel");
       const backdrop   = document.getElementById("settingsBackdrop");
       const closeBtn   = document.getElementById("settingsClose");
       const langSelect = document.getElementById("settingsLang");
       const themeBtn   = document.getElementById("settingsThemeToggle");
-      const adminBtn   = document.getElementById("settingsAdminBtn");
       const accInfo    = document.getElementById("settingsAccountInfo");
+      const adminBtn   = document.getElementById("settingsAdminBtn");
 
       function updateAccountInfo() {
         if (!accInfo) return;
@@ -1582,33 +1526,24 @@ body.is-logged-in #auth-status {
 
       updateAccountInfo();
 
-      // Язык
       if (langSelect) {
         const savedLang = localStorage.getItem("siteLang") || "ru";
         langSelect.value = savedLang;
-
         langSelect.addEventListener("change", () => {
           localStorage.setItem("siteLang", langSelect.value);
-          // здесь позже можно добавить реальный перевод
         });
       }
 
-      // Тема
       if (themeBtn) {
         themeBtn.addEventListener("click", () => {
-          if (typeof toggleTheme === "function") {
-            toggleTheme();
-          } else {
-            document.body.classList.toggle("dark");
-            localStorage.setItem(
-              "theme",
-              document.body.classList.contains("dark") ? "dark" : "light"
-            );
-          }
+          document.body.classList.toggle("dark");
+          localStorage.setItem(
+            "theme",
+            document.body.classList.contains("dark") ? "dark" : "light"
+          );
         });
       }
 
-      // Переход к админ-панели на этой же странице
       if (adminBtn) {
         adminBtn.addEventListener("click", () => {
           const adminBlock = document.getElementById("admin-panel");
@@ -1618,100 +1553,8 @@ body.is-logged-in #auth-status {
           }
         });
       }
-
-      // Бургер-меню
-      const navToggle = document.querySelector(".nav-toggle");
-      const siteNav   = document.querySelector(".site-nav");
-
-      if (navToggle && siteNav) {
-        navToggle.addEventListener("click", () => {
-          siteNav.classList.toggle("nav-open");
-        });
-      }
     });
   </script>
-  <!-- Музыкальная кнопка -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const musicTab    = document.getElementById("musicTab");
-    const musicPanel  = document.getElementById("musicPanel");
-    const musicClose  = document.getElementById("musicClose");
-    const musicPlayer = document.getElementById("musicPlayer");
-    const playlistEl  = document.getElementById("musicPlaylist");
-
-    // 🔊 Твой плейлист — просто меняешь / добавляешь треки здесь
-    const playlist = [
-      {
-        title: "Eminem — Mockingbird",
-        file: "mockingbird.mp3",
-        length: "4:11",
-      },
-      {
-        title: "Твой голос (сообщение)",
-        file: "miss-voice.mp3",
-        length: "0:30",
-      },
-      {
-        title: "Ещё одна наша песня",
-        file: "some-song.mp3",
-        length: "3:25",
-      },
-    ];
-
-    let currentIndex = 0;
-
-    function renderPlaylist() {
-      playlistEl.innerHTML = "";
-      playlist.forEach((track, index) => {
-        const li = document.createElement("li");
-        li.className = "music-item";
-        if (index === currentIndex) li.classList.add("is-active");
-
-        li.innerHTML = `
-          <div class="music-item-main">
-            <span class="music-item-title">${track.title}</span>
-            <span class="music-item-length">${track.length}</span>
-          </div>
-        `;
-
-        li.addEventListener("click", () => {
-          playTrack(index);
-        });
-
-        playlistEl.appendChild(li);
-      });
-    }
-
-    function playTrack(index) {
-      currentIndex = index;
-      const track = playlist[currentIndex];
-      musicPlayer.src = track.file;
-      musicPlayer.play().catch(() => {});
-      renderPlaylist();
-    }
-
-    // открыть / закрыть панель
-    musicTab?.addEventListener("click", () => {
-      musicPanel.classList.add("open");
-    });
-
-    musicClose?.addEventListener("click", () => {
-      musicPanel.classList.remove("open");
-      musicPlayer.pause();
-    });
-
-    // авто-переход к следующему треку
-    musicPlayer.addEventListener("ended", () => {
-      const next = (currentIndex + 1) % playlist.length;
-      playTrack(next);
-    });
-
-    // запуск: первая песня
-    renderPlaylist();
-    playTrack(0);
-  });
-</script>
-
-
 </body>
+
 </html>
