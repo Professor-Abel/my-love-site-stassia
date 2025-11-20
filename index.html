@@ -254,6 +254,20 @@
     
 
     /* ====== ОСНОВНОЙ КОНТЕНТ ====== */
+    .page-inner {
+      max-width: 980px;
+      margin: 26px auto 32px;
+      padding: 22px 22px 26px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 79, 154, 0.16), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.18), transparent 60%),
+        rgba(5, 3, 15, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(14px);
+    }
+
 
     .main-grid {
       display: grid;
@@ -1034,6 +1048,7 @@
         </nav>
       </div>
     </header>
+<div class="page-inner">
 
     <main class="main-grid">
       <!-- Левая карточка: авторизация -->
@@ -1223,6 +1238,7 @@
       Этот сайт создан только для нас двоих. Всё, что ты здесь пишешь, я храню у себя в сердце 💌
     </footer>
   </div>
+</div>
 
   <!-- Основной скрипт авторизации + желаний -->
   <script type="module" src="auth-wishes.js?v=3"></script>
