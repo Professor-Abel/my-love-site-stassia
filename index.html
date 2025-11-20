@@ -4,6 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Наши желания</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
+    <link rel="apple-touch-icon" href="favicon-asyaman.png" />
+
+    <!-- Базовое описание сайта -->
+    <meta name="description" content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
+
+    <!-- Open Graph (превью для соцсетей / мессенджеров) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Асъяман" />
+    <meta property="og:title" content="Асъяман — наш маленький мир" />
+    <meta property="og:description" content="Секретное место, где живут твои желания, мысли и наши маленькие секреты." />
+    <meta property="og:url" content="https://asyaman.com/" />
+    <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Превью для Twitter (X) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Асъяман — наш маленький мир" />
+    <meta name="twitter:description" content="Наш личный уголок: желания, мысли, «когда скучаешь» и письмо только для тебя." />
+    <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
 
   <!-- Шрифты -->
   <link
@@ -146,83 +170,29 @@
       font-family: "Poppins", sans-serif;
     }
 
-    .site-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
+    <div class="site-header-wrap">
+  <header class="site-header">
+    <div class="site-brand">
+      <div class="site-brand-title">Асъяман</div>
+      <div class="site-brand-sub">наш маленький мир</div>
+    </div>
 
-    .nav-link {
-      text-decoration: none;
-      font-size: 13px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      color: var(--text-soft);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
-    }
+   <nav class="site-nav">
+  <div class="nav-links">
+    <a href="index.html" class="nav-link nav-active">Желания</a>
+    <a href="thoughts.html" class="nav-link">Мысли</a>
+    <a href="miss.html" class="nav-link">Когда скучаешь</a>
+    <a href="letter.html" class="nav-link">Письмо</a>
+    <a href="about.html" class="nav-link">О нас</a>
+  </div>
 
-    .nav-link:hover {
-      border-color: rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.04);
-      color: #ffffff;
-    }
+  <!-- если хочешь кнопку темы в шапке — оставь её -->
+  <!-- убери этот блок, если ты её не используешь -->
+  <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
+</nav>
 
-    .nav-link.nav-active {
-      background: var(--accent-soft);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.2);
-    }
 
-    .nav-toggle {
-      display: none;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      padding: 4px;
-    }
 
-    .nav-toggle span {
-      display: block;
-      width: 20px;
-      height: 2px;
-      border-radius: 999px;
-      background: rgba(249, 250, 251, 0.95);
-    }
-
-    .nav-toggle span + span {
-      margin-top: 4px;
-    }
-
-    @media (max-width: 720px) {
-      .header-inner {
-        padding-inline: 4px;
-      }
-
-      .site-nav {
-        position: absolute;
-        left: 12px;
-        right: 12px;
-        top: 64px;
-        padding: 8px 10px 10px;
-        border-radius: 16px;
-        background: rgba(5, 3, 12, 0.98);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        display: none;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .site-nav.nav-open {
-        display: flex;
-      }
-
-      .nav-toggle {
-        display: block;
-      }
-    }
 
     /* ====== ДАЛЬШЕ — ТВОЙ СТАРЫЙ СТИЛЬ (КАРТОЧКИ, АВТОРИЗАЦИЯ И Т.Д.) ===== */
 
