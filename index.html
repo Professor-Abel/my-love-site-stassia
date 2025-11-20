@@ -753,15 +753,8 @@
       opacity: 0.9;
     }
 
-    .about-audio {
-      width: 100%;
-      margin: 4px 0 6px;
-      filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.9));
-      border-radius: 999px;
-    }
-
     .about-song-note {
-      margin: 0;
+      margin-top: 6px;
       font-size: 11px;
       color: var(--text-muted);
     }
@@ -999,173 +992,102 @@
       background: rgba(127, 29, 29, 0.9);
     }
 
-    /* ==== ПЛАВАЮЩАЯ МУЗЫКА ВНИЗУ ==== */
+    /* === КНОПКА МУЗЫКИ В ШАПКЕ === */
+    .nav-music {
+      padding-inline: 10px;
+      min-width: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
 
-    .music-fab {
+    /* === НИЖНЯЯ ПАНЕЛЬ МУЗЫКИ === */
+    .music-bar {
       position: fixed;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 10px;
-      z-index: 45;
-      border: none;
-      border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 13px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: radial-gradient(circle at top, rgba(251, 113, 133, 0.7), rgba(55, 48, 163, 0.95));
-      color: #fff;
-      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.9);
-      cursor: pointer;
-    }
-
-    .music-panel {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%) translateY(120%);
       bottom: 18px;
-      width: 340px;
-      max-width: calc(100% - 40px);
-      border-radius: 22px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
-      padding: 10px 14px 12px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 44;
-    }
+      z-index: 35;
 
-    .music-panel.open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
-    }
+      max-width: 420px;
+      width: calc(100% - 40px);
 
-    .music-header {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 6px;
-      font-size: 13px;
+      flex-direction: column;
+      gap: 6px;
+
+      padding: 10px 12px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 60%),
+        rgba(5, 3, 15, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 1);
     }
 
-    .music-title span {
+    .music-bar-title {
       font-size: 12px;
       color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .music-close {
+    .music-bar audio {
+      width: 100%;
+    }
+
+    .music-bar-close {
+      position: absolute;
+      top: 4px;
+      right: 8px;
       border: none;
       background: transparent;
       color: var(--text-soft);
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
-      padding: 0 4px;
     }
-    /* === КНОПКА МУЗЫКИ В ШАПКЕ === */
-.nav-music {
-  padding-inline: 10px;
-  min-width: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-}
 
-/* === НИЖНЯЯ ПАНЕЛЬ МУЗЫКИ === */
-.music-bar {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 18px;
-  z-index: 35;
+    .music-bar-close:hover {
+      color: #fff;
+    }
 
-  max-width: 420px;
-  width: calc(100% - 40px);
+    @media (max-width: 480px) {
+      .music-bar {
+        bottom: 12px;
+        padding: 8px 10px;
+      }
+    }
 
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    .music-bar-playlist {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
 
-  padding: 10px 12px;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 60%),
-    rgba(5, 3, 15, 0.98);
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  box-shadow: 0 22px 50px rgba(15, 23, 42, 1);
-}
+    .playlist-item {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      font-size: 11px;
+      padding: 4px 9px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
 
-.music-bar-title {
-  font-size: 12px;
-  color: var(--text-soft);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+    .playlist-item:hover {
+      background: rgba(31, 41, 55, 0.95);
+      transform: translateY(-1px);
+    }
 
-.music-bar audio {
-  width: 100%;
-}
-
-/* крестик закрытия */
-.music-bar-close {
-  position: absolute;
-  top: 4px;
-  right: 8px;
-  border: none;
-  background: transparent;
-  color: var(--text-soft);
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.music-bar-close:hover {
-  color: #fff;
-}
-
-/* чтобы на очень маленьких экранах плеер не вылазил */
-@media (max-width: 480px) {
-  .music-bar {
-    bottom: 12px;
-    padding: 8px 10px;
-  }
-}
-/* список треков */
-.music-bar-playlist {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
-}
-
-.playlist-item {
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.8);
-  background: rgba(15, 23, 42, 0.96);
-  color: #e5e7eb;
-  font-size: 11px;
-  padding: 4px 9px;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-}
-
-.playlist-item:hover {
-  background: rgba(31, 41, 55, 0.95);
-  transform: translateY(-1px);
-}
-
-.playlist-item.active {
-  border-color: var(--accent);
-  color: #fff;
-  background: rgba(255, 79, 154, 0.2);
-}
-
-
+    .playlist-item.active {
+      border-color: var(--accent);
+      color: #fff;
+      background: rgba(255, 79, 154, 0.2);
+    }
   </style>
 </head>
 <body>
@@ -1190,29 +1112,25 @@
           <span></span>
         </button>
 
-        <!-- ВАЖНО: теперь все ссылки ведут на секции внутри этой же страницы -->
-<nav class="site-nav">
-  <a href="#wishes" class="nav-link nav-active">Желания</a>
-  <a href="#thoughts" class="nav-link">Мысли</a>
-  <a href="#miss" class="nav-link">Когда скучаешь</a>
-  <a href="letter.html" class="nav-link">Письмо</a>
-  <a href="#about" class="nav-link">О нас</a>
+        <nav class="site-nav">
+          <a href="#wishes"  class="nav-link nav-active">Желания</a>
+          <a href="#thoughts" class="nav-link">Мысли</a>
+          <a href="#miss"     class="nav-link">Когда скучаешь</a>
+          <a href="#letter"   class="nav-link">Письмо</a>
+          <a href="#about"    class="nav-link">О нас</a>
 
-
-
-  <!-- Кнопка музыки справа -->
-  <button id="navMusicBtn" class="nav-link nav-music" type="button" title="Наш плейлист">
-    🎵
-  </button>
-</nav>
-
+          <!-- Кнопка музыки справа -->
+          <button id="navMusicBtn" class="nav-link nav-music" type="button" title="Наш плейлист">
+            🎵
+          </button>
+        </nav>
       </div>
     </header>
 
     <main>
-      <!-- ============ СЕКЦИЯ ЖЕЛАНИЙ (ТВОЯ ГЛАВНАЯ) ============ -->
+      <!-- ============ СЕКЦИЯ ЖЕЛАНИЙ ============ -->
       <section id="wishes" class="page-inner">
-        <main class="main-grid">
+        <div class="main-grid">
           <!-- Левая карточка: авторизация -->
           <section class="card">
             <div class="card-inner">
@@ -1228,7 +1146,6 @@
 
               <p id="welcome-text">Ты ещё не вошла в систему 💔</p>
 
-              <!-- сюда auth-wishes.js будет подставлять кнопку "Выйти" -->
               <div id="auth-area" class="auth-buttons"></div>
 
               <form class="auth-form" onsubmit="return false;">
@@ -1310,7 +1227,7 @@
               </div>
             </div>
           </section>
-        </main>
+        </div>
 
         <!-- Админ-панель (видна только тебе, если uid = ADMIN_UID) -->
         <section id="admin-panel" class="admin-panel">
@@ -1321,7 +1238,6 @@
             </p>
 
             <div class="admin-grid">
-              <!-- Пользователи -->
               <section class="admin-card">
                 <h3>Пользователи</h3>
                 <table class="admin-table">
@@ -1339,7 +1255,6 @@
                 </table>
               </section>
 
-              <!-- Желания -->
               <section class="admin-card">
                 <h3>Желания</h3>
                 <table class="admin-table">
@@ -1362,14 +1277,11 @@
       </section>
 
       <!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
-      <section id="section-thoughts" class="page-inner">
+      <section id="thoughts" class="page-inner">
         <section class="card">
           <div class="card-inner">
             <span class="section-label">Наши мысли</span>
-            <div class="title-row">
-              <div class="lock-icon">🔒</div>
-              <h1>Твои мысли и предложения <span>для нас</span> 💭</h1>
-            </div>
+            <h1>Твои мысли и предложения <span>для нас</span> 💭</h1>
             <p class="subtitle">
               Это место для серьёзных и не очень разговоров. Пиши сюда всё, что хочешь мне сказать.
             </p>
@@ -1383,7 +1295,7 @@
               placeholder="Например: мне хочется рассказать тебе, что сегодня произошло..."
             ></textarea>
 
-            <div class="actions-row">
+            <div class="wish-actions">
               <button id="add-thought" class="btn btn-main">
                 ✚ Добавить мысль
               </button>
@@ -1392,8 +1304,8 @@
               </button>
             </div>
 
-            <p class="hint">
-              Нажми <strong>Ctrl+Enter</strong>, чтобы сохранить мысль
+            <p class="subtitle" style="margin-top: 10px; font-size: 12px;">
+              Нажми <strong>Ctrl+Enter</strong>, чтобы сохранить мысль.
             </p>
 
             <h3 class="subtitle" style="margin-top: 10px;">Твои записи:</h3>
@@ -1403,14 +1315,11 @@
       </section>
 
       <!-- ============ СЕКЦИЯ КОГДА СКУЧАЕШЬ ============ -->
-      <section id="section-miss" class="page-inner">
+      <section id="miss" class="page-inner">
         <section class="card">
           <div class="card-inner">
             <span class="section-label">Когда скучаешь</span>
-            <div class="title-row">
-              <div class="lock-icon">💌</div>
-              <h1>Моменты, когда ты по мне скучаешь</h1>
-            </div>
+            <h1>Моменты, когда ты по мне скучаешь</h1>
             <p class="subtitle">
               Каждый раз, когда почувствуешь, что не хватает меня рядом — оставь здесь маленькую запись.
             </p>
@@ -1421,7 +1330,7 @@
               placeholder="Например: сейчас бы к тебе, обнять и молчать..."
             ></textarea>
 
-            <div class="actions-row">
+            <div class="wish-actions">
               <button id="missAddBtn" class="btn btn-main">Добавить момент</button>
               <button id="missQuickBtn" class="btn btn-outline">Случайная фраза</button>
               <button id="missClearBtn" class="btn btn-outline">
@@ -1439,7 +1348,7 @@
       </section>
 
       <!-- ============ СЕКЦИЯ ПИСЬМО ============ -->
-      <section id="section-letter" class="page-inner">
+      <section id="letter" class="page-inner">
         <section class="card">
           <div class="card-inner">
             <span class="section-label">Письмо</span>
@@ -1448,7 +1357,7 @@
               Здесь позже сделаем красивое оформленное письмо, как мы с тобой планировали.
               Пока просто место зарезервировано.
             </p>
-            <p class="letter-text">
+            <p class="subtitle" style="font-size: 13px;">
               Когда будем готовы — вставим сюда твой текст письма, оформление, возможно,
               анимацию и отдельные абзацы под важные моменты.
             </p>
@@ -1457,7 +1366,7 @@
       </section>
 
       <!-- ============ СЕКЦИЯ О НАС ============ -->
-      <section id="section-about" class="page-inner">
+      <section id="about" class="page-inner">
         <section class="card about-card">
           <div class="about-left">
             <h2>О нас 👶💜</h2>
@@ -1476,10 +1385,14 @@
                 <span class="about-song-label">🎧 Наша песня</span>
                 <span class="about-song-name">Eminem — Mockingbird</span>
               </div>
-             <button class="btn btn-main" type="button" id="aboutPlayMockingbird">
-  ▶ Включить нашу песню
-</button>
-
+              <button class="btn btn-main" type="button" id="aboutPlayMockingbird">
+                ▶ Включить нашу песню
+              </button>
+              <p class="about-song-note">
+                Нажми сюда — и снизу откроется наш плейлист, сразу заиграет Mockingbird.
+              </p>
+            </div>
+          </div>
 
           <div class="about-right">
             <div class="about-photo-frame">
@@ -1489,35 +1402,33 @@
             </div>
           </div>
         </section>
-
-        <footer>
-          Этот сайт создан только для нас двоих. Всё, что ты здесь пишешь, я храню у себя в сердце 💌
-        </footer>
       </section>
     </main>
   </div>
 
-<!-- Глобальный музыкальный плеер -->
-<div id="musicBar" class="music-bar">
-  <button id="musicBarClose" class="music-bar-close" type="button" title="Скрыть музыку">✕</button>
+  <footer>
+    Этот сайт создан только для нас двоих. Всё, что ты здесь пишешь, я храню у себя в сердце 💌
+  </footer>
 
-  <div class="music-bar-title">
-    <span>🎵 Наша музыка</span>
-    <span id="musicCurrentTitle">Eminem — Mockingbird</span>
+  <!-- Глобальный музыкальный плеер -->
+  <div id="musicBar" class="music-bar">
+    <button id="musicBarClose" class="music-bar-close" type="button" title="Скрыть музыку">✕</button>
+
+    <div class="music-bar-title">
+      <span>🎵 Наша музыка</span>
+      <span id="musicCurrentTitle">Eminem — Mockingbird</span>
+    </div>
+
+    <audio id="globalMusic" controls preload="auto"></audio>
+
+    <div class="music-bar-playlist">
+      <button class="playlist-item" data-index="0">Mockingbird</button>
+      <button class="playlist-item" data-index="1">Наш голос</button>
+      <button class="playlist-item" data-index="2">Shape Of My Heart</button>
+    </div>
   </div>
 
-  <!-- один общий плеер, src будем задавать из JS -->
-  <audio id="globalMusic" controls preload="auto"></audio>
-
-  <div class="music-bar-playlist">
-    <button class="playlist-item" data-index="0">Mockingbird</button>
-    <button class="playlist-item" data-index="1">Наш голос</button>
-    <button class="playlist-item" data-index="2">Shape Of My Heart</button>
-  </div>
-</div>
-
-
-  <!-- FAB настроек (остаётся как у тебя) -->
+  <!-- FAB настроек -->
   <button id="settingsFab" class="settings-fab" aria-label="Настройки">
     <span class="settings-fab-icon">⚙</span>
   </button>
@@ -1561,138 +1472,107 @@
   </div>
 
   <!-- Скрипты -->
-  <!-- Firebase + авторизация + Firestore -->
   <script type="module" src="auth-wishes.js"></script>
-  <!-- Мысли -->
   <script src="thoughts.js"></script>
-  <!-- Когда скучаешь -->
   <script src="miss.js"></script>
 
-  <!-- Навигация, активные вкладки и музыка -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // ——— NAV: плавный скролл и активная вкладка ———
-     // === ГЛОБАЛЬНАЯ МУЗЫКА + ПЛЕЙЛИСТ ===
-    const musicBar       = document.getElementById("musicBar");
-    const musicBarClose  = document.getElementById("musicBarClose");
-    const globalMusic    = document.getElementById("globalMusic");
-    const navMusicBtn    = document.getElementById("navMusicBtn");
-    const titleEl        = document.getElementById("musicCurrentTitle");
-    const playlistBtns   = Array.from(document.querySelectorAll(".playlist-item"));
+      // === ГЛОБАЛЬНАЯ МУЗЫКА + ПЛЕЙЛИСТ ===
+      const musicBar      = document.getElementById("musicBar");
+      const musicBarClose = document.getElementById("musicBarClose");
+      const globalMusic   = document.getElementById("globalMusic");
+      const navMusicBtn   = document.getElementById("navMusicBtn");
+      const titleEl       = document.getElementById("musicCurrentTitle");
+      const playlistBtns  = Array.from(document.querySelectorAll(".playlist-item"));
+      const aboutPlayBtn  = document.getElementById("aboutPlayMockingbird");
 
-        // Кнопка "Включить нашу песню" в блоке О нас
-    const aboutPlayBtn = document.getElementById("aboutPlayMockingbird");
-    if (aboutPlayBtn && navMusicBtn && musicBar && globalMusic) {
-      aboutPlayBtn.addEventListener("click", () => {
-        // открыть панель
-        musicBar.style.display = "flex";
-        // включить именно первый трек (Mockingbird, index = 0)
-        loadTrack(0, true);
-      });
-    }
+      const playlist = [
+        { title: "Eminem — Mockingbird",   src: "mockingbird.mp3" },
+        { title: "Наш голос",              src: "miss-voice.mp3" },
+        { title: "Shape Of My Heart",      src: "shape-of-my-heart.mp3" },
+      ];
 
-    // сам плейлист (пути к файлам лежат рядом с index.html)
-    const playlist = [
-      { title: "Eminem — Mockingbird",   src: "mockingbird.mp3" },
-      { title: "Наш голос",              src: "miss-voice.mp3" },
-      { title: "Shape Of My Heart",      src: "shape-of-my-heart.mp3" },
-    ];
+      let currentTrackIndex = 0;
 
-    let currentTrackIndex = 0;
-
-    function setActiveButton(index) {
-      playlistBtns.forEach((btn, i) => {
-        btn.classList.toggle("active", i === index);
-      });
-    }
-
-    function loadTrack(index, autoPlay = false) {
-      if (!globalMusic || !playlist[index]) return;
-
-      currentTrackIndex = index;
-      const track = playlist[index];
-
-      globalMusic.src = track.src;
-      if (titleEl) titleEl.textContent = track.title;
-
-      setActiveButton(index);
-
-      if (autoPlay) {
-        globalMusic.play().catch(() => {});
+      function setActiveButton(index) {
+        playlistBtns.forEach((btn, i) => {
+          btn.classList.toggle("active", i === index);
+        });
       }
-    }
 
-    function playNext() {
-      const nextIndex = (currentTrackIndex + 1) % playlist.length;
-      loadTrack(nextIndex, true);
-    }
+      function loadTrack(index, autoPlay = false) {
+        if (!globalMusic || !playlist[index]) return;
+        currentTrackIndex = index;
+        const track = playlist[index];
 
-    // клик по кнопке в шапке
-    if (navMusicBtn && musicBar && globalMusic) {
-      navMusicBtn.addEventListener("click", () => {
-        musicBar.style.display = "flex";
-        // если ещё не загружали трек – загрузим первый
-        if (!globalMusic.src) {
-          loadTrack(currentTrackIndex, true);
-        } else if (globalMusic.paused) {
+        globalMusic.src = track.src;
+        if (titleEl) titleEl.textContent = track.title;
+        setActiveButton(index);
+
+        if (autoPlay) {
           globalMusic.play().catch(() => {});
         }
+      }
+
+      function playNext() {
+        const nextIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(nextIndex, true);
+      }
+
+      // Клики по плейлисту
+      playlistBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const index = Number(btn.dataset.index || 0);
+          loadTrack(index, true);
+          musicBar.style.display = "flex";
+        });
       });
-    }
 
-    // крестик на панели
-    if (musicBar && musicBarClose && globalMusic) {
-      musicBarClose.addEventListener("click", () => {
-        musicBar.style.display = "none";
-        globalMusic.pause();
-      });
-    }
+      // Кнопка в шапке
+      if (navMusicBtn) {
+        navMusicBtn.addEventListener("click", () => {
+          musicBar.style.display = "flex";
+          if (!globalMusic.src) {
+            loadTrack(currentTrackIndex, true);
+          } else if (globalMusic.paused) {
+            globalMusic.play().catch(() => {});
+          }
+        });
+      }
 
-    // переключение треков по клику по «чипам»
-    playlistBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const index = Number(btn.dataset.index || 0);
-        loadTrack(index, true);
-        if (musicBar) musicBar.style.display = "flex";
-      });
-    });
+      // Кнопка "Включить нашу песню" в блоке О нас
+      if (aboutPlayBtn) {
+        aboutPlayBtn.addEventListener("click", () => {
+          musicBar.style.display = "flex";
+          loadTrack(0, true); // всегда Mockingbird
+        });
+      }
 
-    // после окончания трека – автоматически следующий
-    if (globalMusic) {
-      globalMusic.addEventListener("ended", () => {
-        playNext();
-      });
-    }
+      // Закрыть панель
+      if (musicBarClose) {
+        musicBarClose.addEventListener("click", () => {
+          musicBar.style.display = "none";
+          globalMusic.pause();
+        });
+      }
 
-    // при загрузке страницы просто подготавливаем первый трек (без автоплея)
-    loadTrack(currentTrackIndex, false);
+      if (globalMusic) {
+        globalMusic.addEventListener("ended", playNext);
+      }
 
-    // кнопка в шапке — открыть плеер и начать играть (если на паузе)
-    if (navMusicBtn && musicBar && globalMusic) {
-      navMusicBtn.addEventListener("click", () => {
-        musicBar.style.display = "flex"; // показываем панель, если вдруг была скрыта
-        if (globalMusic.paused) {
-          globalMusic.play().catch(() => {});
-        }
-      });
-    }
+      // Подготовить первый трек без автоплея
+      loadTrack(currentTrackIndex, false);
 
-    // крестик в панели — скрыть и остановить
-    if (musicBar && musicBarClose && globalMusic) {
-      musicBarClose.addEventListener("click", () => {
-        musicBar.style.display = "none";
-        globalMusic.pause();
-      });
-    }
-
-      const links = document.querySelectorAll(".site-nav .nav-link");
+      // === NAV: плавный скролл и активная вкладка ===
+      const links = document.querySelectorAll(".site-nav a.nav-link");
 
       links.forEach(link => {
         link.addEventListener("click", (e) => {
           const href = link.getAttribute("href");
-          if (!href.startsWith("#")) return;
-          e.preventDefault();
+          if (!href || !href.startsWith("#")) return;
 
+          e.preventDefault();
           const target = document.querySelector(href);
           if (target) {
             target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1703,18 +1583,7 @@
         });
       });
 
-      // ——— MUSIC BAR: просто показать/скрыть (музыка не сбрасывается) ———
-   
-
-      if (musicBar && musicBarClose) {
-        musicBarClose.addEventListener("click", () => {
-          musicBar.style.display = "none";
-          const audio = document.getElementById("globalMusic");
-          audio?.pause();
-        });
-      }
-
-      // ——— SETTINGS PANEL логика как раньше ———
+      // === SETTINGS PANEL ===
       const fab        = document.getElementById("settingsFab");
       const panel      = document.getElementById("settingsPanel");
       const backdrop   = document.getElementById("settingsBackdrop");
@@ -1783,5 +1652,4 @@
     });
   </script>
 </body>
-
 </html>
