@@ -1023,6 +1023,85 @@ body.is-logged-in .auth-form {
 body.is-logged-in #auth-status {
   display: none;
 }
+/* === КНОПКА МУЗЫКИ (FAB) === */
+.music-fab {
+  position: fixed;
+  right: 22px;
+  bottom: 90px;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.1), transparent 55%),
+              rgba(15, 23, 42, 0.95);
+  color: #ffd56b;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+  transition: all 0.2s ease;
+  z-index: 50;
+}
+
+.music-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 50px rgba(0,0,0,1);
+}
+
+/* === ПАНЕЛЬ МУЗЫКИ === */
+.music-panel {
+  position: fixed;
+  right: 22px;
+  bottom: 150px;
+  width: 320px;
+  max-width: calc(100% - 40px);
+  background: radial-gradient(circle at top left, rgba(255, 79, 154, 0.12), transparent 60%),
+              rgba(15, 23, 42, 0.97);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 22px;
+  padding: 16px;
+  box-shadow: 0 24px 60px rgba(0,0,0,1);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  transform: translateY(16px) scale(0.96);
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 60;
+}
+
+.music-panel.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.music-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.music-title {
+  font-size: 14px;
+  color: #ffd56b;
+}
+
+.music-close {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+}
+
+.music-close:hover {
+  color: #fff;
+}
+
+#musicPlayer {
+  width: 100%;
+  border-radius: 16px;
+}
 
     }
   </style>
@@ -1386,5 +1465,38 @@ body.is-logged-in #auth-status {
       }
     });
   </script>
+  <!-- Музыкальная кнопка -->
+<button id="musicFab" class="music-fab">
+  🎵
+</button>
+
+<!-- Музыкальная панель -->
+<div id="musicPanel" class="music-panel">
+  <div class="music-header">
+    <span class="music-title">Наша песня 💜</span>
+    <button id="musicClose" class="music-close">✕</button>
+  </div>
+
+  <audio id="musicPlayer" controls>
+    <source src="mockingbird.mp3" type="audio/mpeg" />
+  </audio>
+</div>
+
+<script>
+  const musicFab = document.getElementById("musicFab");
+  const musicPanel = document.getElementById("musicPanel");
+  const musicClose = document.getElementById("musicClose");
+  const musicPlayer = document.getElementById("musicPlayer");
+
+  musicFab.addEventListener("click", () => {
+    musicPanel.classList.add("open");
+  });
+
+  musicClose.addEventListener("click", () => {
+    musicPanel.classList.remove("open");
+    musicPlayer.pause();
+  });
+</script>
+
 </body>
 </html>
