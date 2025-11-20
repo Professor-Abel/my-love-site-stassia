@@ -1522,10 +1522,10 @@
 
 <nav class="site-nav">
   <a href="#wishes"          class="nav-link nav-active">Желания</a>
-  <a href="#section-thoughts" class="nav-link">Мысли</a>
-  <a href="#section-miss"     class="nav-link">Когда скучаешь</a>
-  <a href="#section-letter"   class="nav-link">Письмо</a>
-  <a href="#section-about"    class="nav-link">О нас</a>
+  <a href="#thoughts" class="nav-link">Мысли</a>
+  <a href="#miss"     class="nav-link">Когда скучаешь</a>
+  <a href="#letter"   class="nav-link">Письмо</a>
+  <a href="#about"    class="nav-link">О нас</a>
 
   <!-- Кнопка музыки справа -->
   <button id="navMusicBtn" class="nav-link nav-music" type="button" title="Наш плейлист">
@@ -1551,8 +1551,8 @@
 
       <nav class="side-nav">
         <button class="side-nav-btn" data-jump="wishes">💖 Желания</button>
-        <button class="side-nav-btn" data-jump="section-thoughts">💭 Мысли</button>
-        <button class="side-nav-btn" data-jump="section-miss">🥺 Когда скучаешь</button>
+        <button class="side-nav-btn" data-jump="thoughts">💭 Мысли</button>
+        <button class="side-nav-btn" data-jump="miss">🥺 Когда скучаешь</button>
         <button class="side-nav-btn" data-jump="letter">💌 Письмо</button>
         <button class="side-nav-btn" data-jump="about">🌙 О нас</button>
       </nav>
@@ -1720,215 +1720,6 @@
                     </tr>
                   </thead>
                   <tbody id="adminWishesTbody">
-                    <tr><td colspan="4">Загрузка...</td></tr>
-                  </tbody>
-                </table>
-              </section>
-            </div>
-          </div>
-        </section>
-      </section>
-
-      <!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
-      <section id="section-thoughts" class="page-inner">
-        ... (оставь здесь свой существующий блок мыслей БЕЗ изменений)
-      </section>
-
-      <!-- ============ СЕКЦИЯ КОГДА СКУЧАЕШЬ ============ -->
-      <section id="section-miss" class="page-inner">
-        ... (здесь твой текущий блок «когда скучаешь»)
-      </section>
-
-      <!-- ============ СЕКЦИЯ ПИСЬМО ============ -->
-      <section id="letter" class="section section-letter">
-        ... (твой существующий красивый блок письма)
-      </section>
-
-      <!-- ============ СЕКЦИЯ О НАС ============ -->
-      <section id="about" class="page-inner">
-        ... (твой блок «о нас» с фото и песней)
-      </section>
-
-  </section> <!-- /layout-center -->
-
-  <!-- Правая колонка: музыка и маленькие виджеты -->
-  <aside class="layout-right">
-    <div class="layout-right-inner">
-      <div class="side-card">
-        <div class="side-card-title">Наша музыка</div>
-        <p class="side-card-text">
-          Включи плейлист внизу страницы — Mockingbird и остальные треки всегда ждут тебя.
-        </p>
-      </div>
-      <div class="side-card">
-        <div class="side-card-title">Напоминание</div>
-        <p class="side-card-text">
-          Если вдруг станет тяжело или одиноко — возвращайся сюда. Ты никогда не одна.
-        </p>
-      </div>
-    </div>
-  </aside>
-
-</main>
-
-
-
-    <!-- Мини-профиль с аватаром -->
-    <div class="profile-mini">
-      <div class="profile-avatar-wrapper">
-        <img
-          id="profileAvatar"
-          src="secret-photo.jpg"
-          alt="Твой аватар"
-          class="profile-avatar"
-        />
-        <button
-          id="changeAvatarBtn"
-          class="btn btn-outline btn-avatar"
-          type="button"
-        >
-          ✏️ Сменить аватар
-        </button>
-        <input
-          type="file"
-          id="avatarFileInput"
-          accept="image/*"
-          hidden
-        />
-      </div>
-      <div class="profile-name" id="profileName">
-        Твоё место здесь 💜
-      </div>
-    </div>
-
-              <h1 id="auth-title">Вход в наш <span>секретный дневник</span> 💫</h1>
-              <p class="subtitle">
-                Здесь мы будем видеть, кто из нас зашёл, и вместе хранить наши желания и мысли.
-              </p>
-
-              <p id="welcome-text">Ты ещё не вошла в систему 💔</p>
-
-              <div id="auth-area" class="auth-buttons"></div>
-
-              <form class="auth-form" onsubmit="return false;">
-                <div class="auth-form-row">
-                  <label for="emailInput">Твой email</label>
-                  <input
-                    type="email"
-                    id="emailInput"
-                    placeholder="Например: you@example.com"
-                  />
-                </div>
-                <div class="auth-form-row">
-                  <label for="passwordInput">Пароль</label>
-                  <input
-                    type="password"
-                    id="passwordInput"
-                    placeholder="Минимум 6 символов"
-                  />
-                </div>
-
-                <div class="auth-buttons" style="margin-top: 4px;">
-                  <button class="btn btn-main" id="emailRegisterBtn">Создать аккаунт 💛</button>
-                  <button class="btn btn-outline" id="emailLoginBtn">Войти по почте</button>
-                </div>
-
-                <div class="auth-buttons">
-                  <button class="btn btn-google" id="googleBtn">
-                    <span class="icon">🌀</span>
-                    <span>Войти через Google</span>
-                  </button>
-                </div>
-
-                <p class="auth-note">
-                  Ты можешь использовать любой свой email — просто не теряй пароль.
-                  А если лень, заходи через Google, это быстрее 🫶
-                </p>
-                <p id="auth-status" class="auth-status"></p>
-              </form>
-            </div>
-          </section>
-
-          <!-- Правая карточка: желания -->
-          <section class="card">
-            <div class="card-inner">
-              <p class="section-label">Наши желания</p>
-
-              <div class="wish-header">
-                <h2>Моя любимая, напиши, о чём ты мечтаешь 💛</h2>
-                <p>Каждое желание — как маленькое обещание, которое я постараюсь исполнить.</p>
-              </div>
-
-              <div id="private-content">
-                <div class="wish-input-box">
-                  <label for="wishInput">Напиши, чего хочешь прямо сейчас:</label>
-                  <textarea
-                    id="wishInput"
-                    placeholder="Например: хочу букет белых роз, наше вечернее кино и обнимашки до утра..."
-                  ></textarea>
-                </div>
-
-                <div class="wish-actions">
-                  <button class="btn btn-main" id="addWishBtn">
-                    <span>➕</span>
-                    <span>Добавить желание</span>
-                  </button>
-
-                  <div class="wish-actions-right">
-                    <button class="btn btn-outline" id="clearWishesBtn">
-                      Очистить все желания
-                    </button>
-                  </div>
-                </div>
-
-                <div class="wish-list-header">
-                  <span>📝 Наш список желаний:</span>
-                  <span id="wishCount"></span>
-                </div>
-                <ul id="wishList"></ul>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        <!-- Админ-панель (видна только тебе, если uid = ADMIN_UID) -->
-        <section id="admin-panel" class="admin-panel">
-          <div class="admin-panel-inner">
-            <h2>Админ-панель 👑</h2>
-            <p class="admin-note">
-              Эту секцию видишь только ты. Здесь отображаются пользователи и их желания.
-            </p>
-
-            <div class="admin-grid">
-              <section class="admin-card">
-                <h3>Пользователи</h3>
-                <table class="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Имя</th>
-                      <th>Email</th>
-                      <th>UID</th>
-                      <th>Последний вход</th>
-                    </tr>
-                  </thead>
-                  <tbody id="admin-users-body">
-                    <tr><td colspan="4">Загрузка...</td></tr>
-                  </tbody>
-                </table>
-              </section>
-
-              <section class="admin-card">
-                <h3>Желания</h3>
-                <table class="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Когда</th>
-                      <th>Текст</th>
-                      <th>Email</th>
-                      <th>UID</th>
-                    </tr>
-                  </thead>
-                  <tbody id="admin-wishes-body">
                     <tr><td colspan="4">Загрузка...</td></tr>
                   </tbody>
                 </table>
@@ -2154,7 +1945,25 @@
           </div>
         </section>
       </section>
-    </main>
+    
+  <!-- Правая колонка: музыка и маленькие виджеты -->
+  <aside class="layout-right">
+    <div class="layout-right-inner">
+      <div class="side-card">
+        <div class="side-card-title">Наша музыка</div>
+        <p class="side-card-text">
+          Включи плейлист внизу страницы — Mockingbird и остальные треки всегда ждут тебя.
+        </p>
+      </div>
+      <div class="side-card">
+        <div class="side-card-title">Напоминание</div>
+        <p class="side-card-text">
+          Если вдруг станет тяжело или одиноко — возвращайся сюда. Ты никогда не одна.
+        </p>
+      </div>
+    </div>
+  </aside>
+</main>
   </div>
 
   <footer>
