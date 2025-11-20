@@ -699,11 +699,30 @@
             <p class="letter-text">
                 Иногда проще сначала написать, а уже потом отправить сообщение. Этот раздел — как наш личный черновик.
             </p>
+<label>О чём ты думаешь прямо сейчас?</label>
+
+<textarea
+  id="thought-input"
+  rows="5"
+  placeholder="Например: мне хочется рассказать тебе, что сегодня произошло..."
+></textarea>
+
+<div class="actions-row">
+  <button id="add-thought">➕ Добавить мысль</button>
+  <button id="clear-thoughts">Очистить все записи</button>
+</div>
+
+<p class="hint">Нажми <strong>Ctrl+Enter</strong>, чтобы сохранить мысль</p>
+
+<div class="thoughts-list-section">
+  <h3>Твои записи:</h3>
+  <div id="thoughts-list"></div>
+</div>
 
             <label>О чём ты думаешь прямо сейчас?</label>
 
             <textarea
-                id="thoughtInput"
+                id="thought-Input"
                 placeholder="Например: мне хочется рассказать тебе, что сегодня произошло...">
             </textarea>
 
@@ -955,5 +974,6 @@
       }
     });
   </script>
+  <script src="thoughts.js"></script>
 </body>
 </html>
