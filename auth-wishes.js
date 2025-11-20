@@ -1,272 +1,148 @@
-// auth-wishes.js
-// Авторизация + Firestore + глобальная отправка мыслей/скучаю/желаний
+// thoughts.js
+// Логика страницы "Мысли": LocalStorage + Firestore
 
-// ================= FIREBASE IMPORTS =================
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  GoogleAuthProvider,
-  signInWithPopup
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+// ===== КЛЮЧ LOCALSTORAGE =====
+const STORAGE_KEY = "asyaman_thoughts";
 
-import {
-  getFirestore,
-  addDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-  orderBy,
-  serverTimestamp,
-  setDoc,
-  doc
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-// ================= FIREBASE CONFIG =================
-const firebaseConfig = {
-  apiKey: "AIzaSyCbgO8b96hAGU3kvwkjsv1x1Is-879Mbgc",
-  authDomain: "asyaman-40f1f.firebaseapp.com",
-  projectId: "asyaman-40f1f",
-  storageBucket: "asyaman-40f1f.appspot.com",
-  messagingSenderId: "780594675672",
-  appId: "1:780594675672:web:27766d673b4255a281bcad",
-  measurementId: "G-LBMZLEY4Y5"
-};
-
-// ================= ADMIN UID =================
-const ADMIN_UID = "QgvеUKbsJLU0A3oehvXgTEbTg1S2";
-
-// ================= INIT =================
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-
-let currentUser = null;
-window.__currentUser = null;
-
-// =====================================================
-// GLOBAL SEND FUNCTION (Мысли, Скучаю, Желания)
-// =====================================================
-window.saveEntryToFirestore = async function (collectionName, text) {
-  const user = auth.currentUser;
-  if (!user) return;
-
+// ===== LOCAL STORAGE =====
+function loadThoughts() {
   try {
-    await addDoc(collection(db, collectionName), {
-      uid: user.uid,
-      email: user.email || null,
-      text,
-      createdAt: serverTimestamp()
-    });
-  } catch (err) {
-    console.error("Ошибка отправки в Firestore:", err);
-  }
-};
-
-// =====================================================
-// LOAD ENTRIES FOR USER (THOUGHTS / MISSMOMENTS)
-// =====================================================
-window.loadMyEntries = async function (collectionName) {
-  const user = auth.currentUser;
-  if (!user) return [];
-
-  try {
-    const q = query(
-      collection(db, collectionName),
-      where("uid", "==", user.uid),
-      orderBy("createdAt", "desc")
-    );
-
-    const snap = await getDocs(q);
-    const result = [];
-
-    snap.forEach((docSnap) => {
-      const d = docSnap.data();
-      result.push({
-        text: d.text,
-        date: d.createdAt?.toDate?.().toLocaleString("ru-RU")
-      });
-    });
-
-    return result;
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
   } catch (e) {
-    console.error("Ошибка loadMyEntries:", e);
+    console.error("Ошибка чтения мыслей:", e);
     return [];
   }
-};
-
-// =====================================================
-// ======= UI ELEMENTS (LOGIN / WISHES / PANELS) =======
-// =====================================================
-const emailInput = document.getElementById("emailInput");
-const passwordInput = document.getElementById("passwordInput");
-const emailRegisterBtn = document.getElementById("emailRegisterBtn");
-const emailLoginBtn = document.getElementById("emailLoginBtn");
-const googleBtn = document.getElementById("googleBtn");
-
-const authTitle = document.getElementById("auth-title");
-const welcomeText = document.getElementById("welcome-text");
-const authArea = document.getElementById("auth-area");
-const authStatus = document.getElementById("auth-status");
-const authForm = document.querySelector(".auth-form");
-
-const privateContent = document.getElementById("private-content");
-const adminPanel = document.getElementById("admin-panel");
-
-const wishInput = document.getElementById("wishInput");
-const addWishBtn = document.getElementById("addWishBtn");
-const clearWishesBtn = document.getElementById("clearWishesBtn");
-const wishList = document.getElementById("wishList");
-const wishCount = document.getElementById("wishCount");
-
-const settingsAccountInfo = document.getElementById("settingsAccountInfo");
-
-// =====================================================
-// ===== UI HELPERS =====
-// =====================================================
-function setAuthStatus(message, type = "") {
-  if (!authStatus) return;
-  authStatus.textContent = message;
-  authStatus.className = "";
-  if (type) authStatus.classList.add(type);
 }
 
-// =====================================================
-// ===== LOAD WISHES =====
-// =====================================================
-async function loadWishes() {
-  if (!currentUser || !wishList) return;
-
+function saveThoughts(list) {
   try {
-    const q = query(
-      collection(db, "wishes"),
-      where("uid", "==", currentUser.uid),
-      orderBy("createdAt", "desc")
-    );
-
-    const snap = await getDocs(q);
-    let html = "";
-    snap.forEach((docSnap) => {
-      const w = docSnap.data();
-      html += `<li><span>${w.text}</span></li>`;
-    });
-
-    wishList.innerHTML = html || "<li>Пока пусто 💭</li>";
-    wishCount.textContent = snap.size;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
   } catch (e) {
-    console.error("Ошибка загрузки желаний:", e);
+    console.error("Ошибка сохранения мыслей:", e);
   }
 }
 
-// =====================================================
-// ===== ADD WISH =====
-// =====================================================
-async function addWish() {
-  if (!currentUser) {
-    setAuthStatus("Войди, чтобы сохранять желания 💌", "bad");
+// ===== FIRESTORE: отправка мысли =====
+function sendThoughtToFirestore(text) {
+  if (window.saveEntryToFirestore) {
+    window.saveEntryToFirestore("asyaman_thoughts", text);
+  } else {
+    console.warn("Firestore недоступен или пользователь не авторизован");
+  }
+}
+
+// ===== РЕНДЕР =====
+function renderThoughts() {
+  const listEl = document.getElementById("thoughts-list");
+
+  if (!listEl) return;
+
+  const thoughts = loadThoughts();
+  listEl.innerHTML = "";
+
+  if (thoughts.length === 0) {
+    const empty = document.createElement("p");
+    empty.style.fontSize = "13px";
+    empty.style.color = "var(--text-soft)";
+    empty.textContent = "Здесь ещё пусто… но я жду твоих мыслей 💜";
+    listEl.appendChild(empty);
     return;
   }
 
-  const text = wishInput.value.trim();
-  if (!text) return;
+  thoughts.forEach((item, index) => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "thought-item";
 
-  try {
-    await addDoc(collection(db, "wishes"), {
-      text,
-      uid: currentUser.uid,
-      email: currentUser.email || null,
-      createdAt: serverTimestamp()
+    const left = document.createElement("div");
+
+    const text = document.createElement("div");
+    text.className = "thought-text";
+    text.textContent = item.text;
+
+    const meta = document.createElement("div");
+    meta.className = "thought-meta";
+    meta.textContent = item.date;
+
+    left.appendChild(text);
+    left.appendChild(meta);
+
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "thought-remove-btn";
+    removeBtn.innerHTML = "✕";
+    removeBtn.title = "Удалить мысль";
+
+    removeBtn.addEventListener("click", () => {
+      const arr = loadThoughts();
+      arr.splice(index, 1);
+      saveThoughts(arr);
+      renderThoughts();
     });
 
-    wishInput.value = "";
-    setAuthStatus("Желание сохранено ✨", "good");
-    loadWishes();
-  } catch (err) {
-    console.error("Ошибка добавления:", err);
-    setAuthStatus("Ошибка сохранения 💔", "bad");
-  }
+    wrapper.appendChild(left);
+    wrapper.appendChild(removeBtn);
+    listEl.appendChild(wrapper);
+  });
 }
 
-// =====================================================
-// ===== AUTH STATE =====
-// =====================================================
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = user;
-    window.__currentUser = user;
+// ===== ДОБАВИТЬ МЫСЛЬ =====
+function addThought(custom = null) {
+  const input = document.getElementById("thought-input");
 
-    if (authForm) authForm.style.display = "none";
-    if (privateContent) privateContent.style.opacity = "1";
+  const value = custom || (input ? input.value.trim() : "");
+  if (!value) return;
 
-    loadWishes();
-    updateSettingsUI();
-  } else {
-    currentUser = null;
-    window.__currentUser = null;
+  const now = new Date();
+  const dateStr = now.toLocaleString("ru-RU", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-    if (authForm) authForm.style.display = "block";
-    if (privateContent) privateContent.style.opacity = "0.3";
-  }
+  // LocalStorage
+  const list = loadThoughts();
+  list.unshift({
+    text: value,
+    date: `Запись от ${dateStr}`,
+  });
+  saveThoughts(list);
+
+  // Firestore
+  sendThoughtToFirestore(value);
+
+  if (input) input.value = "";
+  renderThoughts();
+}
+
+// ===== ОЧИСТКА ВСЕГО =====
+function clearThoughts() {
+  if (!confirm("Очистить все записи? Их нельзя будет вернуть.")) return;
+  saveThoughts([]);
+  renderThoughts();
+}
+
+// ===== ИНИЦИАЛИЗАЦИЯ =====
+document.addEventListener("DOMContentLoaded", () => {
+  const addBtn   = document.getElementById("add-thought");
+  const clearBtn = document.getElementById("clear-thoughts");
+  const input    = document.getElementById("thought-input");
+
+  // Добавить мысль
+  addBtn?.addEventListener("click", () => addThought());
+
+  // Очистить
+  clearBtn?.addEventListener("click", clearThoughts);
+
+  // Ctrl + Enter
+  input?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      addThought();
+    }
+  });
+
+  // Рендер при загрузке
+  renderThoughts();
 });
-
-// =====================================================
-// ===== REGISTER / LOGIN / LOGOUT =====
-// =====================================================
-if (emailRegisterBtn) {
-  emailRegisterBtn.onclick = async () => {
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        emailInput.value.trim(),
-        passwordInput.value.trim()
-      );
-    } catch (err) {
-      setAuthStatus(err.message, "bad");
-    }
-  };
-}
-
-if (emailLoginBtn) {
-  emailLoginBtn.onclick = async () => {
-    try {
-      await signInWithEmailAndPassword(
-        auth,
-        emailInput.value.trim(),
-        passwordInput.value.trim()
-      );
-    } catch (err) {
-      setAuthStatus(err.message, "bad");
-    }
-  };
-}
-
-if (googleBtn) {
-  googleBtn.onclick = () => signInWithPopup(auth, provider);
-}
-
-// =====================================================
-// ===== WISH BUTTONS =====
-// =====================================================
-if (addWishBtn) addWishBtn.onclick = addWish;
-
-if (clearWishesBtn) {
-  clearWishesBtn.onclick = () =>
-    alert("Очистку желаний сделаем позже 🛠");
-}
-
-// =====================================================
-// SETTINGS PANEL
-// =====================================================
-function updateSettingsUI() {
-  if (!settingsAccountInfo) return;
-
-  if (currentUser)
-    settingsAccountInfo.textContent = currentUser.email;
-  else
-    settingsAccountInfo.textContent = "Гость";
-}
