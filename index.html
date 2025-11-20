@@ -1225,6 +1225,190 @@
 #about .about-song {
   margin-top: 10px;
 }
+/* ==== ОБЩИЙ ЗАГОЛОВОК С ИКОНКОЙ ==== */
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.lock-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background:
+    radial-gradient(circle at 30% 0, rgba(251, 191, 36, 0.85), transparent 60%),
+    rgba(15, 23, 42, 0.98);
+  border: 1px solid rgba(251, 191, 36, 0.7);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.9);
+}
+
+.title-row h1 {
+  font-size: 20px;
+  margin: 0;
+}
+/* ==== СЕКЦИЯ «МЫСЛИ» ==== */
+
+#thoughts .card-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+#thoughts #thought-input {
+  margin-top: 6px;
+  min-height: 90px;
+}
+
+#thoughts .actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+#thoughts .hint {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* список мыслей */
+#thoughts-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* одна мысль */
+.thought-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at top left, rgba(129, 140, 248, 0.18), transparent 60%),
+    rgba(8, 5, 22, 0.96);
+  border: 1px solid rgba(129, 140, 248, 0.55);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
+}
+
+.thought-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.thought-meta {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+/* крестик удаления мысли */
+.thought-remove-btn {
+  border: none;
+  background: transparent;
+  color: rgba(248, 250, 252, 0.7);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.thought-remove-btn:hover {
+  color: var(--danger);
+  transform: translateY(-1px);
+}
+/* ==== СЕКЦИЯ «КОГДА СКУЧАЕШЬ» ==== */
+
+#miss .card-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+#miss #missInput {
+  margin-top: 8px;
+  min-height: 90px;
+}
+
+#miss .actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+#miss .actions-row .btn {
+  flex-shrink: 0;
+}
+
+/* список моментов */
+#missList {
+  margin-top: 12px;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* один момент: либо через класс .miss-item, либо li */
+#missList li,
+.miss-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at top left, rgba(244, 114, 182, 0.18), transparent 60%),
+    rgba(8, 5, 22, 0.96);
+  border: 1px solid rgba(244, 114, 182, 0.55);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
+}
+
+.miss-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.miss-meta {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+/* крестик удаления момента, если есть */
+.miss-remove-btn {
+  border: none;
+  background: transparent;
+  color: rgba(248, 250, 252, 0.75);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.miss-remove-btn:hover {
+  color: var(--danger);
+  transform: translateY(-1px);
+}
 
     /* === НИЖНЯЯ ПАНЕЛЬ МУЗЫКИ === */
     .music-bar {
