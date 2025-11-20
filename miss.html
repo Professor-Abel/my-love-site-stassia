@@ -3,535 +3,1100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Когда ты скучаешь по мне</title>
-      <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
-    <link rel="apple-touch-icon" href="favicon-asyaman.png" />
+  <title>Когда скучаешь — Асъяман</title>
 
-    <!-- Базовое описание сайта -->
-    <meta name="description" content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
+  <link rel="apple-touch-icon" href="favicon-asyaman.png" />
 
-    <!-- Open Graph (превью для соцсетей / мессенджеров) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Асъяман" />
-    <meta property="og:title" content="Асъяман — наш маленький мир" />
-    <meta property="og:description" content="Секретное место, где живут твои желания, мысли и наши маленькие секреты." />
-    <meta property="og:url" content="https://asyaman.com/" />
-    <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+  <!-- SEO / превью -->
+  <meta name="description"
+        content="Страница для тех моментов, когда особенно скучаешь. Голос, музыка и слова, которые напоминают: ты не одна." />
 
-    <!-- Превью для Twitter (X) -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Асъяман — наш маленький мир" />
-    <meta name="twitter:description" content="Наш личный уголок: желания, мысли, «когда скучаешь» и письмо только для тебя." />
-    <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Асъяман" />
+  <meta property="og:title" content="Когда скучаешь — Асъяман" />
+  <meta property="og:description"
+        content="Открой эту страницу, когда хочешь почувствовать меня рядом: голос, музыка и наши маленькие моменты." />
+  <meta property="og:url" content="https://asyaman.com/miss.html" />
+  <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-<div id="bg-hearts"></div>
-<div id="stars"></div>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Когда скучаешь — Асъяман" />
+  <meta name="twitter:description"
+        content="Страница, которую можно открыть в любой момент: включить голос, музыку и чуть-чуть успокоиться." />
+  <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
 
-<div class="container miss-page">
-  <nav class="top-nav">
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Желания</a>
-      <a href="thoughts.html" class="nav-link">Мысли</a>
-      <a href="miss.html" class="nav-link nav-active">Когда скучаешь</a>
-      <a href="letter.html" class="nav-link">Письмо</a>
-      <a href="about.html" class="nav-link">О нас</a>
-    </div>
-    <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  </nav>
+  <!-- Шрифты -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-  <div class="title-row">
-    <div class="lock-icon">🔒</div>
-    <h1>Когда ты скучаешь по мне 💫</h1>
-  </div>
-
-  <!-- Печатающаяся строка -->
-  <p id="typing-text" class="typing-line"></p>
-
-  <p class="letter-text">
-    Если тебе грустно или ты скучаешь — заходи сюда. Здесь всегда будет кусочек меня
-    и место, где ты можешь рассказать, как прошёл твой день.
-  </p>
-
-  <!-- Фото / галерея -->
-  <div class="miss-media">
-    <div>
-      <div class="miss-photo-frame">
-        <img id="miss-main-photo" src="secret-photo.jpg" alt="Наше детское фото" />
-        <div class="miss-photo-overlay">
-          <span id="miss-quote"></span>
-        </div>
-      </div>
-
-      <div class="photo-controls">
-        <button type="button" class="photo-nav-btn" onclick="prevPhoto()">⟵</button>
-        <div class="photo-dots" id="photo-dots"></div>
-        <button type="button" class="photo-nav-btn" onclick="nextPhoto()">⟶</button>
-      </div>
-
-      <p class="secret-caption">
-        Когда ты будешь смотреть на это фото, просто помни:
-        где бы я ни был, частью меня я всё равно сижу здесь и думаю о тебе.
-      </p>
-    </div>
-
-    <!-- Голос / музыка / чат -->
-    <div>
-      <div class="voice-block">
-        <!-- Наша песня Mockingbird -->
-        <div class="song-block">
-          <h3>Наша песня — Mockingbird 🖤</h3>
-          <p class="song-text">
-            Когда тебе особенно тоскливо — включи эту песню.  
-            Просто закрой глаза и представь, что я сижу рядом и держу тебя за руку.
-          </p>
-
-          <div class="audio-player" data-audio-id="mockingbird-audio">
-            <button type="button" class="audio-play-btn">▶</button>
-            <div class="audio-track">
-              <div class="audio-progress"></div>
-            </div>
-            <span class="audio-time" data-role="current">0:00</span>
-            <span class="audio-time-separator">/</span>
-            <span class="audio-time" data-role="duration">0:00</span>
-          </div>
-
-          <audio id="mockingbird-audio" src="mockingbird.mp3" preload="metadata"></audio>
-        </div>
-
-        <!-- Ночной режим + Shape Of My Heart -->
-        <div class="night-letter-block">
-          <button type="button" class="night-letter-btn" onclick="toggleNightLetter()">
-            🌙 Ночной режим &amp; Shape Of My Heart
-          </button>
-          <small class="night-hint">Включи, когда хочешь максимально тихую и тёплую атмосферу.</small>
-          <audio id="night-song" src="shape-of-my-heart.mp3" preload="auto"></audio>
-        </div>
-      </div>
-
-      <!-- Чат-бот -->
-      <div class="chat-card">
-        <h3>Чат со мной 🤍</h3>
-        <div id="chatMessages" class="chat-messages"></div>
-        <div class="chat-input-row">
-          <input id="chatInput" type="text" placeholder="Напиши, о чём думаешь..." onkeydown="if(event.key==='Enter'){sendChat()}" />
-          <button type="button" onclick="sendChat()">➤</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <h2>Твои «скучаю» мысли:</h2>
-  <textarea id="missInput" placeholder="Например: сегодня очень скучаю по тебе..."></textarea>
-  <button type="button" onclick="addMiss()">Оставить запись</button>
-
-  <ul id="missList"></ul>
-</div>
-
-<div id="hearts"></div>
-<div class="corner-lock">🔒 Наш маленький секрет</div>
-
-<!-- Полноэкранное фото -->
-<div id="photo-modal" class="photo-modal">
-  <div class="photo-modal-backdrop" onclick="closePhotoModal()"></div>
-  <div class="photo-modal-content">
-    <button type="button" class="photo-modal-close" onclick="closePhotoModal()">✕</button>
-    <img id="photo-modal-img" src="secret-photo.jpg" alt="Наше детское фото" />
-    <p class="photo-modal-text">
-      Просто мы, чуть ближе. Можно смотреть на это фото и вспоминать, сколько всего впереди.
-    </p>
-  </div>
-</div>
-
-<!-- Скрытое сообщение при клике по замку -->
-<div id="secret-toast" class="secret-toast">
-  Настоящий секрет не на этом сайте, а между нами. 🤍
-</div>
-
-<script>
-  /* ===== ТЕМА ===== */
-  function applyThemeFromStorage() {
-    const saved = localStorage.getItem("theme");
-    const body = document.body;
-    const toggles = document.querySelectorAll(".theme-toggle");
-    if (saved === "dark") {
-      body.classList.add("dark");
-      toggles.forEach(b => b.textContent = "☀");
-    } else {
-      body.classList.remove("dark");
-      toggles.forEach(b => b.textContent = "🌙");
+  <style>
+    :root {
+      --bg-main: radial-gradient(circle at top, #2b1b3f, #05030a 55%, #050308 100%);
+      --card-bg: rgba(17, 10, 32, 0.9);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #ff4f9a;
+      --accent-soft: rgba(255, 79, 154, 0.25);
+      --accent-gold: #ffd56b;
+      --text-main: #fdf5ff;
+      --text-soft: #cbb8ff;
+      --text-secondary: #fdf5ff;
+      --text-muted: #9ca3af;
+      --danger: #ff6b6b;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+      --radius-xl: 26px;
     }
-  }
 
-  function toggleTheme() {
-    const body = document.body;
-    const isDark = body.classList.toggle("dark");
-    const toggles = document.querySelectorAll(".theme-toggle");
-    toggles.forEach(b => b.textContent = isDark ? "☀" : "🌙");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  }
-
-  /* ===== ФОН: СЕРДЦА + ЗВЁЗДЫ ===== */
-  function createBgHeart() {
-    const container = document.getElementById("bg-hearts");
-    if (!container) return;
-    const h = document.createElement("div");
-    h.className = "bg-heart";
-    h.textContent = "💗";
-    const size = 10 + Math.random() * 10;
-    h.style.fontSize = size + "px";
-    h.style.left = Math.random() * 100 + "%";
-    h.style.animationDuration = 7 + Math.random() * 5 + "s";
-    h.style.opacity = 0.2 + Math.random() * 0.4;
-    container.appendChild(h);
-    setTimeout(() => h.remove(), 15000);
-  }
-
-  function startBackgroundHearts() {
-    for (let i = 0; i < 10; i++) setTimeout(createBgHeart, i * 400);
-    setInterval(createBgHeart, 1200);
-  }
-
-  function createStars() {
-    const container = document.getElementById("stars");
-    if (!container) return;
-    for (let i = 0; i < 80; i++) {
-      const s = document.createElement("div");
-      s.className = "star";
-      s.style.left = Math.random() * 100 + "%";
-      s.style.top = Math.random() * 100 + "%";
-      s.style.animationDuration = (3 + Math.random() * 5) + "s";
-      s.style.animationDelay = (Math.random() * 5) + "s";
-      container.appendChild(s);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-  }
 
-  /* ===== ФРАЗЫ НА ФОТО ===== */
-  const missPhrases = [
-    "Когда мне тяжело, я думаю о тебе и становится легче.",
-    "Если бы расстояние измеряли чувствами, я бы всегда был рядом.",
-    "Иногда мне достаточно вспомнить твой взгляд, чтобы день стал лучше.",
-    "Ты даже не представляешь, как часто я мысленно разговариваю с тобой.",
-    "В любом городе мира моим домом будет место, где ты."
-  ];
-
-  function setRandomMissPhrase() {
-    const el = document.getElementById("miss-quote");
-    if (!el || !missPhrases.length) return;
-    const index = Math.floor(Math.random() * missPhrases.length);
-    el.textContent = missPhrases[index];
-  }
-
-  /* ===== ГАЛЕРЕЯ ФОТО ===== */
-  const missPhotos = [
-    "secret-photo.jpg"
-  ];
-  let currentPhoto = 0;
-
-  function updatePhoto() {
-    const img = document.getElementById("miss-main-photo");
-    const dots = document.getElementById("photo-dots");
-    if (!img || !dots) return;
-
-    img.src = missPhotos[currentPhoto] + "?v=1";
-    dots.innerHTML = "";
-
-    missPhotos.forEach((_, i) => {
-      const dot = document.createElement("span");
-      dot.className = "photo-dot" + (i === currentPhoto ? " active" : "");
-      dot.onclick = () => {
-        currentPhoto = i;
-        updatePhoto();
-      };
-      dots.appendChild(dot);
-    });
-  }
-
-  function prevPhoto() {
-    currentPhoto = (currentPhoto - 1 + missPhotos.length) % missPhotos.length;
-    updatePhoto();
-  }
-
-  function nextPhoto() {
-    currentPhoto = (currentPhoto + 1) % missPhotos.length;
-    updatePhoto();
-  }
-
-  /* ===== ЗАПИСИ «СКУЧАЮ» ===== */
-  let missNotes = [];
-
-  function saveMiss() {
-    localStorage.setItem("missNotes", JSON.stringify(missNotes));
-  }
-
-  function renderMiss() {
-    const list = document.getElementById("missList");
-    list.innerHTML = "";
-    missNotes.forEach((item, index) => {
-      const li = document.createElement("li");
-      const wrap = document.createElement("div");
-      wrap.className = "thought-text";
-
-      const main = document.createElement("div");
-      main.textContent = item.text;
-
-      const meta = document.createElement("small");
-      meta.textContent = item.date;
-
-      wrap.appendChild(main);
-      wrap.appendChild(meta);
-
-      const btn = document.createElement("button");
-      btn.textContent = "✕";
-      btn.className = "delete-btn";
-      btn.onclick = () => {
-        missNotes.splice(index, 1);
-        saveMiss();
-        renderMiss();
-      };
-
-      li.appendChild(wrap);
-      li.appendChild(btn);
-      list.appendChild(li);
-    });
-  }
-
-  function addMiss() {
-    const input = document.getElementById("missInput");
-    const text = input.value.trim();
-    if (!text) return;
-
-    const now = new Date();
-    const date = now.toLocaleString("ru-RU", {
-      day: "2-digit", month: "2-digit", year: "numeric",
-      hour: "2-digit", minute: "2-digit"
-    });
-
-    missNotes.unshift({ text, date });
-    saveMiss();
-    renderMiss();
-    input.value = "";
-  }
-
-  /* ===== ПЕЧАТАНИЕ ТЕКСТА ===== */
-  const typingText = "Если ты скучаешь, знай: мысленно я всегда рядом с тобой.";
-  let typingIndex = 0;
-
-  function typeLine() {
-    const el = document.getElementById("typing-text");
-    if (!el) return;
-    if (typingIndex <= typingText.length) {
-      el.textContent = typingText.slice(0, typingIndex);
-      typingIndex++;
-      setTimeout(typeLine, 60);
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
     }
-  }
 
-  /* ===== ЧАТ-БОТ ===== */
-  const chatMessages = [];
-  const chatReplies = [
-    { keywords: ["скуч", "miss"], answer: "Я тоже скучаю по тебе сильнее, чем могу описать словами." },
-    { keywords: ["люб", "love"], answer: "Я люблю тебя больше, чем ты думаешь. И каждый день — чуть сильнее." },
-    { keywords: ["устал", "тяжело", "плохо"], answer: "Если тебе тяжело — просто расскажи. Даже через экран я рядом с тобой." },
-    { keywords: ["привет"], answer: "Привет, моя родная. Как твоё сердечко?" },
-    { keywords: ["спать", "ночь"], answer: "Перед сном просто вспомни наш смех. Я мысленно целую тебя в лоб." }
-  ];
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.45;
+      z-index: -2;
+    }
 
-  function renderChat() {
-    const box = document.getElementById("chatMessages");
-    box.innerHTML = "";
-    chatMessages.forEach(msg => {
-      const div = document.createElement("div");
-      div.className = "chat-bubble " + (msg.from === "you" ? "from-you" : "from-me");
-      div.textContent = msg.text;
-      box.appendChild(div);
-    });
-    box.scrollTop = box.scrollHeight;
-  }
+    body::before {
+      background: rgba(255, 79, 154, 0.65);
+      top: -120px;
+      left: -80px;
+    }
 
-  function sendChat() {
-    const input = document.getElementById("chatInput");
-    const text = input.value.trim();
-    if (!text) return;
+    body::after {
+      background: rgba(111, 76, 255, 0.7);
+      bottom: -160px;
+      right: -120px;
+    }
 
-    chatMessages.push({ from: "you", text });
-    input.value = "";
-    renderChat();
+    .floating-heart {
+      position: fixed;
+      font-size: 16px;
+      color: #ff7fb9;
+      animation: floatUp 12s linear infinite;
+      opacity: 0.15;
+      z-index: -1;
+    }
 
-    const lower = text.toLowerCase();
-    let answer = "Я прочитал. Даже если молчу — я рядом и слышу тебя. 🤍";
-
-    for (const rule of chatReplies) {
-      if (rule.keywords.some(k => lower.includes(k))) {
-        answer = rule.answer;
-        break;
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.35;
+      }
+      70% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(-260px) translateX(40px);
+        opacity: 0;
       }
     }
 
-    setTimeout(() => {
-      chatMessages.push({ from: "me", text: answer });
-      renderChat();
-    }, 700);
-  }
-
-  /* ===== НОЧНОЙ РЕЖИМ + SONG ===== */
-  let nightOn = false;
-
-  function toggleNightLetter() {
-    const body = document.body;
-    const song = document.getElementById("night-song");
-    nightOn = !nightOn;
-    body.classList.toggle("night-letter", nightOn);
-
-    if (nightOn) {
-      song.currentTime = 0;
-      song.play().catch(() => {});
-    } else {
-      song.pause();
-    }
-  }
-
-  /* ==== ПОЛНОЭКРАННОЕ ФОТО ==== */
-  function openPhotoModal() {
-    const modal = document.getElementById("photo-modal");
-    const img = document.getElementById("photo-modal-img");
-    const main = document.getElementById("miss-main-photo");
-    if (!modal || !img || !main) return;
-    img.src = main.src;
-    modal.classList.add("open");
-  }
-
-  function closePhotoModal() {
-    const modal = document.getElementById("photo-modal");
-    if (!modal) return;
-    modal.classList.remove("open");
-  }
-
-  /* ==== ПАСХАЛКА НА ЗАМКЕ ==== */
-  function toggleSecretToast() {
-    const toast = document.getElementById("secret-toast");
-    if (!toast) return;
-    toast.classList.add("show");
-    setTimeout(() => {
-      toast.classList.remove("show");
-    }, 4000);
-  }
-
-  /* ==== КАСТОМНЫЙ ПЛЕЕР ==== */
-
-  function formatTime(seconds) {
-    if (!isFinite(seconds)) return "0:00";
-    const m = Math.floor(seconds / 60);
-    const s = Math.floor(seconds % 60);
-    return m + ":" + String(s).padStart(2, "0");
-  }
-
-  function initCustomAudioPlayers() {
-    const players = document.querySelectorAll(".audio-player");
-    const allPlayers = players;
-
-    function pauseAllExcept(exceptAudioId) {
-      allPlayers.forEach(p => {
-        const id = p.dataset.audioId;
-        const a = document.getElementById(id);
-        const btn = p.querySelector(".audio-play-btn");
-        if (a && id !== exceptAudioId) {
-          a.pause();
-          p.classList.remove("playing");
-          if (btn) btn.textContent = "▶";
-        }
-      });
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    players.forEach(player => {
-      const audioId = player.dataset.audioId;
-      const audio = document.getElementById(audioId);
-      if (!audio) return;
+    /* ===== ШАПКА (та же капсула) ===== */
 
-      const playBtn = player.querySelector(".audio-play-btn");
-      const track = player.querySelector(".audio-track");
-      const progress = player.querySelector(".audio-progress");
-      const curEl = player.querySelector('[data-role="current"]');
-      const durEl = player.querySelector('[data-role="duration"]');
+    .site-header {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      margin-bottom: 26px;
+      background: transparent;
+      border-bottom: none;
+    }
 
-      audio.addEventListener("loadedmetadata", () => {
-        if (durEl) durEl.textContent = formatTime(audio.duration);
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 55%),
+        rgba(5, 3, 15, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(18px);
+    }
+
+    .logo {
+      font-family: "Pacifico", cursive;
+      font-size: 26px;
+      color: #ffd56b;
+      letter-spacing: 0.03em;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1;
+    }
+
+    .logo span {
+      font-size: 14px;
+      color: var(--text-soft);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      border-radius: 999px;
+      transition: 0.25s;
+      color: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-active {
+      background: #ff4f9a;
+      color: #fff !important;
+      box-shadow: 0 8px 22px rgba(255, 79, 154, 0.7);
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .header-inner {
+        padding: 8px 12px;
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      .logo span {
+        font-size: 12px;
+      }
+
+      .site-nav {
+        gap: 6px;
+      }
+
+      .nav-link {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+    }
+
+    /* ===== КОНТЕНТ "КОГДА СКУЧАЕШЬ" ===== */
+
+    .page-inner {
+      max-width: 1000px;
+      margin: 26px auto 32px;
+      padding: 22px 22px 26px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 79, 154, 0.16), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.18), transparent 60%),
+        rgba(5, 3, 15, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(14px);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.1fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 880px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 22px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at top left,
+        rgba(255, 255, 255, 0.06),
+        transparent 55%
+      );
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 14px;
+    }
+
+    .miss-note {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-size: 12px;
+      color: var(--text-soft);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 70px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(11, 8, 27, 0.95);
+      color: #fff;
+      padding: 10px 12px;
+      font-size: 13px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255, 79, 154, 0.6);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn-main {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(255, 79, 154, 0.45);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(255, 79, 154, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .btn-soft {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .btn-soft:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .miss-actions {
+      margin-top: 10px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .mini-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* список "моментов скучания" */
+
+    .miss-list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .miss-list-header span {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    #missList {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .miss-item {
+      background: rgba(8, 5, 22, 0.97);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 9px 11px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .miss-text {
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .miss-meta {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
+
+    .miss-remove-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 15px;
+      cursor: pointer;
+      padding: 0 2px;
+    }
+
+    .miss-remove-btn:hover {
+      color: var(--danger);
+    }
+
+    /* правая карточка */
+
+    .miss-right-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .miss-right-title span {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .miss-audio-block {
+      margin-top: 10px;
+      padding: 10px 12px 12px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.15), transparent 70%),
+                  rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.8);
+    }
+
+    .miss-audio-label {
+      font-size: 12px;
+      color: var(--accent-soft);
+      margin-bottom: 4px;
+    }
+
+    .miss-audio-name {
+      font-size: 12px;
+      color: var(--text-secondary);
+      opacity: 0.95;
+      margin-bottom: 4px;
+    }
+
+    audio {
+      width: 100%;
+      margin: 4px 0 6px;
+      filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.9));
+      border-radius: 999px;
+    }
+
+    .miss-audio-note {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .miss-photo-frame {
+      position: relative;
+      max-width: 260px;
+      margin: 18px auto 4px;
+      transform: rotate(-1.5deg);
+    }
+
+    .miss-photo {
+      width: 100%;
+      display: block;
+      border-radius: 26px;
+      border: 2px solid rgba(248, 250, 252, 0.8);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .miss-photo-label {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      border: 1px solid rgba(248, 250, 252, 0.38);
+      backdrop-filter: blur(8px);
+    }
+
+    footer {
+      margin-top: 16px;
+      font-size: 11px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ===== НАСТРОЙКИ (FAB + ПАНЕЛЬ) ===== */
+
+    .settings-fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.15), transparent 55%),
+                  rgba(15, 23, 42, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      z-index: 40;
+    }
+
+    .settings-fab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 1);
+      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.22), transparent 55%),
+                  rgba(15, 23, 42, 1);
+    }
+
+    .settings-fab-icon {
+      font-size: 18px;
+    }
+
+    .settings-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 30;
+    }
+
+    .settings-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .settings-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 82px;
+      width: 280px;
+      max-width: calc(100% - 44px);
+      border-radius: 22px;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.08), transparent 60%),
+                  rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      padding: 14px 14px 12px;
+      transform: translateY(16px) scale(0.97);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 50;
+    }
+
+    .settings-panel.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .settings-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .settings-close {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .settings-close:hover {
+      color: #fff;
+    }
+
+    .settings-section {
+      padding: 8px 0;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .settings-section:first-of-type {
+      border-top: none;
+    }
+
+    .settings-label {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .settings-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .settings-select {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      padding: 6px 10px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .settings-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255, 79, 154, 0.6);
+    }
+
+    .settings-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .settings-chip:hover {
+      background: rgba(31, 41, 55, 0.95);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Плавающие сердечки -->
+  <span class="floating-heart" style="left: 14%; bottom: -40px;">💗</span>
+  <span class="floating-heart" style="left: 60%; bottom: -80px; animation-delay: 2s;">💗</span>
+  <span class="floating-heart" style="left: 82%; bottom: -120px; animation-delay: 4s;">💗</span>
+
+  <div class="page">
+    <!-- Шапка -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="logo">
+          Асъяман
+          <span>наш маленький мир</span>
+        </div>
+
+        <button class="nav-toggle" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="site-nav">
+          <a href="index.html" class="nav-link">Желания</a>
+          <a href="thoughts.html" class="nav-link">Мысли</a>
+          <a href="miss.html" class="nav-link nav-active">Когда скучаешь</a>
+          <a href="letter.html" class="nav-link">Письмо</a>
+          <a href="about.html" class="nav-link">О нас</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-inner">
+      <section class="main-grid">
+        <!-- Левая карточка: когда скучаешь -->
+        <section class="card">
+          <div class="card-inner">
+            <span class="section-label">Когда тебе меня не хватает</span>
+            <h1>Страница для тех моментов, когда <span>особенно</span> скучаешь 💫</h1>
+            <p class="subtitle">
+              Открой её, когда в груди становится пусто, когда хочется услышать меня,
+              написать мне или просто почувствовать, что я рядом.
+            </p>
+
+            <p class="miss-note">
+              Здесь можно оставить маленькую заметку «я скучаю» и вернуться к ней позже.
+              Это как наш тихий дневник моментов, когда мы особенно чувствуем друг друга.
+            </p>
+
+            <label for="missInput">О чём ты скучаешь прямо сейчас?</label>
+            <textarea
+              id="missInput"
+              placeholder="Например: скучаю по твоему голосу, нашей прогулке, по тому, как ты говоришь моё имя..."
+            ></textarea>
+
+            <div class="miss-actions">
+              <button class="btn btn-main" id="missAddBtn">
+                💜 Добавить момент
+              </button>
+              <button class="btn btn-outline" id="missClearBtn">
+                Очистить всё
+              </button>
+              <button class="btn-soft" id="missQuickBtn">
+                Я просто скучаю, без слов
+              </button>
+              <span class="mini-hint">
+                Нажми Ctrl+Enter, чтобы сохранить мысль
+              </span>
+            </div>
+
+            <div class="miss-list-header">
+              <span>Твои моменты скучания:</span>
+              <span id="missCount"></span>
+            </div>
+            <ul id="missList"></ul>
+          </div>
+        </section>
+
+        <!-- Правая карточка: голос, музыка, фото -->
+        <section class="card">
+          <div class="card-inner">
+            <span class="section-label">Чтобы стало чуть-чуть легче</span>
+            <div class="miss-right-title">
+              <h2>Включи, посмотри, вдохни спокойствие 💜</h2>
+            </div>
+
+            <p class="subtitle">
+              Иногда достаточно просто услышать знакомый голос, нашу музыку или увидеть
+              один кадр, чтобы внутри стало немного теплее.
+            </p>
+
+            <div class="miss-audio-block">
+              <div class="miss-audio-label">🎧 Твой уголок спокойствия</div>
+              <div class="miss-audio-name">Мой голос — только для тебя</div>
+              <audio controls preload="auto">
+                <source src="miss-voice.mp3" type="audio/mpeg" />
+                Твой браузер не поддерживает аудио, но здесь должна быть моя запись для тебя 💜
+              </audio>
+              <p class="miss-audio-note">
+                Включи это, когда хочется услышать меня рядом, даже если мы далеко.
+              </p>
+            </div>
+
+            <div class="miss-audio-block" style="margin-top: 12px;">
+              <div class="miss-audio-label">🎵 Ещё один мир внутри музыки</div>
+              <div class="miss-audio-name">Sting — Shape Of My Heart</div>
+              <audio controls preload="auto">
+                <source src="shape-of-my-heart.mp3" type="audio/mpeg" />
+                Здесь наша музыка, которая звучит на фоне, пока ты вспоминаешь нас двоих.
+              </audio>
+              <p class="miss-audio-note">
+                Можно просто лечь, закрыть глаза, включить эту песню и почувствовать, как
+                мы идём где-то рядом.
+              </p>
+            </div>
+
+            <div class="miss-photo-frame">
+              <img src="miss-photo.jpg" alt="Наш момент, по которому можно скучать" class="miss-photo" />
+              <div class="miss-photo-label">Кадр, к которому можно возвращаться, когда пусто внутри 💫</div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <footer>
+        Если тебе тяжело — открывай эту страницу столько раз, сколько понадобится.  
+        Я всегда буду здесь, на расстоянии одного клика 💌
+      </footer>
+    </main>
+  </div>
+
+  <!-- Кнопка настроек -->
+  <button id="settingsFab" class="settings-fab" aria-label="Настройки">
+    <span class="settings-fab-icon">⚙</span>
+  </button>
+
+  <div id="settingsBackdrop" class="settings-backdrop"></div>
+
+  <div id="settingsPanel" class="settings-panel">
+    <div class="settings-header">
+      <div class="settings-title">Настройки</div>
+      <button class="settings-close" id="settingsClose" aria-label="Закрыть">✕</button>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-label">Язык сайта</div>
+      <select id="settingsLang" class="settings-select">
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-label">Тёмная тема</div>
+      <button id="settingsThemeToggle" class="settings-chip">
+        Переключить
+      </button>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-label">Аккаунт</div>
+      <div class="settings-sub" id="settingsAccountInfo">
+        Гость (на главной можно войти в дневник)
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== ЛОКАЛЬНОЕ ХРАНИЛИЩЕ МОМЕНТОВ "СКУЧАЮ" =====
+    function loadMissMoments() {
+      try {
+        const raw = localStorage.getItem("missMoments");
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        console.error("Ошибка загрузки missMoments:", e);
+        return [];
+      }
+    }
+
+    function saveMissMoments(list) {
+      try {
+        localStorage.setItem("missMoments", JSON.stringify(list));
+      } catch (e) {
+        console.error("Ошибка сохранения missMoments:", e);
+      }
+    }
+
+    function renderMissMoments() {
+      const listEl = document.getElementById("missList");
+      const countEl = document.getElementById("missCount");
+      if (!listEl) return;
+
+      const items = loadMissMoments();
+      listEl.innerHTML = "";
+
+      if (!items.length) {
+        const li = document.createElement("li");
+        li.style.fontSize = "13px";
+        li.style.color = "var(--text-soft)";
+        li.textContent = "Здесь пока пусто… но как только ты соскучишься, эта строчка станет нашей 💜";
+        listEl.appendChild(li);
+        if (countEl) countEl.textContent = "";
+        return;
+      }
+
+      if (countEl) {
+        countEl.textContent = `${items.length} ${
+          items.length === 1 ? "момент" : items.length < 5 ? "момента" : "моментов"
+        }`;
+      }
+
+      items.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.className = "miss-item";
+
+        const left = document.createElement("div");
+        const text = document.createElement("div");
+        text.className = "miss-text";
+        text.textContent = item.text || "";
+
+        const meta = document.createElement("div");
+        meta.className = "miss-meta";
+        meta.textContent = item.date || "";
+
+        left.appendChild(text);
+        left.appendChild(meta);
+
+        const btn = document.createElement("button");
+        btn.className = "miss-remove-btn";
+        btn.title = "Удалить момент";
+        btn.innerHTML = "✕";
+        btn.addEventListener("click", () => {
+          const current = loadMissMoments();
+          current.splice(index, 1);
+          saveMissMoments(current);
+          renderMissMoments();
+        });
+
+        li.appendChild(left);
+        li.appendChild(btn);
+        listEl.appendChild(li);
+      });
+    }
+
+    function addMissMoment(customText) {
+      const input = document.getElementById("missInput");
+      const baseText = customText || (input ? input.value.trim() : "");
+      if (!baseText) return;
+
+      const now = new Date();
+      const dateStr = now.toLocaleString("ru-RU", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
       });
 
-      audio.addEventListener("timeupdate", () => {
-        if (curEl) curEl.textContent = formatTime(audio.currentTime);
-        if (progress && audio.duration) {
-          progress.style.width = (audio.currentTime / audio.duration * 100) + "%";
+      const list = loadMissMoments();
+      list.unshift({
+        text: baseText,
+        date: `Момент скучания от ${dateStr}`,
+      });
+      saveMissMoments(list);
+      if (input) input.value = "";
+      renderMissMoments();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Кнопки "скучаю"
+      const addBtn   = document.getElementById("missAddBtn");
+      const clearBtn = document.getElementById("missClearBtn");
+      const quickBtn = document.getElementById("missQuickBtn");
+      const input    = document.getElementById("missInput");
+
+      addBtn?.addEventListener("click", () => addMissMoment());
+
+      clearBtn?.addEventListener("click", () => {
+        if (!confirm("Точно очистить все моменты? Они не вернутся.")) return;
+        saveMissMoments([]);
+        renderMissMoments();
+      });
+
+      const quickPhrases = [
+        "Я просто скучаю по тебе. Без объяснений.",
+        "Сейчас бы к тебе, обнять и молчать.",
+        "Каждой клеткой чувствую, как не хватает тебя рядом.",
+        "Немного потерялся сегодня, но мысль о тебе держит.",
+        "Хочу твой голос, твоё плечо и твой смех прямо сейчас.",
+      ];
+
+      quickBtn?.addEventListener("click", () => {
+        const phrase = quickPhrases[Math.floor(Math.random() * quickPhrases.length)];
+        addMissMoment(phrase);
+      });
+
+      input?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          addMissMoment();
         }
       });
 
-      audio.addEventListener("ended", () => {
-        player.classList.remove("playing");
-        if (playBtn) playBtn.textContent = "▶";
-      });
+      renderMissMoments();
 
-      if (playBtn) {
-        playBtn.addEventListener("click", () => {
-          if (audio.paused) {
-            pauseAllExcept(audioId);
-            audio.play().catch(() => {});
-            player.classList.add("playing");
-            playBtn.textContent = "⏸";
+      // ===== Настройки как на остальных страницах =====
+      const fab        = document.getElementById("settingsFab");
+      const panel      = document.getElementById("settingsPanel");
+      const backdrop   = document.getElementById("settingsBackdrop");
+      const closeBtn   = document.getElementById("settingsClose");
+      const langSelect = document.getElementById("settingsLang");
+      const themeBtn   = document.getElementById("settingsThemeToggle");
+      const accInfo    = document.getElementById("settingsAccountInfo");
+
+      function updateAccountInfo() {
+        if (!accInfo) return;
+        const u = window.__currentUser;
+        if (u && u.email) {
+          accInfo.textContent = u.email;
+        } else if (u) {
+          accInfo.textContent = "Авторизованный пользователь";
+        } else {
+          accInfo.textContent = "Гость (на главной странице можно войти в дневник)";
+        }
+      }
+
+      function openPanel() {
+        updateAccountInfo();
+        panel.classList.add("open");
+        backdrop.classList.add("open");
+      }
+
+      function closePanel() {
+        panel.classList.remove("open");
+        backdrop.classList.remove("open");
+      }
+
+      fab?.addEventListener("click", openPanel);
+      closeBtn?.addEventListener("click", closePanel);
+      backdrop?.addEventListener("click", closePanel);
+
+      updateAccountInfo();
+
+      // Язык
+      if (langSelect) {
+        const savedLang = localStorage.getItem("siteLang") || "ru";
+        langSelect.value = savedLang;
+
+        langSelect.addEventListener("change", () => {
+          localStorage.setItem("siteLang", langSelect.value);
+        });
+      }
+
+      // Тема
+      if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+          if (typeof toggleTheme === "function") {
+            toggleTheme();
           } else {
-            audio.pause();
-            player.classList.remove("playing");
-            playBtn.textContent = "▶";
+            document.body.classList.toggle("dark");
+            localStorage.setItem(
+              "theme",
+              document.body.classList.contains("dark") ? "dark" : "light"
+            );
           }
         });
       }
 
-      if (track) {
-        track.addEventListener("click", (e) => {
-          if (!audio.duration) return;
-          const rect = track.getBoundingClientRect();
-          const ratio = (e.clientX - rect.left) / rect.width;
-          audio.currentTime = Math.max(0, Math.min(audio.duration, ratio * audio.duration));
+      // Бургер-меню (на будущее)
+      const navToggle = document.querySelector(".nav-toggle");
+      const siteNav   = document.querySelector(".site-nav");
+
+      if (navToggle && siteNav) {
+        navToggle.addEventListener("click", () => {
+          siteNav.classList.toggle("nav-open");
         });
       }
     });
-  }
-
-  window.addEventListener("load", () => {
-    applyThemeFromStorage();
-    startBackgroundHearts();
-    createStars();
-    setRandomMissPhrase();
-    updatePhoto();
-    typeLine();
-
-    const saved = localStorage.getItem("missNotes");
-    if (saved) {
-      try { missNotes = JSON.parse(saved); } catch { missNotes = []; }
-    }
-    renderMiss();
-
-    document.body.classList.add("page-ready");
-
-    const mainPhoto = document.getElementById("miss-main-photo");
-    if (mainPhoto) {
-      mainPhoto.addEventListener("click", openPhotoModal);
-    }
-
-    const lock = document.querySelector(".corner-lock");
-    if (lock) {
-      lock.addEventListener("click", toggleSecretToast);
-    }
-
-    initCustomAudioPlayers();
-  });
-</script>
+  </script>
 </body>
 </html>
