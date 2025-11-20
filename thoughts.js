@@ -1,10 +1,10 @@
 // thoughts.js
-// Логика страницы "Мысли": localStorage + Firestore (asyaman_thoughts)
+// Логика страницы "Мысли": LocalStorage + Firestore
 
-const STORAGE_KEY = "thoughtsList";
+// ===== КЛЮЧ LOCALSTORAGE =====
+const STORAGE_KEY = "asyaman_thoughts";
 
 // ===== LOCAL STORAGE =====
-
 function loadThoughts() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -23,36 +23,25 @@ function saveThoughts(list) {
   }
 }
 
-// ===== FIRESTORE =====
-// Отправка записи в Firestore
-
+// ===== FIRESTORE: отправка мысли =====
 function sendThoughtToFirestore(text) {
   if (window.saveEntryToFirestore) {
     window.saveEntryToFirestore("asyaman_thoughts", text);
   } else {
-    console.warn("Firebase не загружен или пользователь не авторизован");
+    console.warn("Firestore недоступен или пользователь не авторизован");
   }
 }
 
-// Пометить запись как удалённую в Firestore
-function markThoughtDeletedInFirestore(text) {
-  if (window.markEntryDeleted) {
-    window.markEntryDeleted("asyaman_thoughts", text);
-  }
-}
-
-
-
-// ===== РЕНДЕР СПИСКА =====
-
+// ===== РЕНДЕР =====
 function renderThoughts() {
   const listEl = document.getElementById("thoughts-list");
+
   if (!listEl) return;
 
-  const items = loadThoughts();
+  const thoughts = loadThoughts();
   listEl.innerHTML = "";
 
-  if (!items.length) {
+  if (thoughts.length === 0) {
     const empty = document.createElement("p");
     empty.style.fontSize = "13px";
     empty.style.color = "var(--text-soft)";
@@ -61,7 +50,7 @@ function renderThoughts() {
     return;
   }
 
-  items.forEach((item, index) => {
+  thoughts.forEach((item, index) => {
     const wrapper = document.createElement("div");
     wrapper.className = "thought-item";
 
@@ -81,18 +70,13 @@ function renderThoughts() {
     const removeBtn = document.createElement("button");
     removeBtn.className = "thought-remove-btn";
     removeBtn.innerHTML = "✕";
+    removeBtn.title = "Удалить мысль";
 
     removeBtn.addEventListener("click", () => {
       const arr = loadThoughts();
-      const deleted = arr.splice(index, 1);
-
+      arr.splice(index, 1);
       saveThoughts(arr);
       renderThoughts();
-
-      // Помечаем удаление в Firestore
-      if (deleted[0] && deleted[0].text) {
-        markThoughtDeletedInFirestore(deleted[0].text);
-      }
     });
 
     wrapper.appendChild(left);
@@ -101,15 +85,13 @@ function renderThoughts() {
   });
 }
 
-// ===== ДОБАВИТЬ НОВУЮ МЫСЛЬ =====
-
+// ===== ДОБАВИТЬ МЫСЛЬ =====
 function addThought(custom = null) {
-  const textarea = document.getElementById("thought-input");
-  const value = custom || (textarea ? textarea.value.trim() : "");
+  const input = document.getElementById("thought-input");
 
+  const value = custom || (input ? input.value.trim() : "");
   if (!value) return;
 
-  // создаём дату
   const now = new Date();
   const dateStr = now.toLocaleString("ru-RU", {
     day: "2-digit",
@@ -119,49 +101,39 @@ function addThought(custom = null) {
     minute: "2-digit",
   });
 
-  // localStorage
+  // LocalStorage
   const list = loadThoughts();
   list.unshift({
     text: value,
     date: `Запись от ${dateStr}`,
-    deleted: false
   });
-
   saveThoughts(list);
-  renderThoughts();
-
-  if (textarea) textarea.value = "";
 
   // Firestore
   sendThoughtToFirestore(value);
+
+  if (input) input.value = "";
+  renderThoughts();
 }
 
-// ===== ОЧИСТКА =====
-
+// ===== ОЧИСТКА ВСЕГО =====
 function clearThoughts() {
-  if (!confirm("Очистить все записи? Ты не сможешь вернуть их назад.")) return;
-
-  const items = loadThoughts();
-
-  // помечаем каждую запись как deleted в Firestore
-  items.forEach((i) => {
-    if (i && i.text) markThoughtDeletedInFirestore(i.text);
-  });
-
-  // очищаем localStorage
+  if (!confirm("Очистить все записи? Их нельзя будет вернуть.")) return;
   saveThoughts([]);
   renderThoughts();
 }
 
 // ===== ИНИЦИАЛИЗАЦИЯ =====
-
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.getElementById("add-thought");
   const clearBtn = document.getElementById("clear-thoughts");
   const input = document.getElementById("thought-input");
 
+  // Добавить мысль
   addBtn?.addEventListener("click", () => addThought());
-  clearBtn?.addEventListener("click", () => clearThoughts());
+
+  // Очистить
+  clearBtn?.addEventListener("click", clearThoughts);
 
   // Ctrl + Enter
   input?.addEventListener("keydown", (e) => {

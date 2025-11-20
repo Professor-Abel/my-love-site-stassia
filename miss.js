@@ -1,23 +1,19 @@
 // miss.js
-// Логика страницы "Когда скучаешь": localStorage + Firestore
+// Логика страницы "Когда скучаешь": LocalStorage + Firestore
 
-// ===== LOCAL STORAGE =====
 const STORAGE_KEY = "missMoments";
 
-// Загрузить моменты
+// ===== LocalStorage =====
 function loadMissMoments() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    return raw ? JSON.parse(raw) : [];
   } catch (e) {
     console.error("Ошибка чтения missMoments:", e);
     return [];
   }
 }
 
-// Сохранить моменты
 function saveMissMoments(list) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
@@ -26,55 +22,46 @@ function saveMissMoments(list) {
   }
 }
 
-// ===== FIRESTORE =====
-// Отправка в Firestore (только если Firebase подключён и есть пользователь)
+// ===== Firestore отправка =====
 function sendMissToFirestore(text) {
-  try {
-    if (window.saveEntryToFirestore) {
-      window.saveEntryToFirestore("missMoments", text);
-    } else {
-      console.warn("Firestore недоступен — запись сохранена только локально");
-    }
-  } catch (e) {
-    console.error("Ошибка отправки в Firestore:", e);
+  if (window.saveEntryToFirestore) {
+    window.saveEntryToFirestore("missMoments", text);
+  } else {
+    console.warn("Firestore недоступен или пользователь не авторизован");
   }
 }
 
-// ===== РЕНДЕР СПИСКА =====
+// ===== Рендер =====
 function renderMissMoments() {
   const listEl = document.getElementById("missList");
   const countEl = document.getElementById("missCount");
-  if (!listEl) return;
 
   const items = loadMissMoments();
   listEl.innerHTML = "";
 
-  // Пусто?
   if (items.length === 0) {
-    const empty = document.createElement("li");
-    empty.style.fontSize = "13px";
-    empty.style.color = "var(--text-soft)";
-    empty.textContent =
+    const li = document.createElement("li");
+    li.style.fontSize = "13px";
+    li.style.color = "var(--text-soft)";
+    li.textContent =
       "Здесь пока пусто… но как только ты соскучишься, эта строчка станет нашей 💜";
-    listEl.appendChild(empty);
-
+    listEl.appendChild(li);
     if (countEl) countEl.textContent = "";
     return;
   }
 
-  // Обновить счётчик
+  // Счётчик
   if (countEl) {
     const c = items.length;
     countEl.textContent =
-      `${c} ${c === 1 ? "момент" : c < 5 ? "момента" : "моментов"}`;
+      c + " " + (c === 1 ? "момент" : c < 5 ? "момента" : "моментов");
   }
 
-  // Отрисовать
+  // Элементы
   items.forEach((item, index) => {
     const li = document.createElement("li");
     li.className = "miss-item";
 
-    // Левая часть
     const left = document.createElement("div");
 
     const text = document.createElement("div");
@@ -88,13 +75,12 @@ function renderMissMoments() {
     left.appendChild(text);
     left.appendChild(meta);
 
-    // Кнопка удаления
-    const removeBtn = document.createElement("button");
-    removeBtn.className = "miss-remove-btn";
-    removeBtn.innerHTML = "✕";
-    removeBtn.title = "Удалить";
+    const btn = document.createElement("button");
+    btn.className = "miss-remove-btn";
+    btn.innerHTML = "✕";
+    btn.title = "Удалить";
 
-    removeBtn.addEventListener("click", () => {
+    btn.addEventListener("click", () => {
       const arr = loadMissMoments();
       arr.splice(index, 1);
       saveMissMoments(arr);
@@ -102,17 +88,17 @@ function renderMissMoments() {
     });
 
     li.appendChild(left);
-    li.appendChild(removeBtn);
-
+    li.appendChild(btn);
     listEl.appendChild(li);
   });
 }
 
-// ===== ДОБАВИТЬ НОВЫЙ МОМЕНТ =====
-function addMissMoment(custom = null) {
+// ===== Добавить момент =====
+function addMissMoment(customText = null) {
   const input = document.getElementById("missInput");
-  const text = custom || (input ? input.value.trim() : "");
-  if (!text) return;
+  const value = customText || (input ? input.value.trim() : "");
+
+  if (!value) return;
 
   const now = new Date();
   const dateStr = now.toLocaleString("ru-RU", {
@@ -123,58 +109,55 @@ function addMissMoment(custom = null) {
     minute: "2-digit",
   });
 
+  // LocalStorage
   const list = loadMissMoments();
   list.unshift({
-    text,
+    text: value,
     date: `Момент скучания от ${dateStr}`,
   });
-
   saveMissMoments(list);
-  sendMissToFirestore(text);
+
+  // Firestore
+  sendMissToFirestore(value);
 
   if (input) input.value = "";
-
   renderMissMoments();
 }
 
-// ===== ИНИЦИАЛИЗАЦИЯ =====
+// ===== Init =====
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.getElementById("missAddBtn");
   const clearBtn = document.getElementById("missClearBtn");
   const quickBtn = document.getElementById("missQuickBtn");
   const input = document.getElementById("missInput");
 
-  // Добавить
   addBtn?.addEventListener("click", () => addMissMoment());
 
-  // Очистить
   clearBtn?.addEventListener("click", () => {
     if (!confirm("Очистить все моменты?")) return;
     saveMissMoments([]);
     renderMissMoments();
   });
 
-  // Быстрые фразы
-  const quick = [
+  const quickPhrases = [
     "Я просто скучаю по тебе. Без объяснений.",
     "Сейчас бы к тебе, обнять и молчать.",
-    "Каждой клеткой чувствую, как не хватает тебя рядом.",
-    "Немного потерялся сегодня, но мысль о тебе держит.",
-    "Хочу твой голос, твоё плечо и твой смех прямо сейчас."
+    "Каждой клеткой чувствую, что тебя не хватает.",
+    "Сегодня немного пусто, но мысль о тебе спасает.",
+    "Хочу услышать твой голос прямо сейчас.",
   ];
 
-  quickBtn?.addEventListener("click", () =>
-    addMissMoment(quick[Math.floor(Math.random() * quick.length)])
-  );
+  quickBtn?.addEventListener("click", () => {
+    const phrase = quickPhrases[Math.floor(Math.random() * quickPhrases.length)];
+    addMissMoment(phrase);
+  });
 
-  // Ctrl+Enter
-  input?.addEventListener("keydown", e => {
+  input?.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       addMissMoment();
     }
   });
 
-  // Первичная загрузка
   renderMissMoments();
 });
