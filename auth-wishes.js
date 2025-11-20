@@ -22,11 +22,21 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
   orderBy,
   serverTimestamp,
   setDoc,
   doc
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
+
 
 // ==== КОНФИГ FIREBASE ====
 // ВАЖНО: storageBucket без @ в конце
@@ -121,6 +131,10 @@ const wishCount      = document.getElementById("wishCount");
 const settingsAccountInfo  = document.getElementById("settingsAccountInfo");
 const settingsAdminSection = document.querySelector(".settings-section--admin");
 const settingsAdminBtn     = document.getElementById("settingsAdminBtn");
+const profileAvatar    = document.getElementById("profileAvatar");
+const changeAvatarBtn  = document.getElementById("changeAvatarBtn");
+const avatarFileInput  = document.getElementById("avatarFileInput");
+const profileNameEl    = document.getElementById("profileName");
 
 // ==== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ UI ====
 function setAuthStatus(message, type = "") {
@@ -153,6 +167,92 @@ function updateSettingsUI() {
       adminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
     };
   }
+}
+// ==== АВАТАР: ЗАГРУЗКА И ОТОБРАЖЕНИЕ ====
+
+// Показать имя в мини-профиле
+function updateProfileName(user) {
+  if (!profileNameEl) return;
+
+  if (!user) {
+    profileNameEl.textContent = "Твоё место здесь 💜";
+    return;
+  }
+
+  const name =
+    user.displayName ||
+    (user.email ? user.email.split("@")[0] : "Ты");
+
+  profileNameEl.innerHTML = `<strong>${name}</strong><br/>в нашем маленьком мире`;
+}
+
+// Подтянуть аватар из Firestore
+async function refreshAvatar(user) {
+  if (!profileAvatar) return;
+
+  if (!user) {
+    profileAvatar.src = "secret-photo.jpg";
+    return;
+  }
+
+  try {
+    const userDocRef = doc(db, "users", user.uid);
+    const snap = await getDoc(userDocRef);
+
+    const data = snap.data?.() || snap.data();
+    if (data && data.avatarUrl) {
+      profileAvatar.src = data.avatarUrl;
+    } else {
+      profileAvatar.src = "secret-photo.jpg";
+    }
+  } catch (e) {
+    console.error("Ошибка загрузки аватара:", e);
+    profileAvatar.src = "secret-photo.jpg";
+  }
+}
+
+// Загрузка нового аватара
+async function handleAvatarFileChange(event) {
+  const file = event.target.files?.[0];
+  const user = auth.currentUser;
+
+  if (!file || !user) return;
+
+  try {
+    setAuthStatus("Загружаю аватар...", "good");
+
+    const fileRef = storageRef(storage, `avatars/${user.uid}.jpg`);
+    await uploadBytes(fileRef, file);
+    const url = await getDownloadURL(fileRef);
+
+    await setDoc(
+      doc(db, "users", user.uid),
+      { avatarUrl: url },
+      { merge: true }
+    );
+
+    if (profileAvatar) {
+      profileAvatar.src = url;
+    }
+
+    setAuthStatus("Аватар обновлён 💜", "good");
+  } catch (e) {
+    console.error("Ошибка загрузки аватара:", e);
+    setAuthStatus("Не получилось загрузить аватар 😔", "bad");
+  } finally {
+    if (avatarFileInput) {
+      avatarFileInput.value = "";
+    }
+  }
+}
+
+// Навесим обработчики на кнопку/инпут
+if (changeAvatarBtn && avatarFileInput) {
+  changeAvatarBtn.addEventListener("click", () => {
+    avatarFileInput.click();
+  });
+
+  avatarFileInput.addEventListener("change", handleAvatarFileChange);
 }
 
 // ==== ЖЕЛАНИЯ ДЛЯ ТЕКУЩЕГО ПОЛЬЗОВАТЕЛЯ ====

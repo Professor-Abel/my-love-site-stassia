@@ -1536,17 +1536,95 @@
       </div>
     </header>
 
-    <main>
-      <!-- ============ СЕКЦИЯ ЖЕЛАНИЙ ============ -->
-      <section id="wishes" class="page-inner">
-        <div class="main-grid">
-          <!-- Левая карточка: авторизация -->
-          <section class="card">
-            <div class="card-inner">
-              <div class="auth-chip">
-                <span>🔒</span>
-                <span>Только для нас двоих</span>
-              </div>
+   <main class="layout">
+
+  <!-- ЛЕВАЯ КОЛОНКА -->
+  <aside class="layout-left">
+    <div class="left-inner">
+
+      <!-- МИНИ-ПРОФИЛЬ (аватар + имя — уже есть в карточке авторизации) -->
+      <div id="miniProfileContainer"></div>
+
+      <!-- Навигация по разделам -->
+      <nav class="side-nav">
+        <button data-jump="wishes" class="side-nav-btn">💖 Желания</button>
+        <button data-jump="thoughts" class="side-nav-btn">💭 Мысли</button>
+        <button data-jump="miss" class="side-nav-btn">🥺 Когда скучаешь</button>
+        <button data-jump="letter" class="side-nav-btn">💌 Письмо</button>
+        <button data-jump="about" class="side-nav-btn">🌙 О нас</button>
+      </nav>
+
+    </div>
+  </aside>
+
+  <!-- ЦЕНТРАЛЬНАЯ ЛЕНТА (наши секции) -->
+  <section class="layout-center">
+
+    <!-- СЕКЦИЯ ЖЕЛАНИЙ -->
+    <section id="wishes" class="feed-card">
+      <!-- ТВОЙ СУЩЕСТВУЮЩИЙ КОД ЖЕЛАНИЙ — не трогаем -->
+   
+      <!-- СЕКЦИЯ МЫСЛИ -->
+    <section id="section-thoughts" class="feed-card">
+      <!-- весь твой существующий код мыслей -->
+
+          <!-- СЕКЦИЯ КОГДА СКУЧАЕШЬ -->
+    <section id="section-miss" class="feed-card">
+      <!-- твой код -->
+ 
+      <!-- СЕКЦИЯ ПИСЬМО -->
+    <section id="section-letter" class="feed-card">
+      <!-- твой красивый блок письма -->
+
+          <!-- СЕКЦИЯ О НАС -->
+    <section id="section-about" class="feed-card">
+      <!-- твой блок о вас -->
+
+        </section> <!-- layout-center -->
+
+  <!-- ПРАВАЯ КОЛОНКА -->
+  <aside class="layout-right">
+    <div class="right-inner">
+
+      <!-- Музыка и плеер -->
+      <div id="musicPlayerSlot"></div>
+
+      <!-- Место для будущих приколов -->
+      <div class="right-widget">💛 Маленькое напоминание: я рядом.</div>
+
+    </div>
+  </aside>
+
+</main>
+
+
+    <!-- Мини-профиль с аватаром -->
+    <div class="profile-mini">
+      <div class="profile-avatar-wrapper">
+        <img
+          id="profileAvatar"
+          src="secret-photo.jpg"
+          alt="Твой аватар"
+          class="profile-avatar"
+        />
+        <button
+          id="changeAvatarBtn"
+          class="btn btn-outline btn-avatar"
+          type="button"
+        >
+          ✏️ Сменить аватар
+        </button>
+        <input
+          type="file"
+          id="avatarFileInput"
+          accept="image/*"
+          hidden
+        />
+      </div>
+      <div class="profile-name" id="profileName">
+        Твоё место здесь 💜
+      </div>
+    </div>
 
               <h1 id="auth-title">Вход в наш <span>секретный дневник</span> 💫</h1>
               <p class="subtitle">
