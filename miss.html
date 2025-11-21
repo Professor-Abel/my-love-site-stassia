@@ -1351,6 +1351,52 @@ textarea::placeholder {
   color: rgba(229, 231, 235, 0.96);
   font-size: 12px;
 }
+/* Мягкое пульсирующее свечение вокруг сцены */
+.miss-scene::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 79, 163, 0.18), transparent 60%),
+    radial-gradient(circle at 80% 100%, rgba(56, 189, 248, 0.16), transparent 60%);
+  opacity: 0;
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  animation: missGlowPulse 9s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes missGlowPulse {
+  0%   { opacity: 0.0; transform: scale(0.98); }
+  25%  { opacity: 0.6; transform: scale(1); }
+  50%  { opacity: 0.3; transform: scale(1.02); }
+  75%  { opacity: 0.55; transform: scale(1); }
+  100% { opacity: 0.0; transform: scale(0.98); }
+}
+/* Светящаяся точка слева от каждой записи */
+#missList li {
+  position: relative;
+  padding-left: 14px;
+}
+
+#missList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #f97316 0, #fb7185 55%, transparent 80%);
+  box-shadow: 0 0 14px rgba(248, 113, 113, 0.8);
+  opacity: 0.9;
+}
+#missList li:hover {
+  color: #ffffff;
+  border-color: rgba(244, 114, 182, 0.9);
+}
 
   </style>
 </head>
