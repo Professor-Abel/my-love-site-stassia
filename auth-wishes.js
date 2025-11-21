@@ -191,7 +191,7 @@ async function refreshAvatar(user) {
   if (!profileAvatar) return;
 
   if (!user) {
-    profileAvatar.src = "secret-photo.jpg";
+    profileAvatar.src = "miss-photo.jpg";
     return;
   }
 
@@ -203,11 +203,11 @@ async function refreshAvatar(user) {
     if (data && data.avatarUrl) {
       profileAvatar.src = data.avatarUrl;
     } else {
-      profileAvatar.src = "secret-photo.jpg";
+      profileAvatar.src = "miss-photo.jpg";
     }
   } catch (e) {
     console.error("Ошибка загрузки аватара:", e);
-    profileAvatar.src = "secret-photo.jpg";
+    profileAvatar.src = "miss-photo.jpg";
   }
 }
 
@@ -238,7 +238,7 @@ async function handleAvatarFileChange(event) {
     setAuthStatus("Аватар обновлён 💜", "good");
   } catch (e) {
     console.error("Ошибка загрузки аватара:", e);
-    setAuthStatus("Не получилось загрузить аватар 😔", "bad");
+    setAuthStatus("Иногда интернет шалит — просто попробуй ещё раз, я никуда не денусь 💜", "bad");
   } finally {
     if (avatarFileInput) {
       avatarFileInput.value = "";
@@ -292,7 +292,7 @@ async function loadWishes() {
     wishCount.textContent = snap.size;
   } catch (e) {
     console.error("Ошибка загрузки желаний:", e);
-    wishList.innerHTML = "<li>Не удалось загрузить желания 💔</li>";
+    wishList.innerHTML = "<li>Пока записей нет — исполнитель желаний ждёт твоих слов ✨</li>";
     wishCount.textContent = "0";
   }
 }
@@ -321,7 +321,7 @@ async function addWish() {
     await loadWishes();
   } catch (err) {
     console.error("Ошибка сохранения:", err);
-    setAuthStatus("Ошибка сохранения 💔", "bad");
+    setAuthStatus("Кажется, интернет подвис. Просто попробуй ещё раз чуть позже 💜", "bad");
   }
 }
 
