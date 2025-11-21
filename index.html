@@ -1001,437 +1001,434 @@
       justify-content: center;
       font-size: 18px;
     }
-/* ==== СЕКЦИЯ «МЫСЛИ» ==== */
 
-#section-thoughts .card {
-  background:
-    radial-gradient(circle at top left, rgba(96, 165, 250, 0.16), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.15), transparent 60%),
-    var(--card-bg);
-}
+    /* ==== СЕКЦИЯ «МЫСЛИ» (старый блок, пускай останется для совместимости) ==== */
 
-#section-thoughts .title-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+    #section-thoughts .card {
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.16), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.15), transparent 60%),
+        var(--card-bg);
+    }
 
-#section-thoughts .lock-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 23, 42, 0.95);
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.8);
-}
+    #section-thoughts .title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
 
-#section-thoughts .actions-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-  margin-bottom: 8px;
-}
+    #section-thoughts .lock-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.8);
+    }
 
-#section-thoughts .hint {
-  font-size: 11px;
-  color: var(--text-soft);
-}
+    #section-thoughts .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      margin-bottom: 8px;
+    }
 
-/* список мыслей */
-#thoughts-list {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 260px;
-  padding-right: 4px;
-  overflow-y: auto;
-}
+    #section-thoughts .hint {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
 
-.thought-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 9px 11px;
-  border-radius: 14px;
-  background: rgba(8, 5, 22, 0.97);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-}
+    #thoughts-list {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 260px;
+      padding-right: 4px;
+      overflow-y: auto;
+    }
 
-.thought-text {
-  font-size: 13px;
-  line-height: 1.4;
-}
+    .thought-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 11px;
+      border-radius: 14px;
+      background: rgba(8, 5, 22, 0.97);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
 
-.thought-meta {
-  margin-top: 4px;
-  font-size: 11px;
-  color: var(--text-soft);
-}
+    .thought-text {
+      font-size: 13px;
+      line-height: 1.4;
+    }
 
-.thought-remove-btn {
-  border: none;
-  background: transparent;
-  color: rgba(248, 113, 113, 0.9);
-  font-size: 15px;
-  cursor: pointer;
-  padding: 0 2px;
-}
+    .thought-meta {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
 
-.thought-remove-btn:hover {
-  color: var(--danger);
-}
+    .thought-remove-btn {
+      border: none;
+      background: transparent;
+      color: rgba(248, 113, 113, 0.9);
+      font-size: 15px;
+      cursor: pointer;
+      padding: 0 2px;
+    }
 
-/* ==== СЕКЦИЯ «КОГДА СКУЧАЕШЬ» ==== */
+    .thought-remove-btn:hover {
+      color: var(--danger);
+    }
 
-#section-miss .card {
-  background:
-    radial-gradient(circle at top left, rgba(251, 191, 36, 0.18), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.16), transparent 60%),
-    var(--card-bg);
-}
+    /* ==== СЕКЦИЯ «КОГДА СКУЧАЕШЬ» (старый блок) ==== */
 
-#section-miss .title-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+    #section-miss .card {
+      background:
+        radial-gradient(circle at top left, rgba(251, 191, 36, 0.18), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.16), transparent 60%),
+        var(--card-bg);
+    }
 
-#section-miss .lock-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(24, 16, 40, 0.98);
-  border: 1px solid rgba(251, 191, 36, 0.8);
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.9);
-}
+    #section-miss .title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
 
-/* список моментов */
-#missList {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 260px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
+    #section-miss .lock-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(24, 16, 40, 0.98);
+      border: 1px solid rgba(251, 191, 36, 0.8);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.9);
+    }
 
-.miss-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 9px 11px;
-  border-radius: 14px;
-  background: linear-gradient(
-    135deg,
-    rgba(251, 113, 133, 0.18),
-    rgba(56, 189, 248, 0.08)
-  );
-  border: 1px solid rgba(251, 191, 36, 0.6);
-}
+    #missList {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
 
-.miss-text {
-  font-size: 13px;
-  line-height: 1.4;
-}
+    .miss-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 11px;
+      border-radius: 14px;
+      background: linear-gradient(
+        135deg,
+        rgba(251, 113, 133, 0.18),
+        rgba(56, 189, 248, 0.08)
+      );
+      border: 1px solid rgba(251, 191, 36, 0.6);
+    }
 
-.miss-meta {
-  font-size: 11px;
-  color: var(--text-soft);
-  margin-top: 4px;
-}
+    .miss-text {
+      font-size: 13px;
+      line-height: 1.4;
+    }
 
-.miss-remove-btn {
-  border: none;
-  background: transparent;
-  color: rgba(248, 113, 113, 0.9);
-  font-size: 15px;
-  cursor: pointer;
-  padding: 0 2px;
-}
+    .miss-meta {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
 
-.miss-remove-btn:hover {
-  color: var(--danger);
-}
+    .miss-remove-btn {
+      border: none;
+      background: transparent;
+      color: rgba(248, 113, 113, 0.9);
+      font-size: 15px;
+      cursor: pointer;
+      padding: 0 2px;
+    }
 
-@media (max-width: 720px) {
-  #section-thoughts .actions-row,
-  #section-miss .actions-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
-/* ==== СЕКЦИЯ «ПИСЬМО» ==== */
+    .miss-remove-btn:hover {
+      color: var(--danger);
+    }
 
-#letter .card-inner {
-  max-width: 720px;
-  margin: 0 auto;
-}
+    @media (max-width: 720px) {
+      #section-thoughts .actions-row,
+      #section-miss .actions-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
 
-#letter h1 {
-  margin-bottom: 10px;
-}
+    /* ==== СЕКЦИЯ «ПИСЬМО» ==== */
 
-.letter-text {
-  margin-top: 12px;
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  padding: 16px 18px;
-  border-radius: 18px;
-  background:
-    linear-gradient(180deg, rgba(248, 250, 252, 0.03), rgba(15, 23, 42, 0.96)),
-    repeating-linear-gradient(
-      to bottom,
-      rgba(148, 163, 184, 0.25),
-      rgba(148, 163, 184, 0.25) 1px,
-      transparent 1px,
-      transparent 26px
-    );
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
-}
+    #letter .card-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
 
-/* небольшой блок-подпись, если потом захочешь добавить */
-.letter-sign {
-  margin-top: 10px;
-  font-size: 13px;
-  color: var(--accent-soft);
-  text-align: right;
-}
+    #letter h1 {
+      margin-bottom: 10px;
+    }
 
-/* ==== ДОП. ПРАВКИ ДЛЯ «О НАС» ==== */
+    .letter-text {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      padding: 16px 18px;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(248, 250, 252, 0.03), rgba(15, 23, 42, 0.96)),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(148, 163, 184, 0.25),
+          rgba(148, 163, 184, 0.25) 1px,
+          transparent 1px,
+          transparent 26px
+        );
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+    }
 
-#about .about-card {
-  margin-top: 0;
-}
+    .letter-sign {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--accent-soft);
+      text-align: right;
+    }
 
-#about .about-left h2 {
-  margin-bottom: 10px;
-}
+    /* ==== ДОП. ПРАВКИ ДЛЯ «О НАС» ==== */
 
-#about .about-song {
-  margin-top: 10px;
-}
-/* ==== ОБЩИЙ ЗАГОЛОВОК С ИКОНКОЙ ==== */
+    #about .about-card {
+      margin-top: 0;
+    }
 
-.title-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+    #about .about-left h2 {
+      margin-bottom: 10px;
+    }
 
-.lock-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  background:
-    radial-gradient(circle at 30% 0, rgba(251, 191, 36, 0.85), transparent 60%),
-    rgba(15, 23, 42, 0.98);
-  border: 1px solid rgba(251, 191, 36, 0.7);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.9);
-}
+    #about .about-song {
+      margin-top: 10px;
+    }
 
-.title-row h1 {
-  font-size: 20px;
-  margin: 0;
-}
-/* ==== СЕКЦИЯ «МЫСЛИ» ==== */
+    /* ==== ОБЩИЙ ЗАГОЛОВОК С ИКОНКОЙ ==== */
 
-#thoughts .card-inner {
-  max-width: 760px;
-  margin: 0 auto;
-}
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
 
-#thoughts #thought-input {
-  margin-top: 6px;
-  min-height: 90px;
-}
+    .lock-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background:
+        radial-gradient(circle at 30% 0, rgba(251, 191, 36, 0.85), transparent 60%),
+        rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(251, 191, 36, 0.7);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.9);
+    }
 
-#thoughts .actions-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-  align-items: center;
-}
+    .title-row h1 {
+      font-size: 20px;
+      margin: 0;
+    }
 
-#thoughts .hint {
-  margin-top: 6px;
-  font-size: 11px;
-  color: var(--text-muted);
-}
+    /* ==== СЕКЦИЯ «МЫСЛИ» (новый блок) ==== */
 
-/* список мыслей */
-#thoughts-list {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 260px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
+    #thoughts .card-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
 
-/* одна мысль */
-.thought-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 16px;
-  background:
-    radial-gradient(circle at top left, rgba(129, 140, 248, 0.18), transparent 60%),
-    rgba(8, 5, 22, 0.96);
-  border: 1px solid rgba(129, 140, 248, 0.55);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
-}
+    #thoughts #thought-input {
+      margin-top: 6px;
+      min-height: 90px;
+    }
 
-.thought-text {
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--text-secondary);
-}
+    #thoughts .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      align-items: center;
+    }
 
-.thought-meta {
-  margin-top: 4px;
-  font-size: 11px;
-  color: var(--text-soft);
-}
+    #thoughts .hint {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
-/* крестик удаления мысли */
-.thought-remove-btn {
-  border: none;
-  background: transparent;
-  color: rgba(248, 250, 252, 0.7);
-  font-size: 16px;
-  cursor: pointer;
-  padding: 0 2px;
-}
+    #thoughts-list {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
 
-.thought-remove-btn:hover {
-  color: var(--danger);
-  transform: translateY(-1px);
-}
-/* ==== СЕКЦИЯ «КОГДА СКУЧАЕШЬ» ==== */
+    #thoughts-list .thought-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at top left, rgba(129, 140, 248, 0.18), transparent 60%),
+        rgba(8, 5, 22, 0.96);
+      border: 1px solid rgba(129, 140, 248, 0.55);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
+    }
 
-#miss .card-inner {
-  max-width: 760px;
-  margin: 0 auto;
-}
+    #thoughts-list .thought-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
 
-#miss #missInput {
-  margin-top: 8px;
-  min-height: 90px;
-}
+    #thoughts-list .thought-meta {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
 
-#miss .actions-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
+    #thoughts-list .thought-remove-btn {
+      border: none;
+      background: transparent;
+      color: rgba(248, 250, 252, 0.7);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 2px;
+    }
 
-#miss .actions-row .btn {
-  flex-shrink: 0;
-}
+    #thoughts-list .thought-remove-btn:hover {
+      color: var(--danger);
+      transform: translateY(-1px);
+    }
 
-/* список моментов */
-#missList {
-  margin-top: 12px;
-  list-style: none;
-  padding-left: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 260px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
+    /* ==== СЕКЦИЯ «КОГДА СКУЧАЕШЬ» (новый блок) ==== */
 
-/* один момент: либо через класс .miss-item, либо li */
-#missList li,
-.miss-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 16px;
-  background:
-    radial-gradient(circle at top left, rgba(244, 114, 182, 0.18), transparent 60%),
-    rgba(8, 5, 22, 0.96);
-  border: 1px solid rgba(244, 114, 182, 0.55);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
-}
+    #miss .card-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
 
-.miss-text {
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--text-secondary);
-}
+    #miss #missInput {
+      margin-top: 8px;
+      min-height: 90px;
+    }
 
-.miss-meta {
-  margin-top: 4px;
-  font-size: 11px;
-  color: var(--text-soft);
-}
+    #miss .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
 
-/* крестик удаления момента, если есть */
-.miss-remove-btn {
-  border: none;
-  background: transparent;
-  color: rgba(248, 250, 252, 0.75);
-  font-size: 16px;
-  cursor: pointer;
-  padding: 0 2px;
-}
+    #miss .actions-row .btn {
+      flex-shrink: 0;
+    }
 
-.miss-remove-btn:hover {
-  color: var(--danger);
-  transform: translateY(-1px);
-}
+    #missList {
+      margin-top: 12px;
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
 
-    /* === НИЖНЯЯ ПАНЕЛЬ МУЗЫКИ === */
+    #missList li,
+    #missList .miss-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at top left, rgba(244, 114, 182, 0.18), transparent 60%),
+        rgba(8, 5, 22, 0.96);
+      border: 1px solid rgba(244, 114, 182, 0.55);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
+    }
+
+    #missList .miss-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    #missList .miss-meta {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    #missList .miss-remove-btn {
+      border: none;
+      background: transparent;
+      color: rgba(248, 250, 252, 0.75);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 2px;
+    }
+
+    #missList .miss-remove-btn:hover {
+      color: var(--danger);
+      transform: translateY(-1px);
+    }
+
+    /* === НИЖНЯЯ ПАНЕЛЬ МУЗЫКИ (глобальный плеер) === */
+
     .music-bar {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 35;
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 35;
 
-  max-width: 320px;
-  width: auto;
+      max-width: 320px;
+      width: auto;
 
-  display: none;
-  flex-direction: column;
-  gap: 6px;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
 
-  padding: 10px 12px;
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.10), transparent 60%),
-    rgba(5, 3, 15, 0.98);
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 1);
-}
+      padding: 10px 12px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.10), transparent 60%),
+        rgba(5, 3, 15, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 1);
+    }
 
     .music-bar-title {
       font-size: 12px;
@@ -1439,6 +1436,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      justify-content: space-between;
     }
 
     .music-bar audio {
@@ -1462,26 +1460,10 @@
 
     @media (max-width: 480px) {
       .music-bar {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 35;
-
-  max-width: 320px;
-  width: auto;
-
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-
-  padding: 10px 12px;
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.10), transparent 60%),
-    rgba(5, 3, 15, 0.98);
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 1);
-}
+        right: 12px;
+        left: 12px;
+        max-width: none;
+      }
     }
 
     .music-bar-playlist {
@@ -1512,1206 +1494,903 @@
       color: #fff;
       background: rgba(255, 79, 154, 0.2);
     }
+
     /* ==== ASYAMAN V2 — МЯГКИЙ НОЧНОЙ СТИЛЬ ==== */
 
-/* Новый набор цветов */
-:root {
-  --bg-main: radial-gradient(circle at top, #111827 0, #02010a 50%, #000000 100%);
-  --card-bg: rgba(12, 16, 30, 0.96);
-  --card-border: rgba(148, 163, 184, 0.35);
-  --accent: #ff4fa3;
-  --accent-soft: rgba(255, 79, 163, 0.25);
-  --accent-gold: #fbbf24;
-  --text-main: #f9fafb;
-  --text-soft: #e5e7eb;
-  --text-secondary: #f9fafb;
-  --text-muted: #9ca3af;
-  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.9);
-  --radius-xl: 24px;
-}
-
-/* Фон — спокойный градиент вместо кислотного космоса */
-body {
-  background: var(--bg-main);
-  color: var(--text-main);
-}
-
-/* Убираем жёсткое свечение */
-body::before,
-body::after {
-  opacity: 0.15;
-  filter: blur(55px);
-}
-
-/* Полностью выключаем галактику и сердечки */
-#galaxyCanvas,
-.floating-heart {
-  display: none !important;
-}
-
-/* Карточки — «дорогое стекло» */
-.card {
-  background: var(--card-bg);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(20px);
-}
-
-.card-inner {
-  padding: 18px 18px 16px;
-}
-
-/* Шапка — аккуратная полоска */
-.site-header {
-  background: rgba(15, 23, 42, 0.92);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
-}
-
-.header-inner {
-  padding: 10px 18px;
-}
-
-.logo {
-  font-size: 18px;
-  letter-spacing: 0.14em;
-}
-
-.logo span {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-/* Верхнее меню */
-.site-nav {
-  background: transparent;
-  border-radius: 999px;
-  padding: 4px;
-}
-
-.nav-link {
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.nav-link.nav-active {
-  background: rgba(15, 23, 42, 0.95);
-  color: #fff;
-  border: 1px solid rgba(248, 250, 252, 0.18);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75);
-}
-
-/* Лэйаут */
-.page {
-  min-height: 100vh;
-}
-
-.layout-root {
-  margin-top: 18px;
-}
-
-.page-inner {
-  max-width: 1080px;
-  margin: 22px auto 32px;
-}
-
-/* Левая колонка */
-.layout-left-inner {
-  background: rgba(15, 23, 42, 0.96);
-  border-radius: 22px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: var(--shadow-soft);
-}
-
-.side-card {
-  background: transparent;
-  box-shadow: none;
-  border: none;
-}
-
-.side-card-title {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.side-card-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-/* Кнопки в сайдбаре */
-.side-nav-btn {
-  border-radius: 999px;
-  border: 1px solid transparent;
-  font-size: 12px;
-  padding: 6px 10px;
-  background: rgba(15, 23, 42, 0.9);
-  color: var(--text-muted);
-  transition: background 0.13s ease, border-color 0.13s ease, transform 0.08s ease;
-}
-
-.side-nav-btn:hover {
-  background: rgba(30, 64, 175, 0.9);
-  border-color: rgba(129, 140, 248, 0.9);
-  color: #f9fafb;
-  transform: translateY(-1px);
-}
-
-/* Профиль и аватар */
-.profile-mini {
-  padding: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.profile-avatar-wrapper {
-  position: relative;
-}
-
-.profile-avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 999px;
-  object-fit: cover;
-  border: 2px solid rgba(15, 23, 42, 1);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.95);
-}
-
-.profile-avatar-wrapper::before {
-  content: "";
-  position: absolute;
-  inset: -5px;
-  border-radius: inherit;
-  background: conic-gradient(from 160deg, #ff4fa3, #8b5cf6, #22d3ee, #ff4fa3);
-  opacity: 0.7;
-  filter: blur(1px);
-  z-index: -1;
-}
-
-.profile-name {
-  font-size: 13px;
-  font-weight: 500;
-}
-
-/* Кнопки */
-.btn {
-  border-radius: 999px;
-  font-size: 13px;
-  padding: 8px 14px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
-}
-
-.btn-main {
-  background: linear-gradient(135deg, #ff4fa3, #ff7ac5);
-  border: none;
-}
-
-.btn-outline {
-  background: rgba(15, 23, 42, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.75);
-}
-
-/* Инпуты */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea {
-  background: rgba(15, 23, 42, 0.96);
-  border-radius: 16px;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  color: var(--text-main);
-  font-size: 13px;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: rgba(148, 163, 184, 0.9);
-}
-
-/* Секция «Когда скучаешь», «Письмо» и т.п. */
-.section-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--text-muted);
-}
-
-.subtitle {
-  color: var(--text-soft);
-}
-
-/* Музыкальная плашка */
-.music-bar {
-  background: rgba(15, 23, 42, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.65);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.95);
-}
-
-/* Мобильная адаптация */
-@media (max-width: 900px) {
-  .layout-root {
-    margin-top: 12px;
-  }
-  .layout-left-inner {
-    margin-bottom: 14px;
-  }
-}
-
-@media (max-width: 640px) {
-  .site-header {
-    border-radius: 0 0 18px 18px;
-  }
-  .header-inner {
-    padding: 8px 14px;
-  }
-}
-/* === ASYAMAN V2 · ЖЕЛАНИЯ — СЦЕНА МЕЧТ === */
-
-.section-wishes {
-  position: relative;
-  margin-top: 22px;
-}
-
-.section-wishes .wishes-scene {
-  position: relative;
-  overflow: hidden;
-  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.05), transparent 55%),
-              linear-gradient(135deg, rgba(12, 10, 24, 0.98), rgba(15, 23, 42, 0.98));
-  border-radius: 28px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
-  padding: 22px 22px 18px;
-}
-
-/* мягкое свечение внутри */
-.section-wishes .wishes-glow {
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 15% 0%, rgba(255, 79, 163, 0.22), transparent 60%),
-    radial-gradient(circle at 85% 100%, rgba(56, 189, 248, 0.22), transparent 60%),
-    radial-gradient(circle at 0% 100%, rgba(244, 114, 182, 0.18), transparent 60%);
-  opacity: 0.65;
-  filter: blur(14px);
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-.section-wishes .wishes-inner {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  gap: 18px;
-}
-
-/* левая часть — текст + форма */
-.section-wishes .wishes-left-header {
-  margin-bottom: 10px;
-}
-
-.section-wishes .wishes-label {
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(148, 163, 184, 0.98);
-}
-
-.section-wishes .wishes-title {
-  font-size: 18px;
-  margin: 6px 0 4px;
-}
-
-.section-wishes .wishes-title span {
-  background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.section-wishes .wishes-subtitle {
-  font-size: 13px;
-  color: rgba(209, 213, 219, 0.96);
-}
-
-/* форма желания */
-.section-wishes .wishes-form-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.section-wishes .wishes-form-row input[type="text"] {
-  flex: 1;
-}
-
-.section-wishes .wishes-meta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-  font-size: 11px;
-  color: rgba(156, 163, 175, 0.96);
-}
-
-/* селекты/инпуты внутри метаданных (если есть) */
-.section-wishes .wishes-meta-row select,
-.section-wishes .wishes-meta-row input[type="number"] {
-  background: rgba(15, 23, 42, 0.94);
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  padding: 4px 10px;
-  font-size: 11px;
-  color: #e5e7eb;
-}
-
-/* кнопки */
-.section-wishes .btn {
-  border-radius: 999px;
-}
-
-.section-wishes .btn-main {
-  background: linear-gradient(135deg, #ff4fa3, #ff7ac5);
-  border: none;
-}
-
-.section-wishes .btn-outline {
-  background: rgba(15, 23, 42, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.8);
-}
-
-/* правая колонка — список желаний */
-.section-wishes .wishes-right {
-  background: rgba(15, 23, 42, 0.96);
-  border-radius: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  padding: 14px 12px 10px;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.9);
-}
-
-.section-wishes .wishes-right-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 6px;
-}
-
-.section-wishes .wishes-right-title {
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.section-wishes .wishes-count {
-  font-size: 11px;
-  color: rgba(156, 163, 175, 0.96);
-}
-
-/* список */
-.section-wishes #wishesList {
-  margin: 6px 0 0;
-  padding: 0;
-  list-style: none;
-  max-height: 240px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.7) transparent;
-}
-
-.section-wishes #wishesList li {
-  padding: 6px 0;
-  border-bottom: 1px dashed rgba(55, 65, 81, 0.9);
-  font-size: 12px;
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.section-wishes #wishesList li:last-child {
-  border-bottom: none;
-}
-
-.section-wishes .wish-item-text {
-  flex: 1;
-  color: rgba(229, 231, 235, 0.98);
-}
-
-.section-wishes .wish-item-meta {
-  font-size: 10px;
-  color: rgba(156, 163, 175, 0.96);
-  white-space: nowrap;
-}
-
-/* адаптив */
-@media (max-width: 840px) {
-  .section-wishes .wishes-inner {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-/* === ASYAMAN V2 · ЖЕЛАНИЯ — КАРТОЧКА МЕЧТ === */
-
-.wishes-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 26px;
-  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
-              linear-gradient(145deg, rgba(12, 10, 24, 0.98), rgba(15, 23, 42, 0.98));
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
-}
-
-.wishes-card-inner {
-  position: relative;
-}
-
-/* мягкое сияние внутри карточки */
-.wishes-card-inner::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 15% 0%, rgba(255, 79, 163, 0.23), transparent 60%),
-    radial-gradient(circle at 90% 100%, rgba(56, 189, 248, 0.22), transparent 60%);
-  opacity: 0.6;
-  filter: blur(14px);
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-.wishes-header {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 12px;
-}
-
-.wishes-kicker {
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(148, 163, 184, 0.95);
-}
-
-.wishes-title {
-  font-size: 18px;
-  margin: 6px 0 4px;
-}
-
-.wishes-title span {
-  display: block;
-  font-size: 14px;
-  background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.wishes-subtitle {
-  font-size: 13px;
-  color: rgba(209, 213, 219, 0.96);
-  max-width: 34rem;
-}
-
-/* подпись к полю */
-.wishes-label {
-  position: relative;
-  z-index: 1;
-  display: block;
-  margin-top: 14px;
-  margin-bottom: 4px;
-  font-size: 12px;
-  color: rgba(229, 231, 235, 0.95);
-}
-
-/* textarea */
-.wishes-textarea {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  min-height: 90px;
-  border-radius: 18px;
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  background: rgba(15, 23, 42, 0.94);
-  padding: 10px 12px;
-  font-size: 13px;
-  color: #f9fafb;
-  outline: none;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
-  resize: vertical;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.08s ease;
-}
-
-.wishes-textarea::placeholder {
-  color: rgba(148, 163, 184, 0.9);
-}
-
-.wishes-textarea:focus {
-  border-color: rgba(244, 114, 182, 0.95);
-  box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.55), 0 24px 55px rgba(0, 0, 0, 0.95);
-  transform: translateY(-1px);
-}
-
-/* кнопки */
-.wish-actions {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.wish-actions .btn {
-  border-radius: 999px;
-  font-size: 13px;
-  padding-inline: 14px;
-}
-
-/* заголовок списка */
-.wish-list-header {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 10px;
-  margin-top: 16px;
-  font-size: 12px;
-  color: rgba(209, 213, 219, 0.95);
-}
-
-/* список желаний */
-#wishList {
-  position: relative;
-  z-index: 1;
-  margin: 6px 0 0;
-  padding: 0;
-  list-style: none;
-  max-height: 220px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.7) transparent;
-}
-
-#wishList li {
-  padding: 6px 0;
-  border-bottom: 1px dashed rgba(55, 65, 81, 0.9);
-  font-size: 12px;
-  color: rgba(229, 231, 235, 0.98);
-}
-
-#wishList li:last-child {
-  border-bottom: none;
-}
-.letter-open-btn {
-  display: inline-block;
-  padding: 6px 14px;
-  margin-left: 6px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  color: #f9fafb;
-  font-size: 13px;
-  text-decoration: none;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
-  transition: 0.18s ease;
-}
-
-.letter-open-btn:hover {
-  border-color: rgba(244, 114, 182, 0.9);
-  background: rgba(148, 163, 184, 0.14);
-  transform: translateY(-1px);
-}
-/* === ASYAMAN V2 · ANIMATIONS === */
-
-/* Базовые keyframes */
-@keyframes fadeInDown-soft {
-  0% { opacity: 0; transform: translateY(-18px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp-soft {
-  0% { opacity: 0; transform: translateY(18px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes cardRise-soft {
-  0% { opacity: 0; transform: translateY(18px) scale(0.98); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes subtleGlow {
-  0%   { box-shadow: 0 18px 45px rgba(0,0,0,0.85); }
-  50%  { box-shadow: 0 24px 60px rgba(0,0,0,0.95); }
-  100% { box-shadow: 0 18px 45px rgba(0,0,0,0.85); }
-}
-
-/* Шапка: мягкое появление сверху */
-.site-header {
-  animation: fadeInDown-soft 0.7s ease-out;
-}
-
-/* Основной контент: плавное появление снизу */
-.page-inner,
-.layout-center {
-  animation: fadeInUp-soft 0.9s ease-out;
-  animation-fill-mode: both;
-}
-
-/* Карточки: чуть позже и по очереди */
-.card {
-  animation: cardRise-soft 0.7s ease-out;
-  animation-fill-mode: both;
-}
-
-/* Лёгкая «ступенька» для соседних карточек */
-.main-grid > .card:nth-child(1) { animation-delay: 0.05s; }
-.main-grid > .card:nth-child(2) { animation-delay: 0.12s; }
-.main-grid > .card:nth-child(3) { animation-delay: 0.18s; }
-
-/* Hover по карточкам — лёгкий подъём и усиление тени */
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
-}
-
-/* Кнопки — микро-анимация при наведении */
-.btn {
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease, border-color 0.15s ease;
-}
-
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.95);
-}
-
-/* Боковые кнопки навигации тоже оживим чуть-чуть */
-.side-nav-btn {
-  transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.side-nav-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 14px 40px rgba(0,0,0,0.85);
-}
-
-/* Для особо важных блоков можно включить мягкое дыхание свечения */
-.card--glow,
-.music-bar {
-  animation: subtleGlow 10s ease-in-out infinite;
-}
-/* Прячем верхнюю шапку-меню */
-.site-header {
-  display: none;
-}
-
-/* Чуть компенсируем отступ, чтобы контент не прилипал к верху */
-.page-inner {
-  padding-top: 24px;
-}
-/* === ASYAMAN V2 · Нижняя навигация === */
-
-/* Общая капсула с названием и кнопками */
-.layout-left-inner {
-  margin-top: 12px;
-  padding: 10px 18px;
-  border-radius: 26px;
-  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
-              linear-gradient(135deg, rgba(14, 17, 34, 0.98), rgba(8, 9, 18, 0.98));
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
-}
-
-/* Строка с названием "Асьяман" и кнопками */
-.side-nav-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 10px;
-}
-
-/* Название слева */
-.side-nav-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-right: 8px;
-}
-
-/* Кнопки навигации */
-.side-nav-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  background: rgba(15, 23, 42, 0.4);
-  color: rgba(229, 231, 235, 0.96);
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.16s ease, border-color 0.16s ease,
-              transform 0.1s ease, box-shadow 0.16s ease;
-}
-
-/* Ховер — лёгкое свечение */
-.side-nav-btn:hover {
-  background: rgba(148, 163, 184, 0.18);
-  border-color: rgba(248, 250, 252, 0.6);
-  transform: translateY(-1px);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85);
-}
-
-/* Активная вкладка (любая из этих комбинаций сработает, что бы ни ставил JS) */
-.side-nav-btn.is-active,
-.side-nav-btn.active,
-.side-nav-btn[data-current="true"] {
-  background: linear-gradient(135deg, #ff4fa3, #ff7ac5);
-  border-color: rgba(248, 250, 252, 0.9);
-  color: #fdf2ff;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.95);
-}
-/* === ASYAMAN V2 · МЫСЛИ === */
-
-#thoughts .thoughts-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 26px;
-  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
-              linear-gradient(145deg, rgba(14, 17, 34, 0.98), rgba(8, 9, 18, 0.98));
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
-}
-
-#thoughts .thoughts-card-inner {
-  position: relative;
-}
-
-/* мягкое внутреннее свечение */
-#thoughts .thoughts-card-inner::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 10% 0%, rgba(255, 79, 163, 0.22), transparent 60%),
-    radial-gradient(circle at 90% 100%, rgba(56, 189, 248, 0.24), transparent 60%);
-  opacity: 0.65;
-  filter: blur(16px);
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-#thoughts .thoughts-header,
-#thoughts .thoughts-label,
-#thoughts .thoughts-textarea,
-#thoughts .thoughts-actions,
-#thoughts .thoughts-hint,
-#thoughts .thoughts-list-title,
-#thoughts .thoughts-list {
-  position: relative;
-  z-index: 1;
-}
-
-/* заголовок */
-#thoughts .thoughts-title {
-  font-size: 20px;
-  margin: 6px 0 6px;
-}
-
-#thoughts .thoughts-title span {
-  background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-#thoughts .thoughts-subtitle {
-  font-size: 13px;
-  color: rgba(209, 213, 219, 0.96);
-  max-width: 36rem;
-}
-
-/* подпись перед полем */
-#thoughts .thoughts-label {
-  display: block;
-  margin-top: 14px;
-  margin-bottom: 4px;
-  font-size: 12px;
-  color: rgba(229, 231, 235, 0.96);
-}
-
-/* textarea */
-#thoughts .thoughts-textarea {
-  width: 100%;
-  min-height: 110px;
-  border-radius: 18px;
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  background: rgba(15, 23, 42, 0.94);
-  padding: 10px 12px;
-  font-size: 13px;
-  color: #f9fafb;
-  outline: none;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
-  resize: vertical;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.08s ease;
-}
-
-#thoughts .thoughts-textarea::placeholder {
-  color: rgba(148, 163, 184, 0.9);
-}
-
-#thoughts .thoughts-textarea:focus {
-  border-color: rgba(244, 114, 182, 0.95);
-  box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.55), 0 24px 55px rgba(0, 0, 0, 0.95);
-  transform: translateY(-1px);
-}
-
-/* кнопки */
-#thoughts .thoughts-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-#thoughts .thoughts-actions .btn {
-  border-radius: 999px;
-  font-size: 13px;
-  padding-inline: 14px;
-}
-
-/* подсказка и заголовок списка */
-#thoughts .thoughts-hint {
-  margin-top: 10px;
-  font-size: 11px;
-  color: rgba(156, 163, 175, 0.96);
-}
-
-#thoughts .thoughts-list-title {
-  margin-top: 12px;
-  font-size: 13px;
-  color: rgba(209, 213, 219, 0.96);
-}
-
-/* контейнер списка мыслей (элементы уже рисует твой JS) */
-#thoughts .thoughts-list {
-  margin-top: 6px;
-  padding-top: 4px;
-  border-top: 1px dashed rgba(55, 65, 81, 0.85);
-}
-
-/* немного подсветим каждый thought-item, который создаёт твой JS */
-#thoughts .thought-item {
-  border-radius: 14px;
-  background: rgba(8, 5, 22, 0.97);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-}
-/* === ASYAMAN V2 · МИНИ-ПРОФИЛЬ === */
-
-.profile-mini {
-  margin-top: 16px;
-  margin-bottom: 14px;
-  padding: 12px 12px 10px;
-  border-radius: 20px;
-  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.05), transparent 55%),
-              rgba(15, 23, 42, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.9);
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-/* блок с аватаркой */
-.profile-avatar-wrapper {
-  position: relative;
-  width: 70px;
-  height: 70px;
-  border-radius: 999px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at 30% 0%, rgba(248, 250, 252, 0.25), transparent 60%),
-              rgba(15, 23, 42, 1);
-  box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.06),
-              0 16px 40px rgba(0, 0, 0, 0.95);
-}
-
-/* светящееся кольцо вокруг */
-.profile-avatar-wrapper::before {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border-radius: inherit;
-  border: 1px solid rgba(244, 114, 182, 0.7);
-  pointer-events: none;
-}
-
-/* само фото */
-.profile-avatar {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-}
-
-/* кнопка смены аватара — превращаем в иконку-таблетку снизу */
-.btn-avatar {
-  position: absolute;
-  bottom: -4px;
-  right: 4px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 11px;
-  background: rgba(15, 23, 42, 0.95);
-  border: 1px solid rgba(148, 163, 184, 0.8);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.9);
-}
-
-/* правая часть: имя и подпись */
-.profile-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: #f9fafb;
-}
-
-.profile-name::after {
-  content: " · ты здесь — значит, это важно";
-  display: block;
-  margin-top: 3px;
-  font-size: 11px;
-  color: rgba(156, 163, 175, 0.96);
-}
-/* Исправляем кнопку смены аватара */
-.btn-avatar {
-  font-size: 0; /* скрываем текст */
-  width: 22px;
-  height: 22px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* рисуем иконку ✏️ */
-.btn-avatar::after {
-  content: "✏️";
-  font-size: 14px;
-  line-height: 1;
-}
-/* === ASYAMAN V2 · Автарка — Неоновая кнопка ✏️ === */
-
-.btn-avatar {
-  font-size: 0; /* скрываем текст */
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* неоновая тень */
-  box-shadow: 0 0 12px rgba(248, 113, 113, 0.7);
-
-  /* чтобы парить над аватаркой */
-  position: absolute;
-  bottom: -4px;
-  right: 4px;
-
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-
-.btn-avatar::after {
-  content: "✏️";
-  font-size: 14px;
-  transform: translateY(-1px);
-}
-
-/* Hover — свечение сильнее, эффект прокачан */
-.btn-avatar:hover {
-  background: rgba(248, 250, 252, 0.15);
-  border-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 16px rgba(244, 114, 182, 0.9);
-  transform: scale(1.06);
-}
-/* Появление кнопки аватара */
-@keyframes avatarPop {
-  0% {
-    opacity: 0;
-    transform: scale(0.4) translateY(6px);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.05) translateY(0);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.btn-avatar {
-  /* всё, что мы уже ставили, оставь */
-  animation: avatarPop 0.4s ease-out 0.4s both;
-  transform-origin: 100% 100%;
-}
-/* Заблокированная кнопка для неавторизованных */
-.btn-avatar--locked {
-  opacity: 0.4;
-  box-shadow: none;
-  border-color: rgba(148, 163, 184, 0.4);
-  background: rgba(15, 23, 42, 0.9);
-  cursor: default;
-  pointer-events: none; /* клики не проходят */
-}
-
-/* Покажем вместо ✏️ замочек */
-.btn-avatar.btn-avatar--locked::after {
-  content: "🔒";
-}
-/* === ASYAMAN V2 · ГЛОБАЛЬНЫЙ ФОН === */
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 60%),
-    radial-gradient(circle at 100% 100%, rgba(244, 114, 182, 0.12), transparent 60%),
-    radial-gradient(circle at 50% 120%, rgba(129, 140, 248, 0.18), transparent 70%),
-    #020617;
-  color: #e5e7eb;
-}
-
-/* лёгкий “звёздный” шум, но аккуратный */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.35;
-  mix-blend-mode: screen;
-  background-image:
-    radial-gradient(circle, rgba(248, 250, 252, 0.22) 0, transparent 55%),
-    radial-gradient(circle at 20% 20%, rgba(248, 250, 252, 0.12) 0, transparent 55%),
-    radial-gradient(circle at 80% 60%, rgba(248, 250, 252, 0.16) 0, transparent 55%);
-  background-size: 260px 260px, 320px 320px, 400px 400px;
-  filter: blur(2px);
-  z-index: -1;
-}
-/* Центрируем и чуть отделяем основной контент */
-.page-inner,
-.layout-center {
-  max-width: 1180px;
-  margin-inline: auto;
-}
-
-/* Чуть больше воздуха сверху/снизу */
-.page-inner {
-  padding-bottom: 32px;
-}
-/* === ASYAMAN V2 · Плавное появление всей сцены === */
-
-.page-inner,
-.card,
-.about-scene,
-.thoughts-card,
-.when-miss-card {
-  opacity: 0;
-  transform: translateY(12px);
-  animation: sceneFadeIn 0.55s ease-out forwards;
-}
-
-@keyframes sceneFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-    filter: blur(3px);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(0px);
-    filter: blur(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
-/* === ASYAMAN V2 · БОКОВОЕ ПОЯВЛЕНИЕ СЦЕНЫ === */
-
-.page-inner,
-.card,
-.about-scene,
-.thoughts-card,
-.when-miss-card {
-  opacity: 0;
-  transform: translateX(26px) translateY(4px);
-  animation: sceneSlideIn 0.55s ease-out forwards;
-}
-
-@keyframes sceneSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(26px) translateY(6px);
-    filter: blur(4px);
-  }
-
-  45% {
-    opacity: 0.7;
-    transform: translateX(10px) translateY(0);
-    filter: blur(1px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0) translateY(0);
-    filter: blur(0);
-  }
-}
-/* === ASYAMAN V2 · МОЩНЫЙ БОКОВОЙ ВЫЕЗД === */
-
-.page-inner,
-.card,
-.about-scene,
-.thoughts-card,
-.when-miss-card {
-  opacity: 0;
-  transform: translateX(60px) translateY(6px);
-  animation: sceneSlideInStrong 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  /* cubic-bezier делает эффект дорогим, как на iOS */
-}
-
-@keyframes sceneSlideInStrong {
-  0% {
-    opacity: 0;
-    transform: translateX(60px) translateY(8px);
-    filter: blur(6px);
-  }
-
-  45% {
-    opacity: 0.55;
-    transform: translateX(26px) translateY(2px);
-    filter: blur(2px);
-  }
-
-  70% {
-    opacity: 0.9;
-    transform: translateX(8px) translateY(0);
-    filter: blur(1px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0) translateY(0);
-    filter: blur(0);
-  }
-}
-
+    :root {
+      --bg-main: radial-gradient(circle at top, #111827 0, #02010a 50%, #000000 100%);
+      --card-bg: rgba(12, 16, 30, 0.96);
+      --card-border: rgba(148, 163, 184, 0.35);
+      --accent: #ff4fa3;
+      --accent-soft: rgba(255, 79, 163, 0.25);
+      --accent-gold: #fbbf24;
+      --text-main: #f9fafb;
+      --text-soft: #e5e7eb;
+      --text-secondary: #f9fafb;
+      --text-muted: #9ca3af;
+      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.9);
+      --radius-xl: 24px;
+    }
+
+    body {
+      background: var(--bg-main);
+      color: var(--text-main);
+    }
+
+    body::before,
+    body::after {
+      opacity: 0.15;
+      filter: blur(55px);
+    }
+
+    #galaxyCanvas,
+    .floating-heart {
+      display: none !important;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(20px);
+    }
+
+    .card-inner {
+      padding: 18px 18px 16px;
+    }
+
+    .site-header {
+      background: rgba(15, 23, 42, 0.92);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+    }
+
+    .header-inner {
+      padding: 10px 18px;
+    }
+
+    .logo {
+      font-size: 18px;
+      letter-spacing: 0.14em;
+    }
+
+    .logo span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .site-nav {
+      background: transparent;
+      border-radius: 999px;
+      padding: 4px;
+    }
+
+    .nav-link {
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .nav-link.nav-active {
+      background: rgba(15, 23, 42, 0.95);
+      color: #fff;
+      border: 1px solid rgba(248, 250, 252, 0.18);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75);
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    .layout-root {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr) 260px;
+      gap: 18px;
+    }
+
+    @media (max-width: 1024px) {
+      .layout-root {
+        grid-template-columns: 240px minmax(0, 1fr);
+      }
+
+      .layout-right {
+        display: none;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .layout-root {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .layout-left {
+        order: 2;
+      }
+
+      .layout-center {
+        order: 1;
+      }
+    }
+
+    .layout-center {
+      min-width: 0;
+    }
+
+    .page-inner {
+      max-width: 1080px;
+      margin: 22px auto 32px;
+    }
+
+    .layout-left-inner {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      padding: 12px 16px 14px;
+    }
+
+    .layout-right-inner {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      padding: 12px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .side-card {
+      border-radius: 18px;
+      padding: 10px 10px 8px;
+    }
+
+    .side-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .side-card-text {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .profile-mini {
+      padding: 12px 12px 10px;
+      border-radius: 20px;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.05), transparent 55%),
+                  rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.9);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .profile-avatar-wrapper {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      border-radius: 999px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0%, rgba(248, 250, 252, 0.25), transparent 60%),
+                  rgba(15, 23, 42, 1);
+      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.06),
+                  0 16px 40px rgba(0, 0, 0, 0.95);
+    }
+
+    .profile-avatar-wrapper::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: inherit;
+      border: 1px solid rgba(244, 114, 182, 0.7);
+      pointer-events: none;
+    }
+
+    .profile-avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .btn-avatar {
+      font-size: 0;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px rgba(248, 113, 113, 0.7);
+      position: absolute;
+      bottom: -4px;
+      right: 4px;
+      cursor: pointer;
+      transition: 0.25s ease;
+      animation: avatarPop 0.4s ease-out 0.4s both;
+      transform-origin: 100% 100%;
+    }
+
+    .btn-avatar::after {
+      content: "✏️";
+      font-size: 14px;
+      transform: translateY(-1px);
+    }
+
+    .btn-avatar:hover {
+      background: rgba(248, 250, 252, 0.15);
+      border-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 16px rgba(244, 114, 182, 0.9);
+      transform: scale(1.06);
+    }
+
+    .btn-avatar--locked {
+      opacity: 0.4;
+      box-shadow: none;
+      border-color: rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .btn-avatar.btn-avatar--locked::after {
+      content: "🔒";
+    }
+
+    @keyframes avatarPop {
+      0% {
+        opacity: 0;
+        transform: scale(0.4) translateY(6px);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.05) translateY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .profile-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #f9fafb;
+    }
+
+    .profile-name::after {
+      content: " · ты здесь — значит, это важно";
+      display: block;
+      margin-top: 3px;
+      font-size: 11px;
+      color: rgba(156, 163, 175, 0.96);
+    }
+
+    .btn {
+      border-radius: 999px;
+      font-size: 13px;
+      padding: 8px 14px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, #ff4fa3, #ff7ac5);
+      border: none;
+    }
+
+    .btn-outline {
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.75);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-main);
+      font-size: 13px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .subtitle {
+      color: var(--text-soft);
+    }
+
+    .music-bar {
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.95);
+    }
+
+    @media (max-width: 900px) {
+      .layout-root {
+        margin-top: 12px;
+      }
+
+      .layout-left-inner {
+        margin-bottom: 14px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-header {
+        border-radius: 0 0 18px 18px;
+      }
+      .header-inner {
+        padding: 8px 14px;
+      }
+    }
+
+    /* ЖЕЛАНИЯ — карточка */
+
+    .wishes-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
+                  linear-gradient(145deg, rgba(12, 10, 24, 0.98), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+    }
+
+    .wishes-card-inner {
+      position: relative;
+    }
+
+    .wishes-card-inner::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255, 79, 163, 0.23), transparent 60%),
+        radial-gradient(circle at 90% 100%, rgba(56, 189, 248, 0.22), transparent 60%);
+      opacity: 0.6;
+      filter: blur(14px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .wishes-header {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 12px;
+    }
+
+    .wishes-kicker {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(148, 163, 184, 0.95);
+    }
+
+    .wishes-title {
+      font-size: 18px;
+      margin: 6px 0 4px;
+    }
+
+    .wishes-title span {
+      display: block;
+      font-size: 14px;
+      background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .wishes-subtitle {
+      font-size: 13px;
+      color: rgba(209, 213, 219, 0.96);
+      max-width: 34rem;
+    }
+
+    .wishes-label {
+      position: relative;
+      z-index: 1;
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      font-size: 12px;
+      color: rgba(229, 231, 235, 0.95);
+    }
+
+    .wishes-textarea {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      min-height: 90px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.94);
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #f9fafb;
+      outline: none;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
+      resize: vertical;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.08s ease;
+    }
+
+    .wishes-textarea::placeholder {
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .wishes-textarea:focus {
+      border-color: rgba(244, 114, 182, 0.95);
+      box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.55), 0 24px 55px rgba(0, 0, 0, 0.95);
+      transform: translateY(-1px);
+    }
+
+    .wishes-card .wish-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .wishes-card .wish-list-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(209, 213, 219, 0.95);
+    }
+
+    .wishes-card #wishList {
+      position: relative;
+      z-index: 1;
+      margin: 6px 0 0;
+      padding: 0;
+      list-style: none;
+      max-height: 220px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(148, 163, 184, 0.7) transparent;
+    }
+
+    .wishes-card #wishList li {
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(55, 65, 81, 0.9);
+      font-size: 12px;
+      color: rgba(229, 231, 235, 0.98);
+    }
+
+    .wishes-card #wishList li:last-child {
+      border-bottom: none;
+    }
+
+    .letter-open-btn {
+      display: inline-block;
+      padding: 6px 14px;
+      margin-left: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #f9fafb;
+      font-size: 13px;
+      text-decoration: none;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+      transition: 0.18s ease;
+    }
+
+    .letter-open-btn:hover {
+      border-color: rgba(244, 114, 182, 0.9);
+      background: rgba(148, 163, 184, 0.14);
+      transform: translateY(-1px);
+    }
+
+    /* Анимации */
+
+    @keyframes fadeInDown-soft {
+      0% { opacity: 0; transform: translateY(-18px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp-soft {
+      0% { opacity: 0; transform: translateY(18px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cardRise-soft {
+      0% { opacity: 0; transform: translateY(18px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes subtleGlow {
+      0%   { box-shadow: 0 18px 45px rgba(0,0,0,0.85); }
+      50%  { box-shadow: 0 24px 60px rgba(0,0,0,0.95); }
+      100% { box-shadow: 0 18px 45px rgba(0,0,0,0.85); }
+    }
+
+    .site-header {
+      animation: fadeInDown-soft 0.7s ease-out;
+    }
+
+    .page-inner,
+    .layout-center {
+      animation: fadeInUp-soft 0.9s ease-out;
+      animation-fill-mode: both;
+    }
+
+    .card {
+      animation: cardRise-soft 0.7s ease-out;
+      animation-fill-mode: both;
+    }
+
+    .main-grid > .card:nth-child(1) { animation-delay: 0.05s; }
+    .main-grid > .card:nth-child(2) { animation-delay: 0.12s; }
+    .main-grid > .card:nth-child(3) { animation-delay: 0.18s; }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+    }
+
+    .btn {
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.95);
+    }
+
+    .side-nav-btn {
+      transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .side-nav-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.85);
+    }
+
+    .card--glow,
+    .music-bar {
+      animation: subtleGlow 10s ease-in-out infinite;
+    }
+
+    /* Прячем верхнюю шапку-меню (если нужно) */
+    .site-header {
+      display: none;
+    }
+
+    .page-inner {
+      padding-top: 24px;
+    }
+
+    /* Нижняя навигация в левой колонке */
+
+    .layout-left-inner {
+      margin-top: 12px;
+      padding: 10px 18px;
+      border-radius: 26px;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
+                  linear-gradient(135deg, rgba(14, 17, 34, 0.98), rgba(8, 9, 18, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+    }
+
+    .side-nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+    }
+
+    .side-nav-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    .side-nav {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .side-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: rgba(15, 23, 42, 0.4);
+      color: rgba(229, 231, 235, 0.96);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.16s ease, border-color 0.16s ease,
+                  transform 0.1s ease, box-shadow 0.16s ease;
+    }
+
+    .side-nav-btn:hover {
+      background: rgba(148, 163, 184, 0.18);
+      border-color: rgba(248, 250, 252, 0.6);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85);
+    }
+
+    .side-nav-btn.is-active,
+    .side-nav-btn.active,
+    .side-nav-btn[data-current="true"] {
+      background: linear-gradient(135deg, #ff4fa3, #ff7ac5);
+      border-color: rgba(248, 250, 252, 0.9);
+      color: #fdf2ff;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.95);
+    }
+
+    /* МЫСЛИ — сцена */
+
+    #thoughts .thoughts-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
+                  linear-gradient(145deg, rgba(14, 17, 34, 0.98), rgba(8, 9, 18, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+    }
+
+    #thoughts .thoughts-card-inner {
+      position: relative;
+    }
+
+    #thoughts .thoughts-card-inner::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 79, 163, 0.22), transparent 60%),
+        radial-gradient(circle at 90% 100%, rgba(56, 189, 248, 0.24), transparent 60%);
+      opacity: 0.65;
+      filter: blur(16px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    #thoughts .thoughts-header,
+    #thoughts .thoughts-label,
+    #thoughts .thoughts-textarea,
+    #thoughts .thoughts-actions,
+    #thoughts .thoughts-hint,
+    #thoughts .thoughts-list-title,
+    #thoughts .thoughts-list {
+      position: relative;
+      z-index: 1;
+    }
+
+    #thoughts .thoughts-title {
+      font-size: 20px;
+      margin: 6px 0 6px;
+    }
+
+    #thoughts .thoughts-title span {
+      background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    #thoughts .thoughts-subtitle {
+      font-size: 13px;
+      color: rgba(209, 213, 219, 0.96);
+      max-width: 36rem;
+    }
+
+    #thoughts .thoughts-label {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      font-size: 12px;
+      color: rgba(229, 231, 235, 0.96);
+    }
+
+    #thoughts .thoughts-textarea {
+      width: 100%;
+      min-height: 110px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.94);
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #f9fafb;
+      outline: none;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
+      resize: vertical;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.08s ease;
+    }
+
+    #thoughts .thoughts-textarea::placeholder {
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    #thoughts .thoughts-textarea:focus {
+      border-color: rgba(244, 114, 182, 0.95);
+      box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.55), 0 24px 55px rgba(0, 0, 0, 0.95);
+      transform: translateY(-1px);
+    }
+
+    #thoughts .thoughts-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    #thoughts .thoughts-actions .btn {
+      border-radius: 999px;
+      font-size: 13px;
+      padding-inline: 14px;
+    }
+
+    #thoughts .thoughts-hint {
+      margin-top: 10px;
+      font-size: 11px;
+      color: rgba(156, 163, 175, 0.96);
+    }
+
+    #thoughts .thoughts-list-title {
+      margin-top: 12px;
+      font-size: 13px;
+      color: rgba(209, 213, 219, 0.96);
+    }
+
+    #thoughts .thoughts-list {
+      margin-top: 6px;
+      padding-top: 4px;
+      border-top: 1px dashed rgba(55, 65, 81, 0.85);
+    }
+
+    #thoughts .thought-item {
+      border-radius: 14px;
+      background: rgba(8, 5, 22, 0.97);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    /* Мини-музыкальный бар (в левой колонке) */
+
+    .mini-music-bar {
+      margin-top: 10px;
+      padding: 10px 16px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .mini-music-bar:hover {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .mini-music-bar-icon {
+      font-size: 18px;
+    }
+
+    .mini-music-bar-title {
+      font-size: 14px;
+      color: #fff;
+      opacity: 0.9;
+      white-space: nowrap;
+    }
+
+    /* Глобальный фон */
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(244, 114, 182, 0.12), transparent 60%),
+        radial-gradient(circle at 50% 120%, rgba(129, 140, 248, 0.18), transparent 70%),
+        #020617;
+      color: #e5e7eb;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      mix-blend-mode: screen;
+      background-image:
+        radial-gradient(circle, rgba(248, 250, 252, 0.22) 0, transparent 55%),
+        radial-gradient(circle at 20% 20%, rgba(248, 250, 252, 0.12) 0, transparent 55%),
+        radial-gradient(circle at 80% 60%, rgba(248, 250, 252, 0.16) 0, transparent 55%);
+      background-size: 260px 260px, 320px 320px, 400px 400px;
+      filter: blur(2px);
+      z-index: -1;
+    }
+
+    .page-inner,
+    .layout-center {
+      max-width: 1180px;
+      margin-inline: auto;
+    }
+
+    .page-inner {
+      padding-bottom: 32px;
+    }
+
+    /* Боковой/сильный выезд сцен */
+
+    .page-inner,
+    .card,
+    .about-scene,
+    .thoughts-card,
+    .when-miss-card {
+      opacity: 0;
+      transform: translateX(60px) translateY(6px);
+      animation: sceneSlideInStrong 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes sceneSlideInStrong {
+      0% {
+        opacity: 0;
+        transform: translateX(60px) translateY(8px);
+        filter: blur(6px);
+      }
+
+      45% {
+        opacity: 0.55;
+        transform: translateX(26px) translateY(2px);
+        filter: blur(2px);
+      }
+
+      70% {
+        opacity: 0.9;
+        transform: translateX(8px) translateY(0);
+        filter: blur(1px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+        filter: blur(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -2723,7 +2402,7 @@ body::before {
   <span class="floating-heart" style="left: 32%; bottom: -100px; animation-delay: 6s;">💗</span>
 
   <div class="page">
-    <!-- ШАПКА -->
+    <!-- ШАПКА (сейчас скрыта в CSS, можно включить позже) -->
     <header class="site-header">
       <div class="header-inner">
         <div class="logo">
@@ -2737,483 +2416,478 @@ body::before {
           <span></span>
         </button>
 
-<nav class="site-nav">
-  <a href="#wishes"          class="nav-link nav-active">Желания</a>
-  <a href="#thoughts" class="nav-link">Мысли</a>
-  <a href="#miss"     class="nav-link">Когда скучаешь</a>
-  <a href="#letter"   class="nav-link">Письмо</a>
-  <a href="#about"    class="nav-link">О нас</a>
+        <nav class="site-nav">
+          <a href="#wishes"  class="nav-link nav-active">Желания</a>
+          <a href="#thoughts" class="nav-link">Мысли</a>
+          <a href="#miss"     class="nav-link">Когда скучаешь</a>
+          <a href="#letter"   class="nav-link">Письмо</a>
+          <a href="#about"    class="nav-link">О нас</a>
 
-  <!-- Кнопка музыки справа -->
-  <button id="navMusicBtn" class="nav-link nav-music" type="button" title="Наш плейлист">
-    🎵
-  </button>
-</nav>
-
+          <button id="navMusicBtn" class="nav-link nav-music" type="button" title="Наш плейлист">
+            🎵
+          </button>
+        </nav>
       </div>
     </header>
 
-  <main class="layout-root">
+    <main class="layout-root">
+      <!-- Левая колонка -->
+      <aside class="layout-left">
+        <div class="layout-left-inner">
+          <div class="side-card">
+            <div class="side-card-title">Асъяман</div>
+          </div>
 
-  <!-- Левая колонка: навигация и подсказки -->
-  <aside class="layout-left">
-    <div class="layout-left-inner">
-      <div class="side-card">
-        <div class="side-card-title">Асъяман</div>
-        
-      </div>
+          <!-- Мини-музыкальный бар -->
+          <div class="mini-music-bar" id="miniMusicBar">
+            <div class="mini-music-bar-icon">🎵</div>
+            <div class="mini-music-bar-text">
+              <div class="mini-music-bar-title">Наша музыка</div>
+            </div>
+          </div>
 
-      <nav class="side-nav">
-        <button class="side-nav-btn" data-jump="wishes">💖 Желания</button>
-        <button class="side-nav-btn" data-jump="thoughts">💭 Мысли</button>
-        <button class="side-nav-btn" data-jump="miss">🥺 Когда скучаешь</button>
-        <button class="side-nav-btn" data-jump="letter">💌 Письмо</button>
-        <button class="side-nav-btn" data-jump="about">🌙 О нас</button>
-        <button class="side-nav-btn" data-jump="weird-songs">🎧 Странные песни</button>
-        <button class="side-nav-btn" data-jump="sleep">🌙 Перед сном</button>
-        <button class="side-nav-btn" data-jump="messages">💌 Сообщения</button>
-        <button class="side-nav-btn" data-jump="notifications">🔔 Уведомления</button>
-      </nav>
-    </div>
-  </aside>
+          <nav class="side-nav">
+            <button class="side-nav-btn" data-jump="wishes">💖 Желания</button>
+            <button class="side-nav-btn" data-jump="thoughts">💭 Мысли</button>
+            <button class="side-nav-btn" data-jump="miss">🥺 Когда скучаешь</button>
+            <button class="side-nav-btn" data-jump="letter">💌 Письмо</button>
+            <button class="side-nav-btn" data-jump="about">🌙 О нас</button>
+            <button class="side-nav-btn" data-jump="weird-songs">🎧 Странные песни</button>
+            <button class="side-nav-btn" data-jump="sleep">🌙 Перед сном</button>
+            <button class="side-nav-btn" data-jump="messages">💌 Сообщения</button>
+            <button class="side-nav-btn" data-jump="notifications">🔔 Уведомления</button>
+          </nav>
+        </div>
+      </aside>
 
-  <!-- Центральная колонка: все основные секции (как лента) -->
-  <section class="layout-center">
+      <!-- Центральная колонка -->
+      <section class="layout-center">
+        <!-- ============ СЕКЦИЯ ЖЕЛАНИЙ ============ -->
+        <section id="wishes" class="page-inner">
+          <div class="main-grid">
+            <!-- Левая карточка: авторизация -->
+            <section class="card">
+              <div class="card-inner">
+                <div class="auth-chip">
+                  <span>🔒</span>
+                  <span>Только для нас двоих</span>
+                </div>
 
-      <!-- ============ СЕКЦИЯ ЖЕЛАНИЙ ============ -->
-      <section id="wishes" class="page-inner">
-        <div class="main-grid">
-          <!-- Левая карточка: авторизация -->
-          <section class="card">
-            <div class="card-inner">
-              <div class="auth-chip">
-                <span>🔒</span>
-                <span>Только для нас двоих</span>
+                <!-- МИНИ-ПРОФИЛЬ С АВАТАРОМ -->
+                <div class="profile-mini">
+                  <div class="profile-avatar-wrapper">
+                    <img
+                      id="profileAvatar"
+                      src="miss-photo.jpg"
+                      alt="Твой аватар"
+                      class="profile-avatar"
+                    />
+                    <button
+                      id="changeAvatarBtn"
+                      class="btn btn-outline btn-avatar"
+                      type="button"
+                    >
+                      ✏️ Сменить аватар
+                    </button>
+                    <input
+                      type="file"
+                      id="avatarFileInput"
+                      accept="image/*"
+                      hidden
+                    />
+                  </div>
+
+                  <div class="profile-name" id="profileName">
+                    Твоё место здесь 💜
+                  </div>
+                </div>
+                <!-- /МИНИ-ПРОФИЛЬ -->
+
+                <h1 id="auth-title">Вход в наш <span>секретный дневник</span> 💫</h1>
+                <p class="subtitle">
+                  Здесь мы будем видеть, кто из нас зашёл, и вместе хранить наши желания и мысли.
+                </p>
+
+                <p id="welcome-text">Ты ещё не вошла в систему 💔</p>
+
+                <div id="auth-area" class="auth-buttons"></div>
+
+                <form class="auth-form" onsubmit="return false;">
+                  <div class="auth-form-row">
+                    <label for="emailInput">Твой email</label>
+                    <input
+                      type="email"
+                      id="emailInput"
+                      placeholder="Например: you@example.com"
+                    />
+                  </div>
+                  <div class="auth-form-row">
+                    <label for="passwordInput">Пароль</label>
+                    <input
+                      type="password"
+                      id="passwordInput"
+                      placeholder="Минимум 6 символов"
+                    />
+                  </div>
+
+                  <div class="auth-buttons" style="margin-top: 4px;">
+                    <button class="btn btn-main" id="emailRegisterBtn">Создать аккаунт 💛</button>
+                    <button class="btn btn-outline" id="emailLoginBtn">Войти по почте</button>
+                  </div>
+
+                  <div class="auth-buttons">
+                    <button class="btn btn-google" id="googleBtn">
+                      <span class="icon">🌀</span>
+                      <span>Войти через Google</span>
+                    </button>
+                  </div>
+
+                  <p class="auth-note">
+                    Ты можешь использовать любой свой email — просто не теряй пароль.
+                    А если лень, заходи через Google, это быстрее 🫶
+                  </p>
+                </form>
+
+                <p id="auth-status" class="auth-status"></p>
               </div>
+            </section>
 
-              <!-- МИНИ-ПРОФИЛЬ С АВАТАРОМ -->
-              <div class="profile-mini">
-                <div class="profile-avatar-wrapper">
-                  <img
-                    id="profileAvatar"
-                    src="miss-photo.jpg"
-                    alt="Твой аватар"
-                    class="profile-avatar"
-                  />
-                  <button
-                    id="changeAvatarBtn"
-                    class="btn btn-outline btn-avatar"
-                    type="button"
-                  >
-                    ✏️ Сменить аватар
+            <!-- Правая часть: желания -->
+            <section class="card wishes-card">
+              <div class="card-inner wishes-card-inner">
+                <div class="wishes-header">
+                  <div class="wishes-kicker">ЖЕЛАНИЯ</div>
+                  <h2 class="wishes-title">
+                    Наши желания:
+                    <span>всё, что мы хотим прожить вместе</span>
+                  </h2>
+                  <p class="wishes-subtitle">
+                    Моя любимая, напиши, о чём ты мечтаешь.
+                    Каждое желание здесь — не просто текст, а маленькое обещание,
+                    к которому мы сможем вернуться позже.
+                  </p>
+                </div>
+
+                <label for="wishInput" class="wishes-label">
+                  Напиши, чего хочешь прямо сейчас:
+                </label>
+                <textarea
+                  id="wishInput"
+                  class="wishes-textarea"
+                  rows="3"
+                  placeholder="Например: поехать вместе в город, где никогда не были..."
+                ></textarea>
+
+                <div class="wish-actions">
+                  <button id="wishAddBtn" class="btn btn-main">
+                    ✨ Добавить желание
                   </button>
-                  <input
-                    type="file"
-                    id="avatarFileInput"
-                    accept="image/*"
-                    hidden
-                  />
+                  <button id="wishClearBtn" class="btn btn-outline">
+                    🧹 Очистить все желания
+                  </button>
                 </div>
 
-                <div class="profile-name" id="profileName">
-                  Твоё место здесь 💜
+                <div class="wish-list-header">
+                  <span>📝 Наш список желаний:</span>
+                  <span id="wishCount"></span>
                 </div>
+
+                <ul id="wishList"></ul>
               </div>
-              <!-- /МИНИ-ПРОФИЛЬ -->
+            </section>
+          </div>
 
-              <h1 id="auth-title">Вход в наш <span>секретный дневник</span> 💫</h1>
-              <p class="subtitle">
-                Здесь мы будем видеть, кто из нас зашёл, и вместе хранить наши желания и мысли.
+          <!-- Админ-панель -->
+          <section id="admin-panel" class="admin-panel">
+            <div class="admin-panel-inner">
+              <h2>Админ-панель 👑</h2>
+              <p class="admin-note">
+                Эту секцию видишь только ты. Здесь отображаются пользователи и их желания.
               </p>
 
-              <p id="welcome-text">Ты ещё не вошла в систему 💔</p>
+              <div class="admin-grid">
+                <section class="admin-card">
+                  <h3>Пользователи</h3>
+                  <table class="admin-table">
+                    <thead>
+                      <tr>
+                        <th>Имя</th>
+                        <th>Email</th>
+                        <th>UID</th>
+                        <th>Последний вход</th>
+                      </tr>
+                    </thead>
+                    <tbody id="adminUsersTbody">
+                      <tr><td colspan="4">Загрузка...</td></tr>
+                    </tbody>
+                  </table>
+                </section>
 
-              <div id="auth-area" class="auth-buttons"></div>
-
-              <form class="auth-form" onsubmit="return false;">
-                <div class="auth-form-row">
-                  <label for="emailInput">Твой email</label>
-                  <input
-                    type="email"
-                    id="emailInput"
-                    placeholder="Например: you@example.com"
-                  />
-                </div>
-                <div class="auth-form-row">
-                  <label for="passwordInput">Пароль</label>
-                  <input
-                    type="password"
-                    id="passwordInput"
-                    placeholder="Минимум 6 символов"
-                  />
-                </div>
-
-                <div class="auth-buttons" style="margin-top: 4px;">
-                  <button class="btn btn-main" id="emailRegisterBtn">Создать аккаунт 💛</button>
-                  <button class="btn btn-outline" id="emailLoginBtn">Войти по почте</button>
-                </div>
-
-                <div class="auth-buttons">
-                  <button class="btn btn-google" id="googleBtn">
-                    <span class="icon">🌀</span>
-                    <span>Войти через Google</span>
-                  </button>
-                </div>
-
-                <p class="auth-note">
-                  Ты можешь использовать любой свой email — просто не теряй пароль.
-                  А если лень, заходи через Google, это быстрее 🫶
-                </p>
-              </form>
-
-              <p id="auth-status" class="auth-status"></p>
+                <section class="admin-card">
+                  <h3>Желания</h3>
+                  <table class="admin-table">
+                    <thead>
+                      <tr>
+                        <th>Когда</th>
+                        <th>Текст</th>
+                        <th>Email</th>
+                        <th>UID</th>
+                      </tr>
+                    </thead>
+                    <tbody id="adminWishesTbody">
+                      <tr><td colspan="4">Загрузка...</td></tr>
+                    </tbody>
+                  </table>
+                </section>
+              </div>
             </div>
           </section>
+        </section>
 
-          <!-- Правая часть: сами желания -->
-              
-      <section class="card wishes-card">
-        <div class="card-inner wishes-card-inner">
-          <div class="wishes-header">
-            <div class="wishes-kicker">ЖЕЛАНИЯ</div>
-            <h2 class="wishes-title">
-              Наши желания:
-              <span>всё, что мы хотим прожить вместе</span>
-            </h2>
-            <p class="wishes-subtitle">
-              Моя любимая, напиши, о чём ты мечтаешь. 
-              Каждое желание здесь — не просто текст, а маленькое обещание,
-              к которому мы сможем вернуться позже.
-            </p>
-          </div>
+        <!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
+        <section id="thoughts" class="page-inner">
+          <section class="card thoughts-card">
+            <div class="card-inner thoughts-card-inner">
+              <div class="thoughts-header">
+                <span class="section-label">Наши мысли</span>
+                <h1 class="thoughts-title">
+                  Твои мысли и предложения <span>для нас</span> 💭
+                </h1>
+                <p class="thoughts-subtitle">
+                  Это место для серьёзных и не очень разговоров. Пиши сюда всё,
+                  что хочешь мне сказать — от больших мыслей до маленьких деталей дня.
+                </p>
+              </div>
 
-          <label for="wishInput" class="wishes-label">
-            Напиши, чего хочешь прямо сейчас:
-          </label>
-          <textarea
-            id="wishInput"
-            class="wishes-textarea"
-            rows="3"
-            placeholder="Например: поехать вместе в город, где никогда не были..."
-          ></textarea>
+              <label for="thought-input" class="thoughts-label">
+                О чём ты думаешь прямо сейчас?
+              </label>
+              <textarea
+                id="thought-input"
+                class="thoughts-textarea"
+                rows="5"
+                placeholder="Например: мне хочется рассказать тебе, что сегодня произошло..."
+              ></textarea>
 
-          <div class="wish-actions">
-            <button id="wishAddBtn" class="btn btn-main">
-              ✨ Добавить желание
-            </button>
-            <button id="wishClearBtn" class="btn btn-outline">
-              🧹 Очистить все желания
-            </button>
-          </div>
+              <div class="thoughts-actions">
+                <button id="add-thought" class="btn btn-main">
+                  ✚ Добавить мысль
+                </button>
+                <button id="clear-thoughts" class="btn btn-outline">
+                  🧹 Очистить все записи
+                </button>
+              </div>
 
-          <div class="wish-list-header">
-            <span>📝 Наш список желаний:</span>
-            <span id="wishCount"></span>
-          </div>
+              <p class="thoughts-hint">
+                Нажми <strong>Ctrl+Enter</strong>, чтобы сохранить мысль.
+              </p>
 
-          <ul id="wishList"></ul>
-        </div>
-      </section>
+              <h3 class="thoughts-list-title">Твои записи</h3>
+              <div id="thoughts-list" class="thoughts-list"></div>
+            </div>
+          </section>
+        </section>
 
+        <!-- ============ СЕКЦИЯ КОГДА СКУЧАЕШЬ ============ -->
+        <section id="miss" class="page-inner">
+          <section class="card">
+            <div class="card-inner">
+              <span class="section-label">Когда скучаешь</span>
+              <h1>Моменты, когда ты по мне скучаешь</h1>
+              <p class="subtitle">
+                Каждый раз, когда почувствуешь, что не хватает меня рядом — оставь здесь маленькую запись.
+              </p>
 
-        <!-- Админ-панель (видна только тебе, если uid = ADMIN_UID) -->
-        <section id="admin-panel" class="admin-panel">
-          <div class="admin-panel-inner">
-            <h2>Админ-панель 👑</h2>
-            <p class="admin-note">
-              Эту секцию видишь только ты. Здесь отображаются пользователи и их желания.
-            </p>
+              <div class="miss-photo-frame">
+                <img src="miss-photo.jpg" alt="Миг, когда ты по мне скучаешь" />
+                <div class="miss-photo-overlay">
+                  Тот самый взгляд, когда ты скучаешь по мне 💫
+                </div>
+              </div>
 
-            <div class="admin-grid">
-              <section class="admin-card">
-                <h3>Пользователи</h3>
-                <table class="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Имя</th>
-                      <th>Email</th>
-                      <th>UID</th>
-                      <th>Последний вход</th>
-                    </tr>
-                  </thead>
-                  <tbody id="adminUsersTbody">
-                    <tr><td colspan="4">Загрузка...</td></tr>
-                  </tbody>
-                </table>
-              </section>
+              <label for="missInput">Что ты чувствуешь сейчас?</label>
+              <textarea id="missInput"
+                rows="3"
+                placeholder="Например: сейчас бы к тебе, обнять и молчать..."
+              ></textarea>
 
-              <section class="admin-card">
-                <h3>Желания</h3>
-                <table class="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Когда</th>
-                      <th>Текст</th>
-                      <th>Email</th>
-                      <th>UID</th>
-                    </tr>
-                  </thead>
-                  <tbody id="adminWishesTbody">
-                    <tr><td colspan="4">Загрузка...</td></tr>
-                  </tbody>
-                </table>
-              </section>
+              <div class="wish-actions">
+                <button id="missAddBtn" class="btn btn-main">Добавить момент</button>
+                <button id="missQuickBtn" class="btn btn-outline">Случайная фраза</button>
+                <button id="missClearBtn" class="btn btn-outline">
+                  Очистить всё
+                </button>
+              </div>
+
+              <div class="wish-list-header">
+                <span>💗 Твои моменты:</span>
+                <span id="missCount"></span>
+              </div>
+              <ul id="missList"></ul>
+            </div>
+          </section>
+        </section>
+
+        <!-- ============ СЕКЦИЯ ПИСЬМО ============ -->
+        <section id="letter" class="section section-letter" data-section="letter">
+          <div class="container letter-wrapper">
+            <div class="section-title">
+              <h2>Письмо для тебя</h2>
+              <p>Открой, когда хочешь почувствовать, как сильно я рядом.</p>
+            </div>
+
+            <div class="letter-card">
+              <div class="letter-envelope-top">
+                <div class="letter-stamp"><span>🔐</span></div>
+                <div class="letter-tagline">
+                  Наш маленький секрет, только для твоих глаз.
+                </div>
+              </div>
+
+              <div class="letter-inner">
+                <div class="letter-header">
+                  <span class="letter-label">Личное письмо</span>
+                  <a href="letter.html" class="letter-open-btn">
+                    💌 Открыть письмо
+                  </a>
+                </div>
+
+                <div class="letter-body">
+                  <p class="letter-sign">
+                    С любовью, навсегда твой,<br>
+                    Абел
+                  </p>
+                </div>
+              </div>
+
+              <div class="letter-footer-note">
+                Это место только для нас двоих. Возвращайся сюда, когда не хватает моих слов рядом. 💫
+              </div>
             </div>
           </div>
         </section>
-      </section>
 
-<!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
-      <section id="thoughts" class="page-inner">
-    <!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
-<section id="thoughts" class="page-inner">
-  <section class="card thoughts-card">
-    <div class="card-inner thoughts-card-inner">
-      <div class="thoughts-header">
-        <span class="section-label">Наши мысли</span>
-        <h1 class="thoughts-title">
-          Твои мысли и предложения <span>для нас</span> 💭
-        </h1>
-        <p class="thoughts-subtitle">
-          Это место для серьёзных и не очень разговоров. Пиши сюда всё,
-          что хочешь мне сказать — от больших мыслей до маленьких деталей дня.
-        </p>
-      </div>
+        <!-- ============ СЕКЦИЯ О НАС ============ -->
+        <section id="about" class="page-inner">
+          <section class="card about-card">
+            <div class="about-left">
+              <h2>О нас 👶💜</h2>
+              <p class="about-text-main">
+                У нас с тобой своя история – с детских фотографий и до этого момента,
+                когда ты читаешь эти строки на нашем собственном сайте.
+              </p>
+              <p class="about-text-sub">
+                Здесь я хочу хранить один маленький кадр из нашего детства и песню, под которую
+                внутри всё сжимается и становится по-особенному тёплым. Включи её, когда
+                захочешь снова почувствовать это чувство.
+              </p>
 
-      <label for="thought-input" class="thoughts-label">
-        О чём ты думаешь прямо сейчас?
-      </label>
-      <textarea
-        id="thought-input"
-        class="thoughts-textarea"
-        rows="5"
-        placeholder="Например: мне хочется рассказать тебе, что сегодня произошло..."
-      ></textarea>
-
-      <div class="thoughts-actions">
-        <button id="add-thought" class="btn btn-main">
-          ✚ Добавить мысль
-        </button>
-        <button id="clear-thoughts" class="btn btn-outline">
-          🧹 Очистить все записи
-        </button>
-      </div>
-
-      <p class="thoughts-hint">
-        Нажми <strong>Ctrl+Enter</strong>, чтобы сохранить мысль.
-      </p>
-
-      <h3 class="thoughts-list-title">Твои записи</h3>
-      <div id="thoughts-list" class="thoughts-list"></div>
-    </div>
-  </section>
-</section>
-
-
-      <!-- ============ СЕКЦИЯ КОГДА СКУЧАЕШЬ ============ -->
-      <section id="miss" class="page-inner">
-        <section class="card">
-          <div class="card-inner">
-            <span class="section-label">Когда скучаешь</span>
-            <h1>Моменты, когда ты по мне скучаешь</h1>
-            <p class="subtitle">
-              Каждый раз, когда почувствуешь, что не хватает меня рядом — оставь здесь маленькую запись.
-            </p>
-
-            <div class="miss-photo-frame">
-              <img src="miss-photo.jpg" alt="Миг, когда ты по мне скучаешь" />
-              <div class="miss-photo-overlay">
-                Тот самый взгляд, когда ты скучаешь по мне 💫
-              </div>
-            </div>
-
-            <label for="missInput">Что ты чувствуешь сейчас?</label>
-            <textarea id="missInput"
-              rows="3"
-              placeholder="Например: сейчас бы к тебе, обнять и молчать..."
-            ></textarea>
-
-            <div class="wish-actions">
-              <button id="missAddBtn" class="btn btn-main">Добавить момент</button>
-              <button id="missQuickBtn" class="btn btn-outline">Случайная фраза</button>
-              <button id="missClearBtn" class="btn btn-outline">
-                Очистить всё
-              </button>
-            </div>
-
-            <div class="wish-list-header">
-              <span>💗 Твои моменты:</span>
-              <span id="missCount"></span>
-            </div>
-            <ul id="missList"></ul>
-          </div>
-        </section>
-      </section>
-
-      <!-- ============ СЕКЦИЯ ПИСЬМО ============ -->
-      <section id="letter" class="section section-letter" data-section="letter">
-        <div class="container letter-wrapper">
-          <div class="section-title">
-            <h2>Письмо для тебя</h2>
-            <p>Открой, когда хочешь почувствовать, как сильно я рядом.</p>
-          </div>
-
-          <div class="letter-card">
-            <div class="letter-envelope-top">
-              <div class="letter-stamp"><span>🔐</span></div>
-              <div class="letter-tagline">
-                Наш маленький секрет, только для твоих глаз.
-              </div>
-            </div>
-
-            <div class="letter-inner">
-              <div class="letter-header">
-                <span class="letter-label">Личное письмо</span>
-               <a href="letter.html" class="letter-open-btn">
-                     💌 Открыть письмо
-                </a>
-
-              </div>
-
-              <div class="letter-body">
-               
-                <p class="letter-sign">
-                  С любовью, навсегда твой,<br>
-                  Абел
+              <div class="about-song">
+                <div class="about-song-header">
+                  <span class="about-song-label">🎧 Наша песня</span>
+                  <span class="about-song-name">Братья Шахунц — Будь со мной</span>
+                </div>
+                <button class="btn btn-main" type="button" id="aboutPlayMockingbird">
+                  ▶ Включить нашу песню
+                </button>
+                <p class="about-song-note">
+                  Нажми сюда — и снизу откроется наш плейлист, сразу заиграет Mockingbird.
                 </p>
               </div>
             </div>
 
-            <div class="letter-footer-note">
-              Это место только для нас двоих. Возвращайся сюда, когда не хватает моих слов рядом. 💫
-            </div>
-          </div>
-        </div>
-      </section>
-
-<!-- ============ СЕКЦИЯ О НАС ============ -->
-      <section id="about" class="page-inner">
-        <section class="card about-card">
-          <div class="about-left">
-            <h2>О нас 👶💜</h2>
-            <p class="about-text-main">
-              У нас с тобой своя история – с детских фотографий и до этого момента,
-              когда ты читаешь эти строки на нашем собственном сайте.
-            </p>
-            <p class="about-text-sub">
-              Здесь я хочу хранить один маленький кадр из нашего детства и песню, под которую
-              внутри всё сжимается и становится по-особенному тёплым. Включи её, когда
-              захочешь снова почувствовать это чувство.
-            </p>
-
-            <div class="about-song">
-              <div class="about-song-header">
-                <span class="about-song-label">🎧 Наша песня</span>
-                <span class="about-song-name">Братья Шахунц — Будь со мной</span>
+            <div class="about-right">
+              <div class="about-photo-frame">
+                <img src="miss-photo.jpg" alt="Наше детское фото" class="about-photo" />
+                <div class="about-photo-label">Наш маленький секрет из детства 🔒</div>
+                <div class="about-photo-shadow"></div>
               </div>
-              <button class="btn btn-main" type="button" id="aboutPlayMockingbird">
-                ▶ Включить нашу песню
-              </button>
-              <p class="about-song-note">
-                Нажми сюда — и снизу откроется наш плейлист, сразу заиграет Mockingbird.
+            </div>
+          </section>
+        </section>
+
+        <!-- ============ СТРАННЫЕ ПЕСНИ ============ -->
+        <section id="weird-songs" class="page-inner">
+          <section class="card">
+            <div class="card-inner">
+              <h2>Странные песни 🤪</h2>
+              <p class="text-soft">
+                Здесь будет жить наш странный плейлист — песни, под которые мы смеёмся, вспоминаем,
+                или просто улетаем куда-то далеко.
+              </p>
+              <ul class="text-soft">
+                <li>🎵 Михаил Шуфутинский — Марджанджа</li>
+                <li>🎵 Михаил Шуфутинский — Еврейский портной</li>
+                <li>🎵 Михаил Круг — Владимирский централ</li>
+                <li>🎵 Михаил Круг & Вика Цыганова — Приходите в мой дом</li>
+              </ul>
+              <p class="text-soft">
+                Включай их через кнопку 🎵 в шапке — и пускай этот уголок будет нашим музыкальным безумием.
               </p>
             </div>
-          </div>
+          </section>
+        </section>
 
-          <div class="about-right">
-            <div class="about-photo-frame">
-              <img src="miss-photo.jpg" alt="Наше детское фото" class="about-photo" />
-              <div class="about-photo-label">Наш маленький секрет из детства 🔒</div>
-              <div class="about-photo-shadow"></div>
+        <!-- ============ ОКОШКО СНА ============ -->
+        <section id="sleep" class="page-inner">
+          <section class="card">
+            <div class="card-inner">
+              <h2>Когда ты засыпаешь 🌙</h2>
+              <p>
+                Это маленькое окошко для тех моментов, когда ты ложишься спать и хочешь услышать меня рядом.
+              </p>
+              <button class="btn btn-main" type="button" id="sleepSongBtn">
+                🎵 Включить нашу песню для сна
+              </button>
+              <p class="about-song-note">
+                Нажми сюда — плеер откроется сам и включит ту самую колыбельную.
+              </p>
             </div>
-          </div>
+          </section>
+        </section>
+
+        <!-- ============ ЛИЧНЫЕ СООБЩЕНИЯ ============ -->
+        <section id="messages" class="page-inner">
+          <section class="card">
+            <div class="card-inner">
+              <h2>Наши личные сообщения 💌</h2>
+              <p class="text-soft">
+                Здесь позже появится наше закрытое переписка прямо на сайте. Пока это место ждёт наши будущие слова.
+              </p>
+            </div>
+          </section>
+        </section>
+
+        <!-- ============ УВЕДОМЛЕНИЯ ============ -->
+        <section id="notifications" class="page-inner">
+          <section class="card">
+            <div class="card-inner">
+              <h2>Уведомления 🔔</h2>
+              <p class="text-soft">
+                Здесь будут появляться важные напоминания: новые желания, мысли, сообщения и всё, что нельзя пропустить.
+              </p>
+            </div>
+          </section>
         </section>
       </section>
 
-
-
-      <!-- ============ СТРАННЫЕ ПЕСНИ ============ -->
-      <section id="weird-songs" class="page-inner">
-        <section class="card">
-          <div class="card-inner">
-            <h2>Странные песни 🤪</h2>
-            <p class="text-soft">
-              Здесь будет жить наш странный плейлист — песни, под которые мы смеёмся, вспоминаем,
-              или просто улетаем куда-то далеко.
-            </p>
-            <ul class="text-soft">
-              <li>🎵 Михаил Шуфутинский — Марджанджа</li>
-              <li>🎵 Михаил Шуфутинский — Еврейский портной</li>
-              <li>🎵 Михаил Круг — Владимирский централ</li>
-              <li>🎵 Михаил Круг & Вика Цыганова — Приходите в мой дом</li>
-            </ul>
-            <p class="text-soft">
-              Включай их через кнопку 🎵 в шапке — и пускай этот уголок будет нашим музыкальным безумием.
+      <!-- Правая колонка -->
+      <aside class="layout-right">
+        <div class="layout-right-inner">
+          <div class="side-card">
+            <div class="side-card-title">Наша музыка</div>
+            <p class="side-card-text">
+              Нажми на значок 🎵 вверху — там ждут наш плейлист, странные песни и музыка для сна.
             </p>
           </div>
-        </section>
-      </section>
-
-      <!-- ============ ОКОШКО СНА ============ -->
-      <section id="sleep" class="page-inner">
-        <section class="card">
-          <div class="card-inner">
-            <h2>Когда ты засыпаешь 🌙</h2>
-            <p>
-              Это маленькое окошко для тех моментов, когда ты ложишься спать и хочешь услышать меня рядом.
-            </p>
-            <button class="btn btn-main" type="button" id="sleepSongBtn">
-              🎵 Включить нашу песню для сна
-            </button>
-            <p class="about-song-note">
-              Нажми сюда — плеер откроется сам и включит ту самую колыбельную.
+          <div class="side-card">
+            <div class="side-card-title">Напоминание</div>
+            <p class="side-card-text">
+              Если вдруг станет тяжело или одиноко — возвращайся сюда. Ты никогда не одна.
             </p>
           </div>
-        </section>
-      </section>
-
-      <!-- ============ ЛИЧНЫЕ СООБЩЕНИЯ ============ -->
-      <section id="messages" class="page-inner">
-        <section class="card">
-          <div class="card-inner">
-            <h2>Наши личные сообщения 💌</h2>
-            <p class="text-soft">
-              Здесь позже появится наше закрытое переписка прямо на сайте. Пока это место ждёт наши будущие слова.
-            </p>
-          </div>
-        </section>
-      </section>
-
-      <!-- ============ УВЕДОМЛЕНИЯ ============ -->
-      <section id="notifications" class="page-inner">
-        <section class="card">
-          <div class="card-inner">
-            <h2>Уведомления 🔔</h2>
-            <p class="text-soft">
-              Здесь будут появляться важные напоминания: новые желания, мысли, сообщения и всё, что нельзя пропустить.
-            </p>
-          </div>
-        </section>
-      </section>
-  </section> <!-- /layout-center -->
-
-  <!-- Правая колонка: музыка и маленькие виджеты -->
-  <aside class="layout-right">
-    <div class="layout-right-inner">
-      <div class="side-card">
-        <div class="side-card-title">Наша музыка</div>
-        <p class="side-card-text">
-          Нажми на значок 🎵 вверху — там ждут наш плейлист, странные песни и музыка для сна.
-        </p>
-      </div>
-      <div class="side-card">
-        <div class="side-card-title">Напоминание</div>
-        <p class="side-card-text">
-          Если вдруг станет тяжело или одиноко — возвращайся сюда. Ты никогда не одна.
-        </p>
-      </div>
-    </div>
-  </aside>
+        </div>
+      </aside>
     </main>
   </div>
 
@@ -3301,6 +2975,7 @@ body::before {
       const playlistBtns  = Array.from(document.querySelectorAll(".playlist-item"));
       const aboutPlayBtn  = document.getElementById("aboutPlayMockingbird");
       const sleepSongBtn  = document.getElementById("sleepSongBtn");
+      const miniMusicBar  = document.getElementById("miniMusicBar");
 
       const playlist = [
         { title: "Братья Шахунц — Будь со мной", src: "music/Bratya_SHakhunc_-_Bud_So_Mnojj_62822473.mp3" },
@@ -3359,11 +3034,23 @@ body::before {
         });
       }
 
+      // Мини-бар слева
+      if (miniMusicBar) {
+        miniMusicBar.addEventListener("click", () => {
+          musicBar.style.display = "flex";
+          if (!globalMusic.src) {
+            loadTrack(currentTrackIndex, true);
+          } else if (globalMusic.paused) {
+            globalMusic.play().catch(() => {});
+          }
+        });
+      }
+
       // Кнопка "Включить нашу песню" в блоке О нас
       if (aboutPlayBtn) {
         aboutPlayBtn.addEventListener("click", () => {
           musicBar.style.display = "flex";
-          loadTrack(0, true); // всегда Mockingbird
+          loadTrack(0, true);
         });
       }
 
@@ -3371,7 +3058,7 @@ body::before {
       if (sleepSongBtn) {
         sleepSongBtn.addEventListener("click", () => {
           musicBar.style.display = "flex";
-          loadTrack(5, true); // трек со "Спят усталые игрушки"
+          loadTrack(5, true);
         });
       }
 
@@ -3408,15 +3095,16 @@ body::before {
           link.classList.add("nav-active");
         });
       });
-// ==== Боковое меню: плавный переход к секциям ====
-document.querySelectorAll(".side-nav-btn").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const targetId = btn.getAttribute("data-jump");
-    const targetEl = document.getElementById(targetId);
-    if (!targetEl) return;
-    targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-});
+
+      // Боковое меню: плавный переход к секциям
+      document.querySelectorAll(".side-nav-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.getAttribute("data-jump");
+          const targetEl = document.getElementById(targetId);
+          if (!targetEl) return;
+          targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
 
       // === SETTINGS PANEL ===
       const fab        = document.getElementById("settingsFab");
@@ -3485,120 +3173,117 @@ document.querySelectorAll(".side-nav-btn").forEach((btn) => {
         });
       }
     });
-    // ===== ПИСЬМО: ОТКРЫТЬ / ЗАКРЫТЬ =====
-const letterToggleBtn = document.querySelector('[data-letter-toggle]');
-const letterBody = document.querySelector('.letter-body');
 
-if (letterToggleBtn && letterBody) {
-  let letterIsOpen = false;
+    // Письмо (пока заглушка, если пригодится)
+    const letterToggleBtn = document.querySelector('[data-letter-toggle]');
+    const letterBody = document.querySelector('.letter-body');
 
-  letterToggleBtn.addEventListener('click', () => {
-    letterIsOpen = !letterIsOpen;
+    if (letterToggleBtn && letterBody) {
+      let letterIsOpen = false;
 
-    if (letterIsOpen) {
-      letterBody.classList.add('open');
-      letterToggleBtn.innerHTML = '💌 Скрыть письмо';
-    } else {
-      letterBody.classList.remove('open');
-      letterToggleBtn.innerHTML = '💌 Открыть письмо';
-    }
-  });
-}
+      letterToggleBtn.addEventListener('click', () => {
+        letterIsOpen = !letterIsOpen;
 
-  
-// ==== ГАЛАКТИЧЕСКИЙ ФОН НА CANVAS ====
-(function() {
-  const canvas = document.getElementById('galaxyCanvas');
-  if (!canvas || !canvas.getContext) return;
-
-  const ctx = canvas.getContext('2d');
-  let width, height;
-  let stars = [];
-  const STAR_COUNT = 260;
-
-  function resize() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  }
-
-  window.addEventListener('resize', resize);
-  resize();
-
-  function createStars() {
-    stars = [];
-    for (let i = 0; i < STAR_COUNT; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        z: Math.random() * 0.7 + 0.3,
-        r: Math.random() * 1.5 + 0.6,
-        vx: (Math.random() * 0.18 - 0.09),
-        vy: (Math.random() * 0.14 - 0.07)
+        if (letterIsOpen) {
+          letterBody.classList.add('open');
+          letterToggleBtn.innerHTML = '💌 Скрыть письмо';
+        } else {
+          letterBody.classList.remove('open');
+          letterToggleBtn.innerHTML = '💌 Открыть письмо';
+        }
       });
     }
-  }
 
-  function draw() {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, width, height);
+    // Галактический фон (сейчас скрыт CSS, можно оставить)
+    (function() {
+      const canvas = document.getElementById('galaxyCanvas');
+      if (!canvas || !canvas.getContext) return;
 
-    // Глубокий космос + туманности
-    const g = ctx.createRadialGradient(
-      width * 0.3, height * 0.2, 0,
-      width * 0.5, height * 0.8, Math.max(width, height)
-    );
-    g.addColorStop(0, '#2a1048');
-    g.addColorStop(0.3, '#0a0418');
-    g.addColorStop(0.75, '#02000a');
-    g.addColorStop(1, '#000000');
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, width, height);
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let stars = [];
+      const STAR_COUNT = 260;
 
-    // легкие цветные пятна
-    const fog = ctx.createRadialGradient(
-      width * 0.7, height * 0.25, 0,
-      width * 0.7, height * 0.25, width * 0.8
-    );
-    fog.addColorStop(0, 'rgba(124, 58, 237, 0.6)');
-    fog.addColorStop(0.35, 'rgba(30, 64, 175, 0.1)');
-    fog.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = fog;
-    ctx.fillRect(0, 0, width, height);
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
 
-    for (const s of stars) {
-      s.x += s.vx * (0.7 + s.z);
-      s.y += s.vy * (0.7 + s.z);
+      window.addEventListener('resize', resize);
+      resize();
 
-      if (s.x < -20) s.x = width + 20;
-      if (s.x > width + 20) s.x = -20;
-      if (s.y < -20) s.y = height + 20;
-      if (s.y > height + 20) s.y = -20;
+      function createStars() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            z: Math.random() * 0.7 + 0.3,
+            r: Math.random() * 1.5 + 0.6,
+            vx: (Math.random() * 0.18 - 0.09),
+            vy: (Math.random() * 0.14 - 0.07)
+          });
+        }
+      }
 
-      const alpha = 0.35 + s.z * 0.65;
-      const glowRadius = s.r * (3 + s.z * 4);
+      function draw() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, width, height);
 
-      const starGrad = ctx.createRadialGradient(
-        s.x, s.y, 0,
-        s.x, s.y, glowRadius
-      );
-      starGrad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
-      starGrad.addColorStop(0.3, `rgba(248, 250, 252, ${alpha * 0.8})`);
-      starGrad.addColorStop(0.7, 'rgba(129, 140, 248, 0.35)');
-      starGrad.addColorStop(1, 'rgba(15, 23, 42, 0)');
+        const g = ctx.createRadialGradient(
+          width * 0.3, height * 0.2, 0,
+          width * 0.5, height * 0.8, Math.max(width, height)
+        );
+        g.addColorStop(0, '#2a1048');
+        g.addColorStop(0.3, '#0a0418');
+        g.addColorStop(0.75, '#02000a');
+        g.addColorStop(1, '#000000');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, width, height);
 
-      ctx.fillStyle = starGrad;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, glowRadius, 0, Math.PI * 2);
-      ctx.fill();
-    }
+        const fog = ctx.createRadialGradient(
+          width * 0.7, height * 0.25, 0,
+          width * 0.7, height * 0.25, width * 0.8
+        );
+        fog.addColorStop(0, 'rgba(124, 58, 237, 0.6)');
+        fog.addColorStop(0.35, 'rgba(30, 64, 175, 0.1)');
+        fog.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = fog;
+        ctx.fillRect(0, 0, width, height);
 
-    requestAnimationFrame(draw);
-  }
+        for (const s of stars) {
+          s.x += s.vx * (0.7 + s.z);
+          s.y += s.vy * (0.7 + s.z);
 
-  createStars();
-  draw();
-})();
+          if (s.x < -20) s.x = width + 20;
+          if (s.x > width + 20) s.x = -20;
+          if (s.y < -20) s.y = height + 20;
+          if (s.y > height + 20) s.y = -20;
 
-</script>
+          const alpha = 0.35 + s.z * 0.65;
+          const glowRadius = s.r * (3 + s.z * 4);
+
+          const starGrad = ctx.createRadialGradient(
+            s.x, s.y, 0,
+            s.x, s.y, glowRadius
+          );
+          starGrad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+          starGrad.addColorStop(0.3, `rgba(248, 250, 252, ${alpha * 0.8})`);
+          starGrad.addColorStop(0.7, 'rgba(129, 140, 248, 0.35)');
+          starGrad.addColorStop(1, 'rgba(15, 23, 42, 0)');
+
+          ctx.fillStyle = starGrad;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, glowRadius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      createStars();
+      draw();
+    })();
+  </script>
 </body>
 </html>
