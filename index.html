@@ -1515,6 +1515,7 @@
   </style>
 </head>
 <body>
+  <canvas id="galaxyCanvas"></canvas>
   <!-- Плавающие сердечки -->
   <span class="floating-heart" style="left: 12%; bottom: -40px;">💗</span>
   <span class="floating-heart" style="left: 62%; bottom: -80px; animation-delay: 2s;">💗</span>
@@ -2295,6 +2296,100 @@ if (letterToggleBtn && letterBody) {
   });
 }
 
-  </script>
+  
+// ==== ГАЛАКТИЧЕСКИЙ ФОН НА CANVAS ====
+(function() {
+  const canvas = document.getElementById('galaxyCanvas');
+  if (!canvas || !canvas.getContext) return;
+
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let stars = [];
+  const STAR_COUNT = 260;
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  function createStars() {
+    stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        z: Math.random() * 0.7 + 0.3,
+        r: Math.random() * 1.5 + 0.6,
+        vx: (Math.random() * 0.18 - 0.09),
+        vy: (Math.random() * 0.14 - 0.07)
+      });
+    }
+  }
+
+  function draw() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, width, height);
+
+    // Глубокий космос + туманности
+    const g = ctx.createRadialGradient(
+      width * 0.3, height * 0.2, 0,
+      width * 0.5, height * 0.8, Math.max(width, height)
+    );
+    g.addColorStop(0, '#2a1048');
+    g.addColorStop(0.3, '#0a0418');
+    g.addColorStop(0.75, '#02000a');
+    g.addColorStop(1, '#000000');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, width, height);
+
+    // легкие цветные пятна
+    const fog = ctx.createRadialGradient(
+      width * 0.7, height * 0.25, 0,
+      width * 0.7, height * 0.25, width * 0.8
+    );
+    fog.addColorStop(0, 'rgba(124, 58, 237, 0.6)');
+    fog.addColorStop(0.35, 'rgba(30, 64, 175, 0.1)');
+    fog.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = fog;
+    ctx.fillRect(0, 0, width, height);
+
+    for (const s of stars) {
+      s.x += s.vx * (0.7 + s.z);
+      s.y += s.vy * (0.7 + s.z);
+
+      if (s.x < -20) s.x = width + 20;
+      if (s.x > width + 20) s.x = -20;
+      if (s.y < -20) s.y = height + 20;
+      if (s.y > height + 20) s.y = -20;
+
+      const alpha = 0.35 + s.z * 0.65;
+      const glowRadius = s.r * (3 + s.z * 4);
+
+      const starGrad = ctx.createRadialGradient(
+        s.x, s.y, 0,
+        s.x, s.y, glowRadius
+      );
+      starGrad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+      starGrad.addColorStop(0.3, `rgba(248, 250, 252, ${alpha * 0.8})`);
+      starGrad.addColorStop(0.7, 'rgba(129, 140, 248, 0.35)');
+      starGrad.addColorStop(1, 'rgba(15, 23, 42, 0)');
+
+      ctx.fillStyle = starGrad;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, glowRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  createStars();
+  draw();
+})();
+
+</script>
 </body>
 </html>

@@ -1,4 +1,70 @@
 :root {
+  --bg-main: #05030b;
+  --bg-card: rgba(9, 8, 20, 0.95);
+  --accent: #ff7ac5;
+  --accent-soft: #7f5bff;
+  --text-main: #f7f4ff;
+  --text-soft: rgba(232, 228, 255, 0.75);
+}
+
+/* Галактический фон 3 (плавно движется) */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at 0% 0%, #2b134f 0, transparent 55%),
+    radial-gradient(circle at 100% 0%, #4b165f 0, transparent 55%),
+    radial-gradient(circle at 0% 100%, #150b3a 0, transparent 55%),
+    radial-gradient(circle at 100% 100%, #160b32 0, transparent 55%),
+    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.1), transparent 55%),
+    #05030b;
+  background-attachment: fixed;
+  animation: galaxyShift 40s ease-in-out infinite alternate;
+}
+
+/* Canvas для галактики */
+#galaxyCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+
+
+@keyframes galaxyShift {
+  0% {
+    background-position:
+      0% 0%,
+      100% 0%,
+      0% 100%,
+      100% 100%,
+      50% 20%;
+  }
+  50% {
+    background-position:
+      10% 5%,
+      95% 10%,
+      5% 95%,
+      90% 90%,
+      55% 25%;
+  }
+  100% {
+    background-position:
+      0% 10%,
+      100% 5%,
+      10% 100%,
+      95% 90%,
+      48% 22%;
+  }
+}
+
+
+:root {
   --bg-main: radial-gradient(circle at top, #120920, #05030a 50%, #020106 100%);
   --card-bg: rgba(15, 23, 42, 0.96);
   --card-soft: rgba(15, 23, 42, 0.9);
@@ -34,15 +100,83 @@ body {
   min-height: 100vh;
   font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  background: var(--bg-main);
   color: var(--text-main);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px 14px;
+
+  /* базовый фон под космос */
+  background: #05030b;
+
+  /* нужно для псевдо-элементов со звёздами */
   position: relative;
   overflow-x: hidden;
 }
+/* === ГЛУБОКИЙ ЖИВОЙ КОСМОС === */
+
+/* Туманности / переливающийся фон */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -2;
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255, 122, 197, 0.35) 0, transparent 55%),
+    radial-gradient(circle at 80% 15%, rgba(127, 91, 255, 0.4) 0, transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(88, 195, 255, 0.25) 0, transparent 55%),
+    radial-gradient(circle at 85% 80%, rgba(255, 184, 108, 0.23) 0, transparent 55%),
+    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.07) 0, transparent 60%);
+
+  filter: blur(2px);
+  opacity: 0.95;
+
+  animation: nebulaShift 45s ease-in-out infinite alternate;
+}
+
+/* Звёзды */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  z-index: -1;
+  pointer-events: none;
+
+  /* мелкие точки-звёзды в разных слоях */
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.35) 0, transparent 55%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.22) 0, transparent 55%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.18) 0, transparent 55%);
+
+  background-size: 2px 2px, 3px 3px, 1px 1px;
+  background-repeat: repeat;
+
+  opacity: 0.8;
+
+  animation: starsDrift 60s linear infinite;
+}
+
+/* медленное дыхание туманностей */
+@keyframes nebulaShift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-30px, 20px, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(40px, -30px, 0) scale(1.05);
+  }
+}
+
+/* плавное движение звёзд */
+@keyframes starsDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-120px, -200px, 0);
+  }
+}
+
 
 /* эффект свечения по краям */
 
@@ -1391,4 +1525,157 @@ body.theme-light .profile-avatar {
   .layout-right {
     display: none;
   }
+}
+/* === COSMIC BACKGROUND OVERRIDE === */
+
+body {
+  min-height: 100vh;
+  background: #05030b !important;
+  color: var(--text-main);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Туманности */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -2;
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255, 122, 197, 0.5) 0, transparent 55%),
+    radial-gradient(circle at 80% 15%, rgba(127, 91, 255, 0.55) 0, transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(88, 195, 255, 0.4) 0, transparent 55%),
+    radial-gradient(circle at 85% 80%, rgba(255, 184, 108, 0.4) 0, transparent 55%),
+    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.12) 0, transparent 60%);
+
+  filter: blur(2px);
+  opacity: 0.95;
+
+  animation: nebulaShift 45s ease-in-out infinite alternate;
+}
+
+/* Звёзды */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  z-index: -1;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.55) 0, transparent 55%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.35) 0, transparent 55%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.25) 0, transparent 55%);
+  background-size: 2px 2px, 3px 3px, 1px 1px;
+  background-repeat: repeat;
+
+  opacity: 0.9;
+
+  animation: starsDrift 60s linear infinite;
+}
+
+/* медленное дыхание туманностей */
+@keyframes nebulaShift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-40px, 20px, 0) scale(1.04);
+  }
+  100% {
+    transform: translate3d(50px, -30px, 0) scale(1.06);
+  }
+}
+
+/* плавное движение звёзд */
+@keyframes starsDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-160px, -260px, 0);
+  }
+}
+/* === REAL GALAXY BACKGROUND === */
+
+body {
+  background: #05030b !important;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* --- НЕБУЛЫ (красиво мерцают и переливаются) --- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 100, 180, 0.25), transparent 65%),
+    radial-gradient(circle at 80% 20%, rgba(110, 150, 255, 0.25), transparent 70%),
+    radial-gradient(circle at 50% 80%, rgba(255, 200, 120, 0.25), transparent 75%);
+
+  filter: blur(40px);
+  animation: nebulaMove 40s ease-in-out infinite alternate;
+}
+
+/* --- СЛОЙ 1 — мелкие частые звёзды --- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+
+  background-image: radial-gradient(2px 2px at 20% 20%, #ffffff 80%, transparent),
+                    radial-gradient(2px 2px at 70% 40%, #ffffff 80%, transparent),
+                    radial-gradient(2px 2px at 40% 80%, #ffffff 80%, transparent),
+                    radial-gradient(1px 1px at 90% 10%, #ffffff 70%, transparent),
+                    radial-gradient(1px 1px at 10% 90%, #ffffff 70%, transparent),
+                    radial-gradient(1px 1px at 50% 50%, #ffffff 70%, transparent);
+  background-size: 300px 300px;
+  background-repeat: repeat;
+
+  opacity: 0.9;
+  animation: stars1 60s linear infinite;
+}
+
+/* --- СЛОЙ 2 — крупные редкие звёзды --- */
+.star-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background-image:
+      radial-gradient(3px 3px at 15% 15%, #ffffff 80%, transparent),
+      radial-gradient(3px 3px at 85% 25%, #ffffff 80%, transparent),
+      radial-gradient(3px 3px at 30% 70%, #ffffff 80%, transparent),
+      radial-gradient(4px 4px at 60% 50%, #ffffff 85%, transparent),
+      radial-gradient(2.5px 2.5px at 75% 85%, #ffffff 80%, transparent);
+  background-size: 600px 600px;
+  background-repeat: repeat;
+
+  opacity: 0.7;
+  animation: stars2 110s linear infinite;
+}
+
+/* === АНИМАЦИИ === */
+@keyframes nebulaMove {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-80px, 40px, 0); }
+}
+
+@keyframes stars1 {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-300px) translateX(-200px); }
+}
+
+@keyframes stars2 {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-200px) translateX(-150px); }
 }
