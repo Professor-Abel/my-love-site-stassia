@@ -670,6 +670,263 @@
       background: rgba(31, 41, 55, 0.95);
       transform: translateY(-1px);
     }
+    /* ==== ASYAMAN V2 — МЯГКИЙ НОЧНОЙ СТИЛЬ ==== */
+
+/* Новый набор цветов */
+:root {
+  --bg-main: radial-gradient(circle at top, #111827 0, #02010a 50%, #000000 100%);
+  --card-bg: rgba(12, 16, 30, 0.96);
+  --card-border: rgba(148, 163, 184, 0.35);
+  --accent: #ff4fa3;
+  --accent-soft: rgba(255, 79, 163, 0.25);
+  --accent-gold: #fbbf24;
+  --text-main: #f9fafb;
+  --text-soft: #e5e7eb;
+  --text-secondary: #f9fafb;
+  --text-muted: #9ca3af;
+  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.9);
+  --radius-xl: 24px;
+}
+
+/* Фон — спокойный градиент вместо кислотного космоса */
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* Убираем жёсткое свечение */
+body::before,
+body::after {
+  opacity: 0.15;
+  filter: blur(55px);
+}
+
+/* Полностью выключаем галактику и сердечки */
+#galaxyCanvas,
+.floating-heart {
+  display: none !important;
+}
+
+/* Карточки — «дорогое стекло» */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(20px);
+}
+
+.card-inner {
+  padding: 18px 18px 16px;
+}
+
+/* Шапка — аккуратная полоска */
+.site-header {
+  background: rgba(15, 23, 42, 0.92);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+}
+
+.header-inner {
+  padding: 10px 18px;
+}
+
+.logo {
+  font-size: 18px;
+  letter-spacing: 0.14em;
+}
+
+.logo span {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Верхнее меню */
+.site-nav {
+  background: transparent;
+  border-radius: 999px;
+  padding: 4px;
+}
+
+.nav-link {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.nav-link.nav-active {
+  background: rgba(15, 23, 42, 0.95);
+  color: #fff;
+  border: 1px solid rgba(248, 250, 252, 0.18);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75);
+}
+
+/* Лэйаут */
+.page {
+  min-height: 100vh;
+}
+
+.layout-root {
+  margin-top: 18px;
+}
+
+.page-inner {
+  max-width: 1080px;
+  margin: 22px auto 32px;
+}
+
+/* Левая колонка */
+.layout-left-inner {
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: 22px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: var(--shadow-soft);
+}
+
+.side-card {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.side-card-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.side-card-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Кнопки в сайдбаре */
+.side-nav-btn {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  padding: 6px 10px;
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text-muted);
+  transition: background 0.13s ease, border-color 0.13s ease, transform 0.08s ease;
+}
+
+.side-nav-btn:hover {
+  background: rgba(30, 64, 175, 0.9);
+  border-color: rgba(129, 140, 248, 0.9);
+  color: #f9fafb;
+  transform: translateY(-1px);
+}
+
+/* Профиль и аватар */
+.profile-mini {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+}
+
+.profile-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid rgba(15, 23, 42, 1);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.95);
+}
+
+.profile-avatar-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  background: conic-gradient(from 160deg, #ff4fa3, #8b5cf6, #22d3ee, #ff4fa3);
+  opacity: 0.7;
+  filter: blur(1px);
+  z-index: -1;
+}
+
+.profile-name {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Кнопки */
+.btn {
+  border-radius: 999px;
+  font-size: 13px;
+  padding: 8px 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
+}
+
+.btn-main {
+  background: linear-gradient(135deg, #ff4fa3, #ff7ac5);
+  border: none;
+}
+
+.btn-outline {
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.75);
+}
+
+/* Инпуты */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  color: var(--text-main);
+  font-size: 13px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(148, 163, 184, 0.9);
+}
+
+/* Секция «Когда скучаешь», «Письмо» и т.п. */
+.section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.subtitle {
+  color: var(--text-soft);
+}
+
+/* Музыкальная плашка */
+.music-bar {
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.65);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.95);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 900px) {
+  .layout-root {
+    margin-top: 12px;
+  }
+  .layout-left-inner {
+    margin-bottom: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    border-radius: 0 0 18px 18px;
+  }
+  .header-inner {
+    padding: 8px 14px;
+  }
+}
+
   </style>
 </head>
 
