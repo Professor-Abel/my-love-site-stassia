@@ -2481,6 +2481,97 @@ textarea::placeholder {
   font-size: 11px;
   color: rgba(156, 163, 175, 0.96);
 }
+/* Исправляем кнопку смены аватара */
+.btn-avatar {
+  font-size: 0; /* скрываем текст */
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* рисуем иконку ✏️ */
+.btn-avatar::after {
+  content: "✏️";
+  font-size: 14px;
+  line-height: 1;
+}
+/* === ASYAMAN V2 · Автарка — Неоновая кнопка ✏️ === */
+
+.btn-avatar {
+  font-size: 0; /* скрываем текст */
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* неоновая тень */
+  box-shadow: 0 0 12px rgba(248, 113, 113, 0.7);
+
+  /* чтобы парить над аватаркой */
+  position: absolute;
+  bottom: -4px;
+  right: 4px;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-avatar::after {
+  content: "✏️";
+  font-size: 14px;
+  transform: translateY(-1px);
+}
+
+/* Hover — свечение сильнее, эффект прокачан */
+.btn-avatar:hover {
+  background: rgba(248, 250, 252, 0.15);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 16px rgba(244, 114, 182, 0.9);
+  transform: scale(1.06);
+}
+/* Появление кнопки аватара */
+@keyframes avatarPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) translateY(6px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.btn-avatar {
+  /* всё, что мы уже ставили, оставь */
+  animation: avatarPop 0.4s ease-out 0.4s both;
+  transform-origin: 100% 100%;
+}
+/* Заблокированная кнопка для неавторизованных */
+.btn-avatar--locked {
+  opacity: 0.4;
+  box-shadow: none;
+  border-color: rgba(148, 163, 184, 0.4);
+  background: rgba(15, 23, 42, 0.9);
+  cursor: default;
+  pointer-events: none; /* клики не проходят */
+}
+
+/* Покажем вместо ✏️ замочек */
+.btn-avatar.btn-avatar--locked::after {
+  content: "🔒";
+}
 
   </style>
 </head>

@@ -433,9 +433,17 @@ function renderLoggedOut() {
 // ==== СЛУШАТЕЛЬ АВТОРИЗАЦИИ ====
 onAuthStateChanged(auth, (user) => {
   console.log("auth state changed. user =", user);
-  if (user) {
+  if (user) {// Разблокируем кнопку смены аватара
+changeAvatarBtn.disabled = false;
+changeAvatarBtn.classList.remove("btn-avatar--locked");
+changeAvatarBtn.title = "Сменить аватар";
+
     renderLoggedInUser(user);
-  } else {
+  } else {// Блокируем кнопку смены аватара
+changeAvatarBtn.disabled = true;
+changeAvatarBtn.classList.add("btn-avatar--locked");
+changeAvatarBtn.title = "Доступно только после входа";
+
     renderLoggedOut();
   }
 });
@@ -444,6 +452,9 @@ onAuthStateChanged(auth, (user) => {
 emailRegisterBtn?.addEventListener("click", async () => {
   const email = emailInput?.value.trim();
   const pass  = passwordInput?.value.trim();
+  const changeAvatarBtn = document.getElementById("changeAvatarBtn");
+const avatarFileInput = document.getElementById("avatarFileInput");
+
 
   if (!email || !pass) {
     setAuthStatus("Введи email и пароль 💌", "bad");
