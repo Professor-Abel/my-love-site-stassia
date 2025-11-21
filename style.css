@@ -477,15 +477,19 @@ button[type="submit"]:hover {
   position: relative;
   border-radius: 26px;
   overflow: hidden;
-  background: rgba(15, 23, 42, 0.96);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98)),
+    radial-gradient(circle at 100% 100%, rgba(15, 23, 42, 0.98), #020617);
   border: 1px solid rgba(148, 163, 184, 0.7);
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-  cursor: zoom-in;
 }
 
 .miss-photo-frame img {
   width: 100%;
+  height: 230px;
   display: block;
+  object-fit: cover;
+  transform: scale(1.03);
 }
 
 .miss-photo-overlay {
@@ -947,18 +951,67 @@ body.night-letter {
 }
 
 .letter-stamp {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  border: 2px dashed rgba(255, 255, 255, 0.7);
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  border: 1px solid rgba(248, 250, 252, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  background: rgba(0, 0, 0, 0.15);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(56, 189, 248, 0.55), transparent 55%),
+    radial-gradient(circle at 80% 100%, rgba(249, 115, 185, 0.7), transparent 55%),
+    radial-gradient(circle at 0% 100%, rgba(94, 234, 212, 0.4), transparent 55%),
+    #020617;
+  box-shadow:
+    0 0 0 1px rgba(15, 23, 42, 0.9),
+    0 0 18px rgba(56, 189, 248, 0.55),
+    0 12px 30px rgba(15, 23, 42, 1);
+  position: relative;
+  overflow: hidden;
+  animation: lockPulse 2.6s ease-in-out infinite;
+}
+
+.letter-stamp::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    conic-gradient(from 160deg, rgba(56, 189, 248, 0.0), rgba(56, 189, 248, 0.6), rgba(249, 115, 185, 0.0));
+  opacity: 0.85;
+  mix-blend-mode: screen;
+}
+
+.letter-stamp span {
+  position: relative;
+  font-size: 1.4rem;
+  text-shadow:
+    0 0 6px rgba(248, 250, 252, 0.9),
+    0 0 18px rgba(56, 189, 248, 0.9);
+}
+
+@keyframes lockPulse {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow:
+      0 0 0 1px rgba(15, 23, 42, 0.9),
+      0 0 16px rgba(56, 189, 248, 0.45),
+      0 10px 26px rgba(15, 23, 42, 0.9);
+  }
+  50% {
+    transform: translateY(-1px) scale(1.06);
+    box-shadow:
+      0 0 0 1px rgba(15, 23, 42, 0.9),
+      0 0 26px rgba(249, 115, 185, 0.85),
+      0 18px 40px rgba(15, 23, 42, 1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow:
+      0 0 0 1px rgba(15, 23, 42, 0.9),
+      0 0 16px rgba(56, 189, 248, 0.45),
+      0 10px 26px rgba(15, 23, 42, 0.9);
+  }
 }
 
 .letter-stamp span {
@@ -1205,6 +1258,13 @@ body.theme-light .profile-avatar {
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--accent);
   color: var(--accent);
+}
+
+.side-nav-btn.active {
+  background: rgba(248, 113, 165, 0.16);
+  border-color: rgba(248, 113, 165, 0.95);
+  color: #f9fafb;
+  box-shadow: 0 14px 32px rgba(248, 113, 165, 0.45);
 }
 
 /* Правая колонка */
