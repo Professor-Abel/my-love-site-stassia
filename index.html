@@ -2572,6 +2572,48 @@ textarea::placeholder {
 .btn-avatar.btn-avatar--locked::after {
   content: "🔒";
 }
+/* === ASYAMAN V2 · ГЛОБАЛЬНЫЙ ФОН === */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(244, 114, 182, 0.12), transparent 60%),
+    radial-gradient(circle at 50% 120%, rgba(129, 140, 248, 0.18), transparent 70%),
+    #020617;
+  color: #e5e7eb;
+}
+
+/* лёгкий “звёздный” шум, но аккуратный */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(circle, rgba(248, 250, 252, 0.22) 0, transparent 55%),
+    radial-gradient(circle at 20% 20%, rgba(248, 250, 252, 0.12) 0, transparent 55%),
+    radial-gradient(circle at 80% 60%, rgba(248, 250, 252, 0.16) 0, transparent 55%);
+  background-size: 260px 260px, 320px 320px, 400px 400px;
+  filter: blur(2px);
+  z-index: -1;
+}
+/* Центрируем и чуть отделяем основной контент */
+.page-inner,
+.layout-center {
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+/* Чуть больше воздуха сверху/снизу */
+.page-inner {
+  padding-bottom: 32px;
+}
 
   </style>
 </head>
