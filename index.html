@@ -2270,6 +2270,140 @@ textarea::placeholder {
   color: #fdf2ff;
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.95);
 }
+/* === ASYAMAN V2 · МЫСЛИ === */
+
+#thoughts .thoughts-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
+              linear-gradient(145deg, rgba(14, 17, 34, 0.98), rgba(8, 9, 18, 0.98));
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+}
+
+#thoughts .thoughts-card-inner {
+  position: relative;
+}
+
+/* мягкое внутреннее свечение */
+#thoughts .thoughts-card-inner::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 79, 163, 0.22), transparent 60%),
+    radial-gradient(circle at 90% 100%, rgba(56, 189, 248, 0.24), transparent 60%);
+  opacity: 0.65;
+  filter: blur(16px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+#thoughts .thoughts-header,
+#thoughts .thoughts-label,
+#thoughts .thoughts-textarea,
+#thoughts .thoughts-actions,
+#thoughts .thoughts-hint,
+#thoughts .thoughts-list-title,
+#thoughts .thoughts-list {
+  position: relative;
+  z-index: 1;
+}
+
+/* заголовок */
+#thoughts .thoughts-title {
+  font-size: 20px;
+  margin: 6px 0 6px;
+}
+
+#thoughts .thoughts-title span {
+  background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+#thoughts .thoughts-subtitle {
+  font-size: 13px;
+  color: rgba(209, 213, 219, 0.96);
+  max-width: 36rem;
+}
+
+/* подпись перед полем */
+#thoughts .thoughts-label {
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: rgba(229, 231, 235, 0.96);
+}
+
+/* textarea */
+#thoughts .thoughts-textarea {
+  width: 100%;
+  min-height: 110px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.94);
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #f9fafb;
+  outline: none;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
+  resize: vertical;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.08s ease;
+}
+
+#thoughts .thoughts-textarea::placeholder {
+  color: rgba(148, 163, 184, 0.9);
+}
+
+#thoughts .thoughts-textarea:focus {
+  border-color: rgba(244, 114, 182, 0.95);
+  box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.55), 0 24px 55px rgba(0, 0, 0, 0.95);
+  transform: translateY(-1px);
+}
+
+/* кнопки */
+#thoughts .thoughts-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+#thoughts .thoughts-actions .btn {
+  border-radius: 999px;
+  font-size: 13px;
+  padding-inline: 14px;
+}
+
+/* подсказка и заголовок списка */
+#thoughts .thoughts-hint {
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(156, 163, 175, 0.96);
+}
+
+#thoughts .thoughts-list-title {
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgba(209, 213, 219, 0.96);
+}
+
+/* контейнер списка мыслей (элементы уже рисует твой JS) */
+#thoughts .thoughts-list {
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px dashed rgba(55, 65, 81, 0.85);
+}
+
+/* немного подсветим каждый thought-item, который создаёт твой JS */
+#thoughts .thought-item {
+  border-radius: 14px;
+  background: rgba(8, 5, 22, 0.97);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
 
   </style>
 </head>
@@ -2524,41 +2658,50 @@ textarea::placeholder {
 
 <!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
       <section id="thoughts" class="page-inner">
-        <section class="card">
-          <div class="card-inner">
-            <span class="section-label">Наши мысли</span>
-            <h1>Твои мысли и предложения <span>для нас</span> 💭</h1>
-            <p class="subtitle">
-              Это место для серьёзных и не очень разговоров. Пиши сюда всё, что хочешь мне сказать.
-            </p>
+    <!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
+<section id="thoughts" class="page-inner">
+  <section class="card thoughts-card">
+    <div class="card-inner thoughts-card-inner">
+      <div class="thoughts-header">
+        <span class="section-label">Наши мысли</span>
+        <h1 class="thoughts-title">
+          Твои мысли и предложения <span>для нас</span> 💭
+        </h1>
+        <p class="thoughts-subtitle">
+          Это место для серьёзных и не очень разговоров. Пиши сюда всё,
+          что хочешь мне сказать — от больших мыслей до маленьких деталей дня.
+        </p>
+      </div>
 
-            <label for="thought-input" class="subtitle">
-              О чём ты думаешь прямо сейчас?
-            </label>
-            <textarea
-              id="thought-input"
-              rows="5"
-              placeholder="Например: мне хочется рассказать тебе, что сегодня произошло..."
-            ></textarea>
+      <label for="thought-input" class="thoughts-label">
+        О чём ты думаешь прямо сейчас?
+      </label>
+      <textarea
+        id="thought-input"
+        class="thoughts-textarea"
+        rows="5"
+        placeholder="Например: мне хочется рассказать тебе, что сегодня произошло..."
+      ></textarea>
 
-            <div class="wish-actions">
-              <button id="add-thought" class="btn btn-main">
-                ✚ Добавить мысль
-              </button>
-              <button id="clear-thoughts" class="btn btn-outline">
-                Очистить все записи
-              </button>
-            </div>
+      <div class="thoughts-actions">
+        <button id="add-thought" class="btn btn-main">
+          ✚ Добавить мысль
+        </button>
+        <button id="clear-thoughts" class="btn btn-outline">
+          🧹 Очистить все записи
+        </button>
+      </div>
 
-            <p class="subtitle" style="margin-top: 10px; font-size: 12px;">
-              Нажми <strong>Ctrl+Enter</strong>, чтобы сохранить мысль.
-            </p>
+      <p class="thoughts-hint">
+        Нажми <strong>Ctrl+Enter</strong>, чтобы сохранить мысль.
+      </p>
 
-            <h3 class="subtitle" style="margin-top: 10px;">Твои записи:</h3>
-            <div id="thoughts-list"></div>
-          </div>
-        </section>
-      </section>
+      <h3 class="thoughts-list-title">Твои записи</h3>
+      <div id="thoughts-list" class="thoughts-list"></div>
+    </div>
+  </section>
+</section>
+
 
       <!-- ============ СЕКЦИЯ КОГДА СКУЧАЕШЬ ============ -->
       <section id="miss" class="page-inner">
