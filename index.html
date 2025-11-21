@@ -2614,6 +2614,65 @@ body::before {
 .page-inner {
   padding-bottom: 32px;
 }
+/* === ASYAMAN V2 · Плавное появление всей сцены === */
+
+.page-inner,
+.card,
+.about-scene,
+.thoughts-card,
+.when-miss-card {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: sceneFadeIn 0.55s ease-out forwards;
+}
+
+@keyframes sceneFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(3px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0px);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+/* === ASYAMAN V2 · БОКОВОЕ ПОЯВЛЕНИЕ СЦЕНЫ === */
+
+.page-inner,
+.card,
+.about-scene,
+.thoughts-card,
+.when-miss-card {
+  opacity: 0;
+  transform: translateX(26px) translateY(4px);
+  animation: sceneSlideIn 0.55s ease-out forwards;
+}
+
+@keyframes sceneSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(26px) translateY(6px);
+    filter: blur(4px);
+  }
+
+  45% {
+    opacity: 0.7;
+    transform: translateX(10px) translateY(0);
+    filter: blur(1px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    filter: blur(0);
+  }
+}
 
   </style>
 </head>
