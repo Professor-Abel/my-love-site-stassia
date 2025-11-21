@@ -2200,6 +2200,76 @@ textarea::placeholder {
 .music-bar {
   animation: subtleGlow 10s ease-in-out infinite;
 }
+/* Прячем верхнюю шапку-меню */
+.site-header {
+  display: none;
+}
+
+/* Чуть компенсируем отступ, чтобы контент не прилипал к верху */
+.page-inner {
+  padding-top: 24px;
+}
+/* === ASYAMAN V2 · Нижняя навигация === */
+
+/* Общая капсула с названием и кнопками */
+.layout-left-inner {
+  margin-top: 12px;
+  padding: 10px 18px;
+  border-radius: 26px;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
+              linear-gradient(135deg, rgba(14, 17, 34, 0.98), rgba(8, 9, 18, 0.98));
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+}
+
+/* Строка с названием "Асьяман" и кнопками */
+.side-nav-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+
+/* Название слева */
+.side-nav-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+/* Кнопки навигации */
+.side-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: rgba(15, 23, 42, 0.4);
+  color: rgba(229, 231, 235, 0.96);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.16s ease, border-color 0.16s ease,
+              transform 0.1s ease, box-shadow 0.16s ease;
+}
+
+/* Ховер — лёгкое свечение */
+.side-nav-btn:hover {
+  background: rgba(148, 163, 184, 0.18);
+  border-color: rgba(248, 250, 252, 0.6);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85);
+}
+
+/* Активная вкладка (любая из этих комбинаций сработает, что бы ни ставил JS) */
+.side-nav-btn.is-active,
+.side-nav-btn.active,
+.side-nav-btn[data-current="true"] {
+  background: linear-gradient(135deg, #ff4fa3, #ff7ac5);
+  border-color: rgba(248, 250, 252, 0.9);
+  color: #fdf2ff;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.95);
+}
 
   </style>
 </head>
