@@ -2673,6 +2673,44 @@ body::before {
     filter: blur(0);
   }
 }
+/* === ASYAMAN V2 · МОЩНЫЙ БОКОВОЙ ВЫЕЗД === */
+
+.page-inner,
+.card,
+.about-scene,
+.thoughts-card,
+.when-miss-card {
+  opacity: 0;
+  transform: translateX(60px) translateY(6px);
+  animation: sceneSlideInStrong 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* cubic-bezier делает эффект дорогим, как на iOS */
+}
+
+@keyframes sceneSlideInStrong {
+  0% {
+    opacity: 0;
+    transform: translateX(60px) translateY(8px);
+    filter: blur(6px);
+  }
+
+  45% {
+    opacity: 0.55;
+    transform: translateX(26px) translateY(2px);
+    filter: blur(2px);
+  }
+
+  70% {
+    opacity: 0.9;
+    transform: translateX(8px) translateY(0);
+    filter: blur(1px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    filter: blur(0);
+  }
+}
 
   </style>
 </head>
