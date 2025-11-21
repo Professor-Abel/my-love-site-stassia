@@ -2122,6 +2122,84 @@ textarea::placeholder {
   background: rgba(148, 163, 184, 0.14);
   transform: translateY(-1px);
 }
+/* === ASYAMAN V2 · ANIMATIONS === */
+
+/* Базовые keyframes */
+@keyframes fadeInDown-soft {
+  0% { opacity: 0; transform: translateY(-18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp-soft {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardRise-soft {
+  0% { opacity: 0; transform: translateY(18px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes subtleGlow {
+  0%   { box-shadow: 0 18px 45px rgba(0,0,0,0.85); }
+  50%  { box-shadow: 0 24px 60px rgba(0,0,0,0.95); }
+  100% { box-shadow: 0 18px 45px rgba(0,0,0,0.85); }
+}
+
+/* Шапка: мягкое появление сверху */
+.site-header {
+  animation: fadeInDown-soft 0.7s ease-out;
+}
+
+/* Основной контент: плавное появление снизу */
+.page-inner,
+.layout-center {
+  animation: fadeInUp-soft 0.9s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Карточки: чуть позже и по очереди */
+.card {
+  animation: cardRise-soft 0.7s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Лёгкая «ступенька» для соседних карточек */
+.main-grid > .card:nth-child(1) { animation-delay: 0.05s; }
+.main-grid > .card:nth-child(2) { animation-delay: 0.12s; }
+.main-grid > .card:nth-child(3) { animation-delay: 0.18s; }
+
+/* Hover по карточкам — лёгкий подъём и усиление тени */
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+}
+
+/* Кнопки — микро-анимация при наведении */
+.btn {
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.95);
+}
+
+/* Боковые кнопки навигации тоже оживим чуть-чуть */
+.side-nav-btn {
+  transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.side-nav-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.85);
+}
+
+/* Для особо важных блоков можно включить мягкое дыхание свечения */
+.card--glow,
+.music-bar {
+  animation: subtleGlow 10s ease-in-out infinite;
+}
 
   </style>
 </head>
