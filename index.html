@@ -1768,6 +1768,341 @@ textarea::placeholder {
     padding: 8px 14px;
   }
 }
+/* === ASYAMAN V2 · ЖЕЛАНИЯ — СЦЕНА МЕЧТ === */
+
+.section-wishes {
+  position: relative;
+  margin-top: 22px;
+}
+
+.section-wishes .wishes-scene {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.05), transparent 55%),
+              linear-gradient(135deg, rgba(12, 10, 24, 0.98), rgba(15, 23, 42, 0.98));
+  border-radius: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+  padding: 22px 22px 18px;
+}
+
+/* мягкое свечение внутри */
+.section-wishes .wishes-glow {
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(255, 79, 163, 0.22), transparent 60%),
+    radial-gradient(circle at 85% 100%, rgba(56, 189, 248, 0.22), transparent 60%),
+    radial-gradient(circle at 0% 100%, rgba(244, 114, 182, 0.18), transparent 60%);
+  opacity: 0.65;
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.section-wishes .wishes-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 18px;
+}
+
+/* левая часть — текст + форма */
+.section-wishes .wishes-left-header {
+  margin-bottom: 10px;
+}
+
+.section-wishes .wishes-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.98);
+}
+
+.section-wishes .wishes-title {
+  font-size: 18px;
+  margin: 6px 0 4px;
+}
+
+.section-wishes .wishes-title span {
+  background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.section-wishes .wishes-subtitle {
+  font-size: 13px;
+  color: rgba(209, 213, 219, 0.96);
+}
+
+/* форма желания */
+.section-wishes .wishes-form-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.section-wishes .wishes-form-row input[type="text"] {
+  flex: 1;
+}
+
+.section-wishes .wishes-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: rgba(156, 163, 175, 0.96);
+}
+
+/* селекты/инпуты внутри метаданных (если есть) */
+.section-wishes .wishes-meta-row select,
+.section-wishes .wishes-meta-row input[type="number"] {
+  background: rgba(15, 23, 42, 0.94);
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  padding: 4px 10px;
+  font-size: 11px;
+  color: #e5e7eb;
+}
+
+/* кнопки */
+.section-wishes .btn {
+  border-radius: 999px;
+}
+
+.section-wishes .btn-main {
+  background: linear-gradient(135deg, #ff4fa3, #ff7ac5);
+  border: none;
+}
+
+.section-wishes .btn-outline {
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.8);
+}
+
+/* правая колонка — список желаний */
+.section-wishes .wishes-right {
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 14px 12px 10px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.9);
+}
+
+.section-wishes .wishes-right-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.section-wishes .wishes-right-title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.section-wishes .wishes-count {
+  font-size: 11px;
+  color: rgba(156, 163, 175, 0.96);
+}
+
+/* список */
+.section-wishes #wishesList {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.7) transparent;
+}
+
+.section-wishes #wishesList li {
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(55, 65, 81, 0.9);
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.section-wishes #wishesList li:last-child {
+  border-bottom: none;
+}
+
+.section-wishes .wish-item-text {
+  flex: 1;
+  color: rgba(229, 231, 235, 0.98);
+}
+
+.section-wishes .wish-item-meta {
+  font-size: 10px;
+  color: rgba(156, 163, 175, 0.96);
+  white-space: nowrap;
+}
+
+/* адаптив */
+@media (max-width: 840px) {
+  .section-wishes .wishes-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* === ASYAMAN V2 · ЖЕЛАНИЯ — КАРТОЧКА МЕЧТ === */
+
+.wishes-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
+              linear-gradient(145deg, rgba(12, 10, 24, 0.98), rgba(15, 23, 42, 0.98));
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+}
+
+.wishes-card-inner {
+  position: relative;
+}
+
+/* мягкое сияние внутри карточки */
+.wishes-card-inner::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(255, 79, 163, 0.23), transparent 60%),
+    radial-gradient(circle at 90% 100%, rgba(56, 189, 248, 0.22), transparent 60%);
+  opacity: 0.6;
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.wishes-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 12px;
+}
+
+.wishes-kicker {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.95);
+}
+
+.wishes-title {
+  font-size: 18px;
+  margin: 6px 0 4px;
+}
+
+.wishes-title span {
+  display: block;
+  font-size: 14px;
+  background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.wishes-subtitle {
+  font-size: 13px;
+  color: rgba(209, 213, 219, 0.96);
+  max-width: 34rem;
+}
+
+/* подпись к полю */
+.wishes-label {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: rgba(229, 231, 235, 0.95);
+}
+
+/* textarea */
+.wishes-textarea {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 90px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.94);
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #f9fafb;
+  outline: none;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
+  resize: vertical;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.08s ease;
+}
+
+.wishes-textarea::placeholder {
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.wishes-textarea:focus {
+  border-color: rgba(244, 114, 182, 0.95);
+  box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.55), 0 24px 55px rgba(0, 0, 0, 0.95);
+  transform: translateY(-1px);
+}
+
+/* кнопки */
+.wish-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.wish-actions .btn {
+  border-radius: 999px;
+  font-size: 13px;
+  padding-inline: 14px;
+}
+
+/* заголовок списка */
+.wish-list-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: rgba(209, 213, 219, 0.95);
+}
+
+/* список желаний */
+#wishList {
+  position: relative;
+  z-index: 1;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.7) transparent;
+}
+
+#wishList li {
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(55, 65, 81, 0.9);
+  font-size: 12px;
+  color: rgba(229, 231, 235, 0.98);
+}
+
+#wishList li:last-child {
+  border-bottom: none;
+}
 
   </style>
 </head>
@@ -1928,34 +2263,50 @@ textarea::placeholder {
           </section>
 
           <!-- Правая часть: сами желания -->
-          <section class="card">
-            <div class="card-inner">
-              <h2>Наши желания</h2>
-              <p class="subtitle">
-                Моя любимая, напиши, о чём ты мечтаешь. Каждое желание — как маленькое обещание,
-                которое я постараюсь исполнить.
-              </p>
+              
+      <section class="card wishes-card">
+        <div class="card-inner wishes-card-inner">
+          <div class="wishes-header">
+            <div class="wishes-kicker">ЖЕЛАНИЯ</div>
+            <h2 class="wishes-title">
+              Наши желания:
+              <span>всё, что мы хотим прожить вместе</span>
+            </h2>
+            <p class="wishes-subtitle">
+              Моя любимая, напиши, о чём ты мечтаешь. 
+              Каждое желание здесь — не просто текст, а маленькое обещание,
+              к которому мы сможем вернуться позже.
+            </p>
+          </div>
 
-              <label for="wishInput">Напиши, чего хочешь прямо сейчас:</label>
-              <textarea
-                id="wishInput"
-                rows="3"
-                placeholder="Например: поехать вместе в город, где никогда не были..."
-              ></textarea>
+          <label for="wishInput" class="wishes-label">
+            Напиши, чего хочешь прямо сейчас:
+          </label>
+          <textarea
+            id="wishInput"
+            class="wishes-textarea"
+            rows="3"
+            placeholder="Например: поехать вместе в город, где никогда не были..."
+          ></textarea>
 
-              <div class="wish-actions">
-                <button id="wishAddBtn" class="btn btn-main">➕ Добавить желание</button>
-                <button id="wishClearBtn" class="btn btn-outline">Очистить все желания</button>
-              </div>
+          <div class="wish-actions">
+            <button id="wishAddBtn" class="btn btn-main">
+              ✨ Добавить желание
+            </button>
+            <button id="wishClearBtn" class="btn btn-outline">
+              🧹 Очистить все желания
+            </button>
+          </div>
 
-              <div class="wish-list-header">
-                <span>📝 Наш список желаний:</span>
-                <span id="wishCount"></span>
-              </div>
-              <ul id="wishList"></ul>
-            </div>
-          </section>
+          <div class="wish-list-header">
+            <span>📝 Наш список желаний:</span>
+            <span id="wishCount"></span>
+          </div>
+
+          <ul id="wishList"></ul>
         </div>
+      </section>
+
 
         <!-- Админ-панель (видна только тебе, если uid = ADMIN_UID) -->
         <section id="admin-panel" class="admin-panel">
