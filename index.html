@@ -2404,6 +2404,83 @@ textarea::placeholder {
   background: rgba(8, 5, 22, 0.97);
   border: 1px solid rgba(148, 163, 184, 0.35);
 }
+/* === ASYAMAN V2 · МИНИ-ПРОФИЛЬ === */
+
+.profile-mini {
+  margin-top: 16px;
+  margin-bottom: 14px;
+  padding: 12px 12px 10px;
+  border-radius: 20px;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.05), transparent 55%),
+              rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.9);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* блок с аватаркой */
+.profile-avatar-wrapper {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 0%, rgba(248, 250, 252, 0.25), transparent 60%),
+              rgba(15, 23, 42, 1);
+  box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.06),
+              0 16px 40px rgba(0, 0, 0, 0.95);
+}
+
+/* светящееся кольцо вокруг */
+.profile-avatar-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: inherit;
+  border: 1px solid rgba(244, 114, 182, 0.7);
+  pointer-events: none;
+}
+
+/* само фото */
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* кнопка смены аватара — превращаем в иконку-таблетку снизу */
+.btn-avatar {
+  position: absolute;
+  bottom: -4px;
+  right: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.9);
+}
+
+/* правая часть: имя и подпись */
+.profile-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #f9fafb;
+}
+
+.profile-name::after {
+  content: " · ты здесь — значит, это важно";
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  color: rgba(156, 163, 175, 0.96);
+}
 
   </style>
 </head>
