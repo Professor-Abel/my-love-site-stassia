@@ -807,6 +807,121 @@ textarea::placeholder {
     padding: 8px 14px;
   }
 }
+/* === ASYAMAN V2 · ПИСЬМО — КИНО-СЦЕНА === */
+
+/* Обертка всей сцены */
+.letter-scene {
+  position: relative;
+  max-width: 860px;
+  margin: 40px auto;
+  padding: 32px 28px;
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
+              linear-gradient(135deg, rgba(12, 10, 24, 0.98), rgba(15, 23, 42, 0.98));
+  border-radius: 32px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: 0 32px 70px rgba(0, 0, 0, 0.95);
+  animation: letterFade 1.2s ease;
+}
+
+/* Анимация появления */
+@keyframes letterFade {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Переливчатое свечение */
+.letter-glow {
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 79, 163, 0.25), transparent 60%),
+    radial-gradient(circle at 80% 100%, rgba(56, 189, 248, 0.22), transparent 60%),
+    radial-gradient(circle at 0% 100%, rgba(244, 114, 182, 0.18), transparent 60%);
+  opacity: 0.7;
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Заголовок */
+.letter-title {
+  font-size: clamp(26px, 3vw, 34px);
+  margin-bottom: 16px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.letter-title span {
+  background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Подзаголовок */
+.letter-subtitle {
+  text-align: center;
+  font-size: 15px;
+  color: rgba(209, 213, 219, 0.95);
+  margin-bottom: 24px;
+}
+
+/* Конверт */
+.letter-envelope {
+  background: rgba(15, 23, 42, 0.94);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 26px;
+  padding: 22px 20px;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85);
+  margin-bottom: 28px;
+}
+
+/* Штамп */
+.letter-stamp {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Письмо внутри */
+.letter-paper {
+  background: rgba(248, 250, 252, 0.06);
+  border-radius: 18px;
+  padding: 20px 18px;
+  line-height: 1.75;
+  color: rgba(243, 244, 246, 0.95);
+  box-shadow: inset 0 0 34px rgba(0, 0, 0, 0.5);
+}
+
+/* Заключительная подпись */
+.letter-sign {
+  margin-top: 22px;
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(236, 239, 244, 0.85);
+  text-align: right;
+}
+
+/* Кнопка назад */
+.back-btn {
+  display: block;
+  margin: 30px auto 0;
+  padding: 10px 26px;
+  font-size: 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.85);
+  color: #e5e7eb;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.back-btn:hover {
+  background: rgba(148, 163, 184, 0.12);
+  color: #fff;
+  transform: translateY(-1px);
+}
 
   </style>
 </head>
