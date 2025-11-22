@@ -1,5 +1,5 @@
 // account.js
-// Логика профиля: имя, "о себе", аватар (URL) — всё хранится в localStorage
+// Логика профиля: имя, "о себе", аватар (URL или файл) — всё хранится в localStorage
 // Привязка к пользователю идёт через asyaman_last_email (который мы сохраняем в auth-wishes.js)
 
 (function () {
@@ -17,99 +17,106 @@
   const accountDisplayNameInput = document.getElementById("account-displayName-input");
   const accountAboutInput = document.getElementById("account-about-input");
   const accountAvatarInput = document.getElementById("account-avatar-input");
+  const accountAvatarFileInput = document.getElementById("account-avatar-file");
 
   const accountEditBtn = document.getElementById("account-edit-btn");
   const accountSaveBtn = document.getElementById("account-save-btn");
   const accountCancelBtn = document.getElementById("account-cancel-btn");
 
-  const accountStatusEl = document.getElementById("account-status");
+  const accountStatus = document.getElementById("account-status");
 
-  // ========= ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =========
+  const LAST_EMAIL_KEY = "asyaman_last_email";
 
   function getCurrentEmail() {
     try {
-      const email = localStorage.getItem("asyaman_last_email");
-      return email || "";
+      return localStorage.getItem(LAST_EMAIL_KEY) || "";
     } catch (e) {
-      console.warn("Не удалось прочитать asyaman_last_email:", e);
       return "";
     }
   }
 
-  function getProfileKey(email) {
-    if (!email) return "asyaman_profile_guest";
-    return "asyaman_profile_" + email.toLowerCase();
+  function profileKeyForEmail(email) {
+    return email ? `asyaman_profile_${email}` : "asyaman_profile_guest";
   }
 
   function loadProfile() {
     const email = getCurrentEmail();
-    const key = getProfileKey(email);
+    const key = profileKeyForEmail(email);
 
     try {
       const raw = localStorage.getItem(key);
       if (!raw) {
-        // Профиль по умолчанию
         return {
-          displayName: "Анастасия",
-          about:
-            "Я люблю белые розы, тёплые вечера и наш маленький мир Асъяман. 💜",
-          avatarUrl: "images/stassia-avatar.jpg",
+          displayName: "Abel",
+          about: "Асъяман. 💜",
+          avatarUrl: "",
         };
       }
       const parsed = JSON.parse(raw);
       return {
-        displayName: parsed.displayName || "Анастасия",
-        about:
-          parsed.about ||
-          "Я люблю белые розы, тёплые вечера и наш маленький мир Асъяман. 💜",
-        avatarUrl: parsed.avatarUrl || "images/stassia-avatar.jpg",
+        displayName: parsed.displayName || "Abel",
+        about: parsed.about || "Асъяман. 💜",
+        avatarUrl: parsed.avatarUrl || "",
       };
     } catch (e) {
       console.warn("Не удалось загрузить профиль:", e);
       return {
-        displayName: "Анастасия",
-        about:
-          "Я люблю белые розы, тёплые вечера и наш маленький мир Асъяман. 💜",
-        avatarUrl: "images/stassia-avatar.jpg",
+        displayName: "Abel",
+        about: "Асъяман. 💜",
+        avatarUrl: "",
       };
     }
   }
 
   function saveProfile(profile) {
     const email = getCurrentEmail();
-    const key = getProfileKey(email);
+    const key = profileKeyForEmail(email);
+
     try {
-      localStorage.setItem(key, JSON.stringify(profile));
+      localStorage.setItem(
+        key,
+        JSON.stringify({
+          displayName: profile.displayName || "",
+          about: profile.about || "",
+          avatarUrl: profile.avatarUrl || "",
+        })
+      );
     } catch (e) {
       console.warn("Не удалось сохранить профиль:", e);
     }
   }
 
   function setStatus(message, type = "") {
-    if (!accountStatusEl) return;
-    accountStatusEl.textContent = message || "";
-    accountStatusEl.className = "auth-status";
-    if (type) {
-      accountStatusEl.classList.add(type);
+    if (!accountStatus) return;
+    accountStatus.textContent = message || "";
+    accountStatus.classList.remove("status-error", "status-success");
+    if (type === "error") {
+      accountStatus.classList.add("status-error");
+    } else if (type === "success") {
+      accountStatus.classList.add("status-success");
     }
   }
 
   function applyProfileToView(profile) {
     if (accountDisplayNameSpan) {
-      accountDisplayNameSpan.textContent = profile.displayName || "";
+      accountDisplayNameSpan.textContent = profile.displayName || "Abel";
     }
     if (accountAboutSpan) {
-      accountAboutSpan.textContent = profile.about || "";
+      accountAboutSpan.textContent = profile.about || "Асъяман. 💜";
     }
+
     if (accountAvatarImg) {
-      accountAvatarImg.src = profile.avatarUrl || "images/stassia-avatar.jpg";
+      if (profile.avatarUrl) {
+        accountAvatarImg.src = profile.avatarUrl;
+        accountAvatarImg.classList.remove("avatar-empty");
+      } else {
+        accountAvatarImg.src = "";
+        accountAvatarImg.classList.add("avatar-empty");
+      }
     }
   }
 
-  function openEdit(profile) {
-    if (accountViewBlock) accountViewBlock.style.display = "none";
-    if (accountEditBlock) accountEditBlock.style.display = "";
-
+  function fillEditForm(profile) {
     if (accountDisplayNameInput) {
       accountDisplayNameInput.value = profile.displayName || "";
     }
@@ -119,80 +126,93 @@
     if (accountAvatarInput) {
       accountAvatarInput.value = profile.avatarUrl || "";
     }
+    if (accountAvatarFileInput) {
+      accountAvatarFileInput.value = "";
+    }
+  }
 
+  function openEdit() {
+    const profile = loadProfile();
+    fillEditForm(profile);
+
+    if (accountViewBlock) accountViewBlock.style.display = "none";
+    if (accountEditBlock) accountEditBlock.style.display = "";
     setStatus("");
   }
 
   function closeEdit() {
-    if (accountViewBlock) accountViewBlock.style.display = "";
     if (accountEditBlock) accountEditBlock.style.display = "none";
+    if (accountViewBlock) accountViewBlock.style.display = "";
     setStatus("");
   }
 
-  // ========= ИНИЦИАЛИЗАЦИЯ =========
-
   function initAccount() {
-    // Если нет блока аккаунта — выходим
-    if (!accountViewBlock && !accountEditBlock) {
-      return;
-    }
-
-    const email = getCurrentEmail();
     const profile = loadProfile();
-
-    // Покажем email, если есть
-    if (accountEmailSpan) {
-      accountEmailSpan.textContent = email || "";
-    }
-
     applyProfileToView(profile);
-
-    // По умолчанию — режим просмотра
-    if (accountViewBlock) accountViewBlock.style.display = "";
-    if (accountEditBlock) accountEditBlock.style.display = "none";
-
-    // Если вообще нет email (гость) и при этом есть блок гостя — оставляем сообщение
-    if (!email && accountGuestBlock) {
-      // Гость увидит текст: "Чтобы увидеть и настроить свой профиль, войди..."
-      // Ничего дополнительно делать не нужно.
-    }
 
     // Кнопка "Изменить профиль"
     if (accountEditBtn) {
       accountEditBtn.addEventListener("click", () => {
-        openEdit(profile);
+        openEdit();
       });
     }
 
     // Кнопка "Сохранить"
     if (accountSaveBtn) {
       accountSaveBtn.addEventListener("click", () => {
-        const newProfile = {
-          displayName: accountDisplayNameInput?.value.trim() || profile.displayName,
-          about: accountAboutInput?.value.trim() || profile.about,
-          avatarUrl: accountAvatarInput?.value.trim() || profile.avatarUrl,
+        const baseProfile = loadProfile();
+
+        const displayName =
+          (accountDisplayNameInput?.value || "").trim() || baseProfile.displayName;
+        const about =
+          (accountAboutInput?.value || "").trim() || baseProfile.about;
+        const urlFromInput = (accountAvatarInput?.value || "").trim();
+        const file =
+          accountAvatarFileInput && accountAvatarFileInput.files
+            ? accountAvatarFileInput.files[0]
+            : null;
+
+        const finishSave = (finalAvatarUrl) => {
+          const newProfile = {
+            displayName,
+            about,
+            avatarUrl: finalAvatarUrl || baseProfile.avatarUrl,
+          };
+
+          saveProfile(newProfile);
+          applyProfileToView(newProfile);
+          setStatus("Профиль сохранён 💾", "success");
+          closeEdit();
         };
 
-        saveProfile(newProfile);
-        applyProfileToView(newProfile);
-        setStatus("Профиль сохранён 💾", "success");
-        closeEdit();
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const result = e.target && e.target.result ? String(e.target.result) : "";
+            finishSave(result || urlFromInput);
+          };
+          reader.onerror = () => {
+            setStatus(
+              "Не получилось прочитать файл. Попробуй другую фотографию 💔",
+              "error"
+            );
+          };
+          reader.readAsDataURL(file);
+        } else {
+          finishSave(urlFromInput);
+        }
       });
     }
 
     // Кнопка "Отмена"
     if (accountCancelBtn) {
       accountCancelBtn.addEventListener("click", () => {
-        // Просто закрываем редактирование без сохранения
         closeEdit();
       });
     }
   }
 
-  // Ждём DOM
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initAccount);
-  } else {
+  document.addEventListener("DOMContentLoaded", () => {
     initAccount();
-  }
+  });
 })();
