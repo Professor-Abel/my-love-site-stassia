@@ -1,6 +1,7 @@
 // account.js
 // Личный профиль пользователя (имя, "о себе", аватар)
 
+// Берём уже инициализированное приложение из auth-wishes.js
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import {
   getFirestore,
@@ -16,13 +17,13 @@ import {
   getDownloadURL
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
 
-// ❗️ Берём уже инициализированное приложение (из auth-wishes.js)
-// getAuth(), getFirestore(), getStorage() сами подцепятся к default app
+console.log("ACCOUNT JS LOADED ✅");
+
 const auth = getAuth();
 const db = getFirestore();
 const storage = getStorage();
 
-// элементы
+// DOM-элементы
 const accountView  = document.getElementById("account-view");
 const accountGuest = document.getElementById("account-guest");
 const accountEdit  = document.getElementById("account-edit");
@@ -52,7 +53,7 @@ function setStatus(text, type = "") {
   if (type) statusEl.classList.add(type);
 }
 
-// загрузка / создание документа профиля
+// Загрузка/создание документа профиля
 async function loadProfile(user) {
   const userRef = doc(db, "users", user.uid);
   const snap = await getDoc(userRef);
@@ -84,7 +85,7 @@ function renderProfile(user, profile) {
   if (profile.photoURL) {
     avatarEl.src = profile.photoURL;
   } else {
-    avatarEl.src = "secret-photo.jpg"; // дефолтная, можешь поменять
+    avatarEl.src = "secret-photo.jpg"; // можешь заменить на дефолт Насти
   }
 
   accountView.style.display  = "block";
@@ -124,7 +125,7 @@ async function saveProfile() {
 
   const file = avatarInput.files[0];
 
-  // если выбрали новый аватар — загружаем в Storage
+  // Загрузка нового аватара (если выбран)
   if (file) {
     try {
       const avatarRef = ref(storage, `avatars/${currentUser.uid}.jpg`);
@@ -133,7 +134,7 @@ async function saveProfile() {
     } catch (err) {
       console.error("avatar upload error", err);
       setStatus("Не получилось загрузить аватар 😔", "bad");
-      // НЕ выходим, всё равно сохраним имя/о себе
+      // всё равно сохраним имя/о себе ниже
     }
   }
 
@@ -155,7 +156,7 @@ async function saveProfile() {
   }
 }
 
-// слушаем логин/логаут
+// Слушаем логин/логаут
 onAuthStateChanged(auth, async (user) => {
   currentUser = user;
 
@@ -180,7 +181,7 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-// обработчики кнопок
+// Обработчики кнопок
 if (editBtn)   editBtn.addEventListener("click", openEdit);
 if (cancelBtn) cancelBtn.addEventListener("click", cancelEdit);
 if (saveBtn)   saveBtn.addEventListener("click", (e) => {
