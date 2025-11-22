@@ -1,190 +1,198 @@
 // account.js
-// Личный профиль пользователя (имя, "о себе", аватар)
+// Логика профиля: имя, "о себе", аватар (URL) — всё хранится в localStorage
+// Привязка к пользователю идёт через asyaman_last_email (который мы сохраняем в auth-wishes.js)
 
-// Берём уже инициализированное приложение из auth-wishes.js
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
+(function () {
+  // DOM-элементы
+  const accountViewBlock = document.getElementById("account-view");
+  const accountEditBlock = document.getElementById("account-edit");
+  const accountGuestBlock = document.getElementById("account-guest");
 
-console.log("ACCOUNT JS LOADED ✅");
+  const accountEmailSpan = document.getElementById("account-email");
 
-const auth = getAuth();
-const db = getFirestore();
-const storage = getStorage();
+  const accountAvatarImg = document.getElementById("account-avatar-img");
+  const accountDisplayNameSpan = document.getElementById("account-displayName");
+  const accountAboutSpan = document.getElementById("account-about");
 
-// DOM-элементы
-const accountView  = document.getElementById("account-view");
-const accountGuest = document.getElementById("account-guest");
-const accountEdit  = document.getElementById("account-edit");
+  const accountDisplayNameInput = document.getElementById("account-displayName-input");
+  const accountAboutInput = document.getElementById("account-about-input");
+  const accountAvatarInput = document.getElementById("account-avatar-input");
 
-const emailEl       = document.getElementById("account-email");
-const displayNameEl = document.getElementById("account-displayName");
-const aboutEl       = document.getElementById("account-about");
-const avatarEl      = document.getElementById("account-avatar");
+  const accountEditBtn = document.getElementById("account-edit-btn");
+  const accountSaveBtn = document.getElementById("account-save-btn");
+  const accountCancelBtn = document.getElementById("account-cancel-btn");
 
-const editBtn   = document.getElementById("account-edit-btn");
-const saveBtn   = document.getElementById("account-save-btn");
-const cancelBtn = document.getElementById("account-cancel-btn");
+  const accountStatusEl = document.getElementById("account-status");
 
-const displayNameInput = document.getElementById("account-displayName-input");
-const aboutInput       = document.getElementById("account-about-input");
-const avatarInput      = document.getElementById("account-avatar-input");
+  // ========= ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =========
 
-const statusEl = document.getElementById("account-status");
-
-let currentUser    = null;
-let currentProfile = null;
-
-function setStatus(text, type = "") {
-  if (!statusEl) return;
-  statusEl.textContent = text || "";
-  statusEl.classList.remove("good", "bad");
-  if (type) statusEl.classList.add(type);
-}
-
-// Загрузка/создание документа профиля
-async function loadProfile(user) {
-  const userRef = doc(db, "users", user.uid);
-  const snap = await getDoc(userRef);
-
-  if (snap.exists()) {
-    currentProfile = snap.data();
-  } else {
-    currentProfile = {
-      email: user.email || "",
-      displayName: user.displayName || "",
-      about: "",
-      photoURL: "",
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
-    };
-    await setDoc(userRef, currentProfile, { merge: true });
-  }
-
-  renderProfile(user, currentProfile);
-}
-
-function renderProfile(user, profile) {
-  if (!accountView || !accountGuest || !accountEdit) return;
-
-  emailEl.textContent       = user.email || "без почты";
-  displayNameEl.textContent = profile.displayName || "Без имени";
-  aboutEl.textContent       = profile.about || "Пока пусто…";
-
-  if (profile.photoURL) {
-    avatarEl.src = profile.photoURL;
-  } else {
-    avatarEl.src = "secret-photo.jpg"; // можешь заменить на дефолт Насти
-  }
-
-  accountView.style.display  = "block";
-  accountGuest.style.display = "none";
-  accountEdit.style.display  = "none";
-}
-
-function openEdit() {
-  if (!currentUser || !currentProfile) return;
-
-  displayNameInput.value = currentProfile.displayName || "";
-  aboutInput.value       = currentProfile.about || "";
-
-  accountView.style.display  = "none";
-  accountGuest.style.display = "none";
-  accountEdit.style.display  = "block";
-  setStatus("");
-}
-
-function cancelEdit() {
-  accountEdit.style.display = "none";
-  if (currentUser) {
-    accountView.style.display  = "block";
-    accountGuest.style.display = "none";
-  } else {
-    accountView.style.display  = "none";
-    accountGuest.style.display = "block";
-  }
-  setStatus("");
-}
-
-async function saveProfile() {
-  if (!currentUser) return;
-
-  const userRef = doc(db, "users", currentUser.uid);
-  let photoURL = currentProfile?.photoURL || "";
-
-  const file = avatarInput.files[0];
-
-  // Загрузка нового аватара (если выбран)
-  if (file) {
+  function getCurrentEmail() {
     try {
-      const avatarRef = ref(storage, `avatars/${currentUser.uid}.jpg`);
-      await uploadBytes(avatarRef, file);
-      photoURL = await getDownloadURL(avatarRef);
-    } catch (err) {
-      console.error("avatar upload error", err);
-      setStatus("Не получилось загрузить аватар 😔", "bad");
-      // всё равно сохраним имя/о себе ниже
+      const email = localStorage.getItem("asyaman_last_email");
+      return email || "";
+    } catch (e) {
+      console.warn("Не удалось прочитать asyaman_last_email:", e);
+      return "";
     }
   }
 
-  const updateData = {
-    displayName: displayNameInput.value.trim(),
-    about:       aboutInput.value.trim(),
-    photoURL,
-    updatedAt: serverTimestamp()
-  };
-
-  try {
-    await setDoc(userRef, updateData, { merge: true });
-    currentProfile = { ...(currentProfile || {}), ...updateData };
-    renderProfile(currentUser, currentProfile);
-    setStatus("Профиль сохранён 💫", "good");
-  } catch (err) {
-    console.error(err);
-    setStatus("Ошибка при сохранении профиля", "bad");
+  function getProfileKey(email) {
+    if (!email) return "asyaman_profile_guest";
+    return "asyaman_profile_" + email.toLowerCase();
   }
-}
 
-// Слушаем логин/логаут
-onAuthStateChanged(auth, async (user) => {
-  currentUser = user;
-
-  if (!accountView || !accountGuest || !accountEdit) return;
-
-  if (user) {
-    accountGuest.style.display = "none";
-    accountEdit.style.display  = "none";
-    accountView.style.display  = "block";
+  function loadProfile() {
+    const email = getCurrentEmail();
+    const key = getProfileKey(email);
 
     try {
-      await loadProfile(user);
-    } catch (err) {
-      console.error(err);
-      setStatus("Не получилось загрузить профиль", "bad");
+      const raw = localStorage.getItem(key);
+      if (!raw) {
+        // Профиль по умолчанию
+        return {
+          displayName: "Анастасия",
+          about:
+            "Я люблю белые розы, тёплые вечера и наш маленький мир Асъяман. 💜",
+          avatarUrl: "images/stassia-avatar.jpg",
+        };
+      }
+      const parsed = JSON.parse(raw);
+      return {
+        displayName: parsed.displayName || "Анастасия",
+        about:
+          parsed.about ||
+          "Я люблю белые розы, тёплые вечера и наш маленький мир Асъяман. 💜",
+        avatarUrl: parsed.avatarUrl || "images/stassia-avatar.jpg",
+      };
+    } catch (e) {
+      console.warn("Не удалось загрузить профиль:", e);
+      return {
+        displayName: "Анастасия",
+        about:
+          "Я люблю белые розы, тёплые вечера и наш маленький мир Асъяман. 💜",
+        avatarUrl: "images/stassia-avatar.jpg",
+      };
     }
-  } else {
-    currentProfile = null;
-    accountView.style.display  = "none";
-    accountEdit.style.display  = "none";
-    accountGuest.style.display = "block";
   }
-});
 
-// Обработчики кнопок
-if (editBtn)   editBtn.addEventListener("click", openEdit);
-if (cancelBtn) cancelBtn.addEventListener("click", cancelEdit);
-if (saveBtn)   saveBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  saveProfile();
-});
+  function saveProfile(profile) {
+    const email = getCurrentEmail();
+    const key = getProfileKey(email);
+    try {
+      localStorage.setItem(key, JSON.stringify(profile));
+    } catch (e) {
+      console.warn("Не удалось сохранить профиль:", e);
+    }
+  }
+
+  function setStatus(message, type = "") {
+    if (!accountStatusEl) return;
+    accountStatusEl.textContent = message || "";
+    accountStatusEl.className = "auth-status";
+    if (type) {
+      accountStatusEl.classList.add(type);
+    }
+  }
+
+  function applyProfileToView(profile) {
+    if (accountDisplayNameSpan) {
+      accountDisplayNameSpan.textContent = profile.displayName || "";
+    }
+    if (accountAboutSpan) {
+      accountAboutSpan.textContent = profile.about || "";
+    }
+    if (accountAvatarImg) {
+      accountAvatarImg.src = profile.avatarUrl || "images/stassia-avatar.jpg";
+    }
+  }
+
+  function openEdit(profile) {
+    if (accountViewBlock) accountViewBlock.style.display = "none";
+    if (accountEditBlock) accountEditBlock.style.display = "";
+
+    if (accountDisplayNameInput) {
+      accountDisplayNameInput.value = profile.displayName || "";
+    }
+    if (accountAboutInput) {
+      accountAboutInput.value = profile.about || "";
+    }
+    if (accountAvatarInput) {
+      accountAvatarInput.value = profile.avatarUrl || "";
+    }
+
+    setStatus("");
+  }
+
+  function closeEdit() {
+    if (accountViewBlock) accountViewBlock.style.display = "";
+    if (accountEditBlock) accountEditBlock.style.display = "none";
+    setStatus("");
+  }
+
+  // ========= ИНИЦИАЛИЗАЦИЯ =========
+
+  function initAccount() {
+    // Если нет блока аккаунта — выходим
+    if (!accountViewBlock && !accountEditBlock) {
+      return;
+    }
+
+    const email = getCurrentEmail();
+    const profile = loadProfile();
+
+    // Покажем email, если есть
+    if (accountEmailSpan) {
+      accountEmailSpan.textContent = email || "";
+    }
+
+    applyProfileToView(profile);
+
+    // По умолчанию — режим просмотра
+    if (accountViewBlock) accountViewBlock.style.display = "";
+    if (accountEditBlock) accountEditBlock.style.display = "none";
+
+    // Если вообще нет email (гость) и при этом есть блок гостя — оставляем сообщение
+    if (!email && accountGuestBlock) {
+      // Гость увидит текст: "Чтобы увидеть и настроить свой профиль, войди..."
+      // Ничего дополнительно делать не нужно.
+    }
+
+    // Кнопка "Изменить профиль"
+    if (accountEditBtn) {
+      accountEditBtn.addEventListener("click", () => {
+        openEdit(profile);
+      });
+    }
+
+    // Кнопка "Сохранить"
+    if (accountSaveBtn) {
+      accountSaveBtn.addEventListener("click", () => {
+        const newProfile = {
+          displayName: accountDisplayNameInput?.value.trim() || profile.displayName,
+          about: accountAboutInput?.value.trim() || profile.about,
+          avatarUrl: accountAvatarInput?.value.trim() || profile.avatarUrl,
+        };
+
+        saveProfile(newProfile);
+        applyProfileToView(newProfile);
+        setStatus("Профиль сохранён 💾", "success");
+        closeEdit();
+      });
+    }
+
+    // Кнопка "Отмена"
+    if (accountCancelBtn) {
+      accountCancelBtn.addEventListener("click", () => {
+        // Просто закрываем редактирование без сохранения
+        closeEdit();
+      });
+    }
+  }
+
+  // Ждём DOM
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAccount);
+  } else {
+    initAccount();
+  }
+})();

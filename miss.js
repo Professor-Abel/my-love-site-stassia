@@ -1,163 +1,149 @@
 // miss.js
-// Логика страницы "Когда скучаешь": LocalStorage + Firestore
+// Логика для раздела "Когда скучаешь": добавление, удаление, очистка, localStorage.
 
-const STORAGE_KEY = "missMoments";
+(function () {
+  const STORAGE_KEY = "asyaman_miss";
 
-// ===== LocalStorage =====
-function loadMissMoments() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (e) {
-    console.error("Ошибка чтения missMoments:", e);
-    return [];
-  }
-}
-
-function saveMissMoments(list) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-  } catch (e) {
-    console.error("Ошибка сохранения missMoments:", e);
-  }
-}
-
-// ===== Firestore отправка =====
-function sendMissToFirestore(text) {
-  if (window.saveEntryToFirestore) {
-    window.saveEntryToFirestore("missMoments", text);
-  } else {
-    console.warn("Firestore недоступен или пользователь не авторизован");
-  }
-}
-
-// ===== Рендер =====
-function renderMissMoments() {
+  // DOM элементы
+  const inputEl = document.getElementById("missInput");
+  const addBtn = document.getElementById("addMissBtn");
+  const clearBtn = document.getElementById("clearMissBtn");
   const listEl = document.getElementById("missList");
-  const countEl = document.getElementById("missCount");
 
-  const items = loadMissMoments();
-  listEl.innerHTML = "";
-
-  if (items.length === 0) {
-    const li = document.createElement("li");
-    li.style.fontSize = "13px";
-    li.style.color = "var(--text-soft)";
-    li.textContent =
-      "Здесь пока пусто… но как только ты соскучишься, эта строчка станет нашей 💜";
-    listEl.appendChild(li);
-    if (countEl) countEl.textContent = "";
+  if (!inputEl || !addBtn || !clearBtn || !listEl) {
+    // Если блоки не найдены — тихо выходим
     return;
   }
 
-  // Счётчик
-  if (countEl) {
-    const c = items.length;
-    countEl.textContent =
-      c + " " + (c === 1 ? "момент" : c < 5 ? "момента" : "моментов");
+  // ====== Загружаем данные ======
+
+  function loadMiss() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed;
+    } catch (e) {
+      console.warn("Не удалось загрузить записи 'Когда скучаешь':", e);
+      return [];
+    }
   }
 
-  // Элементы
-  items.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.className = "miss-item";
+  function saveMiss(list) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.warn("Не удалось сохранить:", e);
+    }
+  }
 
-    const left = document.createElement("div");
+  // ====== Отрисовка ======
 
-    const text = document.createElement("div");
-    text.className = "miss-text";
-    text.textContent = item.text;
+  function renderMiss() {
+    const list = loadMiss();
+    listEl.innerHTML = "";
 
-    const meta = document.createElement("div");
-    meta.className = "miss-meta";
-    meta.textContent = item.date;
+    if (list.length === 0) {
+      const empty = document.createElement("div");
+      empty.textContent = "Пока здесь пусто… Напиши, когда скучаешь ❤️";
+      empty.style.fontSize = "12px";
+      empty.style.color = "rgba(148, 163, 184, 0.9)";
+      listEl.appendChild(empty);
+      return;
+    }
 
-    left.appendChild(text);
-    left.appendChild(meta);
+    list.forEach((item, index) => {
+      const row = document.createElement("div");
+      row.className = "miss-item";
 
-    const btn = document.createElement("button");
-    btn.className = "miss-remove-btn";
-    btn.innerHTML = "✕";
-    btn.title = "Удалить";
+      const left = document.createElement("div");
+      left.style.flex = "1";
 
-    btn.addEventListener("click", () => {
-      const arr = loadMissMoments();
-      arr.splice(index, 1);
-      saveMissMoments(arr);
-      renderMissMoments();
+      const textDiv = document.createElement("div");
+      textDiv.className = "miss-text";
+      textDiv.textContent = item.text || "";
+
+      const metaDiv = document.createElement("div");
+      metaDiv.className = "miss-meta";
+      metaDiv.textContent = item.date || "";
+
+      left.appendChild(textDiv);
+      left.appendChild(metaDiv);
+
+      const removeBtn = document.createElement("button");
+      removeBtn.className = "miss-remove-btn";
+      removeBtn.textContent = "×";
+      removeBtn.title = "Удалить";
+      removeBtn.addEventListener("click", () => removeMiss(index));
+
+      row.appendChild(left);
+      row.appendChild(removeBtn);
+
+      listEl.appendChild(row);
+    });
+  }
+
+  // ====== Логика действий ======
+
+  function addMiss(text) {
+    const trimmed = (text || "").trim();
+    if (!trimmed) return;
+
+    const list = loadMiss();
+    const now = new Date();
+
+    const dateStr = now.toLocaleString("ru-RU", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
 
-    li.appendChild(left);
-    li.appendChild(btn);
-    listEl.appendChild(li);
-  });
-}
+    list.unshift({
+      text: trimmed,
+      date: dateStr,
+    });
 
-// ===== Добавить момент =====
-function addMissMoment(customText = null) {
-  const input = document.getElementById("missInput");
-  const value = customText || (input ? input.value.trim() : "");
+    saveMiss(list);
+    renderMiss();
+  }
 
-  if (!value) return;
+  function removeMiss(index) {
+    const list = loadMiss();
+    if (index < 0 || index >= list.length) return;
+    list.splice(index, 1);
+    saveMiss(list);
+    renderMiss();
+  }
 
-  const now = new Date();
-  const dateStr = now.toLocaleString("ru-RU", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  function clearMiss() {
+    if (!confirm("Точно удалить все записи?")) return;
+    saveMiss([]);
+    renderMiss();
+  }
 
-  // LocalStorage
-  const list = loadMissMoments();
-  list.unshift({
-    text: value,
-    date: `Момент скучания от ${dateStr}`,
-  });
-  saveMissMoments(list);
+  // ====== Обработчики ======
 
-  // Firestore
-  sendMissToFirestore(value);
-
-  if (input) input.value = "";
-  renderMissMoments();
-}
-
-// ===== Init =====
-document.addEventListener("DOMContentLoaded", () => {
-  const addBtn = document.getElementById("missAddBtn");
-  const clearBtn = document.getElementById("missClearBtn");
-  const quickBtn = document.getElementById("missQuickBtn");
-  const input = document.getElementById("missInput");
-
-  addBtn?.addEventListener("click", () => addMissMoment());
-
-  clearBtn?.addEventListener("click", () => {
-    if (!confirm("Очистить все моменты?")) return;
-    saveMissMoments([]);
-    renderMissMoments();
+  addBtn.addEventListener("click", () => {
+    addMiss(inputEl.value);
+    inputEl.value = "";
+    inputEl.focus();
   });
 
-  const quickPhrases = [
-    "Я просто скучаю по тебе. Без объяснений.",
-    "Сейчас бы к тебе, обнять и молчать.",
-    "Каждой клеткой чувствую, что тебя не хватает.",
-    "Сегодня немного пусто, но мысль о тебе спасает.",
-    "Хочу услышать твой голос прямо сейчас.",
-  ];
-
-  quickBtn?.addEventListener("click", () => {
-    const phrase = quickPhrases[Math.floor(Math.random() * quickPhrases.length)];
-    addMissMoment(phrase);
+  clearBtn.addEventListener("click", () => {
+    clearMiss();
   });
 
-  input?.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      addMissMoment();
+  // Ctrl + Enter
+  inputEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && e.ctrlKey) {
+      addMiss(inputEl.value);
+      inputEl.value = "";
     }
   });
 
-  renderMissMoments();
-});
+  // Отрисовка при загрузке
+  renderMiss();
+})();
