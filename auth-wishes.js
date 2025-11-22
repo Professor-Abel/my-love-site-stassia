@@ -84,7 +84,8 @@ function saveLastUserInfo(email) {
 }
 
 // ==== ОБНОВЛЕНИЕ UI В ЗАВИСИМОСТИ ОТ СОСТОЯНИЯ АВТОРИЗАЦИИ ====
-function updateAuthUI(user) {
+function updateAuthUI(user) {if (authCard) authCard.style.display = "none";
+
   if (user) {
     const email = user.email || "";
     if (authGuestBlock) authGuestBlock.style.display = "none";
@@ -112,7 +113,7 @@ function updateAuthUI(user) {
     saveLastUserInfo(email);
 
     setAuthStatus("Вход выполнен", "success");
-  } else {
+  } else {if (authCard) authCard.style.display = "";
     // Нет пользователя
     if (authGuestBlock) authGuestBlock.style.display = "";
     if (authUserBlock) authUserBlock.style.display = "none";
