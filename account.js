@@ -14,9 +14,11 @@
   const accountDisplayNameSpan = document.getElementById("account-displayName");
   const accountAboutSpan = document.getElementById("account-about");
 
-  const accountDisplayNameInput = document.getElementById("account-displayName-input");
-  const accountAboutInput = document.getElementById("account-about-input");
-  const accountAvatarInput = document.getElementById("account-avatar-input");
+const accountDisplayNameInput = document.getElementById("account-displayName-input");
+const accountAboutInput = document.getElementById("account-about-input");
+const accountAvatarInput = document.getElementById("account-avatar-input");
+const accountAvatarFileInput = document.getElementById("account-avatar-file");
+
 
   const accountEditBtn = document.getElementById("account-edit-btn");
   const accountSaveBtn = document.getElementById("account-save-btn");
@@ -165,20 +167,55 @@
     }
 
     // Кнопка "Сохранить"
-    if (accountSaveBtn) {
-      accountSaveBtn.addEventListener("click", () => {
-        const newProfile = {
-          displayName: accountDisplayNameInput?.value.trim() || profile.displayName,
-          about: accountAboutInput?.value.trim() || profile.about,
-          avatarUrl: accountAvatarInput?.value.trim() || profile.avatarUrl,
-        };
+// Кнопка "Сохранить"
+if (accountSaveBtn) {
+  accountSaveBtn.addEventListener("click", () => {
+    const baseProfile = loadProfile();
 
-        saveProfile(newProfile);
-        applyProfileToView(newProfile);
-        setStatus("Профиль сохранён 💾", "success");
-        closeEdit();
-      });
+    const displayName =
+      (accountDisplayNameInput?.value || "").trim() || baseProfile.displayName;
+    const about =
+      (accountAboutInput?.value || "").trim() || baseProfile.about;
+    const urlFromInput = (accountAvatarInput?.value || "").trim();
+    const file =
+      accountAvatarFileInput && accountAvatarFileInput.files
+        ? accountAvatarFileInput.files[0]
+        : null;
+
+    const finishSave = (finalAvatarUrl) => {
+      const newProfile = {
+        displayName,
+        about,
+        avatarUrl: finalAvatarUrl || baseProfile.avatarUrl,
+      };
+
+      saveProfile(newProfile);
+      applyProfileToView(newProfile);
+      setStatus("Профиль сохранён 💾", "success");
+      closeEdit();
+    };
+
+    // Если выбрана фотография — читаем её как dataURL и сохраняем
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target && e.target.result ? String(e.target.result) : "";
+        finishSave(result || urlFromInput);
+      };
+      reader.onerror = () => {
+        setStatus(
+          "Не получилось прочитать файл. Попробуй другую фотографию 💔",
+          "error"
+        );
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Если файла нет — используем введённый URL или старый аватар
+      finishSave(urlFromInput);
     }
+  });
+}
+
 
     // Кнопка "Отмена"
     if (accountCancelBtn) {

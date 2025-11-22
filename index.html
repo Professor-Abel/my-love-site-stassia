@@ -225,7 +225,11 @@
                 </p>
 
                 <div class="wishes-list-wrapper">
-                  <h3 class="wishes-list-title">Наш список желаний</h3>
+                 <h3 class="wishes-list-title">
+  Наш список желаний
+  <span id="wishesCount" class="wishes-count-badge"></span>
+</h3>
+
                   <ul id="wishList" class="wishes-list">
                     <!-- Список желаний будет отрисован здесь -->
                   </ul>
@@ -527,17 +531,32 @@
                   ></textarea>
                 </div>
 
-                <div class="form-group">
-                  <label for="account-avatar-input">Ссылка на аватар (URL)</label>
-                  <input
-                    id="account-avatar-input"
-                    type="url"
-                    placeholder="https://.../твоя-фотография.jpg"
-                  />
-                  <p class="auth-note">
-                    Позже можно будет загружать аватар прямо сюда, а пока — через ссылку.
-                  </p>
-                </div>
+<div class="form-group">
+  <label for="account-avatar-file">Твой аватар</label>
+  <div class="avatar-file-row">
+    <input
+      id="account-avatar-file"
+      type="file"
+      accept="image/*"
+    />
+  </div>
+  <p class="auth-note">
+    Можешь выбрать фотографию с телефона или компьютера. Она сохранится только в этом браузере.
+  </p>
+</div>
+
+<div class="form-group">
+  <label for="account-avatar-input">Или ссылка на аватар (URL)</label>
+  <input
+    id="account-avatar-input"
+    type="url"
+    placeholder="https://.../твоя-фотография.jpg"
+  />
+  <p class="auth-note">
+    Если хочешь, можно использовать ссылку — например, с облака или соцсетей.
+  </p>
+</div>
+
 
                 <div style="display: flex; gap: 8px; margin-top: 12px;">
                   <button id="account-save-btn" class="btn btn-main">

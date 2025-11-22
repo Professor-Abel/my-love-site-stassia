@@ -98,6 +98,11 @@ function updateAuthUI(user) {
     if (authUserBlock) authUserBlock.style.display = "";
     if (authUserEmailSpan) authUserEmailSpan.textContent = email;
 
+    // После входа прячем форму логина/регистрации
+    if (authForm) {
+      authForm.style.display = "none";
+    }
+
     // Аккаунт
     if (accountGuestBlock) accountGuestBlock.style.display = "none";
     if (accountViewBlock) accountViewBlock.style.display = "";
@@ -110,10 +115,34 @@ function updateAuthUI(user) {
       settingsAccountInfo.textContent = "Вход выполнен как: " + email;
     }
 
-    // Сохраним почту в localStorage (для настроек)
+    // Сохраняем почту в localStorage (для настроек профиля)
     saveLastUserInfo(email);
 
     setAuthStatus("Вход выполнен", "success");
+  } else {
+    // Нет пользователя
+    if (authGuestBlock) authGuestBlock.style.display = "";
+    if (authUserBlock) authUserBlock.style.display = "none";
+    if (authUserEmailSpan) authUserEmailSpan.textContent = "";
+
+    // Показываем форму авторизации снова
+    if (authForm) {
+      authForm.style.display = "";
+    }
+
+    // Аккаунт
+    if (accountGuestBlock) accountGuestBlock.style.display = "";
+    if (accountViewBlock) accountViewBlock.style.display = "none";
+    if (accountEmailSpan) accountEmailSpan.textContent = "";
+
+    if (settingsAccountInfo) {
+      settingsAccountInfo.textContent =
+        "Гость (зайди в дневник, чтобы сохранить настройки)";
+    }
+
+    setAuthStatus("");
+  }
+
   } else {
     // Нет пользователя
     if (authGuestBlock) authGuestBlock.style.display = "";
@@ -223,11 +252,13 @@ onAuthStateChanged(auth, (user) => {
 // Ключ для хранения в localStorage
 const WISHES_KEY = "asyaman_wishes";
 
-// DOM элементы для желаний
+// Элементы для желаний
 const wishInput = document.getElementById("wishInput");
 const addWishBtn = document.getElementById("addWishBtn");
 const clearWishesBtn = document.getElementById("clearWishesBtn");
 const wishListElement = document.getElementById("wishList");
+const wishesCountElement = document.getElementById("wishesCount");
+
 
 // Загрузка желаний из localStorage
 function loadWishes() {
@@ -258,6 +289,11 @@ function renderWishes() {
   const wishes = loadWishes();
   wishListElement.innerHTML = "";
 
+  // Обновляем счётчик желаний в заголовке
+  if (wishesCountElement) {
+    wishesCountElement.textContent = wishes.length ? wishes.length + " шт." : "";
+  }
+
   if (wishes.length === 0) {
     const li = document.createElement("li");
     li.textContent = "Пока здесь пусто. Напиши первое желание ✨";
@@ -266,6 +302,40 @@ function renderWishes() {
     wishListElement.appendChild(li);
     return;
   }
+
+  wishes.forEach((wish, index) => {
+    const li = document.createElement("li");
+    li.className = "wish-item";
+
+    const left = document.createElement("div");
+    left.style.flex = "1";
+
+    const textDiv = document.createElement("div");
+    textDiv.className = "wish-text";
+    textDiv.textContent = wish.text || "";
+
+    const metaDiv = document.createElement("div");
+    metaDiv.className = "wish-meta";
+    metaDiv.textContent = wish.date || "";
+
+    left.appendChild(textDiv);
+    left.appendChild(metaDiv);
+
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "wish-remove-btn";
+    removeBtn.textContent = "×";
+    removeBtn.title = "Удалить";
+
+    removeBtn.addEventListener("click", () => {
+      removeWish(index);
+    });
+
+    li.appendChild(left);
+    li.appendChild(removeBtn);
+    wishListElement.appendChild(li);
+  });
+}
+
 
   wishes.forEach((wish, index) => {
     const li = document.createElement("li");

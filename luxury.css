@@ -2172,3 +2172,44 @@
       max-width: 720px;
       margin: 0 auto;
     }
+/* Счётчик количества желаний рядом с заголовком */
+.wishes-count-badge {
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  color: var(--text-soft);
+  letter-spacing: 0.02em;
+}
+
+/* Поле выбора файла для аватара в профиле */
+.avatar-file-row input[type="file"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px dashed rgba(148, 163, 184, 0.8);
+  background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.06), transparent 55%),
+    rgba(15, 23, 42, 0.96);
+  font-size: 13px;
+  color: var(--text-soft);
+  cursor: pointer;
+}
+
+.avatar-file-row input[type="file"]::file-selector-button {
+  border: none;
+  margin-right: 10px;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  background: linear-gradient(135deg, var(--accent), #fb923c);
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.avatar-file-row input[type="file"]:hover::file-selector-button {
+  filter: brightness(1.05);
+  transform: translateY(-0.5px);
+}
