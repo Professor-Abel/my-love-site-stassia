@@ -39,6 +39,8 @@ const authStatusElement = document.getElementById("auth-status");
 const authMainButton = document.getElementById("authMainButton");
 const googleLoginBtn = document.getElementById("googleLoginBtn");
 
+const authCard = document.getElementById("authCard");
+
 const authGuestBlock = document.getElementById("auth-guest-block");
 const authUserBlock = document.getElementById("auth-user-block");
 const authUserEmailSpan = document.getElementById("authUserEmail");
