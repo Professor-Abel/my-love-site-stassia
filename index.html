@@ -239,56 +239,8 @@
 </section>
 
 
-                <!-- Блок для неавторизованных -->
-                <div id="auth-guest-block">
-                  <p class="auth-note">
-                    Ты ещё не вошла. Авторизуйся, чтобы записывать желания, мысли и сохранять всё в своём профиле.
-                  </p>
-                </div>
 
-                <!-- Блок для авторизованных -->
-                <div id="auth-user-block" style="display: none;">
-                  <p class="auth-note">
-                    Вход выполнен как <span id="authUserEmail" class="auth-user-email"></span>.
-                  </p>
-                  <button id="logoutBtn" class="btn btn-outline btn-full">
-                    🚪 Выйти из аккаунта
-                  </button>
-                </div>
 
-                <form id="authForm" class="auth-form">
-                  <div class="tabs">
-                    <button type="button" class="tab-button active" data-mode="login">Войти</button>
-                    <button type="button" class="tab-button" data-mode="register">Регистрация</button>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="authEmail">Email</label>
-                    <input type="email" id="authEmail" placeholder="твоя почта" autocomplete="email" />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="authPassword">Пароль</label>
-                    <input type="password" id="authPassword" placeholder="твой пароль" autocomplete="current-password" />
-                  </div>
-
-                  <button type="submit" id="authMainButton" class="btn btn-main btn-full">
-                    Войти
-                  </button>
-
-                  <button type="button" id="googleLoginBtn" class="btn btn-google btn-full">
-                    Войти через Google
-                  </button>
-
-                  <p class="auth-note">
-                    Регистрация нужна, чтобы мы могли хранить твои желания и мысли именно под твоим аккаунтом,
-                    а не просто в браузере.
-                  </p>
-                </form>
-
-                <p id="auth-status" class="auth-status"></p>
-              </div>
-            </section>
 
             <!-- Правая часть: желания -->
             <section class="card wishes-card">
