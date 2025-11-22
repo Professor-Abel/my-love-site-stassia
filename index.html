@@ -120,127 +120,70 @@
 
       <!-- Центральная колонка (лента) -->
       <section class="layout-center">
-<!-- ============ СЕКЦИЯ ЖЕЛАНИЙ — КОМНАТА МЕЧТЫ ============ -->
-<section id="wishes" class="page-inner">
-  <div class="main-grid">
-    <!-- Левая карточка: авторизация -->
-    <section class="card">
-      <div class="card-inner">
-        <div class="card-header">
-          <div class="card-kicker">ДОСТУП К ДНЕВНИКУ</div>
-          <h2 class="card-title">Вход и регистрация</h2>
-          <p class="card-subtitle">
-            Это вход в наш закрытый мир. Здесь ты можешь войти в свой дневник желаний
-            или создать новый аккаунт, чтобы сайт знал именно тебя.
-          </p>
-        </div>
+        <!-- ============ СЕКЦИЯ ЖЕЛАНИЙ ============ -->
+        <section id="wishes" class="page-inner">
+          <div class="main-grid">
+            <!-- Левая карточка: авторизация -->
+            <section class="card">
+              <div class="card-inner">
+                <div class="card-header">
+                  <div class="card-kicker">ДОСТУП К ДНЕВНИКУ</div>
+                  <h2 class="card-title">Вход и регистрация</h2>
+                  <p class="card-subtitle">
+                    Здесь ты можешь войти в свой дневник желаний или создать новый аккаунт.
+                  </p>
+                </div>
 
-        <!-- Блок для неавторизованных -->
-        <div id="auth-guest-block">
-          <p class="auth-note">
-            Ты ещё не вошла. Авторизуйся, чтобы Комната мечты и остальные разделы
-            действительно принадлежали только тебе.
-          </p>
-        </div>
+                <!-- Блок для неавторизованных -->
+                <div id="auth-guest-block">
+                  <p class="auth-note">
+                    Ты ещё не вошла. Авторизуйся, чтобы записывать желания, мысли и сохранять всё в своём профиле.
+                  </p>
+                </div>
 
-        <!-- Блок для авторизованных -->
-        <div id="auth-user-block" style="display: none;">
-          <p class="auth-note">
-            Вход выполнен как <span id="authUserEmail" class="auth-user-email"></span>.
-          </p>
-          <button id="logoutBtn" class="btn btn-outline btn-full">
-            🚪 Выйти из аккаунта
-          </button>
-        </div>
+                <!-- Блок для авторизованных -->
+                <div id="auth-user-block" style="display: none;">
+                  <p class="auth-note">
+                    Вход выполнен как <span id="authUserEmail" class="auth-user-email"></span>.
+                  </p>
+                  <button id="logoutBtn" class="btn btn-outline btn-full">
+                    🚪 Выйти из аккаунта
+                  </button>
+                </div>
 
-        <form id="authForm" class="auth-form">
-          <div class="tabs">
-            <button type="button" class="tab-button active" data-mode="login">Войти</button>
-            <button type="button" class="tab-button" data-mode="register">Регистрация</button>
-          </div>
+                <form id="authForm" class="auth-form">
+                  <div class="tabs">
+                    <button type="button" class="tab-button active" data-mode="login">Войти</button>
+                    <button type="button" class="tab-button" data-mode="register">Регистрация</button>
+                  </div>
 
-          <div class="form-group">
-            <label for="authEmail">Email</label>
-            <input type="email" id="authEmail" placeholder="твоя почта" autocomplete="email" />
-          </div>
+                  <div class="form-group">
+                    <label for="authEmail">Email</label>
+                    <input type="email" id="authEmail" placeholder="твоя почта" autocomplete="email" />
+                  </div>
 
-          <div class="form-group">
-            <label for="authPassword">Пароль</label>
-            <input type="password" id="authPassword" placeholder="твой пароль" autocomplete="current-password" />
-          </div>
+                  <div class="form-group">
+                    <label for="authPassword">Пароль</label>
+                    <input type="password" id="authPassword" placeholder="твой пароль" autocomplete="current-password" />
+                  </div>
 
-          <button type="submit" id="authMainButton" class="btn btn-main btn-full">
-            Войти
-          </button>
+                  <button type="submit" id="authMainButton" class="btn btn-main btn-full">
+                    Войти
+                  </button>
 
-          <button type="button" id="googleLoginBtn" class="btn btn-google btn-full">
-            Войти через Google
-          </button>
+                  <button type="button" id="googleLoginBtn" class="btn btn-google btn-full">
+                    Войти через Google
+                  </button>
 
-          <p class="auth-note">
-            Регистрация нужна, чтобы мы могли хранить твои желания и мысли именно под твоим аккаунтом,
-            а не просто в браузере.
-          </p>
-        </form>
+                  <p class="auth-note">
+                    Регистрация нужна, чтобы мы могли хранить твои желания и мысли именно под твоим аккаунтом,
+                    а не просто в браузере.
+                  </p>
+                </form>
 
-        <p id="auth-status" class="auth-status"></p>
-      </div>
-    </section>
-
-    <!-- Правая часть: Комната мечты -->
-    <section class="card wishes-card">
-      <div class="card-inner wishes-card-inner">
-        <div class="wishes-header">
-          <div class="wishes-kicker">КОМНАТА МЕЧТЫ</div>
-          <h2 class="wishes-title">
-            Место, где живут твои желания
-            <span>сюда попадает всё, что ты хочешь прожить со мной</span>
-          </h2>
-          <p class="wishes-subtitle">
-            Представь, что это отдельная комната в нашем мире Асъяман.
-            Ты заходишь сюда, закрываешь дверь от всего лишнего и пишешь только то,
-            что по-настоящему чувствуешь и хочешь.
-          </p>
-        </div>
-
-        <label for="wishInput" class="wishes-label">
-          О чём ты мечтаешь прямо сейчас?
-        </label>
-        <textarea
-          id="wishInput"
-          class="wishes-textarea"
-          rows="3"
-          placeholder="Например: однажды мы просыпаемся утром в своей квартире, рядом стоит кофе, и никуда не нужно спешить..."
-        ></textarea>
-
-        <div class="wishes-actions">
-          <button id="addWishBtn" class="btn btn-main">
-            ✨ Сохранить желание
-          </button>
-          <button id="clearWishesBtn" class="btn btn-outline">
-            🧹 Очистить список
-          </button>
-        </div>
-
-        <p class="wishes-hint">
-          Нажми <strong>Ctrl+Enter</strong>, чтобы быстро сохранить желание.
-          Комната мечты запоминает всё, даже если ты обновишь страницу.
-        </p>
-
-        <div class="wishes-list-wrapper">
-          <h3 class="wishes-list-title">Наш список желаний</h3>
-          <ul id="wishList" class="wishes-list">
-            <!-- Список желаний будет отрисован здесь -->
-          </ul>
-        </div>
-      </div>
-    </section>
-  </div>
-</section>
-
-
-
-
+                <p id="auth-status" class="auth-status"></p>
+              </div>
+            </section>
 
             <!-- Правая часть: желания -->
             <section class="card wishes-card">
