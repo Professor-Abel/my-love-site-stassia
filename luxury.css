@@ -2314,16 +2314,26 @@
 
 /* ===== ПРАВИЛЬНАЯ РАЗМЕТКА ЛЕНТЫ ===== */
 
-.main-grid {
-  display: grid;
-  grid-template-columns: 260px 1fr 260px; /* левая | центр | правая */
-  gap: 32px;
-  align-items: start;
-}
+
 
 /* Центрированная лента */
 .wishes-card {
   max-width: 540px;   /* аккуратно, не ломая сетку */
   width: 100%;
   margin: 0 auto;
+}
+/* === ПРАВИЛЬНАЯ СЕТКА ДЛЯ ВСЕХ СТРАНИЦ === */
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr) 280px;
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+}
+/* ЛЕНТА желаний — идеальная ширина */
+.wishes-card {
+  max-width: 580px;
+  margin: 0 auto;
+  width: 100%;
 }
