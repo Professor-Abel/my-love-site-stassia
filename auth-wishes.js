@@ -4,24 +4,24 @@
 // ==== ИМПОРТЫ ИЗ FIREBASE (CDN) ====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import {
-    getAuth,
-    onAuthStateChanged,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    GoogleAuthProvider,
-    signInWithPopup,
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCbgO8b96hAGU3kvwkjsv1x1Is-879Mbgc",
-  authDomain: "asyaman-auth-wishes.firebaseapp.com",
-  projectId: "asyaman-auth-wishes",
-  storageBucket: "asyaman-auth-wishes.firebasestorage.app",
-  messagingSenderId: "1006189945241",
-  appId: "1:1006189945241:web:ae5f96e9b16bbf38cbf06c",
-  measurementId: "G-48WT4REHLC"
+  authDomain: "asyaman-4d584.firebaseapp.com",
+  projectId: "asyaman-4d584",
+  storageBucket: "asyaman-4d584.appspot.com",
+  messagingSenderId: "449565900879",
+  appId: "1:449565900879:web:87a77a26eaa46398f5fd24",
+  measurementId: "G-ZM9R0JWC1V",
 };
 
 // Инициализация Firebase
@@ -29,10 +29,12 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
-// ==== ЭЛЕМЕНТЫ АВТОРИЗАЦИИ ====
+// ==== КОНСТАНТЫ КЛЮЧЕЙ ДЛЯ localStorage ====
+const WISHES_KEY = "asyaman_wishes";
+const LAST_EMAIL_KEY = "asyaman_last_email";
+
+// ==== DOM-ЭЛЕМЕНТЫ ДЛЯ АВТОРИЗАЦИИ ====
 const authForm = document.getElementById("authForm");
-const authEmailInput = document.getElementById("authEmail");
-const authPasswordInput = document.getElementById("authPassword");
 const authStatusElement = document.getElementById("auth-status");
 const authMainButton = document.getElementById("authMainButton");
 const googleLoginBtn = document.getElementById("googleLoginBtn");
@@ -49,48 +51,37 @@ const accountGuestBlock = document.getElementById("account-guest");
 const accountViewBlock = document.getElementById("account-view");
 const accountEmailSpan = document.getElementById("account-email");
 
-// Статус аккаунта в настройках
-const settingsAccountInfo = document.getElementById("settingsAccountInfo");
+// Блок настроек (текст "вход выполнен как...")
+const settingsAccountInfo = document.getElementById("settings-account-info");
 
-// Переменная для режима (login / register)
-let authMode = "login"; // по умолчанию
-
-// Смена вкладок (Вход/Регистрация)
-tabButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    tabButtons.forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-    authMode = btn.dataset.mode || "login";
-
-    if (authMode === "login") {
-      authMainButton.textContent = "Войти";
-    } else {
-      authMainButton.textContent = "Зарегистрироваться";
-    }
-  });
-});
-
-// Установка текста статуса
+// ==== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ СТАТУСА ====
 function setAuthStatus(message, type = "") {
   if (!authStatusElement) return;
   authStatusElement.textContent = message || "";
-  authStatusElement.className = "auth-status";
-  if (type) {
-    authStatusElement.classList.add(type);
+
+  authStatusElement.classList.remove("status-error", "status-success");
+  if (type === "error") {
+    authStatusElement.classList.add("status-error");
+  } else if (type === "success") {
+    authStatusElement.classList.add("status-success");
   }
 }
 
-// Сохранение информации о последнем аккаунте (для отображения в настройках)
+// Сохраняем почту последнего вошедшего пользователя,
+// чтобы привязать к ней профиль (account.js)
 function saveLastUserInfo(email) {
-  if (!email) return;
   try {
-    localStorage.setItem("asyaman_last_email", email);
+    if (email) {
+      localStorage.setItem(LAST_EMAIL_KEY, email);
+    } else {
+      localStorage.removeItem(LAST_EMAIL_KEY);
+    }
   } catch (e) {
     console.warn("Не удалось сохранить last_email:", e);
   }
 }
 
-// ==== ОБНОВЛЕНИЕ UI В ЗАВИСИМОСТИ ОТ СОСТОЯНИЯ ВХОДА ====
+// ==== ОБНОВЛЕНИЕ UI В ЗАВИСИМОСТИ ОТ СОСТОЯНИЯ АВТОРИЗАЦИИ ====
 function updateAuthUI(user) {
   if (user) {
     const email = user.email || "";
@@ -140,125 +131,104 @@ function updateAuthUI(user) {
         "Гость (зайди в дневник, чтобы сохранить настройки)";
     }
 
-    setAuthStatus("");
-  }
-
-  } else {
-    // Нет пользователя
-    if (authGuestBlock) authGuestBlock.style.display = "";
-    if (authUserBlock) authUserBlock.style.display = "none";
-    if (authUserEmailSpan) authUserEmailSpan.textContent = "";
-
-    // Аккаунт
-    if (accountGuestBlock) accountGuestBlock.style.display = "";
-    if (accountViewBlock) accountViewBlock.style.display = "none";
-    if (accountEmailSpan) accountEmailSpan.textContent = "";
-
-    if (settingsAccountInfo) {
-      settingsAccountInfo.textContent = "Гость (зайди в дневник, чтобы сохранить настройки)";
-    }
-
+    saveLastUserInfo("");
     setAuthStatus("");
   }
 }
 
 // ==== ОБРАБОТЧИК ФОРМЫ АВТОРИЗАЦИИ ====
 if (authForm) {
-  authForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  authForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-    const email = (authEmailInput?.value || "").trim();
-    const password = authPasswordInput?.value || "";
+    const emailInput = document.getElementById("authEmail");
+    const passwordInput = document.getElementById("authPassword");
+
+    if (!emailInput || !passwordInput) return;
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
 
     if (!email || !password) {
-      setAuthStatus("Пожалуйста, заполни email и пароль", "error");
+      setAuthStatus("Заполни email и пароль 💌", "error");
       return;
     }
 
-    setAuthStatus("Подождём немного…", "");
+    // Определяем режим: вход или регистрация
+    const currentModeButton = document.querySelector(
+      ".tab-button.active[data-mode]"
+    );
+    const mode = currentModeButton?.dataset.mode || "login";
 
     try {
-      let userCredential;
-      if (authMode === "register") {
-        // Регистрация
-        userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        setAuthStatus("Регистрация успешна, вход выполнен", "success");
+      if (mode === "register") {
+        await createUserWithEmailAndPassword(auth, email, password);
+        setAuthStatus("Аккаунт создан, вход выполнен 💜", "success");
       } else {
-        // Вход
-        userCredential = await signInWithEmailAndPassword(auth, email, password);
-        setAuthStatus("Вход выполнен", "success");
-      }
-
-      const user = userCredential.user;
-      if (user && user.email) {
-        saveLastUserInfo(user.email);
+        await signInWithEmailAndPassword(auth, email, password);
+        setAuthStatus("С возвращением 💫", "success");
       }
     } catch (error) {
       console.error("Ошибка авторизации:", error);
-      let msg = "Произошла ошибка. Попробуй ещё раз.";
-      if (error.code === "auth/invalid-email") {
-        msg = "Некорректный email.";
-      } else if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
-        msg = "Неверный email или пароль.";
-      } else if (error.code === "auth/email-already-in-use") {
-        msg = "Такой email уже зарегистрирован. Попробуйте войти.";
-      } else if (error.code === "auth/weak-password") {
-        msg = "Пароль слишком слабый. Попробуй что-то посложнее.";
-      }
-      setAuthStatus(msg, "error");
+      setAuthStatus("Не получилось войти. Проверь данные 🥺", "error");
     }
   });
 }
 
-// Вход через Google
-if (googleLoginBtn) {
-  googleLoginBtn.addEventListener("click", async () => {
-    setAuthStatus("Открываю окно Google…", "");
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      const email = user?.email || "";
-      if (email) {
-        saveLastUserInfo(email);
-      }
-      setAuthStatus("Вход через Google выполнен", "success");
-    } catch (error) {
-      console.error("Ошибка входа через Google:", error);
-      setAuthStatus("Не удалось войти через Google. Попробуй ещё раз.", "error");
+// ==== КНОПКИ ТАБОВ "ВОЙТИ / РЕГИСТРАЦИЯ" ====
+tabButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    tabButtons.forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const mode = btn.dataset.mode || "login";
+    if (authMainButton) {
+      authMainButton.textContent = mode === "register" ? "Зарегистрироваться" : "Войти";
     }
   });
-}
+});
 
-// Выход
+// ==== ВЫХОД ИЗ АККАУНТА ====
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
       await signOut(auth);
-      setAuthStatus("Вы вышли из аккаунта", "success");
+      setAuthStatus("Ты вышла из аккаунта 💌", "success");
     } catch (error) {
       console.error("Ошибка при выходе:", error);
-      setAuthStatus("Не получилось выйти. Попробуй ещё раз.", "error");
+      setAuthStatus("Не получилось выйти из аккаунта", "error");
     }
   });
 }
 
-// Слушатель изменения состояния авторизации
+// ==== ВХОД ЧЕРЕЗ GOOGLE ====
+if (googleLoginBtn) {
+  googleLoginBtn.addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      setAuthStatus("Вход через Google выполнен ✨", "success");
+    } catch (error) {
+      console.error("Ошибка входа через Google:", error);
+      setAuthStatus("Не получилось войти через Google", "error");
+    }
+  });
+}
+
+// ==== ОТСЛЕЖИВАНИЕ СОСТОЯНИЯ АВТОРИЗАЦИИ ====
 onAuthStateChanged(auth, (user) => {
   updateAuthUI(user);
 });
 
-// ==== ЛОГИКА ЖЕЛАНИЙ (localStorage) ====
+// ==============================
+//        ЛОГИКА ЖЕЛАНИЙ
+// ==============================
 
-// Ключ для хранения в localStorage
-const WISHES_KEY = "asyaman_wishes";
-
-// Элементы для желаний
+// DOM элементы для желаний
 const wishInput = document.getElementById("wishInput");
 const addWishBtn = document.getElementById("addWishBtn");
 const clearWishesBtn = document.getElementById("clearWishesBtn");
 const wishListElement = document.getElementById("wishList");
 const wishesCountElement = document.getElementById("wishesCount");
-
 
 // Загрузка желаний из localStorage
 function loadWishes() {
@@ -283,13 +253,53 @@ function saveWishes(wishes) {
   }
 }
 
+// Добавление желания
+function addWish(text) {
+  const trimmed = (text || "").trim();
+  if (!trimmed) return;
+
+  const wishes = loadWishes();
+  const now = new Date();
+  const dateStr = now.toLocaleString("ru-RU", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  wishes.unshift({
+    text: trimmed,
+    date: dateStr,
+  });
+
+  saveWishes(wishes);
+  renderWishes();
+}
+
+// Удаление одного желания
+function removeWish(index) {
+  const wishes = loadWishes();
+  if (index < 0 || index >= wishes.length) return;
+  wishes.splice(index, 1);
+  saveWishes(wishes);
+  renderWishes();
+}
+
+// Очистка всех желаний
+function clearWishes() {
+  if (!confirm("Точно хочешь очистить все желания? 🥺")) return;
+  saveWishes([]);
+  renderWishes();
+}
+
 // Отрисовка списка желаний
 function renderWishes() {
   if (!wishListElement) return;
   const wishes = loadWishes();
   wishListElement.innerHTML = "";
 
-  // Обновляем счётчик желаний в заголовке
+  // Обновляем счётчик желаний
   if (wishesCountElement) {
     wishesCountElement.textContent = wishes.length ? wishes.length + " шт." : "";
   }
@@ -336,100 +346,35 @@ function renderWishes() {
   });
 }
 
-
-  wishes.forEach((wish, index) => {
-    const li = document.createElement("li");
-    li.className = "wish-item";
-
-    const left = document.createElement("div");
-    left.style.flex = "1";
-
-    const textDiv = document.createElement("div");
-    textDiv.className = "wish-text";
-    textDiv.textContent = wish.text || "";
-
-    const metaDiv = document.createElement("div");
-    metaDiv.className = "wish-meta";
-    metaDiv.textContent = wish.date || "";
-
-    left.appendChild(textDiv);
-    left.appendChild(metaDiv);
-
-    const removeBtn = document.createElement("button");
-    removeBtn.className = "wish-remove-btn";
-    removeBtn.textContent = "×";
-    removeBtn.title = "Удалить желание";
-    removeBtn.addEventListener("click", () => {
-      removeWish(index);
-    });
-
-    li.appendChild(left);
-    li.appendChild(removeBtn);
-    wishListElement.appendChild(li);
-  });
-}
-
-// Добавление нового желания
-function addWish(text) {
-  const trimmed = (text || "").trim();
-  if (!trimmed) return;
-
-  const wishes = loadWishes();
-  const now = new Date();
-  const dateStr = now.toLocaleString("ru-RU", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-
-  wishes.unshift({
-    text: trimmed,
-    date: dateStr
-  });
-
-  saveWishes(wishes);
-  renderWishes();
-}
-
-// Удаление одного желания по индексу
-function removeWish(index) {
-  const wishes = loadWishes();
-  if (index < 0 || index >= wishes.length) return;
-  wishes.splice(index, 1);
-  saveWishes(wishes);
-  renderWishes();
-}
-
-// Очистка всех желаний
-function clearWishes() {
-  if (!confirm("Точно удалить все желания?")) return;
-  saveWishes([]);
-  renderWishes();
-}
-
-// Обработчики для формы желаний
-if (addWishBtn && wishInput) {
-  addWishBtn.addEventListener("click", () => {
-    addWish(wishInput.value);
-    wishInput.value = "";
-    wishInput.focus();
-  });
-
-  wishInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && e.ctrlKey) {
+// ==== ИНИЦИАЛИЗАЦИЯ БЛОКА ЖЕЛАНИЙ ====
+function initWishes() {
+  if (addWishBtn) {
+    addWishBtn.addEventListener("click", () => {
+      if (!wishInput) return;
       addWish(wishInput.value);
       wishInput.value = "";
-    }
-  });
+      wishInput.focus();
+    });
+  }
+
+  if (wishInput) {
+    wishInput.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        addWish(wishInput.value);
+        wishInput.value = "";
+      }
+    });
+  }
+
+  if (clearWishesBtn) {
+    clearWishesBtn.addEventListener("click", () => {
+      clearWishes();
+    });
+  }
+
+  renderWishes();
 }
 
-if (clearWishesBtn) {
-  clearWishesBtn.addEventListener("click", () => {
-    clearWishes();
-  });
-}
-
-// При загрузке страницы сразу отрисуем список
-renderWishes();
+document.addEventListener("DOMContentLoaded", () => {
+  initWishes();
+});
