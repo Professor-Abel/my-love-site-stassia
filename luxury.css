@@ -2312,31 +2312,18 @@
 }
 /* === НОВЫЕ ПРОПОРЦИИ ЛЕНТЫ === */
 
-/* Контейнер, в котором находится лента желаний */
-.layout-center {
-  max-width: 1080px;       /* шире */
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: center;
-  gap: 40px;               /* расстояние между лентой и правым блоком */
+/* ===== ПРАВИЛЬНАЯ РАЗМЕТКА ЛЕНТЫ ===== */
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr 260px; /* левая | центр | правая */
+  gap: 32px;
+  align-items: start;
 }
 
-/* Центральная карточка желаний */
+/* Центрированная лента */
 .wishes-card {
-  max-width: 680px !important;   /* делаем прямо идеально по центру */
+  max-width: 540px;   /* аккуратно, не ломая сетку */
   width: 100%;
   margin: 0 auto;
-}
-
-/* Чтобы правая панель была уже и не съедала место */
-.right-sidebar {
-  width: 260px;
-  flex-shrink: 0;
-}
-
-/* Чтобы левая панель при залогиненном состоянии совсем не давила */
-.left-sidebar {
-  width: 240px;
-  flex-shrink: 0;
 }
