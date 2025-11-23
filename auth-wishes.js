@@ -25,7 +25,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // ==== ТВОЙ FIREBASE CONFIG ====
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
   apiKey: "AIzaSyCbgO8b96hAGU3kvwkjsv1x1Is-879Mbgc",
   authDomain: "asyaman-40f1f.firebaseapp.com",
@@ -38,7 +38,7 @@ const firebaseConfig = {
 
 // ==== UID ВЛАДЕЛЬЦА (ДЛЯ АДМИНКИ / ССЫЛКИ) ====
 const OWNER_UIDS = [QgveUKbsJLUOA3oehvXgTEbTg1S2
- 
+
 ];
 
 // ==== ИНИЦИАЛИЗАЦИЯ ====
