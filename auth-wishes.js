@@ -27,14 +27,15 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // ==== ТВОЙ FIREBASE-КОНФИГ ====
-// ВСТАВЬ СЮДА СВОЙ РЕАЛЬНЫЙ КОНФИГ
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_DOMAIN.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyCbgO8b96hAGU3kvwkjsv1x1Is-879Mbgc",
+  authDomain: "asyaman-40f1f.firebaseapp.com",
+  projectId: "asyaman-40f1f",
+  storageBucket: "asyaman-40f1f.firebasestorage.app",
+  messagingSenderId: "780594675672",
+  appId: "1:780594675672:web:27766d673b4255a281bcad",
+  measurementId: "G-LBMZLEY4Y5"
 };
 
 // ==== ИНИЦИАЛИЗАЦИЯ ====

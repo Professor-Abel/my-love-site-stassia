@@ -10,26 +10,9 @@
   <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
   <link rel="apple-touch-icon" href="favicon-asyaman.png" />
 
-  <!-- SEO / превью -->
+  <!-- Описание -->
   <meta name="description"
-        content="Особое письмо, которое живёт только в нашем маленьком мире Асъяман." />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Асъяман" />
-  <meta property="og:title" content="Письмо — Асъяман" />
-  <meta property="og:description"
-        content="Письмо, написанное только для тебя. Открой его, когда захочешь почувствовать меня рядом." />
-  <meta property="og:url" content="https://asyaman.com/letter.html" />
-  <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Письмо — Асъяман" />
-  <meta name="twitter:description"
-        content="Один экран, одно письмо и весь мой мир в словах для тебя." />
-  <meta name="twitter:image" content="https://asyaman.com/preview-asyaman.png" />
+        content="Личное письмо внутри Асъяман — места, где всё сказанное остаётся только между нами." />
 
   <!-- Шрифты -->
   <link
@@ -39,22 +22,37 @@
 
   <style>
     :root {
-      --bg-main: radial-gradient(circle at top, #2b1b3f, #05030a 55%, #050308 100%);
       --card-bg: rgba(17, 10, 32, 0.9);
       --card-border: rgba(255, 255, 255, 0.08);
       --accent: #ff4f9a;
-      --accent-soft: rgba(255, 79, 154, 0.25);
+      --accent-soft: #7f5bff;
       --accent-gold: #ffd56b;
-      --text-main: #fdf5ff;
-      --text-soft: #cbb8ff;
-      --text-secondary: #fdf5ff;
+      --accent-green: #4ade80;
+
+      --text-main: #f7f4ff;
+      --text-soft: rgba(232, 228, 255, 0.8);
       --text-muted: #9ca3af;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
-      --radius-xl: 26px;
+
+      --radius-xl: 32px;
+      --shadow-soft: 0 22px 70px rgba(0, 0, 0, 0.85);
+
+      --transition-fast: 0.18s ease-out;
     }
 
     * {
       box-sizing: border-box;
+    }
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
       margin: 0;
       padding: 0;
     }
@@ -63,1172 +61,773 @@
       min-height: 100vh;
       font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background: var(--bg-main);
       color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 79, 154, 0.22), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(127, 91, 255, 0.25), transparent 55%),
+        radial-gradient(circle at 10% 120%, rgba(45, 212, 191, 0.28), transparent 60%),
+        linear-gradient(145deg, #020617, #02010a 65%, #020617 100%);
       position: relative;
       overflow-x: hidden;
     }
 
-    body::before,
-    body::after {
+    body::before {
       content: "";
       position: fixed;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      filter: blur(70px);
-      opacity: 0.45;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.55;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
       z-index: -2;
     }
 
-    body::before {
-      background: rgba(255, 79, 154, 0.65);
-      top: -120px;
-      left: -80px;
-    }
-
-    body::after {
-      background: rgba(111, 76, 255, 0.7);
-      bottom: -160px;
-      right: -120px;
-    }
-
-    .floating-heart {
+    .bg-orbit {
       position: fixed;
-      font-size: 16px;
-      color: #ff7fb9;
-      animation: floatUp 12s linear infinite;
-      opacity: 0.15;
-      z-index: -1;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.5;
+      z-index: -3;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: orbitPulse 10s ease-in-out infinite alternate;
+    }
+    .bg-orbit-1 {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.8), transparent 70%);
+      top: -80px;
+      left: -120px;
+    }
+    .bg-orbit-2 {
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent 70%);
+      top: -60px;
+      right: -160px;
+      animation-delay: 2s;
+    }
+    .bg-orbit-3 {
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(45, 212, 191, 0.7), transparent 70%);
+      bottom: -160px;
+      left: 10%;
+      animation-delay: 4s;
+    }
+    @keyframes orbitPulse {
+      from {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      to {
+        transform: translate3d(0, -20px, 0) scale(1.08);
+      }
     }
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) translateX(0);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.35;
-      }
-      70% {
-        opacity: 0.3;
-      }
-      100% {
-        transform: translateY(-260px) translateX(40px);
-        opacity: 0;
-      }
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.35);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
     }
 
-    .page {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    /* ===== ШАПКА (та же капсула, что на других страницах) ===== */
+    button {
+      font-family: inherit;
+    }
+
+    /* ===== HEADER ===== */
 
     .site-header {
-      width: 100%;
       position: sticky;
       top: 0;
-      z-index: 30;
-      margin-bottom: 26px;
-      background: transparent;
-      border-bottom: none;
+      z-index: 50;
+      backdrop-filter: blur(20px);
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
     }
 
     .header-inner {
-      max-width: 1100px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 8px 18px;
-
+      padding: 10px 18px 9px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-
-      border-radius: 999px;
-      background:
-        radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 55%),
-        rgba(5, 3, 15, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(18px);
+      gap: 18px;
     }
 
-    .logo {
-      font-family: "Pacifico", cursive;
-      font-size: 26px;
-      color: #ffd56b;
-      letter-spacing: 0.03em;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      line-height: 1;
-    }
-
-    .logo span {
-      font-size: 14px;
-      color: var(--text-soft);
-      font-family: "Poppins", sans-serif;
-    }
-
-    .site-nav {
+    .brand {
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-shrink: 0;
     }
 
-    .nav-link {
-      text-decoration: none;
-      padding: 8px 16px;
-      font-size: 14px;
-      border-radius: 999px;
-      transition: 0.25s;
-      color: rgba(255, 255, 255, 0.75);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid transparent;
-    }
-
-    .nav-link:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .nav-active {
-      background: #ff4f9a;
-      color: #fff !important;
-      box-shadow: 0 8px 22px rgba(255, 79, 154, 0.7);
-    }
-
-    .nav-toggle {
-      display: none;
-    }
-
-    @media (max-width: 720px) {
-      .header-inner {
-        padding: 8px 12px;
-        gap: 12px;
-      }
-
-      .logo {
-        font-size: 22px;
-      }
-
-      .logo span {
-        font-size: 12px;
-      }
-
-      .site-nav {
-        gap: 6px;
-      }
-
-      .nav-link {
-        padding: 6px 10px;
-        font-size: 13px;
-      }
-    }
-
-    /* ===== ПИСЬМО ===== */
-
-    .page-inner {
-      max-width: 900px;
-      margin: 26px auto 32px;
-      padding: 22px 22px 26px;
-      border-radius: 26px;
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
       background:
-        radial-gradient(circle at top left, rgba(255, 79, 154, 0.16), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.18), transparent 60%),
-        rgba(5, 3, 15, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(14px);
-    }
-
-    .letter-card {
-      background: radial-gradient(circle at top, rgba(248, 250, 252, 0.06), transparent 65%),
-                  rgba(10, 6, 25, 0.96);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 22px 22px 20px;
-      box-shadow: var(--shadow-soft);
+        radial-gradient(circle at 20% 0%, #f9a8d4, #4c1d95 60%, #020617 100%);
+      border: 1px solid rgba(244, 114, 182, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.9);
       position: relative;
       overflow: hidden;
     }
 
-    .letter-card::before {
+    .brand-logo::before {
       content: "";
       position: absolute;
       inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.3), transparent 45%);
+      opacity: 0.55;
+    }
+
+    .brand-gem {
+      width: 16px;
+      height: 16px;
+      border-radius: 40%;
+      background: conic-gradient(from 200deg, #f97316, #22d3ee, #a855f7, #f97316);
+      box-shadow: 0 0 14px rgba(248, 250, 252, 0.9);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-title {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .site-nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-soft);
+      border: 1px solid rgba(30, 41, 59, 0.8);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.9));
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(30, 64, 175, 0.9));
+      border-color: rgba(148, 163, 184, 0.75);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .nav-link.nav-active {
+      color: #ffffff;
+      background: linear-gradient(120deg, #fb7185, #a855f7);
+      border-color: transparent;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    .nav-link-soft {
+      background: rgba(15, 23, 42, 0.82);
+      border-color: rgba(148, 163, 184, 0.55);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .icon-button {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 6px 9px;
+      font-size: 0.9rem;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), rgba(15, 23, 42, 0.96));
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast);
+      backdrop-filter: blur(16px);
+    }
+
+    .icon-button:hover {
+      border-color: rgba(248, 250, 252, 0.85);
+      background: radial-gradient(circle at top, rgba(248, 250, 252, 0.12), rgba(15, 23, 42, 0.98));
+      transform: translateY(-1px);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    /* ===== MAIN ===== */
+
+    .page-main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 26px 18px 40px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.65fr);
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
       background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 55%),
-        repeating-linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.04),
-          rgba(255, 255, 255, 0.04) 1px,
-          transparent 1px,
-          transparent 7px
-        );
+        linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98)),
+        radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.05), transparent 60%);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 20px 18px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(22px);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        border-color var(--transition-fast), background var(--transition-fast);
+      animation: floatUp 0.7s ease-out;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.09), transparent 60%),
+        radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(circle at 50% 120%, rgba(244, 114, 182, 0.1), transparent 60%);
+      opacity: 0.7;
       mix-blend-mode: soft-light;
-      opacity: 0.9;
       pointer-events: none;
     }
 
-    .letter-inner {
+    .card > * {
       position: relative;
       z-index: 1;
     }
 
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 6px;
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 26px 80px rgba(15, 23, 42, 0.98);
+      border-color: rgba(248, 250, 252, 0.11);
     }
 
-    .title-row {
-      display: flex;
+    @keyframes floatUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .hero-label {
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 6px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.18);
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.11), rgba(15, 23, 42, 0.95));
     }
 
-    .letter-icon {
-      font-size: 20px;
+    .hero-label::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #15803d);
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
     }
 
-    h1 {
-      font-size: 22px;
+    .hero-title {
+      margin: 10px 0 6px;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #fde68a, #fb7185, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
       margin: 0;
-    }
-
-    h1 span {
-      color: var(--accent);
-    }
-
-    .subtitle {
-      font-size: 13px;
+      font-size: 0.9rem;
       color: var(--text-soft);
-      margin-bottom: 18px;
     }
 
-    .letter-meta {
-      font-size: 12px;
+    .hero-mini {
+      margin-top: 12px;
+      font-size: 0.86rem;
       color: var(--text-soft);
-      margin-bottom: 14px;
+    }
+
+    .hero-meta-row {
+      margin-top: 14px;
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .meta-pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.94);
+    }
+
+    .meta-pill--accent {
+      border-color: rgba(244, 114, 182, 0.88);
+      color: #fecaca;
+    }
+
+    .hero-actions {
+      margin-top: 16px;
+      display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
 
-    .letter-meta span {
-      opacity: 0.9;
-    }
-
-    .letter-body {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.8;
-    }
-
-    .letter-body p {
-      margin-bottom: 12px;
-    }
-
-    .letter-body p:first-of-type {
-      margin-bottom: 16px;
-    }
-
-    .letter-body em {
-      font-style: normal;
-      color: var(--accent-gold);
-    }
-
-    .letter-line-accent {
-      font-size: 15px;
-      color: var(--accent-gold);
-      margin-bottom: 10px;
-    }
-
-    .letter-sign {
-      margin-top: 20px;
-      font-size: 14px;
-    }
-
-    .letter-sign-name {
-      font-family: "Pacifico", cursive;
-      font-size: 22px;
-      color: var(--accent);
-      margin-top: 4px;
-    }
-
-    .letter-postscript {
-      margin-top: 16px;
-      font-size: 12px;
-      color: var(--text-soft);
-      border-top: 1px dashed rgba(255, 255, 255, 0.14);
-      padding-top: 10px;
-    }
-
-    @media (max-width: 640px) {
-      .page-inner {
-        padding: 18px 14px 22px;
-      }
-
-      .letter-card {
-        padding: 18px 14px 18px;
-      }
-
-      .letter-body {
-        font-size: 13px;
-      }
-    }
-
-    footer {
-      margin-top: 14px;
-      font-size: 11px;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    /* ===== НАСТРОЙКИ (FAB + ПАНЕЛЬ) ===== */
-
-    .settings-fab {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      width: 46px;
-      height: 46px;
+    .btn {
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.15), transparent 55%),
-                  rgba(15, 23, 42, 0.96);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
-      z-index: 40;
-    }
-
-    .settings-fab:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 50px rgba(15, 23, 42, 1);
-      background: radial-gradient(circle at 30% 0, rgba(248, 250, 252, 0.22), transparent 55%),
-                  rgba(15, 23, 42, 1);
-    }
-
-    .settings-fab-icon {
-      font-size: 18px;
-    }
-
-    .settings-backdrop {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
-      backdrop-filter: blur(10px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-      z-index: 30;
-    }
-
-    .settings-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .settings-panel {
-      position: fixed;
-      right: 22px;
-      bottom: 82px;
-      width: 280px;
-      max-width: calc(100% - 44px);
-      border-radius: 22px;
-      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.08), transparent 60%),
-                  rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
-      padding: 14px 14px 12px;
-      transform: translateY(16px) scale(0.97);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 50;
-    }
-
-    .settings-panel.open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
-    }
-
-    .settings-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .settings-title {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .settings-close {
-      border: none;
-      background: transparent;
-      color: var(--text-soft);
-      font-size: 16px;
-      cursor: pointer;
-      padding: 0 4px;
-    }
-
-    .settings-close:hover {
-      color: #fff;
-    }
-
-    .settings-section {
-      padding: 8px 0;
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
-    }
-
-    .settings-section:first-of-type {
-      border-top: none;
-    }
-
-    .settings-label {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 4px;
-    }
-
-    .settings-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .settings-select {
-      width: 100%;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: rgba(15, 23, 42, 0.96);
-      color: #e5e7eb;
-      padding: 6px 10px;
-      font-size: 12px;
-      outline: none;
-    }
-
-    .settings-select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(255, 79, 154, 0.6);
-    }
-
-    .settings-chip {
+      border: 1px solid transparent;
+      padding: 8px 16px;
+      font-size: 0.84rem;
+      font-weight: 500;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: rgba(15, 23, 42, 0.96);
-      color: #e5e7eb;
-      font-size: 12px;
+      gap: 6px;
       cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+      background: transparent;
+      color: var(--text-main);
+      position: relative;
+      overflow: hidden;
     }
 
-    .settings-chip:hover {
-      background: rgba(31, 41, 55, 0.95);
+    .btn-main {
+      background: linear-gradient(120deg, #ec4899, #a855f7);
+      border-color: rgba(248, 250, 252, 0.1);
+      box-shadow: 0 18px 40px rgba(236, 72, 153, 0.55);
+      color: #fff;
+    }
+
+    .btn-main:hover {
       transform: translateY(-1px);
+      box-shadow: 0 20px 52px rgba(236, 72, 153, 0.7);
     }
-    /* ==== ASYAMAN V2 — МЯГКИЙ НОЧНОЙ СТИЛЬ ==== */
 
-/* Новый набор цветов */
-:root {
-  --bg-main: radial-gradient(circle at top, #111827 0, #02010a 50%, #000000 100%);
-  --card-bg: rgba(12, 16, 30, 0.96);
-  --card-border: rgba(148, 163, 184, 0.35);
-  --accent: #ff4fa3;
-  --accent-soft: rgba(255, 79, 163, 0.25);
-  --accent-gold: #fbbf24;
-  --text-main: #f9fafb;
-  --text-soft: #e5e7eb;
-  --text-secondary: #f9fafb;
-  --text-muted: #9ca3af;
-  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.9);
-  --radius-xl: 24px;
-}
+    .btn-soft {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.6);
+      color: var(--text-main);
+    }
 
-/* Фон — спокойный градиент вместо кислотного космоса */
-body {
-  background: var(--bg-main);
-  color: var(--text-main);
-}
+    .btn-soft:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(248, 250, 252, 0.8);
+    }
 
-/* Убираем жёсткое свечение */
-body::before,
-body::after {
-  opacity: 0.15;
-  filter: blur(55px);
-}
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+      background: transparent;
+    }
 
-/* Полностью выключаем галактику и сердечки */
-#galaxyCanvas,
-.floating-heart {
-  display: none !important;
-}
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.95);
+      color: #fff;
+    }
 
-/* Карточки — «дорогое стекло» */
-.card {
-  background: var(--card-bg);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(20px);
-}
+    /* ===== ПИСЬМО ===== */
 
-.card-inner {
-  padding: 18px 18px 16px;
-}
+    .letter-wrapper {
+      position: relative;
+      border-radius: 26px;
+      padding: 18px 18px 16px;
+      background:
+        radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), rgba(15, 23, 42, 0.99));
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      overflow: hidden;
+    }
 
-/* Шапка — аккуратная полоска */
-.site-header {
-  background: rgba(15, 23, 42, 0.92);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
-}
+    .letter-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
 
-.header-inner {
-  padding: 10px 18px;
-}
+    .letter-title {
+      margin: 0;
+      font-family: "Pacifico", cursive;
+      font-size: 1.4rem;
+      color: #fbcfe8;
+    }
 
-.logo {
-  font-size: 18px;
-  letter-spacing: 0.14em;
-}
+    .badge {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.76rem;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.95);
+    }
 
-.logo span {
-  font-size: 11px;
-  color: var(--text-muted);
-}
+    .badge-lock {
+      border-color: rgba(248, 250, 252, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-/* Верхнее меню */
-.site-nav {
-  background: transparent;
-  border-radius: 999px;
-  padding: 4px;
-}
+    .badge-lock-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #15803d);
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+    }
 
-.nav-link {
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
+    .letter-body {
+      position: relative;
+      font-family: "Pacifico", cursive;
+      font-size: 1.07rem;
+      line-height: 1.7;
+      color: #fee2e2;
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 6px;
+      transition: filter 0.25s ease, opacity 0.25s ease;
+    }
 
-.nav-link.nav-active {
-  background: rgba(15, 23, 42, 0.95);
-  color: #fff;
-  border: 1px solid rgba(248, 250, 252, 0.18);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75);
-}
+    .letter-body::-webkit-scrollbar {
+      width: 6px;
+    }
 
-/* Лэйаут */
-.page {
-  min-height: 100vh;
-}
+    .letter-body::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
 
-.layout-root {
-  margin-top: 18px;
-}
+    .letter-body.blur {
+      filter: blur(9px);
+      opacity: 0.94;
+    }
 
-.page-inner {
-  max-width: 1080px;
-  margin: 22px auto 32px;
-}
+    .letter-sign {
+      margin-top: 16px;
+      font-size: 0.98rem;
+      color: #fecaca;
+    }
 
-/* Левая колонка */
-.layout-left-inner {
-  background: rgba(15, 23, 42, 0.96);
-  border-radius: 22px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: var(--shadow-soft);
-}
+    .letter-sign small {
+      display: block;
+      margin-top: 3px;
+      font-family: "Poppins", system-ui, sans-serif;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
 
-.side-card {
-  background: transparent;
-  box-shadow: none;
-  border: none;
-}
+    .letter-footer {
+      margin-top: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
 
-.side-card-title {
-  font-size: 14px;
-  font-weight: 600;
-}
+    .letter-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
 
-.side-card-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-}
+    .letter-meta-pill {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.96);
+    }
 
-/* Кнопки в сайдбаре */
-.side-nav-btn {
-  border-radius: 999px;
-  border: 1px solid transparent;
-  font-size: 12px;
-  padding: 6px 10px;
-  background: rgba(15, 23, 42, 0.9);
-  color: var(--text-muted);
-  transition: background 0.13s ease, border-color 0.13s ease, transform 0.08s ease;
-}
+    .letter-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
 
-.side-nav-btn:hover {
-  background: rgba(30, 64, 175, 0.9);
-  border-color: rgba(129, 140, 248, 0.9);
-  color: #f9fafb;
-  transform: translateY(-1px);
-}
+    .letter-small-hint {
+      margin-top: 8px;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
 
-/* Профиль и аватар */
-.profile-mini {
-  padding: 0;
-  background: transparent;
-  box-shadow: none;
-}
+    /* ===== ADAPTIVE ===== */
 
-.profile-avatar-wrapper {
-  position: relative;
-}
+    @media (max-width: 1024px) {
+      .page-main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
 
-.profile-avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 999px;
-  object-fit: cover;
-  border: 2px solid rgba(15, 23, 42, 1);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.95);
-}
+    @media (max-width: 840px) {
+      .header-inner {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px 14px;
+      }
+      .site-nav {
+        order: 2;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .card {
+        border-radius: 24px;
+        padding: 16px 16px 14px;
+      }
+      .hero-title {
+        font-size: 1.5rem;
+      }
+    }
 
-.profile-avatar-wrapper::before {
-  content: "";
-  position: absolute;
-  inset: -5px;
-  border-radius: inherit;
-  background: conic-gradient(from 160deg, #ff4fa3, #8b5cf6, #22d3ee, #ff4fa3);
-  opacity: 0.7;
-  filter: blur(1px);
-  z-index: -1;
-}
-
-.profile-name {
-  font-size: 13px;
-  font-weight: 500;
-}
-
-/* Кнопки */
-.btn {
-  border-radius: 999px;
-  font-size: 13px;
-  padding: 8px 14px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
-}
-
-.btn-main {
-  background: linear-gradient(135deg, #ff4fa3, #ff7ac5);
-  border: none;
-}
-
-.btn-outline {
-  background: rgba(15, 23, 42, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.75);
-}
-
-/* Инпуты */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea {
-  background: rgba(15, 23, 42, 0.96);
-  border-radius: 16px;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  color: var(--text-main);
-  font-size: 13px;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: rgba(148, 163, 184, 0.9);
-}
-
-/* Секция «Когда скучаешь», «Письмо» и т.п. */
-.section-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--text-muted);
-}
-
-.subtitle {
-  color: var(--text-soft);
-}
-
-/* Музыкальная плашка */
-.music-bar {
-  background: rgba(15, 23, 42, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.65);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.95);
-}
-
-/* Мобильная адаптация */
-@media (max-width: 900px) {
-  .layout-root {
-    margin-top: 12px;
-  }
-  .layout-left-inner {
-    margin-bottom: 14px;
-  }
-}
-
-@media (max-width: 640px) {
-  .site-header {
-    border-radius: 0 0 18px 18px;
-  }
-  .header-inner {
-    padding: 8px 14px;
-  }
-}
-/* === ASYAMAN V2 · ПИСЬМО — КИНО-СЦЕНА === */
-
-/* Обертка всей сцены */
-.letter-scene {
-  position: relative;
-  max-width: 860px;
-  margin: 40px auto;
-  padding: 32px 28px;
-  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
-              linear-gradient(135deg, rgba(12, 10, 24, 0.98), rgba(15, 23, 42, 0.98));
-  border-radius: 32px;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  box-shadow: 0 32px 70px rgba(0, 0, 0, 0.95);
-  animation: letterFade 1.2s ease;
-}
-
-/* Анимация появления */
-@keyframes letterFade {
-  0% { opacity: 0; transform: translateY(18px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Переливчатое свечение */
-.letter-glow {
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 20% 0%, rgba(255, 79, 163, 0.25), transparent 60%),
-    radial-gradient(circle at 80% 100%, rgba(56, 189, 248, 0.22), transparent 60%),
-    radial-gradient(circle at 0% 100%, rgba(244, 114, 182, 0.18), transparent 60%);
-  opacity: 0.7;
-  filter: blur(14px);
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-/* Заголовок */
-.letter-title {
-  font-size: clamp(26px, 3vw, 34px);
-  margin-bottom: 16px;
-  text-align: center;
-  letter-spacing: 0.02em;
-}
-
-.letter-title span {
-  background: linear-gradient(135deg, #fb7185, #f97316, #e879f9);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-/* Подзаголовок */
-.letter-subtitle {
-  text-align: center;
-  font-size: 15px;
-  color: rgba(209, 213, 219, 0.95);
-  margin-bottom: 24px;
-}
-
-/* Конверт */
-.letter-envelope {
-  background: rgba(15, 23, 42, 0.94);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  border-radius: 26px;
-  padding: 22px 20px;
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85);
-  margin-bottom: 28px;
-}
-
-/* Штамп */
-.letter-stamp {
-  font-size: 24px;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-/* Письмо внутри */
-.letter-paper {
-  background: rgba(248, 250, 252, 0.06);
-  border-radius: 18px;
-  padding: 20px 18px;
-  line-height: 1.75;
-  color: rgba(243, 244, 246, 0.95);
-  box-shadow: inset 0 0 34px rgba(0, 0, 0, 0.5);
-}
-
-/* Заключительная подпись */
-.letter-sign {
-  margin-top: 22px;
-  font-size: 14px;
-  font-style: italic;
-  color: rgba(236, 239, 244, 0.85);
-  text-align: right;
-}
-
-/* Кнопка назад */
-.back-btn {
-  display: block;
-  margin: 30px auto 0;
-  padding: 10px 26px;
-  font-size: 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  background: rgba(15, 23, 42, 0.9);
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.85);
-  color: #e5e7eb;
-  cursor: pointer;
-  transition: all 0.14s ease;
-}
-
-.back-btn:hover {
-  background: rgba(148, 163, 184, 0.12);
-  color: #fff;
-  transform: translateY(-1px);
-}
-/* === ASYAMAN V2 — Письмо (киновизуальная капсула) === */
-
-.letter-scene {
-  position: relative;
-  max-width: 820px;
-  margin: 40px auto;
-  padding: 0;
-  overflow: hidden;
-
-  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
-              linear-gradient(145deg, rgba(14, 17, 34, 0.98), rgba(8, 9, 18, 0.98));
-
-  border-radius: 32px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.95);
-  animation: letterFadeScene 1.1s ease;
-}
-
-/* красивое “дыхание” света */
-.letter-scene::before {
-  content: "";
-  position: absolute;
-  inset: -35%;
-  background:
-    radial-gradient(circle at 10% 0%, rgba(255, 79, 163, 0.21), transparent 60%),
-    radial-gradient(circle at 90% 100%, rgba(56, 189, 248, 0.24), transparent 60%);
-  opacity: 0.75;
-  filter: blur(18px);
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-/* лёгкая пульсация */
-@keyframes letterFadeScene {
-  0% { opacity: 0; transform: translateY(20px) scale(0.97); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.letter-inner {
-  position: relative;
-  z-index: 2;
-  padding: 40px 32px;
-  color: #f2f3f5;
-  line-height: 1.75;
-}
-
-/* заголовок письма */
-.letter-inner h2,
-.letter-inner h1 {
-  margin-bottom: 14px;
-  font-size: 26px;
-  color: #ffffff;
-}
-
-/* основной текст */
-.letter-inner p {
-  font-size: 16px;
-  margin-bottom: 14px;
-  color: rgba(229, 231, 235, 0.95);
-}
-
-/* подпись */
-.letter-sign {
-  margin-top: 32px;
-  text-align: right;
-  color: rgba(253, 230, 255, 0.85);
-  font-size: 16px;
-}
-
+    @media (max-width: 520px) {
+      .hero-title {
+        font-size: 1.35rem;
+      }
+      .letter-title {
+        font-size: 1.2rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Плавающие сердечки -->
-  <span class="floating-heart" style="left: 15%; bottom: -40px;">💗</span>
-  <span class="floating-heart" style="left: 55%; bottom: -80px; animation-delay: 2s;">💗</span>
-  <span class="floating-heart" style="left: 80%; bottom: -120px; animation-delay: 4s;">💗</span>
+  <!-- Фоновые орбиты -->
+  <div class="bg-orbit bg-orbit-1"></div>
+  <div class="bg-orbit bg-orbit-2"></div>
+  <div class="bg-orbit bg-orbit-3"></div>
 
-  <div class="page">
-    <!-- Шапка -->
-    <header class="site-header">
-      <div class="header-inner">
-        <div class="logo">
-          Асъяман
-          <span>наш маленький мир</span>
+  <!-- ШАПКА -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">
+          <div class="brand-gem"></div>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Асъяман</span>
+          <span class="brand-subtitle">наш маленький закрытый мир</span>
+        </div>
+      </a>
+
+      <nav class="site-nav">
+        <a href="index.html#wishes" class="nav-link">Желания</a>
+        <a href="index.html#thoughts" class="nav-link">Мысли</a>
+        <a href="index.html#miss" class="nav-link">Когда скучаешь</a>
+        <a href="letter.html" class="nav-link nav-active">Письмо</a>
+        <a href="about.html" class="nav-link">О нас</a>
+        <a href="admin.html" class="nav-link nav-link-soft">Админка</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="backBtn" class="icon-button" type="button">
+          ← Назад
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="page-main">
+    <!-- Левый блок: контекст -->
+    <article class="card">
+      <span class="hero-label">Личное пространство</span>
+      <h1 class="hero-title">
+        Письмо, которое <span>не теряется в переписке</span>
+      </h1>
+      <p class="hero-text">
+        Здесь нет «прочитано в спешке». Это место для текста, к которому можно вернуться,
+        перечитать и опять почувствовать всё с самого начала.
+      </p>
+
+      <p class="hero-mini">
+        Это письмо не надо искать в чатах, оно не утонет между делами, мемами и заботами.
+        Здесь оно всегда в одном и том же месте — внутри Асъяман.
+      </p>
+
+      <div class="hero-meta-row">
+        <span class="meta-pill meta-pill--accent">только для неё</span>
+        <span class="meta-pill">без лайков и реакций</span>
+        <span class="meta-pill">только смысл</span>
+      </div>
+
+      <div class="hero-actions">
+        <button
+          type="button"
+          class="btn btn-soft"
+          onclick="document.getElementById('letterCard')?.scrollIntoView({behavior:'smooth'})"
+        >
+          Прокрутить к письму
+        </button>
+        <button
+          type="button"
+          class="btn btn-ghost"
+          onclick="window.location.href='index.html'"
+        >
+          На главную
+        </button>
+      </div>
+    </article>
+
+    <!-- Правый блок: само письмо -->
+    <article class="card" id="letterCard">
+      <div class="letter-wrapper">
+        <div class="letter-header-row">
+          <h2 class="letter-title">Моё письмо для тебя</h2>
+          <span class="badge badge-lock">
+            <span class="badge-lock-dot"></span>
+            Только для наших глаз
+          </span>
         </div>
 
-        <button class="nav-toggle" aria-label="Меню">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <nav class="site-nav">
-          <a href="index.html" class="nav-link">Желания</a>
-          <a href="thoughts.html" class="nav-link">Мысли</a>
-          <a href="miss.html" class="nav-link">Когда скучаешь</a>
-          <a href="letter.html" class="nav-link nav-active">Письмо</a>
-          <a href="about.html" class="nav-link">О нас</a>
-        </nav>
-      </div>
-    </header>
-
-    <!-- Письмо -->
-    <main class="page-inner">
-     <section class="letter-card">
-          <div class="letter-scene">
-             <div class="letter-inner">
-                <span class="section-label">Наше письмо</span>
-
-          <div class="title-row">
-            <div class="letter-icon">💌</div>
-            <h1>Письмо, которое живёт только <span>здесь</span></h1>
-          </div>
-
-          <p class="subtitle">
-            Открой его тогда, когда хочется тепла, спокойствия и напоминания о том, что я рядом,
-            даже если мы далеко друг от друга.
+        <div id="letterBody" class="letter-body blur">
+          <!-- СЮДА МОЖЕШЬ СПОКОЙНО ВСТАВИТЬ СВОЁ ПИСЬМО -->
+          <p>
+            Я не хочу, чтобы это письмо было ещё одной фразой в ленте сообщений.
+            Хочу, чтобы оно жило отдельно, как что-то, к чему всегда можно вернуться,
+            когда тебе захочется почувствовать меня рядом.
+          </p>
+          <p>
+            Ты — не просто часть моей жизни. Ты — та точка, вокруг которой мои мысли
+            научились собираться в порядок. С тобой я хочу быть честным, уязвимым и
+            настоящим — даже там, где раньше всегда прятался.
+          </p>
+          <p>
+            Если ты читаешь эти строки — знай, что в этот момент я мысленно рядом,
+            держу тебя за руку и очень тихо, но уверенно говорю тебе:
+            <br />
+            <strong>«Я здесь. И я выбираю тебя.»</strong>
+          </p>
+          <p>
+            Всё, что мы прожили, и всё, что ещё впереди — я хочу проходить это с тобой.
+            Со всеми смешными моментами, сложными разговорами, утренним кофе,
+            случайными песнями и нашими маленькими традициями.
           </p>
 
-          <div class="letter-meta">
-            <span>Место: наш маленький мир — Асъяман</span>
-            <span>Статус: <em>действительно всегда</em></span>
-          </div>
-
-          <div class="letter-body">
-            <p class="letter-line-accent">
-              Моя любимая, это письмо существует только здесь — между нами и этим экраном. 💜
-            </p>
-
-            <p>
-              Я знаю, что иногда день может быть тяжёлым, мысли — беспорядочными, а настроение —
-              ускользать куда-то в сторону. В такие моменты мне важно, чтобы у тебя было место,
-              где ты можешь просто открыть страницу и почувствовать: <em>я с тобой</em>.
-            </p>
-
-            <p>
-              Каждый наш смех, каждое «доброе утро», каждое «я соскучилась» складываются внутри
-              меня в один большой мир, который называется тобой. И всё, что я делаю здесь —
-              этот сайт, эти страницы, эти слова — это лишь попытка показать тебе, как много
-              ты для меня значишь.
-            </p>
-
-            <p>
-              Мне хочется, чтобы, читая это письмо, ты чувствовала не текст, а моё присутствие:
-              как будто я сижу рядом, держу тебя за руку и спокойно говорю: «Я никуда не денусь.
-              Я здесь. С тобой. И за тебя».
-            </p>
-
-            <p>
-              Ты — не просто человек в моей жизни. Ты — то самое «домой», куда хочется возвращаться
-              снова и снова, даже если дорога длинная, а сил почти не осталось. Ты — причина,
-              по которой я продолжаю стараться, учиться, менять всё вокруг и внутри себя.
-            </p>
-
-            <p>
-              Если вдруг когда-то появится мысль, что ты недостаточно хорошая, что ты не достойна
-              чего-то или кого-то — вспомни этот момент. Кто-то сидит и пишет для тебя целый мир
-              из страниц, сайтов, мелочей и будущих планов. Просто потому что ты есть.
-            </p>
-
-            <p>
-              Я хочу идти рядом: в простых днях, в сложных периодах, в тихих вечерах и странных
-              ночах, когда не получается уснуть. И если тебе плохо — знай, что мне можно
-              «положить» любую свою тяжесть. Я выдержу. Я рядом, даже если это письмо ты открываешь
-              ночью, далеко, в тишине.
-            </p>
-
-            <p>
-              Запомни одну вещь: <em>ты — не нагрузка и не проблема</em>. Ты — мой человек.
-              И за своего человека я всегда буду держаться до последнего.
-            </p>
-
-            <div class="letter-sign">
-              <p>С теплом, заботой и бесконечным к тебе уважением,</p>
-              <div class="letter-sign-name">твой человек 💫</div>
-            </div>
-
-            <div class="letter-postscript">
-              P.S. Если вдруг снова станет грустно — просто вернись сюда.  
-              Это письмо можно перечитывать столько раз, сколько понадобится.  
-              И каждый раз я буду говорить тебе одно и то же: <em>ты не одна</em>.
-              <div class="letter-sign">
-  С любовью, навсегда твой,<br>
-  <strong>Абел</strong>
-</div>
-
-            </div>
+          <div class="letter-sign">
+            Твой Абел
+            <small>можно заменить на любую подпись, как тебе по ощущениям</small>
           </div>
         </div>
-      </section>
 
-      <footer>
-        Это письмо живёт здесь столько, сколько живём мы с тобой. И никуда отсюда не исчезнет 💌
-      </footer>
-    </main>
-  </div>
+        <div class="letter-footer">
+          <div class="letter-meta">
+            <span class="letter-meta-pill">Письмо хранится только здесь</span>
+            <span class="letter-meta-pill">Редактируется через код сайта</span>
+          </div>
+          <div class="letter-actions">
+            <button id="toggleLetterBtn" class="btn btn-soft" type="button">
+              Показать письмо
+            </button>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              onclick="window.location.href='index.html#miss'"
+            >
+              Когда скучаешь →
+            </button>
+          </div>
+        </div>
 
-  <!-- Кнопка настроек -->
-  <button id="settingsFab" class="settings-fab" aria-label="Настройки">
-    <span class="settings-fab-icon">⚙</span>
-  </button>
-
-  <div id="settingsBackdrop" class="settings-backdrop"></div>
-
-  <div id="settingsPanel" class="settings-panel">
-    <div class="settings-header">
-      <div class="settings-title">Настройки</div>
-      <button class="settings-close" id="settingsClose" aria-label="Закрыть">✕</button>
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-label">Язык сайта</div>
-      <select id="settingsLang" class="settings-select">
-        <option value="ru">Русский</option>
-        <option value="en">English</option>
-      </select>
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-label">Тёмная тема</div>
-      <button id="settingsThemeToggle" class="settings-chip">
-        Переключить
-      </button>
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-label">Аккаунт</div>
-      <div class="settings-sub" id="settingsAccountInfo">
-        Гость (на главной странице можно войти в дневник)
+        <p class="letter-small-hint">
+          Текст письма полностью под твоим контролем — просто меняешь его внутри
+          <code>&lt;div id="letterBody"&gt;</code> в файле <strong>letter.html</strong>.
+        </p>
       </div>
-    </div>
-  </div>
+    </article>
+  </main>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const fab        = document.getElementById("settingsFab");
-      const panel      = document.getElementById("settingsPanel");
-      const backdrop   = document.getElementById("settingsBackdrop");
-      const closeBtn   = document.getElementById("settingsClose");
-      const langSelect = document.getElementById("settingsLang");
-      const themeBtn   = document.getElementById("settingsThemeToggle");
-      const accInfo    = document.getElementById("settingsAccountInfo");
-
-      function updateAccountInfo() {
-        if (!accInfo) return;
-        const u = window.__currentUser;
-        if (u && u.email) {
-          accInfo.textContent = u.email;
-        } else if (u) {
-          accInfo.textContent = "Авторизованный пользователь";
+    // Кнопка "Назад"
+    const backBtn = document.getElementById("backBtn");
+    if (backBtn) {
+      backBtn.addEventListener("click", () => {
+        if (window.history.length > 1) {
+          window.history.back();
         } else {
-          accInfo.textContent = "Гость (на главной странице можно войти в дневник)";
+          window.location.href = "index.html";
         }
-      }
+      });
+    }
 
-      function openPanel() {
-        updateAccountInfo();
-        panel.classList.add("open");
-        backdrop.classList.add("open");
-      }
+    // Разблокировка письма (blur on/off)
+    const letterBody = document.getElementById("letterBody");
+    const toggleLetterBtn = document.getElementById("toggleLetterBtn");
+    let letterVisible = false;
 
-      function closePanel() {
-        panel.classList.remove("open");
-        backdrop.classList.remove("open");
-      }
-
-      fab?.addEventListener("click", openPanel);
-      closeBtn?.addEventListener("click", closePanel);
-      backdrop?.addEventListener("click", closePanel);
-
-      updateAccountInfo();
-
-      // Язык
-      if (langSelect) {
-        const savedLang = localStorage.getItem("siteLang") || "ru";
-        langSelect.value = savedLang;
-
-        langSelect.addEventListener("change", () => {
-          localStorage.setItem("siteLang", langSelect.value);
-        });
-      }
-
-      // Тема
-      if (themeBtn) {
-        themeBtn.addEventListener("click", () => {
-          if (typeof toggleTheme === "function") {
-            toggleTheme();
-          } else {
-            document.body.classList.toggle("dark");
-            localStorage.setItem(
-              "theme",
-              document.body.classList.contains("dark") ? "dark" : "light"
-            );
-          }
-        });
-      }
-
-      // Бургер (если захочешь потом сделать для мобилки)
-      const navToggle = document.querySelector(".nav-toggle");
-      const siteNav   = document.querySelector(".site-nav");
-
-      if (navToggle && siteNav) {
-        navToggle.addEventListener("click", () => {
-          siteNav.classList.toggle("nav-open");
-        });
-      }
-    });
+    if (letterBody && toggleLetterBtn) {
+      toggleLetterBtn.addEventListener("click", () => {
+        letterVisible = !letterVisible;
+        if (letterVisible) {
+          letterBody.classList.remove("blur");
+          toggleLetterBtn.textContent = "Скрыть письмо";
+        } else {
+          letterBody.classList.add("blur");
+          toggleLetterBtn.textContent = "Показать письмо";
+        }
+      });
+    }
   </script>
 </body>
 </html>
