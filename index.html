@@ -59,7 +59,7 @@
       --radius-lg: 22px;
       --radius-md: 16px;
 
-      --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.75);
+      --shadow-soft: 0 22px 70px rgba(0, 0, 0, 0.85);
 
       --transition-fast: 0.18s ease-out;
       --transition-slow: 0.3s ease;
@@ -74,6 +74,10 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     html,
     body {
       margin: 0;
@@ -86,9 +90,9 @@
         sans-serif;
       color: var(--text-main);
       background:
-        radial-gradient(circle at 0% 0%, rgba(255, 79, 154, 0.25), transparent 55%),
+        radial-gradient(circle at 0% 0%, rgba(255, 79, 154, 0.22), transparent 55%),
         radial-gradient(circle at 100% 0%, rgba(127, 91, 255, 0.25), transparent 55%),
-        radial-gradient(circle at 50% 120%, rgba(45, 212, 191, 0.2), transparent 60%),
+        radial-gradient(circle at 10% 120%, rgba(45, 212, 191, 0.28), transparent 60%),
         linear-gradient(145deg, #020617, #02010a 65%, #020617 100%);
       position: relative;
       overflow-x: hidden;
@@ -100,10 +104,48 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: 0.5;
+      opacity: 0.55;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
       mix-blend-mode: soft-light;
-      z-index: -1;
+      z-index: -2;
+    }
+
+    /* Глубокие орбиты на фоне */
+    .bg-orbit {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.5;
+      z-index: -3;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: orbitPulse 10s ease-in-out infinite alternate;
+    }
+
+    .bg-orbit-1 {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.8), transparent 70%);
+      top: -80px;
+      left: -120px;
+    }
+
+    .bg-orbit-2 {
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent 70%);
+      top: -60px;
+      right: -160px;
+      animation-delay: 2s;
+    }
+
+    .bg-orbit-3 {
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(45, 212, 191, 0.7), transparent 70%);
+      bottom: -160px;
+      left: 10%;
+      animation-delay: 4s;
     }
 
     ::-webkit-scrollbar {
@@ -128,21 +170,64 @@
       font-family: inherit;
     }
 
+    /* ===== АНИМАЦИИ ===== */
+
+    @keyframes floatUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes softGlow {
+      0% {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.85);
+      }
+      50% {
+        box-shadow: 0 26px 80px rgba(15, 23, 42, 0.98);
+      }
+      100% {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.85);
+      }
+    }
+
+    @keyframes orbitPulse {
+      from {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      to {
+        transform: translate3d(0, -20px, 0) scale(1.08);
+      }
+    }
+
+    .float-section {
+      animation: floatUp 0.7s ease-out;
+    }
+
+    .float-section-delayed {
+      animation: floatUp 0.7s ease-out 0.12s backwards;
+    }
+
     /* ===== ШАПКА ===== */
 
     .site-header {
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(18px);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.92));
+      backdrop-filter: blur(20px);
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.92));
       border-bottom: 1px solid rgba(148, 163, 184, 0.25);
     }
 
     .header-inner {
       max-width: 1160px;
       margin: 0 auto;
-      padding: 12px 18px 10px;
+      padding: 10px 18px 9px;
       display: flex;
       align-items: center;
       gap: 18px;
@@ -156,8 +241,8 @@
     }
 
     .brand-logo {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 14px;
       background:
         radial-gradient(circle at 20% 0%, #f9a8d4, #4c1d95 60%, #020617 100%);
@@ -220,24 +305,44 @@
       text-transform: uppercase;
       letter-spacing: 0.07em;
       color: var(--text-soft);
-      border: 1px solid transparent;
+      border: 1px solid rgba(30, 41, 59, 0.8);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.9));
       transition: background var(--transition-fast), color var(--transition-fast),
-        border-color var(--transition-fast), transform var(--transition-fast);
+        border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 3px;
+      height: 1px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(148, 163, 184, 0.5), transparent 70%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
     }
 
     .nav-link:hover {
       color: #ffffff;
-      background: rgba(15, 23, 42, 0.9);
-      border-color: rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(30, 64, 175, 0.9));
+      border-color: rgba(148, 163, 184, 0.75);
       transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .nav-link:hover::after {
+      opacity: 1;
     }
 
     .nav-link.active,
     .nav-link.nav-active {
       color: #ffffff;
-      background: radial-gradient(circle at top left, #fb7185, #4c1d95);
+      background: linear-gradient(120deg, #fb7185, #a855f7);
       border-color: transparent;
-      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.9);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.95);
     }
 
     .nav-link-soft {
@@ -253,7 +358,7 @@
 
     .icon-button {
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.55);
       padding: 6px 9px;
       font-size: 0.9rem;
       background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), rgba(15, 23, 42, 0.96));
@@ -280,6 +385,8 @@
       max-width: 1160px;
       margin: 0 auto;
       padding: 26px 18px 40px;
+      position: relative;
+      z-index: 1;
     }
 
     .layout-grid {
@@ -294,13 +401,15 @@
       border-radius: var(--radius-xl);
       background:
         linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98)),
-        radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.06), transparent 60%);
+        radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.05), transparent 60%);
       border: 1px solid var(--card-border);
       box-shadow: var(--shadow-soft);
       padding: 22px 20px 18px;
       position: relative;
       overflow: hidden;
       backdrop-filter: blur(24px);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        border-color var(--transition-fast), background var(--transition-fast);
     }
 
     .hero-card::before,
@@ -309,10 +418,10 @@
       position: absolute;
       inset: -40%;
       background:
-        radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.06), transparent 60%),
-        radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.08), transparent 55%),
-        radial-gradient(circle at 50% 120%, rgba(244, 114, 182, 0.08), transparent 60%);
-      opacity: 0.6;
+        radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.09), transparent 60%),
+        radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(circle at 50% 120%, rgba(244, 114, 182, 0.1), transparent 60%);
+      opacity: 0.7;
       mix-blend-mode: soft-light;
       pointer-events: none;
     }
@@ -321,6 +430,23 @@
     .section-card > * {
       position: relative;
       z-index: 1;
+    }
+
+    .hero-card.float-section {
+      animation: floatUp 0.85s ease-out, softGlow 11s ease-in-out infinite;
+    }
+
+    .section-card.float-section-delayed {
+      animation: floatUp 0.7s ease-out 0.08s backwards;
+    }
+
+    .section-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 80px rgba(15, 23, 42, 0.98);
+      border-color: rgba(248, 250, 252, 0.12);
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.98)),
+        radial-gradient(circle at 10% 0, rgba(56, 189, 248, 0.14), transparent 60%);
     }
 
     .hero-top {
@@ -339,6 +465,15 @@
       text-transform: uppercase;
       color: var(--text-soft);
       background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.11), rgba(15, 23, 42, 0.95));
+    }
+
+    .hero-label::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #15803d);
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
     }
 
     .hero-title {
@@ -368,8 +503,8 @@
     }
 
     .hero-avatar-ring {
-      width: 64px;
-      height: 64px;
+      width: 70px;
+      height: 70px;
       border-radius: 999px;
       padding: 2px;
       background: conic-gradient(from 190deg, #fb7185, #22c55e, #22d3ee, #a855f7, #fb7185);
@@ -383,7 +518,7 @@
       height: 100%;
       border-radius: inherit;
       background:
-        radial-gradient(circle at 20% 0%, #f9a8d4, #4c1d95 60%, #020617 100%);
+        radial-gradient(circle at 20% 0%, #f9a8d4, #4c1d95 65%, #020617 100%);
       border: 2px solid rgba(15, 23, 42, 0.96);
     }
 
@@ -416,6 +551,18 @@
       border-radius: 14px;
       background: rgba(15, 23, 42, 0.92);
       border: 1px solid rgba(148, 163, 184, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-stat::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.12), transparent 60%);
+      opacity: 0.6;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
     }
 
     .hero-stat-label {
@@ -491,6 +638,19 @@
         box-shadow var(--transition-fast);
       background: transparent;
       color: var(--text-main);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.35), transparent 55%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      mix-blend-mode: soft-light;
+      pointer-events: none;
     }
 
     .btn-main {
@@ -582,7 +742,8 @@
       outline: none;
       transition: border-color var(--transition-fast),
         box-shadow var(--transition-fast),
-        background var(--transition-fast);
+        background var(--transition-fast),
+        transform var(--transition-fast);
     }
 
     .field-input::placeholder,
@@ -594,6 +755,7 @@
     .field-textarea:focus {
       border-color: rgba(236, 72, 153, 0.9);
       box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.5);
+      transform: translateY(-1px);
     }
 
     .field-textarea {
@@ -631,6 +793,17 @@
       letter-spacing: 0.06em;
     }
 
+    .section-title::after {
+      content: "";
+      display: block;
+      margin-top: 4px;
+      width: 42px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f97316, #eab308, #a855f7);
+      opacity: 0.9;
+    }
+
     .section-subtitle {
       margin: 0;
       font-size: 0.86rem;
@@ -664,6 +837,7 @@
       margin: 0;
       font-size: 0.84rem;
       color: var(--text-soft);
+      transition: color var(--transition-fast);
     }
 
     .auth-form {
@@ -834,6 +1008,15 @@
       border: 1px solid rgba(148, 163, 184, 0.45);
       font-size: 0.86rem;
       color: var(--text-soft);
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .wishes-list li:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(248, 250, 252, 0.7);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
     }
 
     /* ===== АДМИН-ПАНЕЛЬ ВНУТРИ ГЛАВНОЙ ===== */
@@ -959,6 +1142,14 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .thought-item:hover {
+      border-color: rgba(248, 250, 252, 0.7);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
     }
 
     .thought-meta {
@@ -1027,6 +1218,14 @@
       border: 1px solid rgba(148, 163, 184, 0.5);
       font-size: 0.86rem;
       color: var(--text-soft);
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .miss-list li:hover {
+      border-color: rgba(248, 250, 252, 0.7);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
     }
 
     /* ===== ПИСЬМО ===== */
@@ -1041,6 +1240,17 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      position: relative;
+    }
+
+    .letter-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0 0, rgba(250, 250, 255, 0.1), transparent 60%);
+      opacity: 0.7;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
     }
 
     .letter-header {
@@ -1048,6 +1258,8 @@
       gap: 14px;
       align-items: center;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
     }
 
     .letter-audio {
@@ -1060,6 +1272,8 @@
       overflow: hidden;
       transition: max-height var(--transition-slow), opacity 0.25s ease;
       opacity: 0;
+      position: relative;
+      z-index: 1;
     }
 
     .letter-body.open {
@@ -1264,6 +1478,10 @@
         left: 12px;
         max-width: none;
       }
+      .hero-card,
+      .section-card {
+        border-radius: 24px;
+      }
     }
 
     @media (max-width: 520px) {
@@ -1293,6 +1511,11 @@
   </style>
 </head>
 <body>
+  <!-- Глубинные орбиты -->
+  <div class="bg-orbit bg-orbit-1"></div>
+  <div class="bg-orbit bg-orbit-2"></div>
+  <div class="bg-orbit bg-orbit-3"></div>
+
   <!-- ===== ШАПКА ===== -->
   <header class="site-header">
     <div class="header-inner">
@@ -1328,7 +1551,7 @@
     <div class="layout-grid">
       <!-- Левая колонка: герой -->
       <aside class="layout-left">
-        <section class="hero-card">
+        <section class="hero-card float-section">
           <div class="hero-top">
             <span class="hero-label">Только для нас двоих</span>
             <h1 class="hero-title">
@@ -1388,7 +1611,7 @@
       <!-- Правая колонка -->
       <section class="layout-right">
         <!-- === ЖЕЛАНИЯ / АВТОРИЗАЦИЯ === -->
-        <section id="wishes" class="section-card">
+        <section id="wishes" class="section-card float-section-delayed">
           <div class="section-head">
             <div class="section-title-block">
               <h2 class="section-title">Желания</h2>
@@ -1571,7 +1794,7 @@
         </section>
 
         <!-- === МЫСЛИ === -->
-        <section id="thoughts" class="section-card">
+        <section id="thoughts" class="section-card float-section-delayed">
           <div class="section-head">
             <div class="section-title-block">
               <h2 class="section-title">Мысли</h2>
@@ -1617,7 +1840,7 @@
         </section>
 
         <!-- === КОГДА СКУЧАЕШЬ === -->
-        <section id="miss" class="section-card">
+        <section id="miss" class="section-card float-section-delayed">
           <div class="section-head">
             <div class="section-title-block">
               <h2 class="section-title">Когда скучаешь</h2>
@@ -1670,7 +1893,7 @@
         </section>
 
         <!-- === ПИСЬМО === -->
-        <section id="letter" class="section-card">
+        <section id="letter" class="section-card float-section-delayed">
           <div class="section-head">
             <div class="section-title-block">
               <h2 class="section-title">Письмо</h2>
@@ -1706,7 +1929,7 @@
         </section>
 
         <!-- === НАСТРОЙКИ === -->
-        <section class="settings-card">
+        <section class="settings-card float-section-delayed">
           <div class="section-head" style="margin-bottom: 6px;">
             <div class="section-title-block">
               <h2 class="section-title" style="font-size: 1rem;">Настройки</h2>
@@ -1784,7 +2007,7 @@
   <!-- Когда скучаешь -->
   <script src="miss.js"></script>
 
-  <!-- Мысли (если у тебя есть отдельный файл) -->
+  <!-- Мысли -->
   <script src="thoughts.js"></script>
 
   <!-- Навигация, музыка и письмо -->
