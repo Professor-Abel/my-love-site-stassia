@@ -20,82 +20,224 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Асъяман — наш маленький мир" />
-  <meta property="og:title" content="Асъяман — наш маленький мир" />
+  <meta property="og:title" content="Асъяман — наши желания" />
   <meta property="og:description"
-        content="Асъяман — наш маленький мир, созданный только для нас двоих: желания, мысли, моменты, когда скучаешь, и письмо." />
+        content="Наши желания, мысли и моменты, когда скучаешь. Всё только для нас двоих." />
   <meta property="og:image" content="preview-asyaman.png" />
   <meta property="og:url" content="https://asyaman.com" />
 
-  <!-- Telegram-specific -->
-  <meta name="telegram:card" content="summary_large_image" />
-  <meta name="telegram:title" content="Асъяман — наш маленький мир" />
-  <meta name="telegram:description"
-        content="Наш маленький мир, где живут твои желания, мысли и письма." />
-  <meta name="telegram:image" content="preview-asyaman.png" />
-
-  <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Асъяман — наш маленький мир" />
-  <meta name="twitter:description"
-        content="Наш маленький мир, где живут твои желания, мысли и письма." />
-  <meta name="twitter:image" content="preview-asyaman.png" />
-
-  <!-- Theme Color -->
+  <!-- Цвет вкладки -->
   <meta name="theme-color" content="#05030b" />
 </head>
 <body>
-  <!-- Фон-галактика -->
+  <!-- Фон галактики -->
   <canvas id="galaxyCanvas"></canvas>
 
   <!-- Плавающие сердечки -->
-  <span class="floating-heart" style="left: 12%; bottom: -40px;">💗</span>
-  <span class="floating-heart" style="left: 62%; bottom: -80px; animation-delay: 2s;">💗</span>
-  <span class="floating-heart" style="left: 82%; bottom: -120px; animation-delay: 4s;">💗</span>
-  <span class="floating-heart" style="left: 32%; bottom: -100px; animation-delay: 6s;">💗</span>
+  <span class="floating-heart" style="left: 8%; bottom: -40px;">💗</span>
+  <span class="floating-heart" style="left: 64%; bottom: -60px;">💜</span>
+  <span class="floating-heart" style="left: 30%; bottom: -90px;">💙</span>
+  <span class="floating-heart" style="left: 78%; bottom: -120px;">💘</span>
 
-  <div class="page">
-    <!-- ШАПКА -->
+  <div class="page-shell">
+
+
     <header class="site-header">
-      <div class="header-inner">
-        <div class="logo">
-          Асъяман
-          <span>наш маленький мир</span>
-        </div>
-
-        <button class="nav-toggle" aria-label="Меню">
-          <span></span><span></span><span></span>
-        </button>
-
-        <nav class="site-nav">
-          <a href="#wishes" class="nav-link nav-active">Желания</a>
-          <a href="#thoughts" class="nav-link">Мысли</a>
-          <a href="#miss" class="nav-link">Когда скучаешь</a>
-          <a href="#letter" class="nav-link">Письмо</a>
-          <a href="#about" class="nav-link">О нас</a>
-          <a href="#messages" class="nav-link">Сообщения</a>
-          <a href="#notifications" class="nav-link">Уведомления</a>
-          <a href="#account" class="nav-link">Аккаунт</a>
-        </nav>
-      </div>
-    </header>
-
-    <!-- ГЛОБАЛЬНЫЙ ПЛЕЕР -->
-    <div class="music-bar" id="musicBar">
-      <button class="music-bar-close" id="musicBarClose" aria-label="Закрыть плеер">×</button>
-      <div class="music-bar-left">
-        <div class="music-bar-label">🎧 Наша музыка</div>
-        <div class="music-bar-title" id="musicCurrentTitle">Братья Шахунц — Будь со мной</div>
-      </div>
-      <div class="music-bar-center">
-        <button id="musicPrevBtn" class="music-bar-btn" aria-label="Предыдущий трек">⏮</button>
-        <button id="musicPlayPauseBtn" class="music-bar-btn music-bar-btn-main" aria-label="Пауза / Продолжить">⏯</button>
-        <button id="musicNextBtn" class="music-bar-btn" aria-label="Следующий трек">⏭</button>
-      </div>
-      <div class="music-bar-right">
-        <input type="range" id="musicSeek" min="0" max="100" value="0" />
-        <audio id="globalMusic" preload="metadata"></audio>
+  <div class="site-header-left">
+    <div class="site-logo">
+      <div class="site-logo-mark">A</div>
+      <div class="site-logo-text">
+        <div class="site-logo-title">Асьяман</div>
+        <div class="site-logo-subtitle">наш маленький мир</div>
       </div>
     </div>
+  </div>
+
+  <!-- Кнопка меню (мобилка) -->
+  <button class="nav-toggle" id="navToggle" aria-label="Открыть меню">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- Верхняя навигация (как у Apple) -->
+  <nav class="site-nav" id="siteNav">
+    <button class="site-nav-link" data-target="wishes" data-panel="wishes">
+      ✨ Желания
+    </button>
+    <button class="site-nav-link" data-target="thoughts" data-panel="thoughts">
+      💭 Мысли
+    </button>
+    <button class="site-nav-link" data-target="miss" data-panel="miss">
+      🥺 Когда скучаешь
+    </button>
+    <button class="site-nav-link" data-target="letter" data-panel="letter">
+      ✉️ Письмо
+    </button>
+    <button class="site-nav-link" data-target="about" data-panel="about">
+      💑 О нас
+    </button>
+    <button class="site-nav-link" data-target="messages" data-panel="messages">
+      💌 Сообщения
+    </button>
+    <button class="site-nav-link" data-target="notifications" data-panel="notifications">
+      🔔 Уведомления
+    </button>
+    <button class="site-nav-link" data-target="account" data-panel="account">
+      👤 Аккаунт
+    </button>
+  </nav>
+</header>
+
+<!-- Затемнение + мегапанель навигации как у Apple -->
+<div class="nav-dim" id="navDim"></div>
+
+<div class="nav-mega" id="navMega">
+  <!-- Желания -->
+  <div class="nav-mega-section" data-panel="wishes">
+    <div class="nav-mega-left">
+      <p class="nav-mega-kicker">Раздел</p>
+      <h2 class="nav-mega-title">Желания</h2>
+      <p class="nav-mega-subtitle">
+        Всё, о чём она мечтает. Каждая запись — маленькое обещание, к которому вы вернётесь позже.
+      </p>
+    </div>
+    <div class="nav-mega-right">
+      <ul class="nav-mega-list">
+        <li>Сохраняйте желания навсегда, а не в голове</li>
+        <li>Видите общий список мечт</li>
+        <li>Возвращайтесь к ним в важные моменты</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Мысли -->
+  <div class="nav-mega-section" data-panel="thoughts">
+    <div class="nav-mega-left">
+      <p class="nav-mega-kicker">Раздел</p>
+      <h2 class="nav-mega-title">Мысли</h2>
+      <p class="nav-mega-subtitle">
+        Личный блокнот для честных, спокойных и очень настоящих мыслей.
+      </p>
+    </div>
+    <div class="nav-mega-right">
+      <ul class="nav-mega-list">
+        <li>Записывайте то, что не хочется потерять</li>
+        <li>Делитесь тем, о чём трудно сказать голосом</li>
+        <li>Создавайте свой небольшой дневник</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Когда скучаешь -->
+  <div class="nav-mega-section" data-panel="miss">
+    <div class="nav-mega-left">
+      <p class="nav-mega-kicker">Раздел</p>
+      <h2 class="nav-mega-title">Когда скучаешь</h2>
+      <p class="nav-mega-subtitle">
+        Место, куда можно зайти, когда очень не хватает друг друга.
+      </p>
+    </div>
+    <div class="nav-mega-right">
+      <ul class="nav-mega-list">
+        <li>Специальные тексты “на скучку”</li>
+        <li>Музыка, которая напоминает о вас</li>
+        <li>Теплые подсказки, что вы рядом</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Письмо -->
+  <div class="nav-mega-section" data-panel="letter">
+    <div class="nav-mega-left">
+      <p class="nav-mega-kicker">Раздел</p>
+      <h2 class="nav-mega-title">Письмо</h2>
+      <p class="nav-mega-subtitle">
+        Большое письмо, к которому она сможет возвращаться снова и снова.
+      </p>
+    </div>
+    <div class="nav-mega-right">
+      <ul class="nav-mega-list">
+        <li>История ваших чувств в одном месте</li>
+        <li>Там, где можно признаться ещё раз</li>
+        <li>Как отдельная страница вашей истории</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- О нас -->
+  <div class="nav-mega-section" data-panel="about">
+    <div class="nav-mega-left">
+      <p class="nav-mega-kicker">Раздел</p>
+      <h2 class="nav-mega-title">О нас</h2>
+      <p class="nav-mega-subtitle">
+        Ваше маленькое досье: кто вы, как всё началось и что для вас важно.
+      </p>
+    </div>
+    <div class="nav-mega-right">
+      <ul class="nav-mega-list">
+        <li>Сохраняйте важные даты и моменты</li>
+        <li>Фразы, которые описывают вас двоих</li>
+        <li>Место для вашей легенды</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Сообщения -->
+  <div class="nav-mega-section" data-panel="messages">
+    <div class="nav-mega-left">
+      <p class="nav-mega-kicker">Раздел</p>
+      <h2 class="nav-mega-title">Сообщения</h2>
+      <p class="nav-mega-subtitle">
+        Лента ваших важных сообщений, отдельно от обычных мессенджеров.
+      </p>
+    </div>
+    <div class="nav-mega-right">
+      <ul class="nav-mega-list">
+        <li>Здесь остаются только тёплые слова</li>
+        <li>Можно пересматривать переписку “только для вас”</li>
+        <li>Никакого лишнего шума</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Уведомления -->
+  <div class="nav-mega-section" data-panel="notifications">
+    <div class="nav-mega-left">
+      <p class="nav-mega-kicker">Раздел</p>
+      <h2 class="nav-mega-title">Уведомления</h2>
+      <p class="nav-mega-subtitle">
+        Напоминания о важных датах, обновлениях и маленьких сюрпризах.
+      </p>
+    </div>
+    <div class="nav-mega-right">
+      <ul class="nav-mega-list">
+        <li>Напоминания о датах и событиях</li>
+        <li>Сигналы о новых желаниях и мыслях</li>
+        <li>Ничего не пропадает и не теряется</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Аккаунт -->
+  <div class="nav-mega-section" data-panel="account">
+    <div class="nav-mega-left">
+      <p class="nav-mega-kicker">Раздел</p>
+      <h2 class="nav-mega-title">Аккаунт</h2>
+      <p class="nav-mega-subtitle">
+        Настройки доступа, почта и всё, что связано с безопасностью вашего мира.
+      </p>
+    </div>
+    <div class="nav-mega-right">
+      <ul class="nav-mega-list">
+        <li>Вход по почте или через Google</li>
+        <li>Привязка желаний и мыслей к аккаунту</li>
+        <li>Возможность расширять функционал дальше</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 
     <main class="layout-root">
       <!-- Левая колонка -->
@@ -118,13 +260,23 @@
         </div>
       </aside>
 
-      <!-- Центральная колонка (лента) -->
+      <!-- Центральная колонка -->
       <section class="layout-center">
-        <!-- ============ СЕКЦИЯ ЖЕЛАНИЙ ============ -->
-        <section id="wishes" class="page-inner">
+        <!-- ============ СЕКЦИЯ ЖЕЛАНИЯ ============ -->
+        <section id="wishes" class="page-section">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-kicker">НАШ ДНЕВНИК</div>
+              <h1 class="page-title">Желания</h1>
+              <p class="page-subtitle">
+                Всё, о чём ты мечтаешь, может жить здесь — и мы сможем возвращаться к этому снова и снова.
+              </p>
+            </div>
+          </div>
+
           <div class="main-grid">
-            <!-- Левая карточка: авторизация -->
-            <section class="card">
+            <!-- Левая колонка: авторизация -->
+            <section class="card" id="auth-card">
               <div class="card-inner">
                 <div class="card-header">
                   <div class="card-kicker">ДОСТУП К ДНЕВНИКУ</div>
@@ -134,52 +286,55 @@
                   </p>
                 </div>
 
-                <!-- Блок для неавторизованных -->
+                <!-- Блок для гостей -->
                 <div id="auth-guest-block">
                   <p class="auth-note">
-                    Ты ещё не вошла. Авторизуйся, чтобы записывать желания, мысли и сохранять всё в своём профиле.
+                    Ты ещё не вошла в дневник. Авторизуйся, чтобы записывать желания и хранить их в своём аккаунте.
                   </p>
+
+                  <form id="authForm" class="auth-form">
+                    <div class="tabs">
+                      <button type="button" class="tab-button active" data-mode="login">Войти</button>
+                      <button type="button" class="tab-button" data-mode="register">Регистрация</button>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="authEmail">Email</label>
+                      <input type="email" id="authEmail" placeholder="твоя почта" autocomplete="email" />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="authPassword">Пароль</label>
+                      <input type="password" id="authPassword" placeholder="твой пароль" autocomplete="current-password" />
+                    </div>
+
+                    <button type="submit" id="authMainButton" class="btn btn-main btn-full">
+                      Войти
+                    </button>
+
+                    <button type="button" id="googleLoginBtn" class="btn btn-google btn-full">
+                      Войти через Google
+                    </button>
+
+                    <p class="auth-note">
+                      Регистрация нужна, чтобы мы могли хранить твои желания и мысли именно под твоим аккаунтом,
+                      а не просто в браузере.
+                    </p>
+                  </form>
                 </div>
 
-                <!-- Блок для авторизованных -->
-                <div id="auth-user-block" style="display: none;">
+                <!-- Блок, когда пользователь уже авторизован -->
+                <div id="auth-user-block" class="auth-user-block" style="display: none;">
                   <p class="auth-note">
-                    Вход выполнен как <span id="authUserEmail" class="auth-user-email"></span>.
+                    Ты вошла как <span id="authUserEmail" class="auth-user-email"></span>.
+                  </p>
+                  <p class="auth-note">
+                    Все новые желания и мысли будут привязаны к этому аккаунту.
                   </p>
                   <button id="logoutBtn" class="btn btn-outline btn-full">
-                    🚪 Выйти из аккаунта
+                    Выйти
                   </button>
                 </div>
-
-                <form id="authForm" class="auth-form">
-                  <div class="tabs">
-                    <button type="button" class="tab-button active" data-mode="login">Войти</button>
-                    <button type="button" class="tab-button" data-mode="register">Регистрация</button>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="authEmail">Email</label>
-                    <input type="email" id="authEmail" placeholder="твоя почта" autocomplete="email" />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="authPassword">Пароль</label>
-                    <input type="password" id="authPassword" placeholder="твой пароль" autocomplete="current-password" />
-                  </div>
-
-                  <button type="submit" id="authMainButton" class="btn btn-main btn-full">
-                    Войти
-                  </button>
-
-                  <button type="button" id="googleLoginBtn" class="btn btn-google btn-full">
-                    Войти через Google
-                  </button>
-
-                  <p class="auth-note">
-                    Регистрация нужна, чтобы мы могли хранить твои желания и мысли именно под твоим аккаунтом,
-                    а не просто в браузере.
-                  </p>
-                </form>
 
                 <p id="auth-status" class="auth-status"></p>
               </div>
@@ -202,71 +357,68 @@
                 </div>
 
                 <label for="wishInput" class="wishes-label">
-                  Напиши, чего хочешь прямо сейчас:
+                  Напиши своё желание:
                 </label>
-                <textarea
-                  id="wishInput"
-                  class="wishes-textarea"
-                  rows="3"
-                  placeholder="Например: поехать с тобой в маленькое путешествие на море..."
-                ></textarea>
 
-                <div class="wishes-actions">
+                <div class="wishes-input-row">
+                  <input
+                    id="wishInput"
+                    type="text"
+                    class="input wishes-input"
+                    placeholder="Например: провести ночь в Париже, посмотреть рассвет на крыше, сварить вместе кофе..."
+                  />
                   <button id="addWishBtn" class="btn btn-main">
-                    ✨ Сохранить желание
-                  </button>
-                  <button id="clearWishesBtn" class="btn btn-outline">
-                    🧹 Очистить список
+                    Добавить
                   </button>
                 </div>
 
-                <p class="wishes-hint">
-                  Нажми <strong>Ctrl+Enter</strong>, чтобы быстро сохранить желание.
-                </p>
-
-                <div class="wishes-list-wrapper">
-                  <h3 class="wishes-list-title">Наш список желаний</h3>
-                  <ul id="wishList" class="wishes-list">
-                    <!-- Список желаний будет отрисован здесь -->
-                  </ul>
+                <div class="wishes-controls">
+                  <button id="clearWishesBtn" class="btn btn-outline btn-sm">
+                    Очистить список
+                  </button>
                 </div>
+
+                <ul id="wishList" class="wish-list">
+                  <!-- Желания появятся здесь -->
+                </ul>
               </div>
             </section>
           </div>
         </section>
 
-        <!-- ============ СЕКЦИЯ МЫСЛЕЙ ============ -->
-        <section id="thoughts" class="page-inner">
-          <section class="card thoughts-card">
-            <div class="card-inner thoughts-card-inner">
+        <!-- ============ СЕКЦИЯ МЫСЛИ ============ -->
+        <section id="thoughts" class="page-section">
+          <div class="page-header">
+            <div>
+              <div class="page-kicker">МЫСЛИ</div>
+              <h2 class="page-title">Мысли, которые хочется сохранить</h2>
+              <p class="page-subtitle">
+                Здесь можно писать то, что не даёт тебе покоя, вдохновляет или просто хочется не потерять.
+              </p>
+            </div>
+          </div>
+
+          <section class="card">
+            <div class="card-inner">
               <div class="thoughts-header">
-                <div class="thoughts-kicker">МЫСЛИ</div>
-                <h1 class="thoughts-title">
-                  Твой дневник:
-                  <span>место для искренних сообщений</span>
-                </h1>
+                <h3 class="thoughts-title">Добавить мысль</h3>
                 <p class="thoughts-subtitle">
-                  Это место для серьёзных и не очень разговоров. Пиши сюда всё,
-                  что хочешь мне сказать — от больших мыслей до маленьких деталей дня.
+                  Напиши всё, что чувствуешь, — и оно останется здесь, чтобы к этому можно было вернуться.
                 </p>
               </div>
 
-              <label for="thought-input" class="thoughts-label">
-                О чём ты думаешь прямо сейчас?
-              </label>
               <textarea
-                id="thought-input"
-                class="thoughts-textarea"
-                rows="5"
-                placeholder="Например: мне хочется рассказать тебе, что сегодня произошло..."
+                id="thoughtInput"
+                class="textarea thoughts-textarea"
+                placeholder="Например: сегодня я поняла, что..."
               ></textarea>
 
               <div class="thoughts-actions">
-                <button id="add-thought" class="btn btn-main">
-                  ✚ Добавить мысль
+                <button id="saveThoughtBtn" class="btn btn-main">
+                  Сохранить мысль
                 </button>
-                <button id="clear-thoughts" class="btn btn-outline">
-                  🧹 Очистить все записи
+                <button id="clearThoughtsBtn" class="btn btn-outline btn-sm">
+                  Очистить все мысли
                 </button>
               </div>
 
@@ -285,311 +437,339 @@
         </section>
 
         <!-- ============ СЕКЦИЯ «КОГДА СКУЧАЕШЬ» ============ -->
-        <section id="miss" class="page-inner">
+        <section id="miss" class="page-section">
+          <div class="page-header">
+            <div>
+              <div class="page-kicker">КОГДА СКУЧАЕШЬ</div>
+              <h2 class="page-title">Когда очень скучаешь</h2>
+              <p class="page-subtitle">
+                Этот раздел — как объятие на расстоянии. Когда тебе грустно или одиноко, просто зайди сюда.
+              </p>
+            </div>
+          </div>
+
           <section class="card miss-card">
             <div class="card-inner miss-card-inner">
-              <div class="miss-header">
-                <div class="miss-kicker">КОГДА СКУЧАЕШЬ</div>
-                <h2 class="miss-title">
-                  Когда не хватает меня рядом
-                  <span>место, где мы храним моменты, когда скучаем</span>
-                </h2>
-                <p class="miss-subtitle">
-                  Здесь ты можешь записывать или отмечать моменты, когда особенно сильно скучаешь.
-                  Мы сможем потом вернуться к ним, перечитать и вспомнить, через что прошли.
+              <h3 class="miss-title">Если тебе очень-очень меня не хватает</h3>
+              <p class="miss-text">
+                Открой этот раздел, включи музыку, прочитай слова, которые здесь, и помни:
+                я с тобой, даже если физически нас разделяют километры.
+              </p>
+
+              <div class="miss-block">
+                <p>
+                  Иногда мы не можем быть рядом, но это никогда не значит, что я стал думать о тебе меньше.
+                  Ты всегда со мной — в мыслях, в сердце, в каждом дне.
                 </p>
-              </div>
-
-              <div class="miss-layout">
-                <div class="miss-main">
-                  <label for="missInput" class="miss-label">Что ты чувствуешь сейчас?</label>
-                  <textarea
-                    id="missInput"
-                    class="miss-textarea"
-                    rows="4"
-                    placeholder="Например: сегодня вечером мне очень не хватает твоих рук и твоего голоса..."
-                  ></textarea>
-
-                  <div class="miss-actions">
-                    <button id="addMissBtn" class="btn btn-main">
-                      💌 Сохранить момент
-                    </button>
-                    <button id="clearMissBtn" class="btn btn-outline">
-                      🧹 Очистить всё
-                    </button>
-                  </div>
-
-                  <p class="miss-hint">
-                    Когда скучаешь — заходи сюда и пиши. Это будет наш общий тихий уголок.
-                  </p>
-                </div>
-
-                <div class="miss-side">
-                  <h3 class="miss-list-title">Моменты, когда ты скучала</h3>
-                  <div id="missList" class="miss-list">
-                    <!-- Моменты будут добавляться сюда -->
-                  </div>
-                </div>
+                <p>
+                  Если тебе одиноко, просто вспомни:
+                  кто-то в этот момент очень хочет обнять тебя и быть с тобой рядом.
+                </p>
               </div>
             </div>
           </section>
         </section>
 
-        <!-- ============ СЕКЦИЯ ПИСЬМА ============ -->
-        <section id="letter" class="page-inner">
+        <!-- ============ СЕКЦИЯ ПИСЬМО ============ -->
+        <section id="letter" class="page-section">
+          <div class="page-header">
+            <div>
+              <div class="page-kicker">ПИСЬМО</div>
+              <h2 class="page-title">Письмо для тебя</h2>
+              <p class="page-subtitle">
+                Здесь будет письмо, которое можно перечитывать сколько угодно раз.
+              </p>
+            </div>
+          </div>
+
           <section class="card letter-card">
             <div class="card-inner letter-card-inner">
-              <div class="letter-header">
-                <div class="letter-kicker">ПИСЬМО</div>
-                <h2 class="letter-title">
-                  Письмо, которое всегда с тобой
-                  <span>ты можешь открыть его в любой момент</span>
-                </h2>
-                <p class="letter-subtitle">
-                  Здесь живёт письмо, которое я пишу специально для тебя.
-                  Когда тебе грустно, одиноко или просто хочется почувствовать мою поддержку —
-                  заходи сюда и читай.
-                </p>
-              </div>
-
-              <div class="letter-body">
-                <p>
-                  Моя любимая, если ты открыла эту страницу — значит, тебе сейчас особенно важно почувствовать,
-                  что ты не одна. Я хочу, чтобы ты знала: даже если мы далеко, я мысленно всё равно рядом с тобой,
-                  держу тебя за руку и обнимаю так, как ты любишь.
-                </p>
-                <p>
-                  Ты — самое дорогое, что есть в моей жизни. Каждый наш день, каждая переписка,
-                  каждый звонок — это то, ради чего хочется становиться лучше. Если кто-то вдруг
-                  сделал тебе больно — помни, что есть человек, который готов защищать тебя даже
-                  от твоих собственных сомнений.
-                </p>
-                <p>
-                  Когда тебе тяжело — не держи всё в себе. Пиши мне, звони, говори. Твои чувства важны.
-                  И если тебе кажется, что ты «слишком эмоциональная» или «слишком чувствительная» —
-                  знай, что для меня это не «слишком», а именно то, что делает тебя живой, настоящей
-                  и такой родной.
-                </p>
-                <p>
-                  Я верю в нас. В то, что мы сможем пройти и расстояние, и трудности, и все странности этого мира.
-                  Потому что у нас уже есть самое главное — наше чувство, наша связь и наше желание быть
-                  рядом, несмотря ни на что.
-                </p>
-                <p>
-                  Если ты сейчас читаешь это с усталыми глазами, может быть, поздно ночью —
-                  просто сделай глубокий вдох. Представь, что я рядом. Представь, что я убираю с твоего лица
-                  все тревоги, по одной. Ты заслуживаешь спокойствия, тепла и любви. И всё это я хочу тебе дать.
-                </p>
-                <p class="letter-sign">
-                  Я с тобой. Всегда. 💜
-                </p>
-              </div>
-
-              <div class="letter-footer-note">
-                Это место только для нас двоих. Возвращайся сюда, когда не хватает моих слов рядом. 💫
-              </div>
+              <p>
+                Здесь мы позже напишем большое письмо.
+                Не обычное, а такое, в которое положим все наши чувства, страхи, надежды и обещания.
+              </p>
             </div>
           </section>
         </section>
 
         <!-- ============ СЕКЦИЯ О НАС ============ -->
-        <section id="about" class="page-inner">
+        <section id="about" class="page-section">
+          <div class="page-header">
+            <div>
+              <div class="page-kicker">О НАС</div>
+              <h2 class="page-title">О нас</h2>
+              <p class="page-subtitle">
+                Немного о нашей истории, как мы познакомились и почему всё это появилось.
+              </p>
+            </div>
+          </div>
+
           <section class="card about-card">
-            <div class="about-left">
-              <h2>О нас 👶💜</h2>
-              <p class="about-text-main">
-                У нас с тобой своя история – с детских фотографий и до этого момента,
-                когда ты читаешь эти строки на нашем собственном сайте.
+            <div class="card-inner about-card-inner">
+              <p>
+                Когда-то мы просто жили каждый свою жизнь.
+                Потом случайно оказались в одном месте, в один момент —
+                и всё уже никогда не стало прежним.
               </p>
-              <p class="about-text-sub">
-                Здесь я хочу хранить один маленький кадр из нашего детства и песню, под которую
-                внутри всё сжимается и становится по-особенному тёплым. Включи её, когда
-                захочешь снова почувствовать это чувство.
-              </p>
-
-              <div class="about-song">
-                <div class="about-song-header">
-                  <span class="about-song-label">🎧 Наша песня</span>
-                  <span class="about-song-name">Братья Шахунц — Будь со мной</span>
-                </div>
-                <button class="btn btn-main" type="button" id="aboutPlayMockingbird">
-                  ▶ Включить песню
-                </button>
-              </div>
-            </div>
-
-            <div class="about-right">
-              <div class="about-photo-frame">
-                <img src="secret-photo.jpg" alt="Наш особенный момент" class="about-photo" />
-                <div class="about-photo-glow"></div>
-              </div>
-              <div class="about-photo-shadow"></div>
-            </div>
-          </section>
-        </section>
-
-        <!-- ============ СЕКЦИЯ СООБЩЕНИЙ (заглушка) ============ -->
-        <section id="messages" class="page-inner">
-          <section class="card">
-            <div class="card-inner">
-              <div class="title-row">
-                <div class="lock-icon">💌</div>
-                <h1>Сообщения</h1>
-              </div>
-              <p class="subtitle">
-                В будущем здесь может появиться наш внутренний чат, где мы будем переписываться только вдвоём.
-                Пока это место словно пустая комната, которая ждёт наших разговоров.
-              </p>
-              <p class="subtitle">
-                Если хочешь, мы позже сделаем здесь стену сообщений, как в соцсети, куда можно
-                будет оставлять заметки, мини-письма и ответы.
+              <p>
+                Асъяман — это не просто сайт.
+                Это место, куда мы можем прийти вдвоём, даже если физически мы далеко.
               </p>
             </div>
           </section>
         </section>
 
-        <!-- ============ СЕКЦИЯ УВЕДОМЛЕНИЙ (заглушка) ============ -->
-        <section id="notifications" class="page-inner">
-          <section class="card card--glow">
-            <div class="card-inner">
-              <div class="title-row">
-                <div class="lock-icon">🔔</div>
-                <h1>Уведомления</h1>
-              </div>
-              <p class="subtitle">
-                Здесь в будущем можно будет видеть напоминания: о желаниях, которые пора выполнить, о датах,
-                о маленьких задачах, связанных только с нами.
+        <!-- ============ СЕКЦИЯ СООБЩЕНИЯ ============ -->
+        <section id="messages" class="page-section">
+          <div class="page-header">
+            <div>
+              <div class="page-kicker">СООБЩЕНИЯ</div>
+              <h2 class="page-title">Сообщения</h2>
+              <p class="page-subtitle">
+                В будущем здесь можно будет оставлять небольшие сообщения друг другу.
               </p>
-              <p class="subtitle">
-                Сейчас эта секция просто ждёт того дня, когда мы решим добавить сюда настоящие напоминания —
-                и тогда она оживёт.
+            </div>
+          </div>
+
+          <section class="card messages-card">
+            <div class="card-inner messages-card-inner">
+              <p>
+                Этот раздел пока в разработке.
+                Но именно здесь я хочу, чтобы ты могла оставлять мне маленькие заметки,
+                как будто пишешь записку и кладёшь её мне в карман.
               </p>
             </div>
           </section>
         </section>
 
-        <!-- ============ АККАУНТ ============ -->
-        <section id="account" class="page-inner">
-          <section class="card card--glow">
-            <div class="card-inner">
-              <div class="title-row">
-                <div class="lock-icon">👤</div>
-                <h1>Твой личный аккаунт</h1>
-              </div>
-
-              <p class="subtitle">
-                Здесь живёт твой маленький профиль: имя, аватар и пару строк о тебе. Всё только для наших людей.
+        <!-- ============ СЕКЦИЯ УВЕДОМЛЕНИЯ ============ -->
+        <section id="notifications" class="page-section">
+          <div class="page-header">
+            <div>
+              <div class="page-kicker">УВЕДОМЛЕНИЯ</div>
+              <h2 class="page-title">Уведомления</h2>
+              <p class="page-subtitle">
+                Здесь когда-нибудь появятся напоминания о важных датах, событиях и наших планах.
               </p>
+            </div>
+          </div>
 
-              <!-- БЛОК ДЛЯ ГОСТЯ -->
-              <div id="account-guest" style="margin-top: 12px; font-size: 13px; color: var(--text-soft); display: none;">
-                Чтобы увидеть и настроить свой профиль, войди в свой дневник или зарегистрируйся 💫
-              </div>
+          <section class="card notifications-card">
+            <div class="card-inner notifications-card-inner">
+              <p>
+                Этот раздел тоже пока пустой.
+                Но в будущем я хочу, чтобы здесь появлялись наши важные моменты:
+                годовщины, поездки, планы, мечты.
+              </p>
+            </div>
+          </section>
+        </section>
 
-              <!-- ПРОСМОТР ПРОФИЛЯ -->
-              <div id="account-view" style="margin-top: 16px; display: none;">
-                <p style="font-size: 13px; color: var(--text-soft); margin-bottom: 8px;">
-                  Вход выполнен как: <span id="account-email"></span>
+        <!-- ============ СЕКЦИЯ АККАУНТ ============ -->
+        <section id="account" class="page-section">
+          <div class="page-header">
+            <div>
+              <div class="page-kicker">АККАУНТ</div>
+              <h2 class="page-title">Твой профиль</h2>
+              <p class="page-subtitle">
+                Здесь можно будет посмотреть, под каким аккаунтом ты вошла, и настроить некоторые вещи.
+              </p>
+            </div>
+          </div>
+
+          <section class="card account-card">
+            <div class="card-inner account-card-inner">
+              <div id="account-guest">
+                <p>
+                  Ты пока не вошла в аккаунт.
+                  Зайди через дневник желаний, и здесь появится информация о тебе.
                 </p>
-
-                <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 12px;">
-                  <div class="account-avatar-preview">
-                    <img id="account-avatar-img" src="images/stassia-avatar.jpg" alt="Аватар" />
-                  </div>
-                  <div>
-                    <div class="account-display-name" id="account-displayName"></div>
-                    <div class="account-about-text" id="account-about"></div>
-                  </div>
-                </div>
-
-                <button id="account-edit-btn" class="btn btn-outline">
-                  ✏ Изменить профиль
-                </button>
               </div>
 
-              <!-- РЕДАКТИРОВАНИЕ ПРОФИЛЯ -->
-              <div id="account-edit" style="margin-top: 16px; display: none;">
-                <div class="form-group">
-                  <label for="account-displayName-input">Отображаемое имя</label>
-                  <input
-                    id="account-displayName-input"
-                    type="text"
-                    placeholder="как тебя здесь называть?"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="account-about-input">Пара строк о тебе</label>
-                  <textarea
-                    id="account-about-input"
-                    rows="3"
-                    placeholder="Например: я люблю белые розы, тёплые вечера и наш маленький мир..."
-                  ></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label for="account-avatar-input">Ссылка на аватар (URL)</label>
-                  <input
-                    id="account-avatar-input"
-                    type="url"
-                    placeholder="https://.../твоя-фотография.jpg"
-                  />
-                  <p class="auth-note">
-                    Позже можно будет загружать аватар прямо сюда, а пока — через ссылку.
-                  </p>
-                </div>
-
-                <div style="display: flex; gap: 8px; margin-top: 12px;">
-                  <button id="account-save-btn" class="btn btn-main">
-                    💾 Сохранить
-                  </button>
-                  <button id="account-cancel-btn" class="btn btn-outline">
-                    Отмена
-                  </button>
-                </div>
+              <div id="account-view" style="display: none;">
+                <p>
+                  Вход выполнен как <span id="account-email" class="account-email"></span>.
+                </p>
+                <p>
+                  В будущем здесь появятся настройки профиля и ещё кое-что.
+                </p>
               </div>
-
-              <p id="account-status" class="auth-status" style="margin-top: 12px;"></p>
             </div>
           </section>
         </section>
       </section>
 
       <!-- Правая колонка -->
-      <aside class="layout-right">
-        <div class="layout-right-inner">
-          <!-- АВАТАРКА -->
+     <aside class="layout-right">
+  <div class="layout-right-inner">
+    <!-- ПЕРСОНАЛЬНЫЙ ПРОФИЛЬ -->
+    <section class="side-card profile-card">
+      <div class="profile-mini">
+        <div class="profile-avatar-wrapper">
+          <img src="secret-photo.jpg" alt="Анастасия" class="profile-avatar" />
+          <div class="profile-avatar-glow"></div>
+          <div class="profile-online-dot" title="Сердце онлайн"></div>
+        </div>
+        <div class="profile-mini-text">
+          <div class="profile-mini-row">
+            <div>
+              <div class="profile-mini-name">Анастасия</div>
+              <div class="profile-mini-caption">та, ради которой всё это</div>
+            </div>
+            <span class="profile-mini-tag">любимая</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-meta-row">
+        <div class="profile-meta-item">
+          <div class="profile-meta-label">Желаний</div>
+          <div class="profile-meta-value" id="profile-wish-count">∞</div>
+        </div>
+        <div class="profile-meta-item">
+          <div class="profile-meta-label">Мыслей</div>
+          <div class="profile-meta-value" id="profile-thought-count">∞</div>
+        </div>
+        <div class="profile-meta-item">
+          <div class="profile-meta-label">Статус</div>
+          <div class="profile-meta-value profile-meta-value--soft">
+            всегда в сердце
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- МИНИ-ПЛЕЙЕР -->
+    <div class="mini-music-bar" id="miniMusicBar">
+      <div class="mini-music-left">
+        <div class="mini-music-icon">🎧</div>
+        <div class="mini-music-text">
+          <div class="mini-music-label">наш плейлист</div>
+          <div class="mini-music-title" id="miniMusicTitle">
+            Братья Шахунц — Будь со мной
+          </div>
+        </div>
+      </div>
+      <div class="mini-music-pulse"></div>
+    </div>
+
+    <!-- ПЛЕЙЛИСТ -->
+    <section class="side-card">
+      <div class="side-card-title">Наш плейлист</div>
+      <div class="playlist">
+        <button class="playlist-item playlist-item--active" data-track-index="0">
+          <span class="playlist-icon">🎧</span>
+          <span class="playlist-text">
+            Братья Шахунц — Будь со мной
+          </span>
+          <span class="playlist-meta">4:02</span>
+        </button>
+
+        <button class="playlist-item" data-track-index="1">
+          <span class="playlist-icon">🎧</span>
+          <span class="playlist-text">
+            Михаил Шуфутинский — Марджанджа
+          </span>
+          <span class="playlist-meta">3:47</span>
+        </button>
+
+        <button class="playlist-item" data-track-index="2">
+          <span class="playlist-icon">🎧</span>
+          <span class="playlist-text">
+            Михаил Шуфутинский — Еврейский портной
+          </span>
+          <span class="playlist-meta">4:15</span>
+        </button>
+
+        <button class="playlist-item" data-track-index="3">
+          <span class="playlist-icon">🎧</span>
+          <span class="playlist-text">
+            Eminem — Mockingbird
+          </span>
+          <span class="playlist-meta">4:11</span>
+        </button>
+
+        <button class="playlist-item" data-track-index="4">
+          <span class="playlist-icon">🎧</span>
+          <span class="playlist-text">
+            Sting — Shape of My Heart
+          </span>
+          <span class="playlist-meta">4:38</span>
+        </button>
+
+        <button class="playlist-item" data-track-index="5">
+          <span class="playlist-icon">🎧</span>
+          <span class="playlist-text">
+            Спят усталые игрушки
+          </span>
+          <span class="playlist-meta">2:20</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- НАСТРОЙКИ -->
+    <section class="side-card settings-card">
+      <div class="side-card-title">Настройки</div>
+
+      <div class="settings-section">
+        <div class="settings-label">Тема</div>
+        <select id="themeSelect" class="settings-select">
+          <option value="night">Ночной космос</option>
+          <option value="soft">Мягкая ночь</option>
+          <option value="classic">Классическая тьма</option>
+        </select>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-label">Эффекты</div>
+        <div class="settings-chips">
+          <button class="settings-chip" data-setting="hearts">
+            💗 Сердечки
+          </button>
+          <button class="settings-chip" data-setting="galaxy">
+            🌌 Галактика
+          </button>
+          <button class="settings-chip" data-setting="glow">
+            ✨ Подсветка карточек
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-label">Аккаунт</div>
+        <p id="settingsAccountInfo" class="settings-account-info">
+          Гость (зайди в дневник, чтобы сохранить настройки)
+        </p>
+      </div>
+
+      <div class="settings-section">
+        <button id="settingsAdminBtn" class="btn btn-outline btn-full">
+          Панель Абеля (админ)
+        </button>
+      </div>
+    </section>
+
+
+
+          <!-- АВАТАР -->
           <div class="profile-mini">
             <div class="profile-avatar-wrapper">
-              <img src="images/stassia-avatar.jpg" alt="Stassia" class="profile-avatar" />
-              <button class="btn-avatar btn-avatar--locked"></button>
+              <img src="secret-photo.jpg" alt="Анастасия" class="profile-avatar" />
+              <button class="btn-avatar btn-avatar--locked" title="Тут только она"></button>
             </div>
-            <div>
-              <div class="profile-name">Анастасия</div>
+            <div class="profile-mini-text">
+              <div class="profile-mini-name">Анастасия</div>
+              <div class="profile-mini-caption">та, ради которой всё это</div>
             </div>
           </div>
 
-          <!-- МИНИ-ПЛЕЕР -->
+          <!-- МИНИ-ПЛЕЙЕР -->
           <div class="mini-music-bar" id="miniMusicBar">
             <div class="mini-music-bar-icon">🎧</div>
             <div class="mini-music-bar-title">Слушаем вместе</div>
           </div>
 
-          <!-- НАВИГАЦИЯ -->
-          <div class="side-nav-row">
-            <div class="side-nav-title">Разделы</div>
-          </div>
-
-          <div class="side-nav side-nav--right">
-            <button class="side-nav-btn" data-jump="wishes">🌠 Желания</button>
-            <button class="side-nav-btn" data-jump="thoughts">💭 Мысли</button>
-            <button class="side-nav-btn" data-jump="miss">🥺 Когда скучаешь</button>
-            <button class="side-nav-btn" data-jump="letter">💌 Письмо</button>
-            <button class="side-nav-btn" data-jump="about">📖 О нас</button>
-            <button class="side-nav-btn" data-jump="messages">💌 Сообщения</button>
-            <button class="side-nav-btn" data-jump="notifications">🔔 Уведомления</button>
-            <button class="side-nav-btn" data-jump="account">👤 Аккаунт</button>
-          </div>
+          <!-- НАВИГАЦИЯ СПРАВА УБРАНА (оставили только плейлист и настройки) -->
 
           <!-- ПЛЕЙЛИСТ -->
           <div class="side-card">
@@ -600,23 +780,23 @@
                 <span class="playlist-text">Братья Шахунц — Будь со мной</span>
               </button>
               <button class="playlist-item" data-track-index="1">
-                <span class="playlist-icon">🎼</span>
+                <span class="playlist-icon">🎧</span>
                 <span class="playlist-text">Михаил Шуфутинский — Марджанджа</span>
               </button>
               <button class="playlist-item" data-track-index="2">
-                <span class="playlist-icon">🎼</span>
+                <span class="playlist-icon">🎧</span>
                 <span class="playlist-text">Михаил Шуфутинский — Еврейский портной</span>
               </button>
               <button class="playlist-item" data-track-index="3">
-                <span class="playlist-icon">🏠</span>
-                <span class="playlist-text">Михаил Круг — Приходите в мой дом</span>
+                <span class="playlist-icon">🎧</span>
+                <span class="playlist-text">Mockingbird — Eminem</span>
               </button>
               <button class="playlist-item" data-track-index="4">
-                <span class="playlist-icon">🚂</span>
-                <span class="playlist-text">Михаил Круг — Владимирский централ</span>
+                <span class="playlist-icon">🎧</span>
+                <span class="playlist-text">Shape of My Heart — Sting</span>
               </button>
               <button class="playlist-item" data-track-index="5">
-                <span class="playlist-icon">🌙</span>
+                <span class="playlist-icon">🎧</span>
                 <span class="playlist-text">Спят усталые игрушки</span>
               </button>
             </div>
@@ -650,212 +830,99 @@
               </div>
             </div>
 
-            <div class="settings-section settings-account">
-              <div class="settings-label">Статус входа</div>
-              <div class="settings-sub" id="settingsAccountInfo">
+            <div class="settings-section">
+              <div class="settings-label">Аккаунт</div>
+              <p id="settingsAccountInfo" class="settings-account-info">
                 Гость (зайди в дневник, чтобы сохранить настройки)
-              </div>
+              </p>
             </div>
 
-            <div class="settings-section settings-section--admin">
-              <div class="settings-label">Админ-панель</div>
-              <button id="settingsAdminBtn" class="settings-chip settings-chip--danger">
-                Открыть
+            <div class="settings-section">
+              <button id="settingsAdminBtn" class="btn btn-outline btn-full">
+                Панель Абеля (админ)
               </button>
+            </div>
+          </div>
+
+          <!-- ПРОФИЛЬ -->
+          <div class="side-card">
+            <div class="side-card-title">Профиль</div>
+
+            <div id="account-guest-side">
+              <p class="side-card-text">
+                Ты ещё не вошла. Как только войдёшь, здесь появится информация о твоём аккаунте.
+              </p>
+            </div>
+
+            <div id="account-view-side" style="display: none;">
+              <p class="side-card-text">
+                Вход выполнен как <span id="account-email-side" class="account-email"></span>.
+              </p>
             </div>
           </div>
         </div>
       </aside>
     </main>
+
+    <!-- Нижняя навигация (мобильная) -->
+    <nav class="mobile-nav">
+      <button class="mobile-nav-item side-nav-btn" data-jump="wishes">
+        <span class="mobile-nav-emoji">🌠</span>
+        <span class="mobile-nav-label">Желания</span>
+      </button>
+      <button class="mobile-nav-item side-nav-btn" data-jump="thoughts">
+        <span class="mobile-nav-emoji">💭</span>
+        <span class="mobile-nav-label">Мысли</span>
+      </button>
+      <button class="mobile-nav-item side-nav-btn" data-jump="miss">
+        <span class="mobile-nav-emoji">🥺</span>
+        <span class="mobile-nav-label">Скучаю</span>
+      </button>
+      <button class="mobile-nav-item side-nav-btn" data-jump="letter">
+        <span class="mobile-nav-emoji">💌</span>
+        <span class="mobile-nav-label">Письмо</span>
+      </button>
+      <button class="mobile-nav-item side-nav-btn" data-jump="about">
+        <span class="mobile-nav-emoji">📖</span>
+        <span class="mobile-nav-label">О нас</span>
+      </button>
+      <button class="mobile-nav-item side-nav-btn" data-jump="account">
+        <span class="mobile-nav-emoji">👤</span>
+        <span class="mobile-nav-label">Профиль</span>
+      </button>
+    </nav>
+
+    <!-- Глобальный плеер -->
+    <div class="music-bar" id="musicBar">
+      <button class="music-bar-close" id="musicBarClose" aria-label="Закрыть плеер">×</button>
+      <div class="music-bar-left">
+        <div class="music-bar-label">🎧 Наша музыка</div>
+        <div class="music-bar-title" id="musicCurrentTitle">Братья Шахунц — Будь со мной</div>
+      </div>
+      <div class="music-bar-center">
+        <button id="musicPrevBtn" class="music-bar-btn" aria-label="Предыдущий трек">⏮</button>
+        <button id="musicPlayPauseBtn" class="music-bar-btn music-bar-btn-main" aria-label="Пауза / Продолжить">⏯</button>
+        <button id="musicNextBtn" class="music-bar-btn" aria-label="Следующий трек">⏭</button>
+      </div>
+      <div class="music-bar-right">
+        <input id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.8" class="music-volume" />
+      </div>
+      <audio id="globalMusic" preload="auto"></audio>
+    </div>
   </div>
 
-  <!-- Нижняя мобильная навигация, как в приложении -->
-  <nav class="mobile-bottom-nav">
-    <button class="mobile-nav-item side-nav-btn" data-jump="wishes">
-      <span class="mobile-nav-icon">🏠</span>
-      <span class="mobile-nav-label">Главная</span>
-    </button>
-    <button class="mobile-nav-item side-nav-btn" data-jump="thoughts">
-      <span class="mobile-nav-icon">💭</span>
-      <span class="mobile-nav-label">Мысли</span>
-    </button>
-    <button class="mobile-nav-item side-nav-btn" data-jump="miss">
-      <span class="mobile-nav-icon">🥺</span>
-      <span class="mobile-nav-label">Скучаю</span>
-    </button>
-    <button class="mobile-nav-item side-nav-btn" data-jump="letter">
-      <span class="mobile-nav-icon">💌</span>
-      <span class="mobile-nav-label">Письмо</span>
-    </button>
-    <button class="mobile-nav-item side-nav-btn" data-jump="account">
-      <span class="mobile-nav-icon">👤</span>
-      <span class="mobile-nav-label">Профиль</span>
-    </button>
-  </nav>
-
   <!-- Скрипты -->
+  <script type="module" src="firebase-config.js"></script>
   <script type="module" src="auth-wishes.js"></script>
-  <script type="module" src="account.js"></script>
   <script src="thoughts.js"></script>
-  <script src="miss.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // === ГЛОБАЛЬНАЯ МУЗЫКА + ПЛЕЙЛИСТ ===
-      const musicBar      = document.getElementById("musicBar");
-      const musicBarClose = document.getElementById("musicBarClose");
-      const globalMusic   = document.getElementById("globalMusic");
-      const titleEl       = document.getElementById("musicCurrentTitle");
-      const playlistBtns  = Array.from(document.querySelectorAll(".playlist-item"));
-      const aboutPlayBtn  = document.getElementById("aboutPlayMockingbird");
-      const sleepSongBtn  = document.getElementById("sleepSongBtn");
-      const miniMusicBar  = document.getElementById("miniMusicBar");
-
-      const playlist = [
-        { title: "Братья Шахунц — Будь со мной", src: "music/Bratya_SHakhunc_-_Bud_So_Mnojj_62822473.mp3" },
-        { title: "Михаил Шуфутинский — Марджанджа", src: "music/1573154461_mixail_shufutinskiy_mardzhandzha.mp3" },
-        { title: "Михаил Шуфутинский — Еврейский портной", src: "music/Михаил Шуфутинский - Еврейский Портной.mp3" },
-        { title: "Михаил Круг — Приходите в мой дом", src: "music/Михаил Круг & Вика Цыганова - Приходите В Мой Дом.mp3" },
-        { title: "Михаил Круг — Владимирский централ", src: "music/Михаил Круг - Владимирский Централ.mp3" },
-        { title: "Спят усталые игрушки", src: "music/deti-online.com_-_spyat-ustalye-igrushki.mp3" },
-      ];
-
-      let currentTrackIndex = 0;
-
-      function loadTrack(index) {
-        const track = playlist[index];
-        if (!track) return;
-
-        currentTrackIndex = index;
-        globalMusic.src = track.src;
-        titleEl.textContent = track.title;
-
-        playlistBtns.forEach((btn, i) => {
-          btn.classList.toggle("active", i === index);
-        });
-      }
-
-      function playCurrent() {
-        if (!globalMusic.src) {
-          loadTrack(currentTrackIndex);
-        }
-        globalMusic.play().catch(() => {});
-        musicBar.classList.add("music-bar--visible");
-      }
-
-      function pauseCurrent() {
-        globalMusic.pause();
-      }
-
-      // Кнопки плейлиста
-      playlistBtns.forEach((btn, index) => {
+      // === ПЛАВНЫЙ СКРОЛЛ ДЛЯ КНОПОК НАВИГАЦИИ ===
+      document.querySelectorAll(".side-nav-btn[data-jump]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          loadTrack(index);
-          playCurrent();
-        });
-      });
-
-      // Кнопка в секции "О нас"
-      if (aboutPlayBtn) {
-        aboutPlayBtn.addEventListener("click", () => {
-          loadTrack(0);
-          playCurrent();
-        });
-      }
-
-      if (sleepSongBtn) {
-        sleepSongBtn.addEventListener("click", () => {
-          loadTrack(5);
-          playCurrent();
-        });
-      }
-
-      // Иконка мини-плеера
-      if (miniMusicBar) {
-        miniMusicBar.addEventListener("click", () => {
-          playCurrent();
-        });
-      }
-
-      // Кнопки управления
-      const playPauseBtn = document.getElementById("musicPlayPauseBtn");
-      const prevBtn      = document.getElementById("musicPrevBtn");
-      const nextBtn      = document.getElementById("musicNextBtn");
-      const seekInput    = document.getElementById("musicSeek");
-
-      if (playPauseBtn) {
-        playPauseBtn.addEventListener("click", () => {
-          if (globalMusic.paused) {
-            playCurrent();
-          } else {
-            pauseCurrent();
-          }
-        });
-      }
-
-      if (prevBtn) {
-        prevBtn.addEventListener("click", () => {
-          currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-          loadTrack(currentTrackIndex);
-          playCurrent();
-        });
-      }
-
-      if (nextBtn) {
-        nextBtn.addEventListener("click", () => {
-          currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-          loadTrack(currentTrackIndex);
-          playCurrent();
-        });
-      }
-
-      // Обновление прогресса
-      if (seekInput) {
-        globalMusic.addEventListener("timeupdate", () => {
-          if (!isNaN(globalMusic.duration) && globalMusic.duration > 0) {
-            const percent = (globalMusic.currentTime / globalMusic.duration) * 100;
-            seekInput.value = percent;
-          }
-        });
-
-        seekInput.addEventListener("input", () => {
-          if (!isNaN(globalMusic.duration) && globalMusic.duration > 0) {
-            const newTime = (seekInput.value / 100) * globalMusic.duration;
-            globalMusic.currentTime = newTime;
-          }
-        });
-      }
-
-      if (musicBarClose) {
-        musicBarClose.addEventListener("click", () => {
-          musicBar.classList.remove("music-bar--visible");
-          pauseCurrent();
-        });
-      }
-
-      // === NAV: плавный скролл и активная вкладка ===
-      const links = document.querySelectorAll(".site-nav a.nav-link");
-
-      links.forEach(link => {
-        link.addEventListener("click", (e) => {
-          const href = link.getAttribute("href");
-          if (!href || !href.startsWith("#")) return;
-
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-
-          links.forEach(l => l.classList.remove("nav-active"));
-          link.classList.add("nav-active");
-        });
-      });
-
-      // Боковое меню + нижнее мобильное: плавный переход к секциям
-      document.querySelectorAll(".side-nav-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const targetId = btn.getAttribute("data-jump");
+          const targetId = btn.dataset.jump;
+          if (!targetId) return;
           const targetEl = document.getElementById(targetId);
           if (!targetEl) return;
           targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -872,25 +939,75 @@
         document.documentElement.dataset.theme = theme;
       }
 
+      // === Настройки эффектов и темы ===
+      const effectChips = Array.from(document.querySelectorAll(".settings-chip[data-setting]"));
+      const DEFAULT_EFFECTS = { hearts: true, galaxy: true, glow: true };
+
+      function loadEffects() {
+        try {
+          const raw = localStorage.getItem("asyaman_effects");
+          if (!raw) return { ...DEFAULT_EFFECTS };
+          const parsed = JSON.parse(raw);
+          return { ...DEFAULT_EFFECTS, ...parsed };
+        } catch (e) {
+          return { ...DEFAULT_EFFECTS };
+        }
+      }
+
+      function saveEffects(effects) {
+        try {
+          localStorage.setItem("asyaman_effects", JSON.stringify(effects));
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      function applyEffects(effects) {
+        const body = document.body;
+        if (!body) return;
+
+        body.classList.toggle("effect-hearts", !!effects.hearts);
+        body.classList.toggle("effect-galaxy", !!effects.galaxy);
+        body.classList.toggle("effect-glow", !!effects.glow);
+
+        // Визуально подсвечиваем выбранные чипы
+        effectChips.forEach((chip) => {
+          const key = chip.dataset.setting;
+          if (!key) return;
+          const isOn = !!effects[key];
+          chip.classList.toggle("settings-chip--active", isOn);
+        });
+      }
+
+      let currentEffects = loadEffects();
+
       if (themeSelect) {
         const savedTheme = localStorage.getItem("asyaman_theme") || "night";
         themeSelect.value = savedTheme;
         applyTheme(savedTheme);
 
         themeSelect.addEventListener("change", () => {
-          const value = themeSelect.value;
+          const value = themeSelect.value || "night";
           applyTheme(value);
           localStorage.setItem("asyaman_theme", value);
         });
       }
 
-      // Настройки эффектов
-      document.querySelectorAll(".settings-chip[data-setting]").forEach((chip) => {
-        chip.addEventListener("click", () => {
-          chip.classList.toggle("settings-chip--active");
-          // Здесь можно расширить: включать/выключать эффекты сердечек и галактики.
+      // Применяем эффекты из localStorage
+      applyEffects(currentEffects);
+
+      // Переключение эффектов по клику
+      if (effectChips.length) {
+        effectChips.forEach((chip) => {
+          chip.addEventListener("click", () => {
+            const key = chip.dataset.setting;
+            if (!key) return;
+            currentEffects[key] = !currentEffects[key];
+            saveEffects(currentEffects);
+            applyEffects(currentEffects);
+          });
         });
-      });
+      }
 
       // Статус аккаунта из localStorage (грубое отображение)
       const lastEmail = localStorage.getItem("asyaman_last_email");
@@ -916,22 +1033,22 @@
       }
     });
 
-    // ==== ФОН: ГАЛАКТИКА НА CANVAS ====
+    // === ФОН: ГАЛАКТИКА НА CANVAS ===
     (function setupGalaxy() {
-      const canvas = document.getElementById('galaxyCanvas');
+      const canvas = document.getElementById("galaxyCanvas");
       if (!canvas) return;
 
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       let width, height;
       let stars = [];
-      const STAR_COUNT = 260;
+      const STAR_COUNT = 180;
 
       function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
       }
 
-      window.addEventListener('resize', resize);
+      window.addEventListener("resize", resize);
       resize();
 
       function createStars() {
@@ -940,57 +1057,57 @@
           stars.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            z: Math.random() * 0.7 + 0.3,
-            r: Math.random() * 1.5 + 0.6,
-            vx: (Math.random() * 0.18 - 0.09),
-            vy: (Math.random() * 0.14 - 0.07)
+            radius: Math.random() * 1.2 + 0.2,
+            alpha: Math.random(),
+            speed: 0.15 + Math.random() * 0.35
           });
         }
       }
 
       function draw() {
-        if (!ctx) return;
-
         ctx.clearRect(0, 0, width, height);
 
         const gradient = ctx.createRadialGradient(
-          width * 0.2,
-          height * 0.2,
-          40,
+          width * 0.1,
+          height * 0.1,
+          0,
           width * 0.5,
           height * 0.7,
           Math.max(width, height)
         );
-
-        gradient.addColorStop(0, 'rgba(248, 250, 252, 0.06)');
-        gradient.addColorStop(0.25, 'rgba(56, 189, 248, 0.08)');
-        gradient.addColorStop(0.5, 'rgba(129, 140, 248, 0.09)');
-        gradient.addColorStop(1, 'rgba(15, 23, 42, 1)');
+        gradient.addColorStop(0, "rgba(59, 130, 246, 0.16)");
+        gradient.addColorStop(0.4, "rgba(147, 51, 234, 0.28)");
+        gradient.addColorStop(1, "rgba(15, 23, 42, 0.96)");
 
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, width, height);
 
-        for (const s of stars) {
-          s.x += s.vx * s.z;
-          s.y += s.vy * s.z;
-
-          if (s.x < -50 || s.x > width + 50 || s.y < -50 || s.y > height + 50) {
+        stars.forEach((s) => {
+          s.y -= s.speed;
+          if (s.y < 0) {
+            s.y = height;
             s.x = Math.random() * width;
-            s.y = Math.random() * height;
           }
 
-          const glowRadius = s.r * (1.4 + s.z * 0.6);
+          const glowRadius = s.radius * (1.5 + s.alpha);
+          const glowGradient = ctx.createRadialGradient(
+            s.x,
+            s.y,
+            0,
+            s.x,
+            s.y,
+            glowRadius
+          );
 
-          const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowRadius);
-          glow.addColorStop(0, 'rgba(248, 250, 252, 0.95)');
-          glow.addColorStop(0.35, 'rgba(248, 250, 252, 0.7)');
-          glow.addColorStop(1, 'rgba(248, 250, 252, 0)');
+          glowGradient.addColorStop(0, "rgba(248, 250, 252, 0.8)");
+          glowGradient.addColorStop(0.5, "rgba(248, 250, 252, 0.4)");
+          glowGradient.addColorStop(1, "rgba(248, 250, 252, 0)");
 
-          ctx.fillStyle = glow;
           ctx.beginPath();
           ctx.arc(s.x, s.y, glowRadius, 0, Math.PI * 2);
+          ctx.fillStyle = glowGradient;
           ctx.fill();
-        }
+        });
 
         requestAnimationFrame(draw);
       }
