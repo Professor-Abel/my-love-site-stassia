@@ -27,8 +27,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // ==== ТВОЙ FIREBASE-КОНФИГ ====
-// ВСТАВЬ СЮДА СВОЙ КОНФИГ, КОТОРЫЙ У ТЕБЯ УЖЕ БЫЛ.
-// Я ОСТАВЛЯЮ ПРИМЕР, НО ТЫ ДОЛЖЕН ОСТАВИТЬ СВОЙ НАБОР КЛЮЧЕЙ.
+// ВСТАВЬ СЮДА СВОЙ РЕАЛЬНЫЙ КОНФИГ
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_DOMAIN.firebaseapp.com",
@@ -77,11 +76,9 @@ const wishInput = $("wishInput");
 const wishListEl = $("wishList");
 const addWishBtn = $("addWishBtn");
 const clearWishesBtn = $("clearWishesBtn");
-// В index.html два элемента с id="wishCount" (вверху и в блоке желаний),
-// поэтому мы обновляем оба сразу:
+// два элемента с id="wishCount" (вверху и в блоке желаний),
 const wishCountEls = $$("#wishCount");
 
-// Админ-таблицы внутри главной
 const adminUsersBody = $("admin-users-body");
 const adminWishesBody = $("admin-wishes-body");
 
@@ -89,7 +86,6 @@ let currentUser = null;
 let userWishes = [];
 
 // ==== УТИЛИТЫ ====
-
 function setAuthStatus(message, isError = false) {
   if (!authStatus) return;
   authStatus.textContent = message;
@@ -129,7 +125,6 @@ function formatTimestamp(ts) {
 }
 
 // ==== РЕНДЕР ЖЕЛАНИЙ ====
-
 function renderUserWishes() {
   if (!wishListEl) return;
 
@@ -163,7 +158,6 @@ function renderUserWishes() {
 }
 
 // ==== РАБОТА С FIRESTORE (ЖЕЛАНИЯ ПОЛЬЗОВАТЕЛЯ) ====
-
 async function loadUserWishes(user) {
   if (!user) return;
 
@@ -236,8 +230,7 @@ async function clearUserWishes(user) {
   }
 }
 
-// ==== АДМИНКА (МИНИ-ДАШБОРД ВНУТРИ ГЛАВНОЙ) ====
-
+// ==== АДМИНКА ВНУТРИ ГЛАВНОЙ ====
 async function loadAdminData(user) {
   if (!adminPanel || !adminUsersBody || !adminWishesBody) return;
 
@@ -248,7 +241,6 @@ async function loadAdminData(user) {
 
   adminPanel.classList.remove("hidden");
 
-  // Пишем "загрузка" в таблицы
   adminUsersBody.innerHTML =
     '<tr><td colspan="4">Загрузка пользователей…</td></tr>';
   adminWishesBody.innerHTML =
@@ -264,7 +256,7 @@ async function loadAdminData(user) {
       ...d.data(),
     }));
 
-    // Таблица "Желания"
+    // Желания
     if (!allWishes.length) {
       adminWishesBody.innerHTML =
         '<tr><td colspan="3">Пока нет ни одного желания.</td></tr>';
@@ -290,7 +282,7 @@ async function loadAdminData(user) {
       });
     }
 
-    // Таблица "Пользователи" — собираем по желанию (unique email/uid)
+    // Пользователи
     const usersMap = new Map();
     allWishes.forEach((w) => {
       const key = w.userUid || w.userEmail || "unknown";
@@ -346,8 +338,7 @@ async function loadAdminData(user) {
   }
 }
 
-// ==== СОСТОЯНИЕ UI ПРИ ЛОГИНЕ/ЛОГАУТЕ ====
-
+// ==== СОСТОЯНИЕ UI ====
 function applyLoggedOutState() {
   currentUser = null;
 
@@ -359,12 +350,8 @@ function applyLoggedOutState() {
   setAuthStatus("Войди или создай аккаунт, чтобы видеть все наши желания.");
   setWelcomeText("Ты ещё не вошла в систему 💔");
 
-  if (profileName) {
-    profileName.textContent = "Твоё место здесь всегда ждёт тебя";
-  }
-  if (settingsAccountInfo) {
-    settingsAccountInfo.textContent = "Аккаунт ещё не загружен.";
-  }
+  if (profileName) profileName.textContent = "Твоё место здесь всегда ждёт тебя";
+  if (settingsAccountInfo) settingsAccountInfo.textContent = "Аккаунт ещё не загружен.";
 
   userWishes = [];
   renderUserWishes();
@@ -390,15 +377,11 @@ function applyLoggedInState(user) {
   setAuthStatus("Ты успешно вошла в наш секретный дневник.", false);
   setWelcomeText("Ты внутри. Всё, что ты напишешь здесь, останется только между нами.");
 
-  // Админка
   loadAdminData(user);
-
-  // Желания
   loadUserWishes(user);
 }
 
-// ==== ОБРАБОТЧИКИ КНОПОК АВТОРИЗАЦИИ ====
-
+// ==== АВТОРИЗАЦИЯ ====
 async function handleEmailLogin() {
   if (!emailInput || !passwordInput) return;
   const email = emailInput.value.trim();
@@ -470,8 +453,7 @@ async function handleLogout() {
   }
 }
 
-// ==== ОБРАБОТЧИКИ ЖЕЛАНИЙ ====
-
+// ==== ЖЕЛАНИЯ ====
 async function handleAddWish() {
   if (!currentUser) {
     setAuthStatus("Чтобы добавить желание, нужно войти.", true);
@@ -497,8 +479,7 @@ async function handleClearWishes() {
   await clearUserWishes(currentUser);
 }
 
-// ==== ОБРАБОТЧИКИ UI-КНОПОК ====
-
+// ==== КНОПКИ ====
 if (emailLoginBtn) {
   emailLoginBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -529,7 +510,6 @@ if (logoutBtn) {
 
 if (settingsAdminBtn) {
   settingsAdminBtn.addEventListener("click", () => {
-    // перенести в отдельную страницу админки
     window.location.href = "admin.html";
   });
 }
@@ -548,12 +528,5 @@ if (clearWishesBtn) {
   });
 }
 
-// ==== ОТСЛЕЖИВАНИЕ СОСТОЯНИЯ АВТОРИЗАЦИИ ====
-
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    applyLoggedOutState();
-    return;
-  }
-  applyLoggedInState(user);
-});
+// ==== ОТСЛЕЖИВАНИЕ АВТОРИЗАЦИИ ====
+onAuthStateChanged(auth, (user) =>

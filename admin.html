@@ -3,41 +3,655 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Админ-панель — Асъяман</title>
+  <title>Админка — Асъяман</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-asyaman.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="favicon-asyaman.png" />
   <link rel="apple-touch-icon" href="favicon-asyaman.png" />
 
-  <!-- SEO -->
-  <meta name="description"
-        content="Админ-панель закрытого мира Асъяман: пользователи, желания и управление нашим маленьким миром." />
+  <meta name="description" content="Закрытая админ-панель сайта Асъяман. Только для владельца." />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Асъяман" />
-  <meta property="og:title" content="Админ-панель — Асъяман" />
-  <meta property="og:description"
-        content="Только для хозяина сайта. Просмотр пользователей и желаний нашего маленького мира." />
-  <meta property="og:url" content="https://asyaman.com/admin.html" />
-  <meta property="og:image" content="https://asyaman.com/preview-asyaman.png" />
-
-  <!-- Шрифты (те же, что на главной) -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
-  <!-- Общий стиль сайта -->
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --bg-main: radial-gradient(circle at top, #2b1b3f, #05030a 55%, #050308 100%);
+      --card-bg: rgba(17, 10, 32, 0.9);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #ff4f9a;
+      --accent-soft: #7f5bff;
+      --accent-gold: #ffd56b;
+      --accent-green: #4ade80;
+
+      --text-main: #f7f4ff;
+      --text-soft: rgba(232, 228, 255, 0.75);
+      --text-muted: #9ca3af;
+
+      --danger: #fb7185;
+
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+
+      --shadow-soft: 0 22px 70px rgba(0, 0, 0, 0.85);
+
+      --transition-fast: 0.18s ease-out;
+      --transition-slow: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 79, 154, 0.22), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(127, 91, 255, 0.25), transparent 55%),
+        radial-gradient(circle at 10% 120%, rgba(45, 212, 191, 0.28), transparent 60%),
+        linear-gradient(145deg, #020617, #02010a 65%, #020617 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.55;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+      z-index: -2;
+    }
+
+    .bg-orbit {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.5;
+      z-index: -3;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: orbitPulse 10s ease-in-out infinite alternate;
+    }
+
+    .bg-orbit-1 {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.8), transparent 70%);
+      top: -80px;
+      left: -120px;
+    }
+
+    .bg-orbit-2 {
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent 70%);
+      top: -60px;
+      right: -160px;
+      animation-delay: 2s;
+    }
+
+    .bg-orbit-3 {
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(45, 212, 191, 0.7), transparent 70%);
+      bottom: -160px;
+      left: 10%;
+      animation-delay: 4s;
+    }
+
+    @keyframes orbitPulse {
+      from {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      to {
+        transform: translate3d(0, -20px, 0) scale(1.08);
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.35);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    @keyframes floatUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .float-section {
+      animation: floatUp 0.7s ease-out;
+    }
+
+    /* ===== ШАПКА ===== */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .header-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 10px 18px 9px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 20% 0%, #f9a8d4, #4c1d95 60%, #020617 100%);
+      border: 1px solid rgba(244, 114, 182, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-logo::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.3), transparent 45%);
+      opacity: 0.55;
+    }
+
+    .brand-gem {
+      width: 16px;
+      height: 16px;
+      border-radius: 40%;
+      background: conic-gradient(from 200deg, #f97316, #22d3ee, #a855f7, #f97316);
+      box-shadow: 0 0 14px rgba(248, 250, 252, 0.9);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-title {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .brand-subtitle {
+      font-size: 0.74rem;
+      color: var(--text-soft);
+    }
+
+    .header-nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-chip {
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.78rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      background: rgba(15, 23, 42, 0.94);
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.16s ease-out;
+    }
+
+    .nav-chip-active {
+      background: linear-gradient(120deg, #fb7185, #a855f7);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.95);
+    }
+
+    .nav-chip:hover {
+      border-color: rgba(248, 250, 252, 0.8);
+      transform: translateY(-1px);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .icon-button {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), rgba(15, 23, 42, 0.96));
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast);
+      backdrop-filter: blur(16px);
+    }
+
+    .icon-button:hover {
+      border-color: rgba(248, 250, 252, 0.85);
+      background: radial-gradient(circle at top, rgba(248, 250, 252, 0.16), rgba(15, 23, 42, 0.98));
+      transform: translateY(-1px);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    /* ===== ОСНОВНОЙ ЛЕЙАУТ ===== */
+
+    .admin-main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 22px 18px 40px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr);
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .admin-left,
+    .admin-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98)),
+        radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.05), transparent 60%);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(22px);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.09), transparent 60%),
+        radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(circle at 50% 120%, rgba(244, 114, 182, 0.1), transparent 60%);
+      opacity: 0.7;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 26px 80px rgba(15, 23, 42, 0.98);
+      border-color: rgba(248, 250, 252, 0.11);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .card-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .card-subtitle {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--text-soft);
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.74rem;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.92);
+    }
+
+    .badge-green {
+      border-color: rgba(74, 222, 128, 0.7);
+      color: #bbf7d0;
+    }
+
+    .badge-red {
+      border-color: rgba(248, 113, 113, 0.8);
+      color: #fecaca;
+    }
+
+    .badge-gold {
+      border-color: rgba(253, 224, 71, 0.9);
+      color: #fef9c3;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .metric-card {
+      border-radius: 18px;
+      padding: 8px 10px;
+      background: rgba(15, 23, 42, 0.94);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .metric-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .metric-note {
+      font-size: 0.76rem;
+      color: var(--text-soft);
+    }
+
+    .admin-info {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+      background: transparent;
+      color: var(--text-main);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-main {
+      background: linear-gradient(120deg, #ec4899, #a855f7);
+      border-color: rgba(248, 250, 252, 0.1);
+      box-shadow: 0 16px 38px rgba(236, 72, 153, 0.5);
+      color: #fff;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 52px rgba(236, 72, 153, 0.7);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+      background: transparent;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.95);
+      color: #fff;
+    }
+
+    .btn-ghost-danger {
+      border-color: rgba(248, 113, 113, 0.8);
+      color: rgba(248, 113, 113, 0.9);
+      background: transparent;
+    }
+
+    .btn-ghost-danger:hover {
+      background: rgba(127, 29, 29, 0.6);
+      color: #fee2e2;
+    }
+
+    .btn-soft {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.6);
+      color: var(--text-main);
+    }
+
+    .btn-soft:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(248, 250, 252, 0.8);
+    }
+
+    .admin-meta-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .meta-pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.76rem;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.94);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
+    .tab-button {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.94);
+      cursor: pointer;
+      transition: all 0.15s ease-out;
+    }
+
+    .tab-button-active {
+      background: linear-gradient(135deg, #fb7185, #a855f7);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.95);
+    }
+
+    .tab-content {
+      margin-top: 10px;
+    }
+
+    .table-wrapper {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.94);
+      max-height: 360px;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+
+    th,
+    td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.96);
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.98);
+      text-align: left;
+      font-weight: 500;
+      color: var(--text-muted);
+      z-index: 1;
+    }
+
+    tbody tr:hover td {
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .truncate {
+      max-width: 340px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .badge-small {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
+
+    .text-danger {
+      color: #fecaca;
+    }
+
+    .small-note {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 960px) {
+      .admin-main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .header-inner {
+        flex-wrap: wrap;
+        gap: 10px 14px;
+      }
+      .header-nav {
+        order: 2;
+        justify-content: flex-start;
+      }
+      .card {
+        border-radius: 20px;
+        padding: 16px 14px 14px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Фон, как на главной -->
-  <div class="bg-gradient"></div>
-  <div class="bg-noise"></div>
+  <!-- Фоновые орбиты -->
   <div class="bg-orbit bg-orbit-1"></div>
   <div class="bg-orbit bg-orbit-2"></div>
+  <div class="bg-orbit bg-orbit-3"></div>
 
   <!-- ШАПКА -->
   <header class="site-header">
@@ -48,119 +662,632 @@
         </div>
         <div class="brand-text">
           <span class="brand-title">Асъяман</span>
-          <span class="brand-subtitle">панель управления нашим миром</span>
+          <span class="brand-subtitle">админ-панель</span>
         </div>
       </a>
 
-      <nav class="site-nav">
-        <a href="index.html#wishes" class="nav-link">Желания</a>
-        <a href="index.html#thoughts" class="nav-link">Мысли</a>
-        <a href="index.html#miss" class="nav-link">Когда скучаешь</a>
-        <a href="index.html#letter" class="nav-link">Письмо</a>
-        <a href="about.html" class="nav-link">О нас</a>
-        <a href="admin.html" class="nav-link nav-active">Админка</a>
+      <nav class="header-nav">
+        <button type="button" class="nav-chip" onclick="window.location.href='index.html'">
+          На сайт
+        </button>
+        <button type="button" class="nav-chip nav-chip-active">
+          Админка
+        </button>
       </nav>
+
+      <div class="header-actions">
+        <button id="adminLogoutBtn" class="icon-button" type="button">
+          <span>Выйти</span> ⎋
+        </button>
+      </div>
     </div>
   </header>
 
   <!-- ОСНОВНОЙ КОНТЕНТ -->
-  <main class="site-main">
-    <section class="section-card fade-up">
-      <div class="section-head">
-        <div class="section-title-block">
-          <h2 class="section-title">Админ-панель</h2>
-          <p class="section-subtitle">
-            Только для хозяина сайта. Здесь можно посмотреть пользователей и желания.
+  <main class="admin-main">
+    <!-- Левая колонка -->
+    <section class="admin-left">
+      <!-- Статус доступа -->
+      <article class="card float-section" id="accessCard">
+        <div class="card-header">
+          <div class="card-title-block">
+            <h1 class="card-title">Доступ</h1>
+            <p id="accessSubtitle" class="card-subtitle">
+              Проверяем, кто сюда зашёл…
+            </p>
+          </div>
+          <span id="accessBadge" class="badge badge-red">Не авторизовано</span>
+        </div>
+
+        <p id="accessInfo" class="admin-info">
+          Для работы с этой страницей нужно войти в свой аккаунт.
+        </p>
+
+        <div class="admin-meta-row" style="margin-top: 10px;">
+          <span class="meta-pill" id="adminEmailPill">Почта: —</span>
+          <span class="meta-pill" id="adminUidPill">UID: —</span>
+        </div>
+
+        <p class="small-note" id="accessHint">
+          Если ты не владелец сайта, тебя отсюда скоро вежливо выкинет обратно на главную.
+        </p>
+
+        <div style="margin-top: 10px; display: flex; gap: 8px;">
+          <button type="button" id="goToMainBtn" class="btn btn-soft">
+            ← На главную
+          </button>
+          <button type="button" id="forceReloadBtn" class="btn btn-ghost">
+            Обновить данные
+          </button>
+        </div>
+      </article>
+
+      <!-- Быстрая сводка -->
+      <article class="card float-section" id="summaryCard">
+        <div class="card-header">
+          <div class="card-title-block">
+            <h2 class="card-title">Сводка</h2>
+            <p class="card-subtitle">
+              Мини-дашборд по желаниям и пользователям.
+            </p>
+          </div>
+          <span class="badge badge-gold">Live из Firestore</span>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-label">Всего желаний</span>
+            <span id="metricTotalWishes" class="metric-value">—</span>
+            <span id="metricTotalWishesNote" class="metric-note">
+              Загрузка…
+            </span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Уникальных пользователей</span>
+            <span id="metricTotalUsers" class="metric-value">—</span>
+            <span id="metricTotalUsersNote" class="metric-note">
+              Загрузка…
+            </span>
+          </div>
+        </div>
+
+        <p class="small-note" id="summaryExtra">
+          Здесь можно быстро понять, живёт ли сайт своей жизнью или все пока тихо.
+        </p>
+      </article>
+
+      <!-- Управление -->
+      <article class="card float-section">
+        <div class="card-header">
+          <div class="card-title-block">
+            <h2 class="card-title">Управление</h2>
+            <p class="card-subtitle">
+              Мягкие кнопки для аккуратной чистки.
+            </p>
+          </div>
+          <span class="badge badge-green">Только ручные действия</span>
+        </div>
+
+        <p class="admin-info">
+          Здесь пока нет автоматических скриптов удаления. Всё, что ты чистишь — осознанно.
+        </p>
+
+        <div class="admin-meta-row">
+          <span class="meta-pill">Очистка только твоих желаний</span>
+          <span class="meta-pill">Обновление данных с Firestore</span>
+        </div>
+
+        <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
+          <button type="button" id="reloadDataBtn" class="btn btn-soft">
+            Обновить таблицы
+          </button>
+          <button type="button" id="cleanMyWishesBtn" class="btn btn-ghost-danger">
+            Удалить все мои желания
+          </button>
+        </div>
+
+        <p class="small-note text-danger">
+          Массовое удаление работает только для твоего UID. Удалять чужие желания здесь нельзя.
+        </p>
+      </article>
+    </section>
+
+    <!-- Правая колонка -->
+    <section class="admin-right">
+      <!-- Таблицы -->
+      <article class="card float-section">
+        <div class="card-header">
+          <div class="card-title-block">
+            <h2 class="card-title">Данные</h2>
+            <p class="card-subtitle">
+              Пользователи и их желания в одном месте.
+            </p>
+          </div>
+          <span class="badge">Только чтение</span>
+        </div>
+
+        <div class="tabs">
+          <button type="button" class="tab-button tab-button-active" data-tab="users">
+            Пользователи
+          </button>
+          <button type="button" class="tab-button" data-tab="wishes">
+            Желания
+          </button>
+        </div>
+
+        <div class="tab-content" id="tab-users">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Почта</th>
+                  <th>UID</th>
+                  <th>Желаний</th>
+                  <th>Последняя активность</th>
+                </tr>
+              </thead>
+              <tbody id="adminUsersBody">
+                <tr><td colspan="4">Загрузка...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small-note">
+            Информация собирается по коллекции <strong>wishes</strong> — если кто-то не оставлял
+            желания, его здесь не видно.
           </p>
         </div>
-      </div>
 
-      <div class="card">
-        <!-- Статус (admin.js ищет #admin-status) -->
-        <div id="admin-status" class="auth-status">
-          Проверяем доступ...
-        </div>
-
-        <!-- Основное содержимое (admin.js управляет #admin-content и классом hidden) -->
-        <div id="admin-content" class="admin-card hidden">
-          <div class="wishes-top" style="margin-bottom: 8px;">
-            <div class="profile-mini">
-              <div class="profile-avatar-wrap">
-                <img src="avatar-default.png" alt="Admin avatar" class="profile-avatar" />
-              </div>
-              <div class="profile-info">
-                <div class="profile-name">Панель управления</div>
-                <div class="profile-meta">
-                  Видно только тебе. Здесь аккумулируются все пользователи и их желания.
-                </div>
-              </div>
-            </div>
-
-            <div class="profile-actions">
-              <button id="admin-logout" type="button" class="btn btn-ghost">
-                Выйти из аккаунта
-              </button>
-            </div>
+        <div class="tab-content hidden" id="tab-wishes">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Текст</th>
+                  <th>Автор</th>
+                  <th>Дата</th>
+                </tr>
+              </thead>
+              <tbody id="adminWishesBody">
+                <tr><td colspan="3">Загрузка...</td></tr>
+              </tbody>
+            </table>
           </div>
-
-          <div class="admin-grid">
-            <!-- Блок пользователей -->
-            <section class="admin-block">
-              <h4>Пользователи</h4>
-              <p class="hero-note" style="margin-bottom: 6px;">
-                Все аккаунты, которые когда-либо заходили на наш сайт.
-              </p>
-              <div class="admin-table-wrapper">
-                <table class="admin-table">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Email</th>
-                      <th>Имя</th>
-                      <th>Последний вход</th>
-                      <th>UID</th>
-                    </tr>
-                  </thead>
-                  <tbody id="users-body">
-                    <tr>
-                      <td colspan="5">Загружаю пользователей…</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-
-            <!-- Блок желаний -->
-            <section class="admin-block">
-              <h4>Желания</h4>
-              <p class="hero-note" style="margin-bottom: 6px;">
-                Самые свежие желания, которые мы добавляли.
-              </p>
-              <div class="admin-table-wrapper">
-                <table class="admin-table">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Текст</th>
-                      <th>Автор</th>
-                      <th>Создано</th>
-                    </tr>
-                  </thead>
-                  <tbody id="wishes-body">
-                    <tr>
-                      <td colspan="4">Загружаю желания…</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
+          <p class="small-note">
+            Список желаний в обратном порядке — сначала самые свежие.
+          </p>
         </div>
-      </div>
+      </article>
     </section>
   </main>
 
-  <!-- ЛОГИКА АДМИНКИ -->
-  <script type="module" src="admin.js"></script>
+  <!-- FIREBASE + ЛОГИКА АДМИНКИ -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut,
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      getDocs,
+      query,
+      where,
+      orderBy,
+      serverTimestamp,
+      deleteDoc,
+      doc,
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    // ==== ВСТАВЬ СВОЙ FIREBASE CONFIG (ТОТ ЖЕ, ЧТО В auth-wishes.js) ====
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_DOMAIN.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ==== UID ВЛАДЕЛЬЦА ====
+    // ВСТАВЬ СЮДА СВОЙ UID, КОТОРЫЙ УЖЕ ИСПОЛЬЗУЕШЬ В auth-wishes.js
+    const OWNER_UIDS = [
+      "YOUR_OWNER_UID_HERE",
+      // "SECOND_OWNER_UID_IF_NEEDED",
+    ];
+
+    // ==== DOM-ЭЛЕМЕНТЫ ====
+    const accessSubtitle   = document.getElementById("accessSubtitle");
+    const accessBadge      = document.getElementById("accessBadge");
+    const accessInfo       = document.getElementById("accessInfo");
+    const accessHint       = document.getElementById("accessHint");
+    const adminEmailPill   = document.getElementById("adminEmailPill");
+    const adminUidPill     = document.getElementById("adminUidPill");
+    const goToMainBtn      = document.getElementById("goToMainBtn");
+    const forceReloadBtn   = document.getElementById("forceReloadBtn");
+    const adminLogoutBtn   = document.getElementById("adminLogoutBtn");
+
+    const metricTotalWishes     = document.getElementById("metricTotalWishes");
+    const metricTotalUsers      = document.getElementById("metricTotalUsers");
+    const metricTotalWishesNote = document.getElementById("metricTotalWishesNote");
+    const metricTotalUsersNote  = document.getElementById("metricTotalUsersNote");
+    const summaryExtra          = document.getElementById("summaryExtra");
+
+    const reloadDataBtn   = document.getElementById("reloadDataBtn");
+    const cleanMyWishesBtn = document.getElementById("cleanMyWishesBtn");
+
+    const adminUsersBody  = document.getElementById("adminUsersBody");
+    const adminWishesBody = document.getElementById("adminWishesBody");
+
+    const tabButtons = Array.from(document.querySelectorAll(".tab-button"));
+    const tabUsers   = document.getElementById("tab-users");
+    const tabWishes  = document.getElementById("tab-wishes");
+
+    let currentUser = null;
+    let allWishes = [];
+
+    function isOwner(user) {
+      if (!user) return false;
+      return OWNER_UIDS.includes(user.uid);
+    }
+
+    function formatTime(ts) {
+      if (!ts) return "";
+      try {
+        const date = ts.toDate();
+        return date.toLocaleString("ru-RU", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      } catch {
+        return "";
+      }
+    }
+
+    function shortId(uid) {
+      if (!uid) return "—";
+      if (uid.length <= 10) return uid;
+      return uid.slice(0, 6) + "…" + uid.slice(-4);
+    }
+
+    function setAccessUnauthorized(reasonText) {
+      if (accessSubtitle) {
+        accessSubtitle.textContent = reasonText || "Доступ ограничен.";
+      }
+      if (accessBadge) {
+        accessBadge.textContent = "Нет доступа";
+        accessBadge.classList.remove("badge-green", "badge-gold");
+        accessBadge.classList.add("badge-red");
+      }
+      if (accessInfo) {
+        accessInfo.textContent =
+          "Попасть сюда может только владелец сайта. Если ты видишь это сообщение — ты либо не вошёл, либо вошёл не тем аккаунтом.";
+      }
+      if (accessHint) {
+        accessHint.textContent =
+          "Через несколько секунд можно вернуться на главную и войти нужным аккаунтом.";
+      }
+    }
+
+    function setAccessOwner(user) {
+      if (accessSubtitle) {
+        accessSubtitle.textContent = "Полный доступ. Ты внутри ядра сайта.";
+      }
+      if (accessBadge) {
+        accessBadge.textContent = "Владелец";
+        accessBadge.classList.remove("badge-red");
+        accessBadge.classList.add("badge-green");
+      }
+      if (accessInfo) {
+        accessInfo.textContent =
+          "Ты видишь всё, что касается желаний и активности пользователей. Здесь ничего не происходит без твоего решения.";
+      }
+      if (accessHint) {
+        accessHint.textContent =
+          "Никогда не передавай ссылку на админку с авторизованным аккаунтом другим людям.";
+      }
+      if (adminEmailPill) {
+        adminEmailPill.textContent = "Почта: " + (user.email || "—");
+      }
+      if (adminUidPill) {
+        adminUidPill.textContent = "UID: " + shortId(user.uid);
+      }
+    }
+
+    function setSummaryEmpty() {
+      if (metricTotalWishes) metricTotalWishes.textContent = "0";
+      if (metricTotalUsers) metricTotalUsers.textContent = "0";
+      if (metricTotalWishesNote) metricTotalWishesNote.textContent = "Пока ни одного желания.";
+      if (metricTotalUsersNote) metricTotalUsersNote.textContent = "Никто ещё не оставлял следов.";
+      if (summaryExtra) summaryExtra.textContent =
+        "Пока сайт тихий — это не плохо. Значит, всё ждёт подходящего момента.";
+    }
+
+    async function loadAllWishes() {
+      try {
+        const colRef = collection(db, "wishes");
+        const qAll = query(colRef, orderBy("createdAt", "desc"));
+        const snap = await getDocs(qAll);
+        allWishes = snap.docs.map((d) => ({
+          id: d.id,
+          ...d.data(),
+        }));
+      } catch (err) {
+        console.error("Ошибка загрузки желаний в админке:", err);
+        allWishes = [];
+      }
+    }
+
+    function renderSummary() {
+      const total = allWishes.length;
+      if (metricTotalWishes) metricTotalWishes.textContent = String(total);
+      if (metricTotalWishesNote) {
+        if (!total) {
+          metricTotalWishesNote.textContent = "Пока ни одного желания.";
+        } else if (total < 10) {
+          metricTotalWishesNote.textContent = "Аккуратное начало.";
+        } else if (total < 50) {
+          metricTotalWishesNote.textContent = "Уже прилично.";
+        } else {
+          metricTotalWishesNote.textContent = "Сайт живёт своей жизнью.";
+        }
+      }
+
+      const usersMap = new Map();
+      allWishes.forEach((w) => {
+        const key = w.userUid || w.userEmail || "unknown";
+        if (!usersMap.has(key)) {
+          usersMap.set(key, {
+            email: w.userEmail || "—",
+            uid: w.userUid || "—",
+            lastLogin: w.createdAt || null,
+            wishCount: 0,
+          });
+        }
+        const obj = usersMap.get(key);
+        obj.wishCount += 1;
+        if (w.createdAt && (!obj.lastLogin || w.createdAt.toMillis() > obj.lastLogin.toMillis())) {
+          obj.lastLogin = w.createdAt;
+        }
+      });
+
+      const usersCount = usersMap.size;
+      if (metricTotalUsers) metricTotalUsers.textContent = String(usersCount);
+      if (metricTotalUsersNote) {
+        if (!usersCount) {
+          metricTotalUsersNote.textContent = "Пока никто не отметился.";
+        } else {
+          metricTotalUsersNote.textContent = "Это люди, которые хоть раз оставили желание.";
+        }
+      }
+
+      if (summaryExtra) {
+        if (!total && !usersCount) {
+          summaryExtra.textContent =
+            "Можно воспринимать это как чистый холст: всё только начинается.";
+        } else {
+          summaryExtra.textContent =
+            "Если захочется — здесь можно будет добавить графики, фильтры и расширенный анализ.";
+        }
+      }
+    }
+
+    function renderUsersTable() {
+      if (!adminUsersBody) return;
+
+      const usersMap = new Map();
+      allWishes.forEach((w) => {
+        const key = w.userUid || w.userEmail || "unknown";
+        if (!usersMap.has(key)) {
+          usersMap.set(key, {
+            email: w.userEmail || "—",
+            uid: w.userUid || "—",
+            lastLogin: w.createdAt || null,
+            wishCount: 0,
+          });
+        }
+        const obj = usersMap.get(key);
+        obj.wishCount += 1;
+        if (w.createdAt && (!obj.lastLogin || w.createdAt.toMillis() > obj.lastLogin.toMillis())) {
+          obj.lastLogin = w.createdAt;
+        }
+      });
+
+      if (!usersMap.size) {
+        adminUsersBody.innerHTML =
+          '<tr><td colspan="4">Пока нет данных по пользователям.</td></tr>';
+        return;
+      }
+
+      adminUsersBody.innerHTML = "";
+      Array.from(usersMap.values()).forEach((u) => {
+        const tr = document.createElement("tr");
+
+        const tdEmail = document.createElement("td");
+        tdEmail.textContent = u.email;
+
+        const tdUid = document.createElement("td");
+        tdUid.textContent = shortId(u.uid);
+
+        const tdCount = document.createElement("td");
+        tdCount.textContent = String(u.wishCount);
+
+        const tdLast = document.createElement("td");
+        tdLast.textContent = u.lastLogin ? formatTime(u.lastLogin) : "";
+
+        tr.appendChild(tdEmail);
+        tr.appendChild(tdUid);
+        tr.appendChild(tdCount);
+        tr.appendChild(tdLast);
+
+        adminUsersBody.appendChild(tr);
+      });
+    }
+
+    function renderWishesTable() {
+      if (!adminWishesBody) return;
+
+      if (!allWishes.length) {
+        adminWishesBody.innerHTML =
+          '<tr><td colspan="3">Пока нет ни одного желания.</td></tr>';
+        return;
+      }
+
+      adminWishesBody.innerHTML = "";
+      allWishes.forEach((w) => {
+        const tr = document.createElement("tr");
+
+        const tdText = document.createElement("td");
+        tdText.className = "truncate";
+        tdText.textContent = w.text || "";
+
+        const tdAuthor = document.createElement("td");
+        tdAuthor.textContent = w.userEmail || "—";
+
+        const tdDate = document.createElement("td");
+        tdDate.textContent = w.createdAt ? formatTime(w.createdAt) : "";
+
+        tr.appendChild(tdText);
+        tr.appendChild(tdAuthor);
+        tr.appendChild(tdDate);
+
+        adminWishesBody.appendChild(tr);
+      });
+    }
+
+    async function reloadAdminData() {
+      if (adminUsersBody) {
+        adminUsersBody.innerHTML = '<tr><td colspan="4">Загрузка...</td></tr>';
+      }
+      if (adminWishesBody) {
+        adminWishesBody.innerHTML = '<tr><td colspan="3">Загрузка...</td></tr>';
+      }
+      await loadAllWishes();
+      renderSummary();
+      renderUsersTable();
+      renderWishesTable();
+    }
+
+    async function cleanMyWishes() {
+      if (!currentUser) return;
+      const ok = window.confirm(
+        "Удалить ВСЕ желания этого аккаунта из Firestore? Вернуть будет нельзя."
+      );
+      if (!ok) return;
+
+      try {
+        const colRef = collection(db, "wishes");
+        const qMine = query(colRef, where("userUid", "==", currentUser.uid));
+        const snap = await getDocs(qMine);
+        const deletions = snap.docs.map((d) => deleteDoc(doc(db, "wishes", d.id)));
+        await Promise.all(deletions);
+
+        await reloadAdminData();
+        alert("Все желания этого аккаунта удалены.");
+      } catch (err) {
+        console.error("Ошибка удаления своих желаний:", err);
+        alert("Не удалось удалить желания. Попробуй позже.");
+      }
+    }
+
+    // Табы
+    function switchTab(tabName) {
+      tabButtons.forEach((btn) => {
+        const isActive = btn.getAttribute("data-tab") === tabName;
+        btn.classList.toggle("tab-button-active", isActive);
+      });
+
+      if (tabName === "users") {
+        tabUsers.classList.remove("hidden");
+        tabWishes.classList.add("hidden");
+      } else {
+        tabUsers.classList.add("hidden");
+        tabWishes.classList.remove("hidden");
+      }
+    }
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tabName = btn.getAttribute("data-tab");
+        if (!tabName) return;
+        switchTab(tabName);
+      });
+    });
+
+    if (goToMainBtn) {
+      goToMainBtn.addEventListener("click", () => {
+        window.location.href = "index.html";
+      });
+    }
+
+    if (forceReloadBtn) {
+      forceReloadBtn.addEventListener("click", () => {
+        window.location.reload();
+      });
+    }
+
+    if (reloadDataBtn) {
+      reloadDataBtn.addEventListener("click", () => {
+        reloadAdminData();
+      });
+    }
+
+    if (cleanMyWishesBtn) {
+      cleanMyWishesBtn.addEventListener("click", () => {
+        cleanMyWishes();
+      });
+    }
+
+    if (adminLogoutBtn) {
+      adminLogoutBtn.addEventListener("click", async () => {
+        try {
+          await signOut(auth);
+          window.location.href = "index.html";
+        } catch (err) {
+          console.error("Ошибка выхода:", err);
+        }
+      });
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user || null;
+
+      if (!user) {
+        setAccessUnauthorized("Ты не авторизован.");
+        setSummaryEmpty();
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 3000);
+        return;
+      }
+
+      if (!isOwner(user)) {
+        setAccessUnauthorized("Этот аккаунт не является владельцем сайта.");
+        if (adminEmailPill) {
+          adminEmailPill.textContent = "Почта: " + (user.email || "—");
+        }
+        if (adminUidPill) {
+          adminUidPill.textContent = "UID: " + shortId(user.uid);
+        }
+        setSummaryEmpty();
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 4000);
+        return;
+      }
+
+      // Владелец
+      setAccessOwner(user);
+      await reloadAdminData();
+    });
+  </script>
 </body>
 </html>
