@@ -1,149 +1,136 @@
 // miss.js
-// Логика для раздела "Когда скучаешь": добавление, удаление, очистка, localStorage.
+// Локальные "моменты скучания" (localStorage)
 
 (function () {
-  const STORAGE_KEY = "asyaman_miss";
+  const missInput = document.getElementById("missInput");
+  const missAddBtn = document.getElementById("missAddBtn");
+  const missClearBtn = document.getElementById("missClearBtn");
+  const missQuickBtn = document.getElementById("missQuickBtn");
+  const missList = document.getElementById("missList");
+  const missCount = document.getElementById("missCount");
 
-  // DOM элементы
-  const inputEl = document.getElementById("missInput");
-  const addBtn = document.getElementById("addMissBtn");
-  const clearBtn = document.getElementById("clearMissBtn");
-  const listEl = document.getElementById("missList");
+  const STORAGE_KEY = "asyaman_miss_moments";
 
-  if (!inputEl || !addBtn || !clearBtn || !listEl) {
-    // Если блоки не найдены — тихо выходим
-    return;
-  }
+  const QUICK_PHRASES = [
+    "Скучаю по твоему голосу прямо сейчас.",
+    "Хочется просто оказаться рядом и молчать.",
+    "Не хватает твоих рук, которые обнимают крепко-крепко.",
+    "Иногда ловлю себя на том, что просто улыбаюсь, вспоминая тебя.",
+    "Скучаю по нашим разговорам до ночи.",
+    "Хочу смотреть на тебя вживую, а не через экран.",
+    "Скучаю по тому, как ты улыбаешься моим тупым шуткам.",
+  ];
 
-  // ====== Загружаем данные ======
+  let moments = [];
 
-  function loadMiss() {
+  function loadMoments() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return [];
-      const parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed)) return [];
-      return parsed;
-    } catch (e) {
-      console.warn("Не удалось загрузить записи 'Когда скучаешь':", e);
-      return [];
+      moments = raw ? JSON.parse(raw) : [];
+    } catch {
+      moments = [];
     }
+    render();
   }
 
-  function saveMiss(list) {
+  function saveMoments() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-    } catch (e) {
-      console.warn("Не удалось сохранить:", e);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(moments));
+    } catch (err) {
+      console.error("Не удалось сохранить моменты скучания:", err);
     }
   }
 
-  // ====== Отрисовка ======
+  function render() {
+    if (!missList) return;
 
-  function renderMiss() {
-    const list = loadMiss();
-    listEl.innerHTML = "";
-
-    if (list.length === 0) {
-      const empty = document.createElement("div");
-      empty.textContent = "Пока здесь пусто… Напиши, когда скучаешь ❤️";
-      empty.style.fontSize = "12px";
-      empty.style.color = "rgba(148, 163, 184, 0.9)";
-      listEl.appendChild(empty);
+    missList.innerHTML = "";
+    if (!moments.length) {
+      const li = document.createElement("li");
+      li.textContent = "Пока здесь пусто. Но это место ждёт, когда ты напишешь, как скучаешь.";
+      missList.appendChild(li);
+      if (missCount) missCount.textContent = "0";
       return;
     }
 
-    list.forEach((item, index) => {
-      const row = document.createElement("div");
-      row.className = "miss-item";
-
-      const left = document.createElement("div");
-      left.style.flex = "1";
-
+    moments.forEach((item) => {
+      const li = document.createElement("li");
       const textDiv = document.createElement("div");
-      textDiv.className = "miss-text";
-      textDiv.textContent = item.text || "";
+      textDiv.textContent = item.text;
 
       const metaDiv = document.createElement("div");
-      metaDiv.className = "miss-meta";
+      metaDiv.style.fontSize = "0.72rem";
+      metaDiv.style.color = "#9ca3af";
+      metaDiv.style.marginTop = "4px";
       metaDiv.textContent = item.date || "";
 
-      left.appendChild(textDiv);
-      left.appendChild(metaDiv);
-
-      const removeBtn = document.createElement("button");
-      removeBtn.className = "miss-remove-btn";
-      removeBtn.textContent = "×";
-      removeBtn.title = "Удалить";
-      removeBtn.addEventListener("click", () => removeMiss(index));
-
-      row.appendChild(left);
-      row.appendChild(removeBtn);
-
-      listEl.appendChild(row);
+      li.appendChild(textDiv);
+      li.appendChild(metaDiv);
+      missList.appendChild(li);
     });
+
+    if (missCount) missCount.textContent = String(moments.length);
   }
 
-  // ====== Логика действий ======
-
-  function addMiss(text) {
-    const trimmed = (text || "").trim();
-    if (!trimmed) return;
-
-    const list = loadMiss();
+  function addMoment(text) {
+    if (!text) return;
     const now = new Date();
-
-    const dateStr = now.toLocaleString("ru-RU", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+    moments.unshift({
+      text,
+      date: now.toLocaleString("ru-RU", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     });
+    saveMoments();
+    render();
+  }
 
-    list.unshift({
-      text: trimmed,
-      date: dateStr,
+  function clearAll() {
+    const ok = window.confirm(
+      "Точно удалить все моменты, когда ты скучала/скучал? Вернуть их уже не получится."
+    );
+    if (!ok) return;
+    moments = [];
+    saveMoments();
+    render();
+  }
+
+  function useQuickPhrase() {
+    if (!missInput) return;
+    const randomIndex = Math.floor(Math.random() * QUICK_PHRASES.length);
+    missInput.value = QUICK_PHRASES[randomIndex];
+  }
+
+  // Обработчики
+  if (missAddBtn) {
+    missAddBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (!missInput) return;
+      const text = missInput.value.trim();
+      if (!text) return;
+      addMoment(text);
+      missInput.value = "";
     });
-
-    saveMiss(list);
-    renderMiss();
   }
 
-  function removeMiss(index) {
-    const list = loadMiss();
-    if (index < 0 || index >= list.length) return;
-    list.splice(index, 1);
-    saveMiss(list);
-    renderMiss();
+  if (missClearBtn) {
+    missClearBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      clearAll();
+    });
   }
 
-  function clearMiss() {
-    if (!confirm("Точно удалить все записи?")) return;
-    saveMiss([]);
-    renderMiss();
+  if (missQuickBtn) {
+    missQuickBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      useQuickPhrase();
+    });
   }
 
-  // ====== Обработчики ======
-
-  addBtn.addEventListener("click", () => {
-    addMiss(inputEl.value);
-    inputEl.value = "";
-    inputEl.focus();
-  });
-
-  clearBtn.addEventListener("click", () => {
-    clearMiss();
-  });
-
-  // Ctrl + Enter
-  inputEl.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && e.ctrlKey) {
-      addMiss(inputEl.value);
-      inputEl.value = "";
-    }
-  });
-
-  // Отрисовка при загрузке
-  renderMiss();
+  // Старт
+  loadMoments();
 })();
