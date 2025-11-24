@@ -37,7 +37,8 @@ const firebaseConfig = {
 };
 
 // ==== UID ВЛАДЕЛЬЦА (ДЛЯ АДМИНКИ / ССЫЛКИ) ====
-const OWNER_UIDS = [QgveUKbsJLUOA3oehvXgTEbTg1S2
+const OWNER_UIDS = [
+  QgveUKbsJLUOA3oehvXgTEbTg1S2
 
 ];
 
